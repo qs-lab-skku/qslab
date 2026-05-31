@@ -1,13 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
+<html lang="en"><head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>QS Lab @ SKKU</title>
 <meta name="description" content="QS Lab engineers quantum states in 2D materials and van der Waals heterostructures at Sungkyunkwan University, Korea.">
 <meta name="keywords" content="2D materials, quantum, SKKU, MOCVD, superconductor, TMD, heterostructure, Song Seunguk">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,600;0,900;1,300;1,600&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,600;0,900;1,300;1,600&amp;family=Inter:wght@300;400;500;600&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet">
 <style>
 /* ================================================================
    QS Lab Design System  |  v5.0  |  2024
@@ -1411,100 +1410,59 @@ body.admin-on .news-edit-btns { display: flex; }
 .ct-apply a { color: var(--blue); font-weight: 600; }
 @media (max-width: 860px) { .ct-wrap { grid-template-columns: 1fr; } .ct-jobs { grid-template-columns: 1fr; } .ct-map { height: 300px; } }
 </style>
-</head>
-<body>
+<style data-emotion="css" data-s=""></style></head>
+<body data-new-gr-c-s-check-loaded="14.1138.0" data-gr-ext-installed="" class=""><div data-wxt-integrated=""><div id="__endic_crx__"><div class="css-1rld6j7"></div></div></div>
 
 <!-- Password Gate -->
-<div class="pw-overlay" id="pw-overlay">
-  <div class="pw-box">
-    <h3>Admin Access</h3>
-    <p>Enter password to continue</p>
-    <input class="pw-input" type="password" id="pw-input" placeholder="••••••••">
-    <div class="pw-err" id="pw-err"></div>
-    <button class="btn btn-primary" id="pw-submit" style="width:100%">Enter</button>
-    <span class="pw-cancel" id="pw-cancel">Cancel</span>
-  </div>
-</div>
+
 
 <!-- Admin Float Panel -->
-<div class="af" id="af">
-  <div class="af-box">
-    <div class="af-head">
-      <div class="af-badge">Admin</div>
-      <div class="af-page" id="af-page">Home</div>
-    </div>
-    <div class="af-btns" id="af-btns"></div>
-    <div class="af-note">✓ Edits auto-save to this browser<span id="af-saved" class="af-saved">Saved</span></div>
-    <button class="af-publish" id="af-publish">🚀 Publish to live site</button>
-    <div class="af-pubstatus" id="af-pubstatus"></div>
-    <div class="af-pubsettings" id="af-pubsettings">
-      <label class="af-publabel" for="af-token">GitHub access token</label>
-      <input class="af-tokeninput" id="af-token" type="password" placeholder="github_pat_…" autocomplete="off" spellcheck="false">
-      <div class="af-pubrow">
-        <button class="af-export" id="af-token-save">Save token</button>
-        <button class="af-export" id="af-token-clear">Clear</button>
-      </div>
-      <div class="af-pubhint">Stored only in this browser. Needs <b>Contents: Read &amp; write</b> on the qslab repo.</div>
-    </div>
-    <button class="af-export" id="af-pubtoggle">⚙ Publish settings</button>
-    <button class="af-export" id="af-reset">↺ Reset all edits</button>
-    <button class="af-export" id="af-export">↓ Export HTML (backup)</button>
-  </div>
-</div>
+
 
 <!-- Nav -->
-<nav id="main-nav">
+<nav id="main-nav" class="scrolled">
   <div class="nav-inner">
     <div class="logo" id="logo">
       <div class="logo-mark">QS</div>
       <div class="logo-text">QS Lab</div>
     </div>
     <ul class="nav-links" id="nav-links">
-      <li><a class="active" data-page="home">Home</a></li>
+      <li><a class="" data-page="home">Home</a></li>
       <li><a data-page="research">Research</a></li>
-      <li><a data-page="people">People</a></li>
+      <li><a data-page="people" class="active">People</a></li>
       <li><a data-page="publications">Publications</a></li>
       <li><a data-page="equipment">Equipment</a></li>
       <li><a data-page="teaching">Teaching</a></li>
       <li><a data-page="news">News</a></li>
-      <li><a data-page="contact">Contact</a></li>
+      <li><a data-page="contact" class="">Contact</a></li>
     </ul>
     <div class="nav-end">
       <button class="hbtn" id="hbtn" aria-label="Menu"><span></span><span></span><span></span></button>
-      <button class="admin-pill" id="admin-btn" style="display:none"><span class="dot"></span><span>Admin</span></button>
+      
     </div>
   </div>
 </nav>
 
 <!-- Mobile Drawer -->
 <div class="drawer" id="drawer">
-  <a class="active" data-page="home">Home</a>
+  <a class="" data-page="home">Home</a>
   <a data-page="research">Research</a>
-  <a data-page="people">People</a>
+  <a data-page="people" class="active">People</a>
   <a data-page="publications">Publications</a>
   <a data-page="equipment">Equipment</a>
   <a data-page="teaching">Teaching</a>
   <a data-page="news">News</a>
-  <a data-page="contact">Contact</a>
+  <a data-page="contact" class="">Contact</a>
 </div>
 
 <!-- Modal -->
-<div class="modal-bg" id="modal">
-  <div class="modal">
-    <div class="modal-title" id="modal-title">Edit</div>
-    <div id="modal-fields"></div>
-    <div class="modal-footer">
-      <button class="btn btn-ghost" id="modal-cancel">Cancel</button>
-      <button class="btn btn-primary" id="modal-save">Save</button>
-    </div>
-  </div>
-</div>
+
 
 <!-- ═══════════════ HOME ═══════════════ -->
-<main class="sec-page active" id="page-home">
+<main class="sec-page" id="page-home">
   <section class="bhero">
     <div class="bhero-bg">
-      <canvas id="lattice-canvas" aria-label="Interactive 2D lattice animation"></canvas>
+      <canvas id="lattice-canvas" aria-label="Interactive 2D lattice animation" width="0" height="0"></canvas>
     </div>
     <div class="bhero-veil"></div>
     <div class="bhero-content">
@@ -1512,8 +1470,8 @@ body.admin-on .news-edit-btns { display: flex; }
       <h1 class="bhead">
         <span id="ht1">Quantum states,</span> <span id="ht2" class="bl">one atom-thin layer</span> <span id="ht3">at a time.</span>
       </h1>
-      <p class="bhero-sub" data-editable data-edit-label="✎ Edit subtitle" id="h-sub">Synthesize the crystal. Engineer the quantum state.</p>
-      <p class="bhero-p" data-editable data-edit-label="✎ Edit description" id="h-desc">We grow atomically thin crystals and engineer them into the devices behind tomorrow's low-power chips and quantum computers.</p>
+      <p class="bhero-sub" id="h-sub">Synthesize the crystal. Engineer the quantum state.</p>
+      <p class="bhero-p" id="h-desc">We grow atomically thin crystals and engineer them into the devices behind tomorrow's low-power chips and quantum computers.</p>
       <div class="bhero-ctas">
         <button class="btn btn-primary" data-goto="research">Explore the research</button>
         <button class="btn btn-outline" data-goto="people">Meet the team</button>
@@ -1522,8 +1480,8 @@ body.admin-on .news-edit-btns { display: flex; }
     <div class="qs-tag" aria-hidden="true">
       <span class="qs-mark">QS</span>
       <div class="qs-lines">
-        <div class="qs-line"><b>Q</b><span id="qs-rot-q" class="qs-rot">Quantum-Engineered</span></div>
-        <div class="qs-line"><b>S</b><span id="qs-rot-s" class="qs-rot">Solid-State Platforms</span></div>
+        <div class="qs-line"><b>Q</b><span id="qs-rot-q" class="qs-rot" style="opacity: 1;">Quantum-Engineered</span></div>
+        <div class="qs-line"><b>S</b><span id="qs-rot-s" class="qs-rot" style="opacity: 1;">Solid-State Platforms</span></div>
       </div>
     </div>
   </section>
@@ -1614,12 +1572,12 @@ body.admin-on .news-edit-btns { display: flex; }
   <!-- Openings -->
   <div class="openings">
     <div class="op-left">
-      <h2 data-editable data-edit-label="✎ Edit" id="op-title">We Are Recruiting</h2>
-      <p data-editable data-edit-label="✎ Edit" id="op-desc">Open positions for postdoctoral researchers and graduate students with backgrounds in physics, materials science, chemistry, or electrical engineering.</p>
+      <h2 id="op-title">We Are Recruiting</h2>
+      <p id="op-desc">Open positions for postdoctoral researchers and graduate students with backgrounds in physics, materials science, chemistry, or electrical engineering.</p>
       <button class="btn btn-amber" data-goto="people">Meet the team →</button>
     </div>
     <div class="op-right">
-      <div class="op-item"><h4>Postdoctoral Researcher</h4><p>1 vacancy — 2D heterostructure fabrication for QIS. <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="1c6f7969727b69775c6f77776932797869">[email&#160;protected]</a></p></div>
+      <div class="op-item"><h4>Postdoctoral Researcher</h4><p>1 vacancy — 2D heterostructure fabrication for QIS. <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="1c6f7969727b69775c6f77776932797869">[email&nbsp;protected]</a></p></div>
       <div class="op-item"><h4>Integrated M.S.–Ph.D. Students</h4><p>Ongoing recruitment. SKKU Department of Energy Science.</p></div>
       <div class="op-item"><h4>Undergraduate Interns (URP)</h4><p>SKKU Undergraduate Research Program — each semester.</p></div>
     </div>
@@ -1628,7 +1586,7 @@ body.admin-on .news-edit-btns { display: flex; }
   <footer>
     <div class="ft-left">
       <div class="ft-logo">QS Lab @ SKKU</div>
-      <div class="ft-addr">N Center 3F #86383, SKKU, Suwon, Korea<br><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="c8bbadbda6afbda388bba3a3bde6adacbd">[email&#160;protected]</a></div>
+      <div class="ft-addr">N Center 3F #86383, SKKU, Suwon, Korea<br><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="c8bbadbda6afbda388bba3a3bde6adacbd">[email&nbsp;protected]</a></div>
     </div>
     <div class="ft-right">
       <div class="ft-dept">Energy Science · 성균관대학교 에너지학과<br><span style="font-size:.75rem">© QS Lab, SKKU<span class="ft-admin-trigger" title="Admin">·</span></span></div>
@@ -1659,7 +1617,7 @@ body.admin-on .news-edit-btns { display: flex; }
 
     <div class="rmissions">
       <div class="mish m1" id="r-area-light">
-        <div class="mish-head"><div class="mish-n">Mission 01</div><h3 id="r-area-light-h" data-editable data-edit-label="✎ Edit heading">Quantum Light &amp; Information</h3><p id="r-area-light-p" data-editable data-edit-label="✎ Edit text">Manipulating quantum states of light and excitons in engineered 2D interfaces.</p></div>
+        <div class="mish-head"><div class="mish-n">Mission 01</div><h3 id="r-area-light-h">Quantum Light &amp; Information</h3><p id="r-area-light-p">Manipulating quantum states of light and excitons in engineered 2D interfaces.</p></div>
         <div class="mish-body">
           <div class="lbl2">Targets</div>
           <ul><li>Site-defined single-photon emitters</li><li>Ferroelectric-gated bound excitons</li></ul>
@@ -1667,7 +1625,7 @@ body.admin-on .news-edit-btns { display: flex; }
         </div>
       </div>
       <div class="mish m2" id="r-area-ferro">
-        <div class="mish-head"><div class="mish-n">Mission 02 · New</div><h3 id="r-area-ferro-h" data-editable data-edit-label="✎ Edit heading">Ferroelectric Logic &amp; Memory</h3><p id="r-area-ferro-p" data-editable data-edit-label="✎ Edit text">Low-power and cryogenic nanoelectronics from 2D ferroelectric devices.</p></div>
+        <div class="mish-head"><div class="mish-n">Mission 02 · New</div><h3 id="r-area-ferro-h">Ferroelectric Logic &amp; Memory</h3><p id="r-area-ferro-p">Low-power and cryogenic nanoelectronics from 2D ferroelectric devices.</p></div>
         <div class="mish-body">
           <div class="lbl2">Targets</div>
           <ul><li>Ferroelectric &amp; negative-capacitance FETs</li><li>Non-volatile memory</li><li>Cryogenic nanoelectronics</li></ul>
@@ -1675,7 +1633,7 @@ body.admin-on .news-edit-btns { display: flex; }
         </div>
       </div>
       <div class="mish m3" id="r-area-quantum">
-        <div class="mish-head"><div class="mish-n">Mission 03</div><h3 id="r-area-quantum-h" data-editable data-edit-label="✎ Edit heading">Cryogenic &amp; Quantum Electronics</h3><p id="r-area-quantum-p" data-editable data-edit-label="✎ Edit text">Superconducting and topological hardware for quantum computing.</p></div>
+        <div class="mish-head"><div class="mish-n">Mission 03</div><h3 id="r-area-quantum-h">Cryogenic &amp; Quantum Electronics</h3><p id="r-area-quantum-p">Superconducting and topological hardware for quantum computing.</p></div>
         <div class="mish-body">
           <div class="lbl2">Targets</div>
           <ul><li>van der Waals transmon qubits</li><li>Josephson Ferroelectric FET</li><li>Topological spin–charge devices</li></ul>
@@ -1731,24 +1689,24 @@ body.admin-on .news-edit-btns { display: flex; }
   <section class="rdsec d1" id="r-detail-light">
     <div class="rdsec-head"><span class="dn">Mission 01</span><h3>Quantum Light &amp; Information</h3><p>Build site-defined emitters in 2D interfaces, then program them with ferroelectric fields.</p></div>
     <div class="dgrid two">
-      <article class="dcard d1" id="r-emitters"><div class="dcard-fig"><img src="assets/research/fig-1-1-0d2d.png" alt="0D/2D MoSe2-WS2 heterostructure for single-photon emission" style="object-fit:contain;background:#fff;padding:6px"></div><div class="dcard-body"><div class="dcard-tag">1.1 · Quantum Emitters</div><h4 id="r-emitters-h" data-editable data-edit-label="✎ Edit heading">Fabrication of Quantum Emitters</h4><p id="r-emitters-p" data-editable data-edit-label="✎ Edit text">Site-defined single-photon sources from 0D/2D lateral heterostructures, with spatial confinement engineered to control spin and charge dynamics. Wafer-scale WS₂ targets high coherence; Mn doping adds local magnetic moments.</p><div class="dcard-mats">Grows from <span>WS₂</span><span>MoSe₂</span></div></div></article>
-      <article class="dcard d1" id="r-excitonics"><div class="dcard-fig"><img src="assets/research/fig-1-2-ferroelectric-exciton.png" alt="Ferroelectric-induced bound excitons in a 2D channel" style="object-fit:contain;background:#fff;padding:24px 18%"></div><div class="dcard-body"><div class="dcard-tag">1.2 · Excitonics</div><h4 id="r-excitonics-h" data-editable data-edit-label="✎ Edit heading">Ferroelectric-Induced Bound Excitons</h4><p id="r-excitonics-p" data-editable data-edit-label="✎ Edit text">Ferroelectric polarization creates spatially programmable bound excitons. Gate-modulated, field-dependent dynamics give dynamical control of quantum emission through field and doping.</p><div class="dcard-mats">Grows from <span>2D ferroelectrics</span></div></div></article>
+      <article class="dcard d1" id="r-emitters"><div class="dcard-fig"><img src="assets/research/fig-1-1-0d2d.png" alt="0D/2D MoSe2-WS2 heterostructure for single-photon emission" style="object-fit:contain;background:#fff;padding:6px"></div><div class="dcard-body"><div class="dcard-tag">1.1 · Quantum Emitters</div><h4 id="r-emitters-h">Fabrication of Quantum Emitters</h4><p id="r-emitters-p">Site-defined single-photon sources from 0D/2D lateral heterostructures, with spatial confinement engineered to control spin and charge dynamics. Wafer-scale WS₂ targets high coherence; Mn doping adds local magnetic moments.</p><div class="dcard-mats">Grows from <span>WS₂</span><span>MoSe₂</span></div></div></article>
+      <article class="dcard d1" id="r-excitonics"><div class="dcard-fig"><img src="assets/research/fig-1-2-ferroelectric-exciton.png" alt="Ferroelectric-induced bound excitons in a 2D channel" style="object-fit:contain;background:#fff;padding:24px 18%"></div><div class="dcard-body"><div class="dcard-tag">1.2 · Excitonics</div><h4 id="r-excitonics-h">Ferroelectric-Induced Bound Excitons</h4><p id="r-excitonics-p">Ferroelectric polarization creates spatially programmable bound excitons. Gate-modulated, field-dependent dynamics give dynamical control of quantum emission through field and doping.</p><div class="dcard-mats">Grows from <span>2D ferroelectrics</span></div></div></article>
     </div>
   </section>
 
   <section class="rdsec d2" id="r-detail-ferro">
     <div class="rdsec-head"><span class="dn">Mission 02 · New</span><h3>Ferroelectric Logic &amp; Memory</h3><p>2D ferroelectrics as a route to low-power and cryogenic nanoelectronics.</p></div>
     <div class="dgrid two">
-      <article class="dcard d2" id="r-ferroelectric"><div class="dcard-fig"><img src="assets/research/fig-2-1-topological.png" alt="Ferroelectric-gated topological transistor" style="object-fit:contain;background:#fff;padding:6px"></div><div class="dcard-body"><div class="dcard-tag">2.1 · Ferroelectric Devices</div><h4 id="r-ferroelectric-h" data-editable data-edit-label="✎ Edit heading">Ferroelectric FETs &amp; Negative-Capacitance</h4><p id="r-ferroelectric-p" data-editable data-edit-label="✎ Edit text">2D ferroelectrics (In₂Se₃, AlScN) gate semiconductor channels to build non-volatile ferroelectric FETs, steep-slope negative-capacitance transistors, and low-power memory — extensible to cryogenic nanoelectronics.</p><div class="dcard-mats">Grows from <span>In₂Se₃</span><span>AlScN</span><span>CuInP₂S₆</span></div></div></article>
-      <article class="dcard d2" id="r-iiivi"><div class="dcard-fig"><img src="assets/research/fig-2-2-iiivi.png" alt="MOCVD growth of Ga:InxSey III-VI compound on sapphire"></div><div class="dcard-body"><div class="dcard-tag">2.2 · III–VI Semiconductors</div><h4 id="r-iiivi-h" data-editable data-edit-label="✎ Edit heading">III–VI Compound Semiconductors</h4><p id="r-iiivi-p" data-editable data-edit-label="✎ Edit text">InSe and In₂Se₃ host rich structural phases and high thermal velocity. We tune composition continuously between InSe and In₂Se₃ and alloy with gallium — (In,Ga)Se — to engineer band structure for low-power channels.</p><div class="dcard-mats">Grows from <span>InSe</span><span>In₂Se₃</span><span>(In,Ga)Se</span></div></div></article>
+      <article class="dcard d2" id="r-ferroelectric"><div class="dcard-fig"><img src="assets/research/fig-2-1-topological.png" alt="Ferroelectric-gated topological transistor" style="object-fit:contain;background:#fff;padding:6px"></div><div class="dcard-body"><div class="dcard-tag">2.1 · Ferroelectric Devices</div><h4 id="r-ferroelectric-h">Ferroelectric FETs &amp; Negative-Capacitance</h4><p id="r-ferroelectric-p">2D ferroelectrics (In₂Se₃, AlScN) gate semiconductor channels to build non-volatile ferroelectric FETs, steep-slope negative-capacitance transistors, and low-power memory — extensible to cryogenic nanoelectronics.</p><div class="dcard-mats">Grows from <span>In₂Se₃</span><span>AlScN</span><span>CuInP₂S₆</span></div></div></article>
+      <article class="dcard d2" id="r-iiivi"><div class="dcard-fig"><img src="assets/research/fig-2-2-iiivi.png" alt="MOCVD growth of Ga:InxSey III-VI compound on sapphire"></div><div class="dcard-body"><div class="dcard-tag">2.2 · III–VI Semiconductors</div><h4 id="r-iiivi-h">III–VI Compound Semiconductors</h4><p id="r-iiivi-p">InSe and In₂Se₃ host rich structural phases and high thermal velocity. We tune composition continuously between InSe and In₂Se₃ and alloy with gallium — (In,Ga)Se — to engineer band structure for low-power channels.</p><div class="dcard-mats">Grows from <span>InSe</span><span>In₂Se₃</span><span>(In,Ga)Se</span></div></div></article>
     </div>
   </section>
 
   <section class="rdsec d3" id="r-detail-quantum">
     <div class="rdsec-head"><span class="dn">Mission 03</span><h3>Cryogenic &amp; Quantum Electronics</h3><p>Topological and superconducting materials grown into quantum hardware.</p></div>
     <div class="dgrid two">
-      <article class="dcard d3" id="r-topological"><div class="dcard-fig"><img src="assets/research/fig-3-1-ptte2.png" alt="Pressure-controlled growth of PtTe2 topological semimetal" style="object-fit:contain;background:#fff;padding:6px"></div><div class="dcard-body"><div class="dcard-tag">3.1 · Topological</div><h4 id="r-topological-h" data-editable data-edit-label="✎ Edit heading">Topological Materials</h4><p id="r-topological-p" data-editable data-edit-label="✎ Edit text">Type-II semimetals and Weyl semiconductors (PtTe₂, Te) with topological protection and spin–charge conversion, grown by solid-state recrystallization for clean, scalable crystals.</p><div class="dcard-mats">Grows from <span>PtTe₂</span><span>Te</span><span>MoTe₂</span></div></div></article>
-      <article class="dcard d3" id="r-superconductors"><div class="dcard-fig"><img src="assets/research/fig-3-2-fese.png" alt="FeSe superconductor: layer-dependent Tc, synthesis, and Josephson junction" style="object-fit:contain;background:#fff;padding:6px"></div><div class="dcard-body"><div class="dcard-tag">3.2 · Superconductors</div><h4 id="r-superconductors-h" data-editable data-edit-label="✎ Edit heading">Superconductors</h4><p id="r-superconductors-p" data-editable data-edit-label="✎ Edit text">To overcome quasiparticle poisoning and parasitic two-level systems in 3D Josephson junctions, we pursue a Josephson Ferroelectric FET (Target 1) and van der Waals transmon qubits (Target 2).</p><div class="dcard-mats">Grows from <span>FeSe</span></div></div></article>
+      <article class="dcard d3" id="r-topological"><div class="dcard-fig"><img src="assets/research/fig-3-1-ptte2.png" alt="Pressure-controlled growth of PtTe2 topological semimetal" style="object-fit:contain;background:#fff;padding:6px"></div><div class="dcard-body"><div class="dcard-tag">3.1 · Topological</div><h4 id="r-topological-h">Topological Materials</h4><p id="r-topological-p">Type-II semimetals and Weyl semiconductors (PtTe₂, Te) with topological protection and spin–charge conversion, grown by solid-state recrystallization for clean, scalable crystals.</p><div class="dcard-mats">Grows from <span>PtTe₂</span><span>Te</span><span>MoTe₂</span></div></div></article>
+      <article class="dcard d3" id="r-superconductors"><div class="dcard-fig"><img src="assets/research/fig-3-2-fese.png" alt="FeSe superconductor: layer-dependent Tc, synthesis, and Josephson junction" style="object-fit:contain;background:#fff;padding:6px"></div><div class="dcard-body"><div class="dcard-tag">3.2 · Superconductors</div><h4 id="r-superconductors-h">Superconductors</h4><p id="r-superconductors-p">To overcome quasiparticle poisoning and parasitic two-level systems in 3D Josephson junctions, we pursue a Josephson Ferroelectric FET (Target 1) and van der Waals transmon qubits (Target 2).</p><div class="dcard-mats">Grows from <span>FeSe</span></div></div></article>
     </div>
   </section>
   <div class="res-sponsors">
@@ -1761,23 +1719,23 @@ body.admin-on .news-edit-btns { display: flex; }
       <img src="assets/sponsors/bk21.png" alt="Brain Korea 21 (BK21 FOUR)">
     </div>
   </div>
-  <footer><div class="ft-left"><div class="ft-logo">QS Lab</div><div class="ft-addr"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="a5d6c0d0cbc2d0cee5d6ceced08bc0c1d0">[email&#160;protected]</a></div></div><div class="ft-right"><div class="ft-dept">© QS Lab, SKKU<span class="ft-admin-trigger">·</span></div></div></footer>
+  <footer><div class="ft-left"><div class="ft-logo">QS Lab</div><div class="ft-addr"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="a5d6c0d0cbc2d0cee5d6ceced08bc0c1d0">[email&nbsp;protected]</a></div></div><div class="ft-right"><div class="ft-dept">© QS Lab, SKKU<span class="ft-admin-trigger">·</span></div></div></footer>
 </main>
 
 <!-- ═══════════════ RESEARCH DETAIL ═══════════════ -->
 <main class="sec-page" id="page-research-detail">
   <div class="res-hero" id="rd-hero">
     <button class="res-back" data-goto="research">← Back to Research</button>
-    <h1 id="rd-title" data-editable data-edit-label="✎ Edit Title"></h1>
-    <p id="rd-subtitle" data-editable data-edit-label="✎ Edit Subtitle"></p>
-    <button id="rd-edit-body-btn" style="display:none;margin-top:var(--s2);font-family:var(--mono);font-size:.7rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;background:var(--amber);color:#fff;padding:.4rem 1rem;border:none;border-radius:var(--r2);cursor:pointer">✎ Edit Detail Content</button>
+    <h1 id="rd-title"></h1>
+    <p id="rd-subtitle"></p>
+    <button id="rd-edit-body-btn" style="display: inline-block; margin-top: var(--s2); font-family: var(--mono); font-size: 0.7rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; background: var(--amber); color: rgb(255, 255, 255); padding: 0.4rem 1rem; border-width: medium; border-style: none; border-color: currentcolor; border-image: initial; border-radius: var(--r2); cursor: pointer;">✎ Edit Detail Content</button>
   </div>
   <div class="res-body" id="rd-body"></div>
-  <footer><div class="ft-left"><div class="ft-logo">QS Lab</div><div class="ft-addr"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="d9aabcacb7beacb299aab2b2acf7bcbdac">[email&#160;protected]</a></div></div><div class="ft-right"><div class="ft-dept">© QS Lab, SKKU<span class="ft-admin-trigger">·</span></div></div></footer>
+  <footer><div class="ft-left"><div class="ft-logo">QS Lab</div><div class="ft-addr"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="d9aabcacb7beacb299aab2b2acf7bcbdac">[email&nbsp;protected]</a></div></div><div class="ft-right"><div class="ft-dept">© QS Lab, SKKU<span class="ft-admin-trigger">·</span></div></div></footer>
 </main>
 
 <!-- ═══════════════ PEOPLE ═══════════════ -->
-<main class="sec-page" id="page-people">
+<main class="sec-page active" id="page-people">
   <div class="sl-head">
     <div class="sl-name"><span class="tag">QS Lab</span>People</div>
     <div class="sl-desc">A multidisciplinary team across <b>physics, materials science, chemistry &amp; EE</b>.</div>
@@ -1800,51 +1758,51 @@ body.admin-on .news-edit-btns { display: flex; }
       <div class="pi-photo-hint">Click to change photo</div>
     </div>
     <div>
-      <div class="pi-name" id="pi-name" data-editable data-edit-label="✎ Edit name">Seunguk Song, Ph.D. (송승욱; 宋昇昱)</div>
-      <div class="pi-role" id="pi-role" data-editable data-edit-label="✎ Edit role">Assistant Professor · Energy Science &amp; Energy, SKKU</div>
-      <p class="pi-bio" id="pi-bio" data-editable data-edit-label="✎ Edit bio">Dr. Song earned his Ph.D. from UNIST (2021) on synthesis and electrical characterization of van der Waals heterostructures. As postdoctoral fellow at the University of Pennsylvania under Prof. Deep Jariwala, he worked on wafer-scale 2D/3D heterostructure integration for ultra-low power logic, memory, and neuromorphic computing. He joined SKKU as Assistant Professor in 2024.</p>
-      <div class="pi-grid2" data-editable data-edit-label="✎ Edit 학력/수상">
+      <div class="pi-name" id="pi-name">Seunguk Song, Ph.D. (송승욱; 宋昇昱)</div>
+      <div class="pi-role" id="pi-role" data-orcid-synced="true">Assistant Professor · Department of Energy Science, Sungkyunkwan University</div>
+      <p class="pi-bio" id="pi-bio">Dr. Song earned his Ph.D. from UNIST (2021) on synthesis and electrical characterization of van der Waals heterostructures. As postdoctoral fellow at the University of Pennsylvania under Prof. Deep Jariwala, he worked on wafer-scale 2D/3D heterostructure integration for ultra-low power logic, memory, and neuromorphic computing. He joined SKKU as Assistant Professor in 2024.</p>
+      <div class="pi-grid2">
         <div class="pi-box"><h4>Education</h4><ul><li>Ph.D. MSE, UNIST (2015–2021)</li><li>B.S. MSE, Pusan National Univ.</li><li>Visiting Scholar, Univ. of Minnesota</li></ul></div>
         <div class="pi-box"><h4>Awards</h4><ul><li>Postdoc Fellowship, NRF (2021–24)</li><li>Global Ph.D. Fellowship, NRF (2016–21)</li><li>KCS SK-Hynix Award (2021)</li><li>MRS Poster Award, Boston (2017)</li></ul></div>
         <div class="pi-box"><h4>Service</h4><ul><li>Nano Korea 2025/26 Committee</li><li>KCS 2025/26 Committee</li><li>Referee: Nature, ACS Nano, Adv. Mater.</li></ul></div>
         <div class="pi-box"><h4>Experience</h4><ul><li>Asst. Prof., SKKU (2024–present)</li><li>Postdoc, Univ. Pennsylvania (2021–24)</li></ul></div>
       </div>
-      <div class="pi-links" data-editable data-edit-label="✎ Edit Links">
+      <div class="pi-links">
         <a class="pi-link" href="https://linkedin.com/in/seunguk-song-a1b338212" target="_blank">LinkedIn</a>
         <a class="pi-link" href="https://scholar.google.com/citations?user=IS8WIlBo_iIC" target="_blank">Google Scholar</a>
-        <a class="pi-link" href="/cdn-cgi/l/email-protection#9be8feeef5fceef0dbe8f0f0eeb5feffee"><span class="__cf_email__" data-cfemail="295a4c5c474e5c42695a42425c074c4d5c">[email&#160;protected]</span></a>
+        <a class="pi-link" href="/cdn-cgi/l/email-protection#9be8feeef5fceef0dbe8f0f0eeb5feffee"><span class="__cf_email__" data-cfemail="295a4c5c474e5c42695a42425c074c4d5c">[email&nbsp;protected]</span></a>
       </div>
     </div>
   </div>
 
   <div class="mgroup">
     <div class="mg-label">Postdoctoral Fellows</div>
-    <div class="mgrid" id="grid-postdoc"><div class="mcard" data-adm-card data-adm-type="member"><div class="mcard-img-wrap"><img src="assets/people/nasir-ali.png" alt="Dr. Nasir Ali"></div><div class="mcard-name">Dr. Nasir Ali</div><div class="mcard-role">Postdoctoral Fellow</div><div class="mcard-desc">Received B.Sc./M.Sc. from Aligarh Muslim University and Ph.D. in Physics from Jawaharlal Nehru University (2020). Postdoc at SAINT, SKKU (2020–2025). Research focuses on quantum phase metal-insulator transitions, metallic transport, and critical phenomena in 2D materials via semimetal and 2D metallic contacts.</div></div></div>
+    <div class="mgrid single-card" id="grid-postdoc"><div class="mcard"><div class="mcard-img-wrap"><img src="assets/people/nasir-ali.png" alt="Dr. Nasir Ali"></div><div class="mcard-name">Dr. Nasir Ali</div><div class="mcard-role">Postdoctoral Fellow</div><div class="mcard-desc">Received B.Sc./M.Sc. from Aligarh Muslim University and Ph.D. in Physics from Jawaharlal Nehru University (2020). Postdoc at SAINT, SKKU (2020–2025). Research focuses on quantum phase metal-insulator transitions, metallic transport, and critical phenomena in 2D materials via semimetal and 2D metallic contacts.</div></div></div>
     <div class="mg-label">Research Associate</div>
-    <div class="mgrid" id="grid-ra"><div class="mcard" data-adm-card data-adm-type="member"><div class="mcard-img-wrap"><img src="assets/people/sooyoung-choi.jpg" alt="Sooyoung Choi"></div><div class="mcard-name">Sooyoung Choi</div><div class="mcard-role">Research Associate (Mar 2026)</div><div class="mcard-desc">Received M.S. in Electrical Engineering from the University of Pennsylvania. Joined the lab as Research Associate in March 2026. Research interests include 2D superconductors and twist angle-dependent electronic properties in 2D heterostructures.</div></div></div>
+    <div class="mgrid single-card" id="grid-ra"><div class="mcard"><div class="mcard-img-wrap"><img src="assets/people/sooyoung-choi.jpg" alt="Sooyoung Choi"></div><div class="mcard-name">Sooyoung Choi</div><div class="mcard-role">Research Associate (Mar 2026)</div><div class="mcard-desc">Received M.S. in Electrical Engineering from the University of Pennsylvania. Joined the lab as Research Associate in March 2026. Research interests include 2D superconductors and twist angle-dependent electronic properties in 2D heterostructures.</div></div></div>
     <div class="mg-label">Graduate Students</div>
-    <div class="mgrid" id="grid-grad"><div class="mcard" data-adm-card data-adm-type="member"><div class="mcard-img-wrap"><img src="assets/people/wonchan-lee.jpg" alt="Wonchan Lee"></div><div class="mcard-name">Wonchan Lee</div><div class="mcard-role">Integrated M.S.-Ph.D. (Mar 2025)</div><div class="mcard-desc">Joined as research assistant in October 2024, transitioned to Integrated M.S.-Ph.D. program in March 2025. Research focuses on quantum phase transitions in 2D transistors and low-power computing technologies leveraging novel quantum phenomena.</div></div>
-    <div class="mcard" data-adm-card data-adm-type="member"><div class="mcard-img-wrap"><img src="assets/people/yunjung-cho.jpg" alt="Yunjung Cho"></div><div class="mcard-name">Yunjung Cho</div><div class="mcard-role">Integrated M.S.-Ph.D. (Mar 2025)</div><div class="mcard-desc">Joined as research assistant in November 2024, transitioned to Integrated M.S.-Ph.D. program in March 2025. Research: (1) Large-area epitaxy of 2D semiconductors; (2) 0D quantum dot–TMD heterostructure fabrication.</div></div>
-    <div class="mcard" data-adm-card data-adm-type="member"><div class="mcard-img-wrap"><img src="assets/people/inbae-song.jpg" alt="Inbae Song"></div><div class="mcard-name">Inbae Song</div><div class="mcard-role">Integrated M.S.-Ph.D. (Mar 2025)</div><div class="mcard-desc">Integrated M.S.-Ph.D. student since March 2025, started as undergraduate intern in January 2025. Research: growth of 2D transition metal tellurides via thermal CVD.</div></div>
-    <div class="mcard" data-adm-card data-adm-type="member"><div class="mcard-img-wrap"><img src="assets/people/kangpyo-cho.jpg" alt="Kangpyo Cho"></div><div class="mcard-name">Kangpyo Cho</div><div class="mcard-role">Integrated M.S.-Ph.D. (Mar 2025)</div><div class="mcard-desc">Integrated M.S.-Ph.D. student since March 2025, research assistant since February 2025. Focuses on growth of 2D ferroelectric materials for quantum-engineered logic and memory applications.</div></div>
-    <div class="mcard" data-adm-card data-adm-type="member"><div class="mcard-img-wrap"><img src="assets/people/jihwan-jeon.jpg" alt="Jihwan Jeon"></div><div class="mcard-name">Jihwan Jeon</div><div class="mcard-role">Integrated M.S.-Ph.D. (Sep 2025)</div><div class="mcard-desc">Integrated M.S.-Ph.D. student since September 2025, research assistant since April 2025. Focuses on wafer-scale synthesis of 2D III-VI compound semiconductors for single-photon emitters and ferroelectric memory applications.</div></div>
-    <div class="mcard" data-adm-card data-adm-type="member"><div class="mcard-img-wrap"><img src="assets/people/chaehui-lim.jpg" alt="Chaehui Lim"></div><div class="mcard-name">Chaehui Lim</div><div class="mcard-role">Integrated M.S.-Ph.D. (Sep 2025)</div><div class="mcard-desc">Master-PhD Combined Program student since September 2025. Research focuses on MOCVD-based synthesis of lateral in-plane 2D heterostructures for quantum information science applications.</div></div>
-    <div class="mcard" data-adm-card data-adm-type="member"><div class="mcard-img-wrap"><img src="assets/people/kyungwu-kwon.jpg" alt="Kyungwu Kwon"></div><div class="mcard-name">Kyungwu Kwon</div><div class="mcard-role">Graduate Student (Mar 2026)</div><div class="mcard-desc">Undergraduate intern since March 2025, transitioning to graduate student in March 2026. Research on synthesis of 2D topological semimetals and semiconductors for nanoelectronics.</div></div>
-    <div class="mcard" data-adm-card data-adm-type="member"><div class="mcard-img-wrap"><img src="assets/people/yerin-so.jpg" alt="Yerin So"></div><div class="mcard-name">Yerin So</div><div class="mcard-role">Graduate Student (Mar 2026)</div><div class="mcard-desc">Physics undergraduate at Sookmyung Women's University, research intern since August 2025, graduate studies starting March 2026. Research: 2D superconductors and fundamental physical properties for superconducting qubit applications.</div></div></div>
+    <div class="mgrid" id="grid-grad"><div class="mcard"><div class="mcard-img-wrap"><img src="assets/people/wonchan-lee.jpg" alt="Wonchan Lee"></div><div class="mcard-name">Wonchan Lee</div><div class="mcard-role">Integrated M.S.-Ph.D. (Mar 2025)</div><div class="mcard-desc">Joined as research assistant in October 2024, transitioned to Integrated M.S.-Ph.D. program in March 2025. Research focuses on quantum phase transitions in 2D transistors and low-power computing technologies leveraging novel quantum phenomena.</div></div>
+    <div class="mcard"><div class="mcard-img-wrap"><img src="assets/people/yunjung-cho.jpg" alt="Yunjung Cho"></div><div class="mcard-name">Yunjung Cho</div><div class="mcard-role">Integrated M.S.-Ph.D. (Mar 2025)</div><div class="mcard-desc">Joined as research assistant in November 2024, transitioned to Integrated M.S.-Ph.D. program in March 2025. Research: (1) Large-area epitaxy of 2D semiconductors; (2) 0D quantum dot–TMD heterostructure fabrication.</div></div>
+    <div class="mcard"><div class="mcard-img-wrap"><img src="assets/people/inbae-song.jpg" alt="Inbae Song"></div><div class="mcard-name">Inbae Song</div><div class="mcard-role">Integrated M.S.-Ph.D. (Mar 2025)</div><div class="mcard-desc">Integrated M.S.-Ph.D. student since March 2025, started as undergraduate intern in January 2025. Research: growth of 2D transition metal tellurides via thermal CVD.</div></div>
+    <div class="mcard"><div class="mcard-img-wrap"><img src="assets/people/kangpyo-cho.jpg" alt="Kangpyo Cho"></div><div class="mcard-name">Kangpyo Cho</div><div class="mcard-role">Integrated M.S.-Ph.D. (Mar 2025)</div><div class="mcard-desc">Integrated M.S.-Ph.D. student since March 2025, research assistant since February 2025. Focuses on growth of 2D ferroelectric materials for quantum-engineered logic and memory applications.</div></div>
+    <div class="mcard"><div class="mcard-img-wrap"><img src="assets/people/jihwan-jeon.jpg" alt="Jihwan Jeon"></div><div class="mcard-name">Jihwan Jeon</div><div class="mcard-role">Integrated M.S.-Ph.D. (Sep 2025)</div><div class="mcard-desc">Integrated M.S.-Ph.D. student since September 2025, research assistant since April 2025. Focuses on wafer-scale synthesis of 2D III-VI compound semiconductors for single-photon emitters and ferroelectric memory applications.</div></div>
+    <div class="mcard"><div class="mcard-img-wrap"><img src="assets/people/chaehui-lim.jpg" alt="Chaehui Lim"></div><div class="mcard-name">Chaehui Lim</div><div class="mcard-role">Integrated M.S.-Ph.D. (Sep 2025)</div><div class="mcard-desc">Master-PhD Combined Program student since September 2025. Research focuses on MOCVD-based synthesis of lateral in-plane 2D heterostructures for quantum information science applications.</div></div>
+    <div class="mcard"><div class="mcard-img-wrap"><img src="assets/people/kyungwu-kwon.jpg" alt="Kyungwu Kwon"></div><div class="mcard-name">Kyungwu Kwon</div><div class="mcard-role">Graduate Student (Mar 2026)</div><div class="mcard-desc">Undergraduate intern since March 2025, transitioning to graduate student in March 2026. Research on synthesis of 2D topological semimetals and semiconductors for nanoelectronics.</div></div>
+    <div class="mcard"><div class="mcard-img-wrap"><img src="assets/people/yerin-so.jpg" alt="Yerin So"></div><div class="mcard-name">Yerin So</div><div class="mcard-role">Graduate Student (Mar 2026)</div><div class="mcard-desc">Physics undergraduate at Sookmyung Women's University, research intern since August 2025, graduate studies starting March 2026. Research: 2D superconductors and fundamental physical properties for superconducting qubit applications.</div></div></div>
     <div class="mg-label">Undergraduate Interns (URP)</div>
-    <div class="mgrid" id="grid-intern"><div class="mcard" data-adm-card data-adm-type="member"><div class="mcard-img-wrap"><img src="assets/people/seohee-park.jpg" alt="Seohee Park"></div><div class="mcard-name">Seohee Park</div><div class="mcard-role">Intern (Sep 2025)</div><div class="mcard-desc">Undergraduate intern since September 2025. Research: synthesizing 2D ferroelectric materials and fabricating devices for next-generation semiconductor applications.</div></div>
-    <div class="mcard" data-adm-card data-adm-type="member"><div class="mcard-img-wrap"><img src="assets/people/taeyoung-jeon.jpg" alt="Taeyoung Jeon"></div><div class="mcard-name">Taeyoung Jeon</div><div class="mcard-role">Undergrad Intern</div><div class="mcard-desc">Chemical Engineering undergraduate. Research: MOCVD-based synthesis of 2D heterostructures and their applicability.</div></div>
-    <div class="mcard" data-adm-card data-adm-type="member"><div class="mcard-img-wrap"><img src="assets/people/sungwoo-yoon.jpg" alt="Sungwoo Yoon"></div><div class="mcard-name">Sungwoo Yoon</div><div class="mcard-role">Undergrad Intern</div><div class="mcard-desc">Chemical Engineering undergraduate. Research: wafer-scale synthesis of PtTe₂ via TCVD for next-generation semiconductor interconnects and spintronics.</div></div>
-    <div class="mcard" data-adm-card data-adm-type="member"><div class="mcard-img-wrap"><img src="assets/people/minseok-kim.jpg" alt="Minseok Kim"></div><div class="mcard-name">Minseok Kim</div><div class="mcard-role">Intern (Mar 2026)</div><div class="mcard-desc">Undergraduate intern since March 2026. Research: quantum transport in 2D ferroelectric devices and low-power circuit design.</div></div>
-    <div class="mcard" data-adm-card data-adm-type="member"><div class="mcard-img-wrap"><img src="assets/people/minseo-kim.jpg" alt="Minseo Kim"></div><div class="mcard-name">Minseo Kim</div><div class="mcard-role">Intern (Apr 2026)</div><div class="mcard-desc">Energy undergraduate, intern since April 2026. Research: CVD synthesis of 2D heterostructures for low-power, high-performance computing.</div></div>
-    <div class="mcard" data-adm-card data-adm-type="member"><div class="mcard-img-wrap"><img src="assets/people/minseong-choi.jpg" alt="Minseong Choi"></div><div class="mcard-name">Minseong Choi</div><div class="mcard-role">Intern (Mar 2026)</div><div class="mcard-desc">Undergraduate intern since March 2026. Research: growth and characterization of 2D layered materials for energy and electronic applications.</div></div>
-    <div class="mcard" data-adm-card data-adm-type="member"><div class="mcard-img-wrap"><div class="mcard-ph">JL</div></div><div class="mcard-name">Juhyung Lee</div><div class="mcard-role">URP (Mar 2026)</div><div class="mcard-desc">Chemical Engineering major, URP since March 2026. Research: ML-based analysis of 2D materials for next-generation semiconductors.</div></div>
-    <div class="mcard" data-adm-card data-adm-type="member"><div class="mcard-img-wrap"><div class="mcard-ph">DO</div></div><div class="mcard-name">Dahyeon Oh</div><div class="mcard-role">URP (Mar 2026)</div><div class="mcard-desc">Chemical Engineering major, URP since March 2026. Research: epitaxial growth control of wafer-scale WS₂ via MOCVD and data-driven optimization.</div></div>
-    <div class="mcard" data-adm-card data-adm-type="member"><div class="mcard-img-wrap"><div class="mcard-ph">HK</div></div><div class="mcard-name">Hyeonsu Kim</div><div class="mcard-role">URP</div><div class="mcard-desc">Advanced Materials Science and Engineering major. Research: growth of 2D ferroelectric materials and integration into ferroelectric-gated Te FETs.</div></div>
-    <div class="mcard" data-adm-card data-adm-type="member"><div class="mcard-img-wrap"><div class="mcard-ph">SL</div></div><div class="mcard-name">Seoyoung Lim</div><div class="mcard-role">URP (Mar 2026)</div><div class="mcard-desc">Chemical Engineering major, URP since March 2026. Research: growth and electrical properties of 2D semiconductor thin films via MOCVD.</div></div>
-    <div class="mcard" data-adm-card data-adm-type="member"><div class="mcard-img-wrap"><div class="mcard-ph">SJ</div></div><div class="mcard-name">Sangmin Joo</div><div class="mcard-role">URP</div><div class="mcard-desc">Advanced Materials Science and Engineering major. Research: CVD growth of 2D materials and investigation of electronic/structural properties for device applications.</div></div>
-    <div class="mcard" data-adm-card data-adm-type="member"><div class="mcard-img-wrap"><div class="mcard-ph">SY</div></div><div class="mcard-name">Siwon Yang</div><div class="mcard-role">URP</div><div class="mcard-desc">URP participant. Research: intercalation of MoTe₂ for modulating material properties for next-generation semiconductor applications.</div></div>
-    <div class="mcard" data-adm-card data-adm-type="member"><div class="mcard-img-wrap"><div class="mcard-ph">JK</div></div><div class="mcard-name">Jaeho Kang</div><div class="mcard-role">URP</div><div class="mcard-desc">Chemical Engineering major. Research: MOCVD growth of 2D III-VI semiconductors and ferroelectric properties for electronic/optoelectronic applications.</div></div></div>
+    <div class="mgrid" id="grid-intern"><div class="mcard"><div class="mcard-img-wrap"><img src="assets/people/seohee-park.jpg" alt="Seohee Park"></div><div class="mcard-name">Seohee Park</div><div class="mcard-role">Intern (Sep 2025)</div><div class="mcard-desc">Undergraduate intern since September 2025. Research: synthesizing 2D ferroelectric materials and fabricating devices for next-generation semiconductor applications.</div></div>
+    <div class="mcard"><div class="mcard-img-wrap"><img src="assets/people/taeyoung-jeon.jpg" alt="Taeyoung Jeon"></div><div class="mcard-name">Taeyoung Jeon</div><div class="mcard-role">Undergrad Intern</div><div class="mcard-desc">Chemical Engineering undergraduate. Research: MOCVD-based synthesis of 2D heterostructures and their applicability.</div></div>
+    <div class="mcard"><div class="mcard-img-wrap"><img src="assets/people/sungwoo-yoon.jpg" alt="Sungwoo Yoon"></div><div class="mcard-name">Sungwoo Yoon</div><div class="mcard-role">Undergrad Intern</div><div class="mcard-desc">Chemical Engineering undergraduate. Research: wafer-scale synthesis of PtTe₂ via TCVD for next-generation semiconductor interconnects and spintronics.</div></div>
+    <div class="mcard"><div class="mcard-img-wrap"><img src="assets/people/minseok-kim.jpg" alt="Minseok Kim"></div><div class="mcard-name">Minseok Kim</div><div class="mcard-role">Intern (Mar 2026)</div><div class="mcard-desc">Undergraduate intern since March 2026. Research: quantum transport in 2D ferroelectric devices and low-power circuit design.</div></div>
+    <div class="mcard"><div class="mcard-img-wrap"><img src="assets/people/minseo-kim.jpg" alt="Minseo Kim"></div><div class="mcard-name">Minseo Kim</div><div class="mcard-role">Intern (Apr 2026)</div><div class="mcard-desc">Energy undergraduate, intern since April 2026. Research: CVD synthesis of 2D heterostructures for low-power, high-performance computing.</div></div>
+    <div class="mcard"><div class="mcard-img-wrap"><img src="assets/people/minseong-choi.jpg" alt="Minseong Choi"></div><div class="mcard-name">Minseong Choi</div><div class="mcard-role">Intern (Mar 2026)</div><div class="mcard-desc">Undergraduate intern since March 2026. Research: growth and characterization of 2D layered materials for energy and electronic applications.</div></div>
+    <div class="mcard"><div class="mcard-img-wrap"><div class="mcard-ph">JL</div></div><div class="mcard-name">Juhyung Lee</div><div class="mcard-role">URP (Mar 2026)</div><div class="mcard-desc">Chemical Engineering major, URP since March 2026. Research: ML-based analysis of 2D materials for next-generation semiconductors.</div></div>
+    <div class="mcard"><div class="mcard-img-wrap"><div class="mcard-ph">DO</div></div><div class="mcard-name">Dahyeon Oh</div><div class="mcard-role">URP (Mar 2026)</div><div class="mcard-desc">Chemical Engineering major, URP since March 2026. Research: epitaxial growth control of wafer-scale WS₂ via MOCVD and data-driven optimization.</div></div>
+    <div class="mcard"><div class="mcard-img-wrap"><div class="mcard-ph">HK</div></div><div class="mcard-name">Hyeonsu Kim</div><div class="mcard-role">URP</div><div class="mcard-desc">Advanced Materials Science and Engineering major. Research: growth of 2D ferroelectric materials and integration into ferroelectric-gated Te FETs.</div></div>
+    <div class="mcard"><div class="mcard-img-wrap"><div class="mcard-ph">SL</div></div><div class="mcard-name">Seoyoung Lim</div><div class="mcard-role">URP (Mar 2026)</div><div class="mcard-desc">Chemical Engineering major, URP since March 2026. Research: growth and electrical properties of 2D semiconductor thin films via MOCVD.</div></div>
+    <div class="mcard"><div class="mcard-img-wrap"><div class="mcard-ph">SJ</div></div><div class="mcard-name">Sangmin Joo</div><div class="mcard-role">URP</div><div class="mcard-desc">Advanced Materials Science and Engineering major. Research: CVD growth of 2D materials and investigation of electronic/structural properties for device applications.</div></div>
+    
+    <div class="mcard"><div class="mcard-img-wrap"><div class="mcard-ph">JK</div></div><div class="mcard-name">Jaeho Kang</div><div class="mcard-role">URP</div><div class="mcard-desc">Chemical Engineering major. Research: MOCVD growth of 2D III-VI semiconductors and ferroelectric properties for electronic/optoelectronic applications.</div></div></div>
     <div style="padding:var(--s3) 0 var(--s2);border-top:1px solid var(--border)">
       <div class="mg-label">Institute Joint Researchers</div>
       <div id="joint-researchers-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:var(--s2)">
@@ -1855,12 +1813,12 @@ body.admin-on .news-edit-btns { display: flex; }
       </div>
       <div style="margin-top:var(--s3)">
         <strong style="font-size:.84rem;color:var(--ink)">Alumni — </strong>
-        <span class="alumni-text" id="alumni-text">Chengyun Hong (Ph.D. → Postdoc POSTECH MSE) · Hyemyeong Lee · Hyungjeong Lee · Yunyeong Kim · Gunmo Koo · Sangwon Yun · Eunpyo Lee</span>
+        <span class="alumni-text" id="alumni-text">Chengyun Hong (Ph.D. → Postdoc POSTECH MSE) · Hyemyeong Lee · Hyungjeong Lee · Yunyeong Kim · Gunmo Koo · Sangwon Yun · Eunpyo Lee · Siwon Yang</span>
       </div>
     </div>
     <div style="height:var(--s4)"></div>
   </div>
-  <footer><div class="ft-left"><div class="ft-logo">QS Lab</div><div class="ft-addr"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="7b081e0e151c0e103b0810100e551e1f0e">[email&#160;protected]</a></div></div><div class="ft-right"><div class="ft-dept">© QS Lab, SKKU<span class="ft-admin-trigger">·</span></div></div></footer>
+  <footer><div class="ft-left"><div class="ft-logo">QS Lab</div><div class="ft-addr"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="7b081e0e151c0e103b0810100e551e1f0e">[email&nbsp;protected]</a></div></div><div class="ft-right"><div class="ft-dept">© QS Lab, SKKU<span class="ft-admin-trigger">·</span></div></div></footer>
 </main>
 
 <!-- ═══════════════ PUBLICATIONS ═══════════════ -->
@@ -1884,65 +1842,63 @@ body.admin-on .news-edit-btns { display: flex; }
     <a class="rep-card" href="https://www.nature.com/articles/s44287-025-00251-w" target="_blank"><div class="rep-j">Nat. Rev. Elec. Eng. 2026</div><div class="rep-t">Indium selenides for next-generation low-power computing</div><div class="rep-lnk">→ nature.com</div></a></div>
   </div>
   <div style="padding:var(--s2) var(--s4) 0;display:flex;gap:.5rem;border-bottom:1px solid var(--border)">
-  <button id="pub-tab-static" onclick="OrcidSync._switchTab('static')"
-    style="font-family:var(--mono);font-size:.68rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;padding:.5rem 1rem;border:none;border-bottom:2px solid var(--amber);background:transparent;color:var(--ink);cursor:pointer">
+  <button id="pub-tab-static" onclick="OrcidSync._switchTab('static')" style="font-family:var(--mono);font-size:.68rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;padding:.5rem 1rem;border:none;border-bottom:2px solid var(--amber);background:transparent;color:var(--ink);cursor:pointer">
     Curated List
   </button>
-  <button id="pub-tab-orcid" onclick="OrcidSync._switchTab('orcid')"
-    style="font-family:var(--mono);font-size:.68rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;padding:.5rem 1rem;border:none;border-bottom:2px solid transparent;background:transparent;color:var(--ink3);cursor:pointer;display:flex;align-items:center;gap:.4rem">
+  <button id="pub-tab-orcid" onclick="OrcidSync._switchTab('orcid')" style="font-family:var(--mono);font-size:.68rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;padding:.5rem 1rem;border:none;border-bottom:2px solid transparent;background:transparent;color:var(--ink3);cursor:pointer;display:flex;align-items:center;gap:.4rem">
     <img src="https://orcid.org/sites/default/files/images/orcid_16x16.png" width="14" height="14" alt="ORCID">
     Live from ORCID
   </button>
 </div>
 <div class="pub-section" id="pub-list"><div class="pub-yr">Pending / Under Review</div>
-  <div class="pub-row-nolink" data-adm-card data-adm-type="pub"><div class="pub-n">38</div><div><div class="pub-t">Near-Ideal van der Waals NbSe₂ Contacts for WSe₂ CMOS Electronics</div><div class="pub-a">Hyungyu Choi, Yunseo Song, Nasir Ali, Inhee Jeong, Hoseong Shin, Hyokwang Park, <strong>Seunguk Song</strong>, Min Sup Choi, Boseok Kang, Won Jong Yoo</div><div class="pub-v">Under revision (March 2026)</div></div></div>
-  <div class="pub-row-nolink" data-adm-card data-adm-type="pub"><div class="pub-n">37</div><div><div class="pub-t">Emergence of non-Fermi-liquid behaviors and quantum criticality in transition metal dichalcogenides</div><div class="pub-a">Nasir Ali, Zhenping Wang, Hoseong Shin, Hyokwang Park, Sobia Waheed, Fida Ali, Sungwon Lee, Hyungyu Choi, Wonchan Lee, Yunjung Cho, Kangpyo Cho, Zhipei Sun, Fei Zhuge, Boseok Kang, Hyeon Suk Shin, <strong>Seunguk Song*</strong>, Min Sup Choi*, Won Jong Yoo*</div><div class="pub-v">Submitted (March 2026)</div></div></div>
-  <div class="pub-row-nolink" data-adm-card data-adm-type="pub"><div class="pub-n">36</div><div><div class="pub-t">Toward Advanced Electronics in Advancing Electronic-Grade 2D Materials: Challenges, Opportunities, and Vision</div><div class="pub-a"><strong>Seunguk Song*</strong>, Deep Jariwala*</div><div class="pub-v">Under revision (Dec 2025)</div></div></div>
-  <div class="pub-row-nolink" data-adm-card data-adm-type="pub"><div class="pub-n">35</div><div><div class="pub-t">Noninvasive optical inspection of 2D contact interfaces using ultrafast transient reflection spectroscopy</div><div class="pub-a">Seung-Hyun Ji, Chengyun Hong, Joonsoo Kim, Seunghyun Noh, Dohun Gwak, Wonchan Lee, Yunjung Cho, Ji-Hee Kim*, Hyeon Suk Shin*, <strong>Seunguk Song*</strong>, Taeyeon Kim*</div><div class="pub-v">Submitted (Sept 2025)</div></div></div>
-  <a class="pub-row" data-adm-card data-adm-type="pub" href="https://arxiv.org/abs/2509.11897" target="_blank"><div class="pub-n">34</div><div><div class="pub-t">Reconfigurable, non-volatile control of optical anisotropy in ReS₂ via ferroelectric gating</div><div class="pub-a">Mahfujur Rahaman†, <strong>Seunguk Song†*</strong>, Aaliyah C. Khan, Bongjun Choi, Aaron M. Schankler, Kwan-Ho Kim, Wonchan Lee, Jason Lynch, Hyeon Suk Shin, Andrew M. Rappe, Deep Jariwala*</div><div class="pub-v">Under review (Sept 2025) · arXiv:2509.11897</div></div></a>
-  <a class="pub-row" data-adm-card data-adm-type="pub" href="http://arxiv.org/abs/2503.19491" target="_blank"><div class="pub-n">33</div><div><div class="pub-t">Observation of giant remnant polarization in ultrathin AlScN at cryogenic temperatures</div><div class="pub-a"><strong>Seunguk Song†</strong>, Dhiren K. Pradhan†, Zekun Hu†, Yinuo Zhang, Rachael N. Keneipp, Michael A. Susner, Pijush Bhattacharya, Marija Drndić, Roy H. Olsson III*, Deep Jariwala*</div><div class="pub-v">Under revision (June 2025) · arXiv:2503.19491</div></div></a>
-  <div class="pub-row-nolink" data-adm-card data-adm-type="pub"><div class="pub-n">32</div><div><div class="pub-t">Wafer-scale epitaxial growth of single-crystal bilayer hexagonal boron nitride for 2D-compatible dielectric integration</div><div class="pub-a">Jaewon Wang, Hyeonwoo Lee, Jaemin Kim, Haeng Un Yeo, Cheol Hwan Yoon, Min Seok Yoo, Sora Jang, Ju-Hyoung Han, Juwon Han, Junseop Noh, Kitae Park, Joonki Suh, Tae-Sik Yoon, <strong>Seunguk Song</strong>, Minsu Seol, Chanyong Hwang, Hyung-Joon Shin*, Zonghoon Lee*, Changwook Jeong*, Soon-Yong Kwon*</div><div class="pub-v"><strong>Accepted</strong>, Small (2026)</div></div></div>
+  <div class="pub-row-nolink"><div class="pub-n">38</div><div><div class="pub-t">Near-Ideal van der Waals NbSe₂ Contacts for WSe₂ CMOS Electronics</div><div class="pub-a">Hyungyu Choi, Yunseo Song, Nasir Ali, Inhee Jeong, Hoseong Shin, Hyokwang Park, <strong>Seunguk Song</strong>, Min Sup Choi, Boseok Kang, Won Jong Yoo</div><div class="pub-v">Under revision (March 2026)</div></div></div>
+  <div class="pub-row-nolink"><div class="pub-n">37</div><div><div class="pub-t">Emergence of non-Fermi-liquid behaviors and quantum criticality in transition metal dichalcogenides</div><div class="pub-a">Nasir Ali, Zhenping Wang, Hoseong Shin, Hyokwang Park, Sobia Waheed, Fida Ali, Sungwon Lee, Hyungyu Choi, Wonchan Lee, Yunjung Cho, Kangpyo Cho, Zhipei Sun, Fei Zhuge, Boseok Kang, Hyeon Suk Shin, <strong>Seunguk Song*</strong>, Min Sup Choi*, Won Jong Yoo*</div><div class="pub-v">Submitted (March 2026)</div></div></div>
+  <div class="pub-row-nolink"><div class="pub-n">36</div><div><div class="pub-t">Toward Advanced Electronics in Advancing Electronic-Grade 2D Materials: Challenges, Opportunities, and Vision</div><div class="pub-a"><strong>Seunguk Song*</strong>, Deep Jariwala*</div><div class="pub-v">Under revision (Dec 2025)</div></div></div>
+  <div class="pub-row-nolink"><div class="pub-n">35</div><div><div class="pub-t">Noninvasive optical inspection of 2D contact interfaces using ultrafast transient reflection spectroscopy</div><div class="pub-a">Seung-Hyun Ji, Chengyun Hong, Joonsoo Kim, Seunghyun Noh, Dohun Gwak, Wonchan Lee, Yunjung Cho, Ji-Hee Kim*, Hyeon Suk Shin*, <strong>Seunguk Song*</strong>, Taeyeon Kim*</div><div class="pub-v">Submitted (Sept 2025)</div></div></div>
+  <a class="pub-row" href="https://arxiv.org/abs/2509.11897" target="_blank"><div class="pub-n">34</div><div><div class="pub-t">Reconfigurable, non-volatile control of optical anisotropy in ReS₂ via ferroelectric gating</div><div class="pub-a">Mahfujur Rahaman†, <strong>Seunguk Song†*</strong>, Aaliyah C. Khan, Bongjun Choi, Aaron M. Schankler, Kwan-Ho Kim, Wonchan Lee, Jason Lynch, Hyeon Suk Shin, Andrew M. Rappe, Deep Jariwala*</div><div class="pub-v">Under review (Sept 2025) · arXiv:2509.11897</div></div></a>
+  <a class="pub-row" href="http://arxiv.org/abs/2503.19491" target="_blank"><div class="pub-n">33</div><div><div class="pub-t">Observation of giant remnant polarization in ultrathin AlScN at cryogenic temperatures</div><div class="pub-a"><strong>Seunguk Song†</strong>, Dhiren K. Pradhan†, Zekun Hu†, Yinuo Zhang, Rachael N. Keneipp, Michael A. Susner, Pijush Bhattacharya, Marija Drndić, Roy H. Olsson III*, Deep Jariwala*</div><div class="pub-v">Under revision (June 2025) · arXiv:2503.19491</div></div></a>
+  <div class="pub-row-nolink"><div class="pub-n">32</div><div><div class="pub-t">Wafer-scale epitaxial growth of single-crystal bilayer hexagonal boron nitride for 2D-compatible dielectric integration</div><div class="pub-a">Jaewon Wang, Hyeonwoo Lee, Jaemin Kim, Haeng Un Yeo, Cheol Hwan Yoon, Min Seok Yoo, Sora Jang, Ju-Hyoung Han, Juwon Han, Junseop Noh, Kitae Park, Joonki Suh, Tae-Sik Yoon, <strong>Seunguk Song</strong>, Minsu Seol, Chanyong Hwang, Hyung-Joon Shin*, Zonghoon Lee*, Changwook Jeong*, Soon-Yong Kwon*</div><div class="pub-v"><strong>Accepted</strong>, Small (2026)</div></div></div>
   <div class="pub-yr">2026</div>
-  <a class="pub-row" data-adm-card data-adm-type="pub" href="https://www.nature.com/articles/s44287-025-00251-w" target="_blank"><div class="pub-n">31</div><div><div class="pub-t">Indium selenides for next-generation low-power computing devices</div><div class="pub-a"><strong>Seunguk Song*</strong>, Michael Altvater, Wonchan Lee, Hyeon Suk Shin, Nicholas Glavin*, Deep Jariwala*</div><div class="pub-v">Nature Reviews Electrical Engineering (2026)</div></div></a>
-  <div class="pub-row-nolink" data-adm-card data-adm-type="pub"><div class="pub-n">30</div><div><div class="pub-t">Low-voltage ferroelectric field-effect transistors with ultrathin AlScN and 2D channels</div><div class="pub-a">Chloe Leblanc, Hyunmin Cho, Yinuo Zhang, <strong>Seunguk Song</strong>, Zachary Anderson, Yunfei He, Chen Chen, Joan M. Redwing, Roy H. Olsson, Deep Jariwala</div><div class="pub-v"><strong>Device</strong>, 4, 100989 (2026)</div></div></div>
+  <a class="pub-row" href="https://www.nature.com/articles/s44287-025-00251-w" target="_blank"><div class="pub-n">31</div><div><div class="pub-t">Indium selenides for next-generation low-power computing devices</div><div class="pub-a"><strong>Seunguk Song*</strong>, Michael Altvater, Wonchan Lee, Hyeon Suk Shin, Nicholas Glavin*, Deep Jariwala*</div><div class="pub-v">Nature Reviews Electrical Engineering (2026)</div></div></a>
+  <div class="pub-row-nolink"><div class="pub-n">30</div><div><div class="pub-t">Low-voltage ferroelectric field-effect transistors with ultrathin AlScN and 2D channels</div><div class="pub-a">Chloe Leblanc, Hyunmin Cho, Yinuo Zhang, <strong>Seunguk Song</strong>, Zachary Anderson, Yunfei He, Chen Chen, Joan M. Redwing, Roy H. Olsson, Deep Jariwala</div><div class="pub-v"><strong>Device</strong>, 4, 100989 (2026)</div></div></div>
   <div class="pub-yr">2025</div>
-  <div class="pub-row-nolink" data-adm-card data-adm-type="pub"><div class="pub-n">29</div><div><div class="pub-t">Effect of E-Glass Powder Addition on Characteristics of Blast Furnace Slag-Based Glass Marbles</div><div class="pub-a">Ji-Sun Lee, JuEun Park, <strong>Seunguk Song</strong>, Soon-il Kwon, Jinho Kim*</div><div class="pub-v"><strong>Korean Journal of Materials Research</strong>, 35, 505-510 (2025)</div></div></div>
-  <div class="pub-row-nolink" data-adm-card data-adm-type="pub"><div class="pub-n">28</div><div><div class="pub-t">Wafer-Scale Fabrication of Edge-Contacted Nanosheet Transistors via Alloying-Mediated Phase Engineering</div><div class="pub-a">Sora Jang, <strong>Seunguk Song*</strong>, Juwon Han, Aram Yoon, Jaewon Wang, Hyeonwoo Lee, Yeoseon Sim, Zonghoon Lee, Changwook Jeong*, Soon-Yong Kwon*</div><div class="pub-v"><strong>Small Science</strong>, 5, e202500320 (2025)</div></div></div>
-  <a class="pub-row" data-adm-card data-adm-type="pub" href="https://pubs.rsc.org/en/content/articlelanding/2025/nr/d5nr01290b" target="_blank"><div class="pub-n">27</div><div><div class="pub-t">Metal-organic chemical vapour deposition of van der Waals 2D chalcogenides and heterostructures: a review</div><div class="pub-a">Yunjung Cho, Wonchan Lee, Inbae Song, Kangpyo Cho, Jihwan Jeon, Nasir Ali, <strong>Seunguk Song*</strong></div><div class="pub-v"><strong>Nanoscale</strong>, 17, 22606-22628 (2025)</div></div></a>
-  <a class="pub-row" data-adm-card data-adm-type="pub" href="https://doi.org/10.1002/adfm.202516434" target="_blank"><div class="pub-n">26</div><div><div class="pub-t">Interfacial Control of Degradation Pathways in 2D Heterostructures</div><div class="pub-a">Yeoseon Sim, Se-Yang Kim, Soon-Dong Park, Hyeonwoo Lee, Jeong Hwa Kim, Sora Jang, Jaewon Wang, <strong>Seunguk Song</strong>, Jinsung Kwak, Zonghoon Lee, Changwook Jeong, Sung Youb Kim*, Soon-Yong Kwon*</div><div class="pub-v">Advanced Functional Materials (2025)</div></div></a>
-  <a class="pub-row" data-adm-card data-adm-type="pub" href="https://www.nature.com/articles/s41467-025-60296-7" target="_blank"><div class="pub-n">25</div><div><div class="pub-t">Reconfigurable single-walled carbon nanotube ferroelectric field-effect transistors</div><div class="pub-a">Dongjoon Rhee, Kwan-Ho Kim, Jeffrey Zheng, <strong>Seunguk Song</strong>, Lian-Mao Peng, Roy H. Olsson III, Joohoon Kang*, Deep Jariwala*</div><div class="pub-v"><strong>Nature Communications</strong>, 16, 7655 (2025)</div></div></a>
-  <div class="pub-row-nolink" data-adm-card data-adm-type="pub"><div class="pub-n">24</div><div><div class="pub-t">Methodologies for Electrical Measurement and Parameter Analysis of 2D Semiconductor Transistors</div><div class="pub-a">Kyungwu Kwon, Hyemyeong Lee, <strong>Seunguk Song*</strong></div><div class="pub-v"><strong>Ceramist</strong>, 28, 334-355 (2025)</div></div></div>
-  <a class="pub-row" data-adm-card data-adm-type="pub" href="https://doi.org/10.1021/acsnano.4c17301" target="_blank"><div class="pub-n">23</div><div><div class="pub-t">High Current and Carrier Densities in 2D MoS₂/AlScN Field-Effect Transistors via Ferroelectric Gating and Ohmic Contacts</div><div class="pub-a"><strong>Seunguk Song†</strong>, Kwan-Ho Kim†, Rachael Keneipp, Myeongjin Jung, Nicholas Trainor, Chen Chen, Jeffrey Zheng, Joan M. Redwing, Joohoon Kang, Marija Drndić, Roy H. Olsson III, Deep Jariwala*</div><div class="pub-v"><strong>ACS Nano</strong>, 15, 8985-8996 (2025)</div></div></a>
+  <div class="pub-row-nolink"><div class="pub-n">29</div><div><div class="pub-t">Effect of E-Glass Powder Addition on Characteristics of Blast Furnace Slag-Based Glass Marbles</div><div class="pub-a">Ji-Sun Lee, JuEun Park, <strong>Seunguk Song</strong>, Soon-il Kwon, Jinho Kim*</div><div class="pub-v"><strong>Korean Journal of Materials Research</strong>, 35, 505-510 (2025)</div></div></div>
+  <div class="pub-row-nolink"><div class="pub-n">28</div><div><div class="pub-t">Wafer-Scale Fabrication of Edge-Contacted Nanosheet Transistors via Alloying-Mediated Phase Engineering</div><div class="pub-a">Sora Jang, <strong>Seunguk Song*</strong>, Juwon Han, Aram Yoon, Jaewon Wang, Hyeonwoo Lee, Yeoseon Sim, Zonghoon Lee, Changwook Jeong*, Soon-Yong Kwon*</div><div class="pub-v"><strong>Small Science</strong>, 5, e202500320 (2025)</div></div></div>
+  <a class="pub-row" href="https://pubs.rsc.org/en/content/articlelanding/2025/nr/d5nr01290b" target="_blank"><div class="pub-n">27</div><div><div class="pub-t">Metal-organic chemical vapour deposition of van der Waals 2D chalcogenides and heterostructures: a review</div><div class="pub-a">Yunjung Cho, Wonchan Lee, Inbae Song, Kangpyo Cho, Jihwan Jeon, Nasir Ali, <strong>Seunguk Song*</strong></div><div class="pub-v"><strong>Nanoscale</strong>, 17, 22606-22628 (2025)</div></div></a>
+  <a class="pub-row" href="https://doi.org/10.1002/adfm.202516434" target="_blank"><div class="pub-n">26</div><div><div class="pub-t">Interfacial Control of Degradation Pathways in 2D Heterostructures</div><div class="pub-a">Yeoseon Sim, Se-Yang Kim, Soon-Dong Park, Hyeonwoo Lee, Jeong Hwa Kim, Sora Jang, Jaewon Wang, <strong>Seunguk Song</strong>, Jinsung Kwak, Zonghoon Lee, Changwook Jeong, Sung Youb Kim*, Soon-Yong Kwon*</div><div class="pub-v">Advanced Functional Materials (2025)</div></div></a>
+  <a class="pub-row" href="https://www.nature.com/articles/s41467-025-60296-7" target="_blank"><div class="pub-n">25</div><div><div class="pub-t">Reconfigurable single-walled carbon nanotube ferroelectric field-effect transistors</div><div class="pub-a">Dongjoon Rhee, Kwan-Ho Kim, Jeffrey Zheng, <strong>Seunguk Song</strong>, Lian-Mao Peng, Roy H. Olsson III, Joohoon Kang*, Deep Jariwala*</div><div class="pub-v"><strong>Nature Communications</strong>, 16, 7655 (2025)</div></div></a>
+  <div class="pub-row-nolink"><div class="pub-n">24</div><div><div class="pub-t">Methodologies for Electrical Measurement and Parameter Analysis of 2D Semiconductor Transistors</div><div class="pub-a">Kyungwu Kwon, Hyemyeong Lee, <strong>Seunguk Song*</strong></div><div class="pub-v"><strong>Ceramist</strong>, 28, 334-355 (2025)</div></div></div>
+  <a class="pub-row" href="https://doi.org/10.1021/acsnano.4c17301" target="_blank"><div class="pub-n">23</div><div><div class="pub-t">High Current and Carrier Densities in 2D MoS₂/AlScN Field-Effect Transistors via Ferroelectric Gating and Ohmic Contacts</div><div class="pub-a"><strong>Seunguk Song†</strong>, Kwan-Ho Kim†, Rachael Keneipp, Myeongjin Jung, Nicholas Trainor, Chen Chen, Jeffrey Zheng, Joan M. Redwing, Joohoon Kang, Marija Drndić, Roy H. Olsson III, Deep Jariwala*</div><div class="pub-v"><strong>ACS Nano</strong>, 15, 8985-8996 (2025)</div></div></a>
   <div class="pub-yr">2024</div>
-  <a class="pub-row" data-adm-card data-adm-type="pub" href="https://www.nature.com/articles/s41467-024-50768-5" target="_blank"><div class="pub-n">22</div><div><div class="pub-t">Confinement of excited states in two-dimensional, in-plane, quantum heterostructures</div><div class="pub-a">Gwangwoo Kim, Benjamin Huet, Christopher E. Stevens, Kiyoung Jo, Jeng-Yuan Tsai, Saiphaneendra Bachu, Meghan Leger, <strong>Seunguk Song</strong>, Mahfujur Rahaman, Kyung Yeol Ma, Nicholas R. Glavin, Hyeon Suk Shin, Nasim Alem, Qimin Yan, Joshua R. Hendrickson, Joan M. Redwing, Deep Jariwala*</div><div class="pub-v"><strong>Nature Communications</strong>, 15, 6361 (2024)</div></div></a>
-  <div class="pub-row-nolink" data-adm-card data-adm-type="pub"><div class="pub-n">21</div><div><div class="pub-t">2D ferroelectrics and ferroelectrics with 2D: materials and device prospects</div><div class="pub-a">Chloe Leblanc†, <strong>Seunguk Song†</strong>, Deep Jariwala*</div><div class="pub-v"><strong>Current Opinion in Solid State &amp; Materials Science</strong>, 32, 101178 (2024)</div></div></div>
-  <div class="pub-row-nolink" data-adm-card data-adm-type="pub"><div class="pub-n">20</div><div><div class="pub-t">Tunable Localized Charge Transfer Excitons in a Mixed-Dimensional van der Waals Heterostructure</div><div class="pub-a">Mahfujur Rahaman, Emanuele Marino, Alan G. Joly, <strong>Seunguk Song</strong>, Zhiqiao Jiang, Brian T. O'Callahan, Daniel J. Rosen, Kiyoung Jo, Gwangwoo Kim, Patrick Z. El-Khoury, Christopher B. Murray, Deep Jariwala*</div><div class="pub-v"><strong>ACS Nano</strong>, 18, 15185 (2024)</div></div></div>
-  <a class="pub-row" data-adm-card data-adm-type="pub" href="https://pubs.acs.org/doi/full/10.1021/acsnano.3c12938" target="_blank"><div class="pub-n">19</div><div><div class="pub-t">Can 2D semiconductors be game changers for nanoelectronics and photonics?</div><div class="pub-a"><strong>Seunguk Song†</strong>, Mahfujur Rahaman†, Deep Jariwala*</div><div class="pub-v"><strong>ACS Nano</strong>, 18, 10955-10978 (2024)</div></div></a>
-  <a class="pub-row" data-adm-card data-adm-type="pub" href="https://pubs.acs.org/doi/full/10.1021/acsnano.3c09279" target="_blank"><div class="pub-n">18</div><div><div class="pub-t">Tuning Polarity in WSe₂/AlScN FeFETs via Contact Engineering</div><div class="pub-a">Kwan-Ho Kim†, <strong>Seunguk Song†</strong>, Bumho Kim, Pariasadat Musavigharavi, Nicholas Trainor, Keshava Katti, Chen Chen, Shalini Kumari, Jeffrey Zheng, Joan M. Redwing, Eric A. Stach, Roy H. Olsson III, Deep Jariwala*</div><div class="pub-v"><strong>ACS Nano</strong>, 18, 4180-4188 (2024)</div></div></a>
-  <div class="pub-row-nolink" data-adm-card data-adm-type="pub"><div class="pub-n">17</div><div><div class="pub-t">Wafer-scale memristor array based on aligned grain boundaries of 2D molybdenum ditelluride for artificial synapses</div><div class="pub-a">Jihoon Yang, Aram Yoon, Donghyun Lee, <strong>Seunguk Song</strong>, IL John Jung, Dong-Hyeok Lim, Hongsik Jeong, Zonghoon Lee, Mario Lanza, Soon-Yong Kwon*</div><div class="pub-v"><strong>Advanced Functional Materials</strong>, 34, 2309455 (2024)</div></div></div>
+  <a class="pub-row" href="https://www.nature.com/articles/s41467-024-50768-5" target="_blank"><div class="pub-n">22</div><div><div class="pub-t">Confinement of excited states in two-dimensional, in-plane, quantum heterostructures</div><div class="pub-a">Gwangwoo Kim, Benjamin Huet, Christopher E. Stevens, Kiyoung Jo, Jeng-Yuan Tsai, Saiphaneendra Bachu, Meghan Leger, <strong>Seunguk Song</strong>, Mahfujur Rahaman, Kyung Yeol Ma, Nicholas R. Glavin, Hyeon Suk Shin, Nasim Alem, Qimin Yan, Joshua R. Hendrickson, Joan M. Redwing, Deep Jariwala*</div><div class="pub-v"><strong>Nature Communications</strong>, 15, 6361 (2024)</div></div></a>
+  <div class="pub-row-nolink"><div class="pub-n">21</div><div><div class="pub-t">2D ferroelectrics and ferroelectrics with 2D: materials and device prospects</div><div class="pub-a">Chloe Leblanc†, <strong>Seunguk Song†</strong>, Deep Jariwala*</div><div class="pub-v"><strong>Current Opinion in Solid State &amp; Materials Science</strong>, 32, 101178 (2024)</div></div></div>
+  <div class="pub-row-nolink"><div class="pub-n">20</div><div><div class="pub-t">Tunable Localized Charge Transfer Excitons in a Mixed-Dimensional van der Waals Heterostructure</div><div class="pub-a">Mahfujur Rahaman, Emanuele Marino, Alan G. Joly, <strong>Seunguk Song</strong>, Zhiqiao Jiang, Brian T. O'Callahan, Daniel J. Rosen, Kiyoung Jo, Gwangwoo Kim, Patrick Z. El-Khoury, Christopher B. Murray, Deep Jariwala*</div><div class="pub-v"><strong>ACS Nano</strong>, 18, 15185 (2024)</div></div></div>
+  <a class="pub-row" href="https://pubs.acs.org/doi/full/10.1021/acsnano.3c12938" target="_blank"><div class="pub-n">19</div><div><div class="pub-t">Can 2D semiconductors be game changers for nanoelectronics and photonics?</div><div class="pub-a"><strong>Seunguk Song†</strong>, Mahfujur Rahaman†, Deep Jariwala*</div><div class="pub-v"><strong>ACS Nano</strong>, 18, 10955-10978 (2024)</div></div></a>
+  <a class="pub-row" href="https://pubs.acs.org/doi/full/10.1021/acsnano.3c09279" target="_blank"><div class="pub-n">18</div><div><div class="pub-t">Tuning Polarity in WSe₂/AlScN FeFETs via Contact Engineering</div><div class="pub-a">Kwan-Ho Kim†, <strong>Seunguk Song†</strong>, Bumho Kim, Pariasadat Musavigharavi, Nicholas Trainor, Keshava Katti, Chen Chen, Shalini Kumari, Jeffrey Zheng, Joan M. Redwing, Eric A. Stach, Roy H. Olsson III, Deep Jariwala*</div><div class="pub-v"><strong>ACS Nano</strong>, 18, 4180-4188 (2024)</div></div></a>
+  <div class="pub-row-nolink"><div class="pub-n">17</div><div><div class="pub-t">Wafer-scale memristor array based on aligned grain boundaries of 2D molybdenum ditelluride for artificial synapses</div><div class="pub-a">Jihoon Yang, Aram Yoon, Donghyun Lee, <strong>Seunguk Song</strong>, IL John Jung, Dong-Hyeok Lim, Hongsik Jeong, Zonghoon Lee, Mario Lanza, Soon-Yong Kwon*</div><div class="pub-v"><strong>Advanced Functional Materials</strong>, 34, 2309455 (2024)</div></div></div>
   <div class="pub-yr">2023</div>
-  <div class="pub-row-nolink" data-adm-card data-adm-type="pub"><div class="pub-n">16</div><div><div class="pub-t">Tailoring Exciton Dynamics in TMDC Heterobilayers in the Ultranarrow Gap-Plasmon Regime</div><div class="pub-a">Mahfujur Rahaman, Gwangwoo Kim, Kyung Yeol Ma, <strong>Seunguk Song</strong>, Hyeon Suk Shin, Deep Jariwala*</div><div class="pub-v"><strong>npj 2D Materials and Applications</strong>, 7, 66 (2023)</div></div></div>
-  <div class="pub-row-nolink" data-adm-card data-adm-type="pub"><div class="pub-n">15</div><div><div class="pub-t">Vertical van der Waals Heterojunction Diodes comprising 2D Semiconductors on 3D β-Ga₂O₃</div><div class="pub-a">Chloe Leblanc, Dinusha H. Mudiyanselage, <strong>Seunguk Song</strong>, Huairuo Zhang, Albert Davydov, Houqiang Fu, Deep Jariwala*</div><div class="pub-v"><strong>Nanoscale</strong>, 15, 9964-9972 (2023)</div></div></div>
-  <a class="pub-row" data-adm-card data-adm-type="pub" href="https://www.nature.com/articles/s41565-023-01399-g" target="_blank"><div class="pub-n">14</div><div><div class="pub-t">Scalable CMOS back-end-of-line-compatible AlScN/two-dimensional channel ferroelectric field-effect transistors</div><div class="pub-a">Kwan-Ho Kim, Seyong Oh, Merrilyn Mercy Adzo Fiagbenu, Jeffrey Zheng, Pariasadat Musavigharavi, Pawan Kumar, Nicholas Trainor, Areej Aljarb, Yi Wan, Hyong Min Kim, Keshava Katti, <strong>Seunguk Song</strong>, Gwangwoo Kim, Zichen Tang, Jui-Han Fu, Mariam Hakami, Vincent C. Tung, Joan M. Redwing, Eric A. Stach, Roy H. Olsson III*, Deep Jariwala*</div><div class="pub-v"><strong>Nature Nanotechnology</strong>, 18, 1044-1050 (2023)</div></div></a>
-  <a class="pub-row" data-adm-card data-adm-type="pub" href="https://pubs.aip.org/aip/apl/article/123/18/183501/2919098" target="_blank"><div class="pub-n">13</div><div><div class="pub-t">Negative capacitance field-effect transistors based on ferroelectric AlScN and 2D MoS₂</div><div class="pub-a"><strong>Seunguk Song†</strong>, Kwan-Ho Kim†, Srikrishna Chakravarthi†, Zirun Han, Gwangwoo Kim, Kyung Yeol Ma, Hyeon Suk Shin, Roy H. Olsson III, Deep Jariwala*</div><div class="pub-v"><strong>Applied Physics Letters</strong>, 123, 183501 (2023)</div></div></a>
-  <a class="pub-row" data-adm-card data-adm-type="pub" href="https://www.cell.com/matter/fulltext/S2590-2385%2823%2900368-5" target="_blank"><div class="pub-n">12</div><div><div class="pub-t">Wafer-scale growth of two-dimensional, phase-pure InSe (Featured Article)</div><div class="pub-a"><strong>Seunguk Song</strong>, Sungho Jeon, Mahfujur Rahaman, Jason Lynch, Dongjoon Rhee, Pawan Kumar, Srikrishna Chakravarthi, Gwangwoo Kim, Xingyu Du, Eric Blanton, Mike Snure, Kim Kisslinger, Nicholas R. Glavin, Eric A. Stach, Troy Olsson, Deep Jariwala*</div><div class="pub-v"><strong>Matter</strong>, 6, 3483-3498 (2023)</div></div></a>
-  <a class="pub-row" data-adm-card data-adm-type="pub" href="https://www.nature.com/articles/s41467-023-40448-x" target="_blank"><div class="pub-n">11</div><div><div class="pub-t">Fabrication of p-type 2D single-crystalline transistor arrays with Fermi-level-tuned van der Waals semimetal electrodes</div><div class="pub-a"><strong>Seunguk Song†</strong>, Aram Yoon†, Sora Jang†, Jason Lynch, Jihoon Yang, Juwon Han, Young Ho Jin, Cindy Yueli Chen, Yeryun Cheon, Jinsung Kwak, Changwook Jeong, Hyeonsik Cheong, Deep Jariwala, Zonghoon Lee*, Soon-Yong Kwon*</div><div class="pub-v"><strong>Nature Communications</strong>, 14, 4747 (2023)</div></div></a>
-  <div class="pub-row-nolink" data-adm-card data-adm-type="pub"><div class="pub-n">10</div><div><div class="pub-t">Spatially controlled two-dimensional quantum heterostructures</div><div class="pub-a">Gwangwoo Kim†, <strong>Seunguk Song†</strong>, Deep Jariwala*</div><div class="pub-v"><strong>Materials Research Letters</strong>, 11, 327-346 (2023)</div></div></div>
+  <div class="pub-row-nolink"><div class="pub-n">16</div><div><div class="pub-t">Tailoring Exciton Dynamics in TMDC Heterobilayers in the Ultranarrow Gap-Plasmon Regime</div><div class="pub-a">Mahfujur Rahaman, Gwangwoo Kim, Kyung Yeol Ma, <strong>Seunguk Song</strong>, Hyeon Suk Shin, Deep Jariwala*</div><div class="pub-v"><strong>npj 2D Materials and Applications</strong>, 7, 66 (2023)</div></div></div>
+  <div class="pub-row-nolink"><div class="pub-n">15</div><div><div class="pub-t">Vertical van der Waals Heterojunction Diodes comprising 2D Semiconductors on 3D β-Ga₂O₃</div><div class="pub-a">Chloe Leblanc, Dinusha H. Mudiyanselage, <strong>Seunguk Song</strong>, Huairuo Zhang, Albert Davydov, Houqiang Fu, Deep Jariwala*</div><div class="pub-v"><strong>Nanoscale</strong>, 15, 9964-9972 (2023)</div></div></div>
+  <a class="pub-row" href="https://www.nature.com/articles/s41565-023-01399-g" target="_blank"><div class="pub-n">14</div><div><div class="pub-t">Scalable CMOS back-end-of-line-compatible AlScN/two-dimensional channel ferroelectric field-effect transistors</div><div class="pub-a">Kwan-Ho Kim, Seyong Oh, Merrilyn Mercy Adzo Fiagbenu, Jeffrey Zheng, Pariasadat Musavigharavi, Pawan Kumar, Nicholas Trainor, Areej Aljarb, Yi Wan, Hyong Min Kim, Keshava Katti, <strong>Seunguk Song</strong>, Gwangwoo Kim, Zichen Tang, Jui-Han Fu, Mariam Hakami, Vincent C. Tung, Joan M. Redwing, Eric A. Stach, Roy H. Olsson III*, Deep Jariwala*</div><div class="pub-v"><strong>Nature Nanotechnology</strong>, 18, 1044-1050 (2023)</div></div></a>
+  <a class="pub-row" href="https://pubs.aip.org/aip/apl/article/123/18/183501/2919098" target="_blank"><div class="pub-n">13</div><div><div class="pub-t">Negative capacitance field-effect transistors based on ferroelectric AlScN and 2D MoS₂</div><div class="pub-a"><strong>Seunguk Song†</strong>, Kwan-Ho Kim†, Srikrishna Chakravarthi†, Zirun Han, Gwangwoo Kim, Kyung Yeol Ma, Hyeon Suk Shin, Roy H. Olsson III, Deep Jariwala*</div><div class="pub-v"><strong>Applied Physics Letters</strong>, 123, 183501 (2023)</div></div></a>
+  <a class="pub-row" href="https://www.cell.com/matter/fulltext/S2590-2385%2823%2900368-5" target="_blank"><div class="pub-n">12</div><div><div class="pub-t">Wafer-scale growth of two-dimensional, phase-pure InSe (Featured Article)</div><div class="pub-a"><strong>Seunguk Song</strong>, Sungho Jeon, Mahfujur Rahaman, Jason Lynch, Dongjoon Rhee, Pawan Kumar, Srikrishna Chakravarthi, Gwangwoo Kim, Xingyu Du, Eric Blanton, Mike Snure, Kim Kisslinger, Nicholas R. Glavin, Eric A. Stach, Troy Olsson, Deep Jariwala*</div><div class="pub-v"><strong>Matter</strong>, 6, 3483-3498 (2023)</div></div></a>
+  <a class="pub-row" href="https://www.nature.com/articles/s41467-023-40448-x" target="_blank"><div class="pub-n">11</div><div><div class="pub-t">Fabrication of p-type 2D single-crystalline transistor arrays with Fermi-level-tuned van der Waals semimetal electrodes</div><div class="pub-a"><strong>Seunguk Song†</strong>, Aram Yoon†, Sora Jang†, Jason Lynch, Jihoon Yang, Juwon Han, Young Ho Jin, Cindy Yueli Chen, Yeryun Cheon, Jinsung Kwak, Changwook Jeong, Hyeonsik Cheong, Deep Jariwala, Zonghoon Lee*, Soon-Yong Kwon*</div><div class="pub-v"><strong>Nature Communications</strong>, 14, 4747 (2023)</div></div></a>
+  <div class="pub-row-nolink"><div class="pub-n">10</div><div><div class="pub-t">Spatially controlled two-dimensional quantum heterostructures</div><div class="pub-a">Gwangwoo Kim†, <strong>Seunguk Song†</strong>, Deep Jariwala*</div><div class="pub-v"><strong>Materials Research Letters</strong>, 11, 327-346 (2023)</div></div></div>
   <div class="pub-yr">2022</div>
-  <div class="pub-row-nolink" data-adm-card data-adm-type="pub"><div class="pub-n">9</div><div><div class="pub-t">Air-stable van der Waals PtTe₂ conductors with high current-carrying capacity and strong spin-orbit interaction</div><div class="pub-a"><strong>Seunguk Song†</strong>, Inseon Oh†, Sora Jang, Ahram Yoon, Juwon Han, Zonghoon Lee, Jung-Woo Yoo*, Soon-Yong Kwon*</div><div class="pub-v"><strong>iScience</strong>, 25, 105346 (2022)</div></div></div>
-  <a class="pub-row" data-adm-card data-adm-type="pub" href="https://www.nature.com/articles/s41467-022-32582-9" target="_blank"><div class="pub-n">8</div><div><div class="pub-t">Atomic transistors based on seamless lateral metal-semiconductor junctions with a sub-1-nm transfer length</div><div class="pub-a"><strong>Seunguk Song</strong>, Aram Yoon, Jong-Kwon Ha, Jihoon Yang, Sora Jang, Chloe Leblanc, Jaewon Wang, Yeoseon Sim, Deep Jariwala, Seung Kyu Min, Zonghoon Lee*, Soon-Yong Kwon*</div><div class="pub-v"><strong>Nature Communications</strong>, 13, 4916 (2022)</div></div></a>
+  <div class="pub-row-nolink"><div class="pub-n">9</div><div><div class="pub-t">Air-stable van der Waals PtTe₂ conductors with high current-carrying capacity and strong spin-orbit interaction</div><div class="pub-a"><strong>Seunguk Song†</strong>, Inseon Oh†, Sora Jang, Ahram Yoon, Juwon Han, Zonghoon Lee, Jung-Woo Yoo*, Soon-Yong Kwon*</div><div class="pub-v"><strong>iScience</strong>, 25, 105346 (2022)</div></div></div>
+  <a class="pub-row" href="https://www.nature.com/articles/s41467-022-32582-9" target="_blank"><div class="pub-n">8</div><div><div class="pub-t">Atomic transistors based on seamless lateral metal-semiconductor junctions with a sub-1-nm transfer length</div><div class="pub-a"><strong>Seunguk Song</strong>, Aram Yoon, Jong-Kwon Ha, Jihoon Yang, Sora Jang, Chloe Leblanc, Jaewon Wang, Yeoseon Sim, Deep Jariwala, Seung Kyu Min, Zonghoon Lee*, Soon-Yong Kwon*</div><div class="pub-v"><strong>Nature Communications</strong>, 13, 4916 (2022)</div></div></a>
   <div class="pub-yr">2021</div>
-  <div class="pub-row-nolink" data-adm-card data-adm-type="pub"><div class="pub-n">7</div><div><div class="pub-t">Synthesis of high-quality 2D carbide MXene flakes using a highly purified MAX precursor for ink applications</div><div class="pub-a">Shi-Hyun Seok, Seungjun Choo, Jinsung Kwak, Hyejin Ju, Ju-Hyong Han, Woo-Seok Kang, Joonsik Lee, Se-Yang Kim, Do Hee Lee, Jaewon Wang, <strong>Seunguk Song</strong>, Wook Jo, Byung Mun Jung, Han Gi Chae, Jae Sung Son, Soon-Yong Kwon*</div><div class="pub-v"><strong>Nanoscale Advances</strong>, 3, 517-527 (2021)</div></div></div>
-  <div class="pub-row-nolink" data-adm-card data-adm-type="pub"><div class="pub-n">6</div><div><div class="pub-t">Design of two-dimensional layered catalyst by coherent heteroepitaxial conversion for robust hydrogen generation</div><div class="pub-a">Yeoseon Sim, Aram Yoon, Hee Seong Kang, Jinsung Kwak, Se-Yang Kim, Yongsu Jo, Daeseong Choe, Woongki Na, Min Hee Lee, <strong>Seunguk Song</strong>, Jung-Woo Yoo, Hyeonsik Cheong, Jae Sung Lee, Chul-Ho Lee, Zonghoon Lee, Soon-Yong Kwon*</div><div class="pub-v"><strong>Advanced Functional Materials</strong>, 31, 2005449 (2021)</div></div></div>
+  <div class="pub-row-nolink"><div class="pub-n">7</div><div><div class="pub-t">Synthesis of high-quality 2D carbide MXene flakes using a highly purified MAX precursor for ink applications</div><div class="pub-a">Shi-Hyun Seok, Seungjun Choo, Jinsung Kwak, Hyejin Ju, Ju-Hyong Han, Woo-Seok Kang, Joonsik Lee, Se-Yang Kim, Do Hee Lee, Jaewon Wang, <strong>Seunguk Song</strong>, Wook Jo, Byung Mun Jung, Han Gi Chae, Jae Sung Son, Soon-Yong Kwon*</div><div class="pub-v"><strong>Nanoscale Advances</strong>, 3, 517-527 (2021)</div></div></div>
+  <div class="pub-row-nolink"><div class="pub-n">6</div><div><div class="pub-t">Design of two-dimensional layered catalyst by coherent heteroepitaxial conversion for robust hydrogen generation</div><div class="pub-a">Yeoseon Sim, Aram Yoon, Hee Seong Kang, Jinsung Kwak, Se-Yang Kim, Yongsu Jo, Daeseong Choe, Woongki Na, Min Hee Lee, <strong>Seunguk Song</strong>, Jung-Woo Yoo, Hyeonsik Cheong, Jae Sung Lee, Chul-Ho Lee, Zonghoon Lee, Soon-Yong Kwon*</div><div class="pub-v"><strong>Advanced Functional Materials</strong>, 31, 2005449 (2021)</div></div></div>
   <div class="pub-yr">2020</div>
-  <a class="pub-row" data-adm-card data-adm-type="pub" href="https://www.nature.com/articles/s41928-020-0396-x" target="_blank"><div class="pub-n">5</div><div><div class="pub-t">Wafer-scale production of patterned transition metal ditelluride layers for 2D metal-semiconductor contacts at the Schottky–Mott limit</div><div class="pub-a"><strong>Seunguk Song</strong>, Yeoseon Sim, Se-Yang Kim, Jung Hwa Kim, Inseon Oh, Woong Ki Na, Do Hee Lee, Jaewon Wang, Shili Yan, Yinan Liu, Jinsung Kwak, Jian-Hao Chen, Hyeonsik Cheong, Jung-Woo Yoo, Zonghoon Lee, Soon-Yong Kwon*</div><div class="pub-v"><strong>Nature Electronics</strong>, 3, 207-215 (2020)</div></div></a>
-  <div class="pub-row-nolink" data-adm-card data-adm-type="pub"><div class="pub-n">4</div><div><div class="pub-t">Antiphase Boundaries as Faceted Metallic Wires in 2D Transition Metal Dichalcogenides</div><div class="pub-a">Jung Hwa Kim, Se-Yang Kim, Sung O. Park, Gwan Yeong Jung, <strong>Seunguk Song</strong>, Ahrum Sohn, Sang-Woo Kim, Sang Kyu Kwak, Soon-Yong Kwon*, Zonghoon Lee*</div><div class="pub-v"><strong>Advanced Science</strong>, 7, 2000788 (2020)</div></div></div>
+  <a class="pub-row" href="https://www.nature.com/articles/s41928-020-0396-x" target="_blank"><div class="pub-n">5</div><div><div class="pub-t">Wafer-scale production of patterned transition metal ditelluride layers for 2D metal-semiconductor contacts at the Schottky–Mott limit</div><div class="pub-a"><strong>Seunguk Song</strong>, Yeoseon Sim, Se-Yang Kim, Jung Hwa Kim, Inseon Oh, Woong Ki Na, Do Hee Lee, Jaewon Wang, Shili Yan, Yinan Liu, Jinsung Kwak, Jian-Hao Chen, Hyeonsik Cheong, Jung-Woo Yoo, Zonghoon Lee, Soon-Yong Kwon*</div><div class="pub-v"><strong>Nature Electronics</strong>, 3, 207-215 (2020)</div></div></a>
+  <div class="pub-row-nolink"><div class="pub-n">4</div><div><div class="pub-t">Antiphase Boundaries as Faceted Metallic Wires in 2D Transition Metal Dichalcogenides</div><div class="pub-a">Jung Hwa Kim, Se-Yang Kim, Sung O. Park, Gwan Yeong Jung, <strong>Seunguk Song</strong>, Ahrum Sohn, Sang-Woo Kim, Sang Kyu Kwak, Soon-Yong Kwon*, Zonghoon Lee*</div><div class="pub-v"><strong>Advanced Science</strong>, 7, 2000788 (2020)</div></div></div>
   <div class="pub-yr">2019</div>
-  <div class="pub-row-nolink" data-adm-card data-adm-type="pub"><div class="pub-n">3</div><div><div class="pub-t">Ultrathin Graphene Intercalation in PEDOT:PSS/Colorless Polyimide-Based Transparent Electrodes</div><div class="pub-a">Do Hee Lee, Hyung Duk Yun, Eui Dae Jung, Jae Hwan Chu, Yun Seok Nam, <strong>Seunguk Song</strong>, Shi-Hyun Seok, Myoung Hoon Song, Soon-Yong Kwon*</div><div class="pub-v"><strong>ACS Applied Materials &amp; Interfaces</strong>, 11, 21069 (2019)</div></div></div>
-  <a class="pub-row" data-adm-card data-adm-type="pub" href="https://onlinelibrary.wiley.com/doi/full/10.1002/advs.201801370" target="_blank"><div class="pub-n">2</div><div><div class="pub-t">Electrically robust single-crystalline WTe₂ nanobelts for nanoscale electrical interconnects (Frontispiece)</div><div class="pub-a"><strong>Seunguk Song</strong>, Se-Yang Kim, Jinsung Kwak, Yongsu Jo, Jung Hwa Kim, Jong Hwa Lee, Jae-Ung Lee, Jong Uk Kim, Hyung Duk Yun, Yeoseon Sim, Jaewon Wang, Do Hee Lee, Shi-Hyun Seok, Tae-il Kim, Hyeonsik Cheong, Zonghoon Lee, Soon-Yong Kwon*</div><div class="pub-v"><strong>Advanced Science</strong>, 6, 1801370 (2019)</div></div></a>
+  <div class="pub-row-nolink"><div class="pub-n">3</div><div><div class="pub-t">Ultrathin Graphene Intercalation in PEDOT:PSS/Colorless Polyimide-Based Transparent Electrodes</div><div class="pub-a">Do Hee Lee, Hyung Duk Yun, Eui Dae Jung, Jae Hwan Chu, Yun Seok Nam, <strong>Seunguk Song</strong>, Shi-Hyun Seok, Myoung Hoon Song, Soon-Yong Kwon*</div><div class="pub-v"><strong>ACS Applied Materials &amp; Interfaces</strong>, 11, 21069 (2019)</div></div></div>
+  <a class="pub-row" href="https://onlinelibrary.wiley.com/doi/full/10.1002/advs.201801370" target="_blank"><div class="pub-n">2</div><div><div class="pub-t">Electrically robust single-crystalline WTe₂ nanobelts for nanoscale electrical interconnects (Frontispiece)</div><div class="pub-a"><strong>Seunguk Song</strong>, Se-Yang Kim, Jinsung Kwak, Yongsu Jo, Jung Hwa Kim, Jong Hwa Lee, Jae-Ung Lee, Jong Uk Kim, Hyung Duk Yun, Yeoseon Sim, Jaewon Wang, Do Hee Lee, Shi-Hyun Seok, Tae-il Kim, Hyeonsik Cheong, Zonghoon Lee, Soon-Yong Kwon*</div><div class="pub-v"><strong>Advanced Science</strong>, 6, 1801370 (2019)</div></div></a>
   <div class="pub-yr">2018</div>
-  <a class="pub-row" data-adm-card data-adm-type="pub" href="https://onlinelibrary.wiley.com/doi/full/10.1002/adma.201707260" target="_blank"><div class="pub-n">1</div><div><div class="pub-t">Single-crystalline nanobelts composed of transition metal ditellurides</div><div class="pub-a">Jinsung Kwak, Yongsu Jo, <strong>Seunguk Song</strong>, Jung Hwa Kim, Se-Yang Kim, Jae-Ung Lee, Sungwoo Lee, Jungmin Park, Kangwon Kim, Gun-Do Lee, Jung-Woo Yoo, Sung Youb Kim, Young-Min Kong, Gwan-Hyoung Lee, Wan-Gyu Lee, Jucheol Park, Xiaodong Xu, Hyeonsik Cheong, Euijoon Yoon, Zonghoon Lee, Soon-Yong Kwon*</div><div class="pub-v"><strong>Advanced Materials</strong>, 30, 1707260 (2018)</div></div></a></div>
-  <div class="pub-section" id="orcid-pub-section" style="display:none"><div class="orcid-state" style="padding:var(--s5) var(--s2);text-align:center;font-family:var(--mono);font-size:.78rem;color:var(--ink3)">Loading live publications from ORCID…</div></div>
+  <a class="pub-row" href="https://onlinelibrary.wiley.com/doi/full/10.1002/adma.201707260" target="_blank"><div class="pub-n">1</div><div><div class="pub-t">Single-crystalline nanobelts composed of transition metal ditellurides</div><div class="pub-a">Jinsung Kwak, Yongsu Jo, <strong>Seunguk Song</strong>, Jung Hwa Kim, Se-Yang Kim, Jae-Ung Lee, Sungwoo Lee, Jungmin Park, Kangwon Kim, Gun-Do Lee, Jung-Woo Yoo, Sung Youb Kim, Young-Min Kong, Gwan-Hyoung Lee, Wan-Gyu Lee, Jucheol Park, Xiaodong Xu, Hyeonsik Cheong, Euijoon Yoon, Zonghoon Lee, Soon-Yong Kwon*</div><div class="pub-v"><strong>Advanced Materials</strong>, 30, 1707260 (2018)</div></div></a></div>
+  <div class="pub-section" id="orcid-pub-section" style="display:none"><div style="display: flex; align-items: center; gap: 0.6rem; margin-bottom: var(--s3); padding: .5rem var(--s2); background: var(--bg3); border-radius: var(--r2); border: 1px solid var(--border);"><img src="https://orcid.org/sites/default/files/images/orcid_16x16.png" alt="ORCID" width="16" height="16"><span style="font-family:var(--mono);font-size:.68rem;color:var(--ink3)">Auto-synced from ORCID · 25 works · Last updated: 2026. 6. 1.</span><a href="https://orcid.org/0000-0002-7075-9704" target="_blank" style="margin-left:auto;font-family:var(--mono);font-size:.65rem;color:var(--blue)">View on ORCID →</a></div><div class="pub-yr">2026</div><a class="pub-row" href="https://doi.org/10.1021/acs.nanolett.6c00871" target="_blank"><div class="pub-n">1</div><div><div class="pub-t">Near-Ideal van der Waals NbSe2 Contacts for WSe2 CMOS Electronics</div><div class="pub-a">Hyungyu Choi; Yunseo Song; Nasir Ali; Hoseong Shin; Tae Woong Yoon; Inhee Jeong; Hyokwang Park; Seunguk Song; Min Sup Choi; Boseok Kang; Won Jong Yoo</div><div class="pub-v">Nano Letters (2026)</div><div style="font-family: var(--mono); font-size: 0.68rem; color: var(--ink4);">DOI: 10.1021/acs.nanolett.6c00871</div></div></a><a class="pub-row" href="https://doi.org/10.1038/s44287-025-00251-w" target="_blank"><div class="pub-n">2</div><div><div class="pub-t">Indium selenides for next-generation low-power computing devices</div><div class="pub-a">Seunguk Song; Michael Altvater; Wonchan Lee; Hyeon Suk Shin; Nicholas Glavin; Deep Jariwala</div><div class="pub-v">Nature Reviews Electrical Engineering (2026)</div><div style="font-family: var(--mono); font-size: 0.68rem; color: var(--ink4);">DOI: 10.1038/s44287-025-00251-w</div></div></a><div class="pub-yr">2025</div><a class="pub-row" href="https://doi.org/10.1002/smsc.202500320" target="_blank"><div class="pub-n">3</div><div><div class="pub-t">Wafer‐Scale Fabrication of Edge‐Contacted Nanosheet Transistors via Alloying‐Mediated Phase Engineering</div><div class="pub-a">Sora Jang; Seunguk Song; Juwon Han; Aram Yoon; Jaewon Wang; Hyeonwoo Lee; Young Ho Jin; Yeoseon Sim; Zonghoon Lee; Changwook Jeong; Soon‐Yong Kwon</div><div class="pub-v">Small Science (2025)</div><div style="font-family: var(--mono); font-size: 0.68rem; color: var(--ink4);">DOI: 10.1002/smsc.202500320</div></div></a><a class="pub-row" href="https://doi.org/10.1038/s41467-025-62827-2" target="_blank"><div class="pub-n">4</div><div><div class="pub-t">Reconfigurable single-walled carbon nanotube ferroelectric field-effect transistors</div><div class="pub-a">Dongjoon Rhee; Kwan-Ho Kim; Jeffrey Zheng; Seunguk Song; Lian-Mao Peng; Roy H. Olsson, III; Joohoon Kang; Deep Jariwala</div><div class="pub-v">Nature Communications (2025)</div><div style="font-family: var(--mono); font-size: 0.68rem; color: var(--ink4);">DOI: 10.1038/s41467-025-62827-2</div></div></a><a class="pub-row" href="https://doi.org/10.1021/acsnano.4c17301" target="_blank"><div class="pub-n">5</div><div><div class="pub-t">High Current and Carrier Densities in 2D MoS2/AlScN Field-Effect Transistors via Ferroelectric Gating and Ohmic Contacts</div><div class="pub-a">Seunguk Song; Kwan-Ho Kim; Rachael Keneipp; Myeongjin Jung; Nicholas Trainor; Chen Chen; Jeffrey Zheng; Joan M. Redwing; Joohoon Kang; Marija Drndić; Roy H. Olsson III; Deep Jariwala</div><div class="pub-v">ACS Nano (2025)</div><div style="font-family: var(--mono); font-size: 0.68rem; color: var(--ink4);">DOI: 10.1021/acsnano.4c17301</div></div></a><a class="pub-row" href="https://doi.org/10.1039/D5NR02265G" target="_blank"><div class="pub-n">6</div><div><div class="pub-t">Metal-organic chemical vapour deposition of van der Waals 2D chalcogenides and heterostructures: a review</div><div class="pub-a">Yunjung Cho; Wonchan Lee; Inbae Song; Kangpyo Cho; Jihwan Jeon; Nasir Ali; Seunguk Song</div><div class="pub-v">Nanoscale (2025)</div><div style="font-family: var(--mono); font-size: 0.68rem; color: var(--ink4);">DOI: 10.1039/D5NR02265G</div></div></a><div class="pub-yr">2024</div><a class="pub-row" href="https://doi.org/10.1038/s41467-024-50653-x" target="_blank"><div class="pub-n">7</div><div><div class="pub-t">Confinement of excited states in two-dimensional, in-plane, quantum heterostructures</div><div class="pub-a">Gwangwoo Kim; Benjamin Huet; Christopher E. Stevens; Kiyoung Jo; Jeng-Yuan Tsai; Saiphaneendra Bachu; Meghan Leger; Seunguk Song; Mahfujur Rahaman; Kyung Yeol Ma; Nicholas R. Glavin; Hyeon Suk Shin; Nasim Alem; Qimin Yan; Joshua R. Hendrickson; Joan M. Redwing; Deep Jariwala</div><div class="pub-v">Nature Communications (2024)</div><div style="font-family: var(--mono); font-size: 0.68rem; color: var(--ink4);">DOI: 10.1038/s41467-024-50653-x</div></div></a><a class="pub-row" href="https://doi.org/10.1021/acsnano.4c03260" target="_blank"><div class="pub-n">8</div><div><div class="pub-t">Tunable Localized Charge Transfer Excitons in Nanoplatelet–2D Chalcogenide van der Waals Heterostructures</div><div class="pub-a">Mahfujur Rahaman; Emanuele Marino; Alan G. Joly; Christopher E. Stevens; Seunguk Song; Adam Alfieri; Zhiqiao Jiang; Brian T. O’Callahan; Daniel J. Rosen; Kiyoung Jo; Gwangwoo Kim; Joshua R. Hendrickson; Patrick Z. El-Khoury; Christopher Murray; Deep Jariwala</div><div class="pub-v">ACS Nano (2024)</div><div style="font-family: var(--mono); font-size: 0.68rem; color: var(--ink4);">DOI: 10.1021/acsnano.4c03260</div></div></a><a class="pub-row" href="https://doi.org/10.1021/acsnano.3c12938" target="_blank"><div class="pub-n">9</div><div><div class="pub-t">Can 2D Semiconductors Be Game-Changers for Nanoelectronics and Photonics?</div><div class="pub-a">Seunguk Song; Mahfujur Rahaman; Deep Jariwala</div><div class="pub-v">ACS Nano (2024)</div><div style="font-family: var(--mono); font-size: 0.68rem; color: var(--ink4);">DOI: 10.1021/acsnano.3c12938</div></div></a><a class="pub-row" href="https://doi.org/10.1021/acsnano.3c09279" target="_blank"><div class="pub-n">10</div><div><div class="pub-t">Tuning Polarity in WSe2/AlScN FeFETs via Contact Engineering</div><div class="pub-a">Kwan-Ho Kim; Seunguk Song; Bumho Kim; Pariasadat Musavigharavi; Nicholas Trainor; Keshava Katti; Chen Chen; Shalini Kumari; Jeffrey Zheng; Joan M. Redwing; Eric A. Stach; Roy H. Olsson III; Deep Jariwala</div><div class="pub-v">ACS Nano (2024)</div><div style="font-family: var(--mono); font-size: 0.68rem; color: var(--ink4);">DOI: 10.1021/acsnano.3c09279</div></div></a><div class="pub-yr">2023</div><a class="pub-row" href="https://doi.org/10.1063/5.0169689" target="_blank"><div class="pub-n">11</div><div><div class="pub-t">Negative capacitance field-effect transistors based on ferroelectric AlScN and 2D MoS2</div><div class="pub-v">Applied Physics Letters (2023)</div><div style="font-family: var(--mono); font-size: 0.68rem; color: var(--ink4);">DOI: 10.1063/5.0169689</div></div></a><a class="pub-row" href="https://doi.org/10.1038/s41699-023-00428-7" target="_blank"><div class="pub-n">12</div><div><div class="pub-t">Tailoring exciton dynamics in TMDC heterobilayers in the ultranarrow gap-plasmon regime</div><div class="pub-v">npj 2D Materials and Applications (2023)</div><div style="font-family: var(--mono); font-size: 0.68rem; color: var(--ink4);">DOI: 10.1038/s41699-023-00428-7</div></div></a><a class="pub-row" href="https://doi.org/10.1038/s41467-023-40448-x" target="_blank"><div class="pub-n">13</div><div><div class="pub-t">Fabrication of p-type 2D single-crystalline transistor arrays with Fermi-level-tuned van der Waals semimetal electrodes</div><div class="pub-v">Nature Communications (2023)</div><div style="font-family: var(--mono); font-size: 0.68rem; color: var(--ink4);">DOI: 10.1038/s41467-023-40448-x</div></div></a><a class="pub-row" href="https://doi.org/10.21203/rs.3.rs-3010992/v1" target="_blank"><div class="pub-n">14</div><div><div class="pub-t">Tailoring Exciton Dynamics in TMDC Heterobilayers in the Quantum Plasmonic Regime</div><div style="font-family: var(--mono); font-size: 0.68rem; color: var(--ink4);">DOI: 10.21203/rs.3.rs-3010992/v1</div></div></a><a class="pub-row" href="https://doi.org/10.1080/21663831.2022.2151852" target="_blank"><div class="pub-n">15</div><div><div class="pub-t">Spatially controlled two-dimensional quantum heterostructures</div><div class="pub-v">Materials Research Letters (2023)</div><div style="font-family: var(--mono); font-size: 0.68rem; color: var(--ink4);">DOI: 10.1080/21663831.2022.2151852</div></div></a><a class="pub-row" href="https://doi.org/10.1039/D3NR01987J" target="_blank"><div class="pub-n">16</div><div><div class="pub-t">Vertical van der Waals heterojunction diodes comprising 2D semiconductors on 3D β-Ga2O3</div><div class="pub-v">Nanoscale (2023)</div><div style="font-family: var(--mono); font-size: 0.68rem; color: var(--ink4);">DOI: 10.1039/D3NR01987J</div></div></a><div class="pub-yr">2022</div><a class="pub-row" href="https://doi.org/10.1016/j.isci.2022.105346" target="_blank"><div class="pub-n">17</div><div><div class="pub-t">Air-stable van der Waals PtTe2 conductors with high current-carrying capacity and strong spin-orbit interaction</div><div class="pub-v">iScience (2022)</div><div style="font-family: var(--mono); font-size: 0.68rem; color: var(--ink4);">DOI: 10.1016/j.isci.2022.105346</div></div></a><a class="pub-row" href="https://doi.org/10.1038/s41467-022-32582-9" target="_blank"><div class="pub-n">18</div><div><div class="pub-t">Atomic transistors based on seamless lateral metal-semiconductor junctions with a sub-1-nm transfer length</div><div class="pub-v">Nature Communications (2022)</div><div style="font-family: var(--mono); font-size: 0.68rem; color: var(--ink4);">DOI: 10.1038/s41467-022-32582-9</div></div></a><div class="pub-yr">2021</div><a class="pub-row" href="https://doi.org/10.1002/adfm.202005449" target="_blank"><div class="pub-n">19</div><div><div class="pub-t">Design of 2D Layered Catalyst by Coherent Heteroepitaxial Conversion for Robust Hydrogen Generation</div><div class="pub-v">Advanced Functional Materials (2021)</div><div style="font-family: var(--mono); font-size: 0.68rem; color: var(--ink4);">DOI: 10.1002/adfm.202005449</div></div></a><a class="pub-row" href="https://doi.org/10.1039/d0na00398k" target="_blank"><div class="pub-n">20</div><div><div class="pub-t">Synthesis of high quality 2D carbide MXene flakes using a highly purified MAX precursor for ink applications</div><div class="pub-v">Nanoscale Advances (2021)</div><div style="font-family: var(--mono); font-size: 0.68rem; color: var(--ink4);">DOI: 10.1039/d0na00398k</div></div></a><div class="pub-yr">2020</div><a class="pub-row" href="https://doi.org/10.1002/advs.202000788" target="_blank"><div class="pub-n">21</div><div><div class="pub-t">Antiphase Boundaries as Faceted Metallic Wires in 2D Transition Metal Dichalcogenides</div><div class="pub-v">Advanced Science (2020)</div><div style="font-family: var(--mono); font-size: 0.68rem; color: var(--ink4);">DOI: 10.1002/advs.202000788</div></div></a><a class="pub-row" href="https://doi.org/10.1038/s41928-020-0396-x" target="_blank"><div class="pub-n">22</div><div><div class="pub-t">Wafer-scale production of patterned transition metal ditelluride layers for two-dimensional metal–semiconductor contacts at the Schottky–Mott limit</div><div class="pub-v">Nature Electronics (2020)</div><div style="font-family: var(--mono); font-size: 0.68rem; color: var(--ink4);">DOI: 10.1038/s41928-020-0396-x</div></div></a><div class="pub-yr">2019</div><a class="pub-row" href="https://doi.org/10.1002/advs.201801370" target="_blank"><div class="pub-n">23</div><div><div class="pub-t">Electrically Robust Single-Crystalline WTe&lt;sub&gt;2&lt;/sub&gt; Nanobelts for Nanoscale Electrical Interconnects</div><div class="pub-v">Advanced Science (2019)</div><div style="font-family: var(--mono); font-size: 0.68rem; color: var(--ink4);">DOI: 10.1002/advs.201801370</div></div></a><a class="pub-row" href="https://doi.org/10.1021/acsami.9b04118" target="_blank"><div class="pub-n">24</div><div><div class="pub-t">Ultrathin Graphene Intercalation in PEDOT:PSS/Colorless Polyimide-Based Transparent Electrodes for Enhancement of Optoelectronic Performance and Operational Stability of Organic Devices</div><div class="pub-v">ACS Applied Materials and Interfaces (2019)</div><div style="font-family: var(--mono); font-size: 0.68rem; color: var(--ink4);">DOI: 10.1021/acsami.9b04118</div></div></a><div class="pub-yr">2018</div><a class="pub-row" href="https://doi.org/10.1002/adma.201707260" target="_blank"><div class="pub-n">25</div><div><div class="pub-t">Single-Crystalline Nanobelts Composed of Transition Metal Ditellurides</div><div class="pub-v">Advanced Materials (2018)</div><div style="font-family: var(--mono); font-size: 0.68rem; color: var(--ink4);">DOI: 10.1002/adma.201707260</div></div></a></div>
   <footer><div class="ft-left"><div class="ft-logo">QS Lab</div><div class="ft-addr"><a href="https://scholar.google.com/citations?user=IS8WIlBo_iIC" target="_blank" style="color:rgba(255,255,255,.6)">Google Scholar</a></div></div><div class="ft-right"><div class="ft-dept">© QS Lab, SKKU<span class="ft-admin-trigger">·</span></div></div></footer>
 </main>
 
@@ -1957,12 +1913,12 @@ body.admin-on .news-edit-btns { display: flex; }
     <div class="eq-head"><h2>Lab-Dedicated Instruments</h2><span class="t-eyebrow">QS Lab · in-house</span></div>
     <p class="eq-intro">Core synthesis and low-temperature transport systems operated solely by our group at N Center, SKKU — the backbone of our day-to-day growth and device measurement.</p>
     <div class="eq-grid" id="eq-grid">
-    <div class="eq-card" data-adm-card data-adm-type="equipment"><img class="eq-photo" src="assets/equipment/mocvd.jpg" alt="Cold-Wall MOCVD system"><div class="eq-n">01</div><div class="eq-name">Cold-Wall MOCVD</div><div class="eq-sub">III–VI Compound Semiconductors</div><p class="eq-desc">Metal-organic CVD with cold-wall reactor for wafer-scale growth of III–VI compound semiconductors — InSe, In₂Se₃, and GaₓIn₁₋ₓSeᵧ alloys — with controlled composition and layer number.</p><div class="eq-tags"><span class="eq-tag">MOCVD</span><span class="eq-tag">InSe · In₂Se₃</span><span class="eq-tag">(In,Ga)Se</span><span class="eq-tag">Wafer-scale</span></div></div>
-    <div class="eq-card" data-adm-card data-adm-type="equipment"><img class="eq-photo" src="assets/equipment/mocvd-sc.jpg" alt="MOCVD Quantum Heterostructures system"><div class="eq-n">02</div><div class="eq-name">Cold-Wall MOCVD</div><div class="eq-sub">Superconductors &amp; vdW Heterostructures</div><p class="eq-desc">Dedicated MOCVD with in-situ monitoring for FeSe₁₋ₓTeₓ topological superconductor films and lateral in-plane 2D heterostructures.</p><div class="eq-tags"><span class="eq-tag">Heterostructures</span><span class="eq-tag">FeSeTe</span><span class="eq-tag">Topological SC</span></div></div>
-    <div class="eq-card" data-adm-card data-adm-type="equipment"><img class="eq-photo eq-cover" src="assets/equipment/thermal-cvd.jpg" alt="Thermal CVD system"><div class="eq-n">03</div><div class="eq-name">Thermal CVD</div><div class="eq-sub">Topological Semimetals &amp; Chalcogenides</div><p class="eq-desc">Tube-furnace CVD for PtTe₂, WTe₂, MoTe₂, CuCrP₂S₆, CuCrS₂. SCVD protocols with halide salt precursors.</p><div class="eq-tags"><span class="eq-tag">Thermal CVD</span><span class="eq-tag">Ditellurides</span><span class="eq-tag">SCVD</span></div></div>
-    <div class="eq-card" data-adm-card data-adm-type="equipment"><img class="eq-photo eq-cover" src="assets/equipment/probe-station.jpg" alt="Cryogenic Probe Station"><div class="eq-n">04</div><div class="eq-name">Cryogenic Probe Station</div><div class="eq-sub">Magnetotransport &amp; Superconductivity</div><p class="eq-desc">Low-temperature transport to ≈4 K with magnetic fields. BKT transitions, quantum phase transitions, magnetotransport.</p><div class="eq-tags"><span class="eq-tag">Cryogenic 4K</span><span class="eq-tag">Magnetotransport</span><span class="eq-tag">BKT</span></div></div>
-    <div class="eq-card" data-adm-card data-adm-type="equipment"><img class="eq-photo eq-cover" src="assets/equipment/om-wiring.jpg" alt="Optical microscopy & device wiring station"><div class="eq-n">05</div><div class="eq-name">Optical Microscopy &amp; Device Wiring</div><div class="eq-sub">Sample Preparation</div><p class="eq-desc">Optical microscopy with micromanipulator for layer identification, wire bonding, and probe contacts.</p><div class="eq-tags"><span class="eq-tag">Optical</span><span class="eq-tag">Layer ID</span><span class="eq-tag">Wire bonding</span></div></div>
-    <div class="eq-card" data-adm-card data-adm-type="equipment"><img class="eq-photo eq-cover" src="assets/equipment/hotwall-mocvd.jpg" alt="Hot-wall MOCVD system"><div class="eq-n">06</div><div class="eq-name">Hot-Wall MOCVD</div><div class="eq-sub">TMD Semiconductor Growth</div><p class="eq-desc">Hot-wall metal-organic CVD for wafer-scale growth of 2D semiconductors such as WS₂ and MoSe₂ with uniform layer control.</p><div class="eq-tags"><span class="eq-tag">MOCVD</span><span class="eq-tag">Hot-wall</span><span class="eq-tag">WS₂ · MoSe₂</span></div></div>
+    <div class="eq-card"><img class="eq-photo" src="assets/equipment/mocvd.jpg" alt="Cold-Wall MOCVD system"><div class="eq-n">01</div><div class="eq-name">Cold-Wall MOCVD</div><div class="eq-sub">III–VI Compound Semiconductors</div><p class="eq-desc">Metal-organic CVD with cold-wall reactor for wafer-scale growth of III–VI compound semiconductors — InSe, In₂Se₃, and GaₓIn₁₋ₓSeᵧ alloys — with controlled composition and layer number.</p><div class="eq-tags"><span class="eq-tag">MOCVD</span><span class="eq-tag">InSe · In₂Se₃</span><span class="eq-tag">(In,Ga)Se</span><span class="eq-tag">Wafer-scale</span></div></div>
+    <div class="eq-card"><img class="eq-photo" src="assets/equipment/mocvd-sc.jpg" alt="MOCVD Quantum Heterostructures system"><div class="eq-n">02</div><div class="eq-name">Cold-Wall MOCVD</div><div class="eq-sub">Superconductors &amp; vdW Heterostructures</div><p class="eq-desc">Dedicated MOCVD with in-situ monitoring for FeSe₁₋ₓTeₓ topological superconductor films and lateral in-plane 2D heterostructures.</p><div class="eq-tags"><span class="eq-tag">Heterostructures</span><span class="eq-tag">FeSeTe</span><span class="eq-tag">Topological SC</span></div></div>
+    <div class="eq-card"><img class="eq-photo eq-cover" src="assets/equipment/thermal-cvd.jpg" alt="Thermal CVD system"><div class="eq-n">03</div><div class="eq-name">Thermal CVD</div><div class="eq-sub">Topological Semimetals &amp; Chalcogenides</div><p class="eq-desc">Tube-furnace CVD for PtTe₂, WTe₂, MoTe₂, CuCrP₂S₆, CuCrS₂. SCVD protocols with halide salt precursors.</p><div class="eq-tags"><span class="eq-tag">Thermal CVD</span><span class="eq-tag">Ditellurides</span><span class="eq-tag">SCVD</span></div></div>
+    <div class="eq-card"><img class="eq-photo eq-cover" src="assets/equipment/probe-station.jpg" alt="Cryogenic Probe Station"><div class="eq-n">04</div><div class="eq-name">Cryogenic Probe Station</div><div class="eq-sub">Magnetotransport &amp; Superconductivity</div><p class="eq-desc">Low-temperature transport to ≈4 K with magnetic fields. BKT transitions, quantum phase transitions, magnetotransport.</p><div class="eq-tags"><span class="eq-tag">Cryogenic 4K</span><span class="eq-tag">Magnetotransport</span><span class="eq-tag">BKT</span></div></div>
+    <div class="eq-card"><img class="eq-photo eq-cover" src="assets/equipment/om-wiring.jpg" alt="Optical microscopy &amp; device wiring station"><div class="eq-n">05</div><div class="eq-name">Optical Microscopy &amp; Device Wiring</div><div class="eq-sub">Sample Preparation</div><p class="eq-desc">Optical microscopy with micromanipulator for layer identification, wire bonding, and probe contacts.</p><div class="eq-tags"><span class="eq-tag">Optical</span><span class="eq-tag">Layer ID</span><span class="eq-tag">Wire bonding</span></div></div>
+    <div class="eq-card"><img class="eq-photo eq-cover" src="assets/equipment/hotwall-mocvd.jpg" alt="Hot-wall MOCVD system"><div class="eq-n">06</div><div class="eq-name">Hot-Wall MOCVD</div><div class="eq-sub">TMD Semiconductor Growth</div><p class="eq-desc">Hot-wall metal-organic CVD for wafer-scale growth of 2D semiconductors such as WS₂ and MoSe₂ with uniform layer control.</p><div class="eq-tags"><span class="eq-tag">MOCVD</span><span class="eq-tag">Hot-wall</span><span class="eq-tag">WS₂ · MoSe₂</span></div></div>
     </div>
   </section>
   <section class="eq-sec">
@@ -1976,12 +1932,12 @@ body.admin-on .news-edit-btns { display: flex; }
       <p>AQT is operated under the <span class="mem">IBS Center for 2D Quantum Heterostructures (2DQH)</span>, which our group is part of — and it shares our building at N-Center, so its core systems sit steps from our growth reactors.</p>
     </div>
     <div class="eq-grid">
-      <div class="eq-card" data-adm-card data-adm-type="equipment"><div class="eq-n">01</div><div class="eq-name">Cs-corrected STEM / TEM</div><div class="eq-sub">JEM-ARM300CF · ARM200CF</div><p class="eq-desc">Aberration-corrected scanning/transmission electron microscopy with EDS and EELS — atomic-scale structure and chemistry of 2D crystals, defects, and heterointerfaces.</p><div class="eq-tags"><span class="eq-tag">Atomic-res</span><span class="eq-tag">STEM/TEM</span><span class="eq-tag">EDS</span><span class="eq-tag">EELS</span></div></div>
-      <div class="eq-card" data-adm-card data-adm-type="equipment"><div class="eq-n">02</div><div class="eq-name">PPMS Dynacool</div><div class="eq-sub">Cryogenic Magnetotransport</div><p class="eq-desc">Cryogen-free physical property measurement at 1.8–400 K and up to 14 T (and 9 T) — magnetotransport, Hall, and superconducting characterization of our devices.</p><div class="eq-tags"><span class="eq-tag">1.8–400 K</span><span class="eq-tag">14 T</span><span class="eq-tag">Hall</span></div></div>
-      <div class="eq-card" data-adm-card data-adm-type="equipment"><div class="eq-n">03</div><div class="eq-name">X-ray Diffractometer</div><div class="eq-sub">SmartLab 9 kW</div><p class="eq-desc">High-resolution X-ray diffraction for phase identification, crystal orientation, and thin-film structural analysis of as-grown 2D layers.</p><div class="eq-tags"><span class="eq-tag">XRD</span><span class="eq-tag">Thin-film</span><span class="eq-tag">Phase</span></div></div>
-      <div class="eq-card" data-adm-card data-adm-type="equipment"><div class="eq-n">04</div><div class="eq-name">Confocal Raman Imaging</div><div class="eq-sub">2D Layer Characterization</div><p class="eq-desc">Confocal Raman mapping for layer number, strain, doping, and quality across wafer-scale as-grown 2D semiconductors.</p><div class="eq-tags"><span class="eq-tag">Raman</span><span class="eq-tag">Imaging</span><span class="eq-tag">Layer ID</span></div></div>
-      <div class="eq-card" data-adm-card data-adm-type="equipment"><div class="eq-n">05</div><div class="eq-name">Ultra-low-frequency Raman</div><div class="eq-sub">Interlayer Phonons</div><p class="eq-desc">Access to ultra-low-frequency shear and breathing modes to probe interlayer coupling and stacking order in van der Waals heterostructures.</p><div class="eq-tags"><span class="eq-tag">Low-freq Raman</span><span class="eq-tag">Interlayer</span><span class="eq-tag">Stacking</span></div></div>
-      <div class="eq-card" data-adm-card data-adm-type="equipment"><div class="eq-n">06</div><div class="eq-name">THz Near-field Microscope</div><div class="eq-sub">Nanoscale Optics · SNOM</div><p class="eq-desc">Terahertz scanning near-field optical microscopy for sub-diffraction conductivity and carrier-density imaging, complemented by femtosecond transient-absorption and time-resolved PL.</p><div class="eq-tags"><span class="eq-tag">THz</span><span class="eq-tag">SNOM</span><span class="eq-tag">Ultrafast</span></div></div>
+      <div class="eq-card"><div class="eq-n">01</div><div class="eq-name">Cs-corrected STEM / TEM</div><div class="eq-sub">JEM-ARM300CF · ARM200CF</div><p class="eq-desc">Aberration-corrected scanning/transmission electron microscopy with EDS and EELS — atomic-scale structure and chemistry of 2D crystals, defects, and heterointerfaces.</p><div class="eq-tags"><span class="eq-tag">Atomic-res</span><span class="eq-tag">STEM/TEM</span><span class="eq-tag">EDS</span><span class="eq-tag">EELS</span></div></div>
+      <div class="eq-card"><div class="eq-n">02</div><div class="eq-name">PPMS Dynacool</div><div class="eq-sub">Cryogenic Magnetotransport</div><p class="eq-desc">Cryogen-free physical property measurement at 1.8–400 K and up to 14 T (and 9 T) — magnetotransport, Hall, and superconducting characterization of our devices.</p><div class="eq-tags"><span class="eq-tag">1.8–400 K</span><span class="eq-tag">14 T</span><span class="eq-tag">Hall</span></div></div>
+      <div class="eq-card"><div class="eq-n">03</div><div class="eq-name">X-ray Diffractometer</div><div class="eq-sub">SmartLab 9 kW</div><p class="eq-desc">High-resolution X-ray diffraction for phase identification, crystal orientation, and thin-film structural analysis of as-grown 2D layers.</p><div class="eq-tags"><span class="eq-tag">XRD</span><span class="eq-tag">Thin-film</span><span class="eq-tag">Phase</span></div></div>
+      <div class="eq-card"><div class="eq-n">04</div><div class="eq-name">Confocal Raman Imaging</div><div class="eq-sub">2D Layer Characterization</div><p class="eq-desc">Confocal Raman mapping for layer number, strain, doping, and quality across wafer-scale as-grown 2D semiconductors.</p><div class="eq-tags"><span class="eq-tag">Raman</span><span class="eq-tag">Imaging</span><span class="eq-tag">Layer ID</span></div></div>
+      <div class="eq-card"><div class="eq-n">05</div><div class="eq-name">Ultra-low-frequency Raman</div><div class="eq-sub">Interlayer Phonons</div><p class="eq-desc">Access to ultra-low-frequency shear and breathing modes to probe interlayer coupling and stacking order in van der Waals heterostructures.</p><div class="eq-tags"><span class="eq-tag">Low-freq Raman</span><span class="eq-tag">Interlayer</span><span class="eq-tag">Stacking</span></div></div>
+      <div class="eq-card"><div class="eq-n">06</div><div class="eq-name">THz Near-field Microscope</div><div class="eq-sub">Nanoscale Optics · SNOM</div><p class="eq-desc">Terahertz scanning near-field optical microscopy for sub-diffraction conductivity and carrier-density imaging, complemented by femtosecond transient-absorption and time-resolved PL.</p><div class="eq-tags"><span class="eq-tag">THz</span><span class="eq-tag">SNOM</span><span class="eq-tag">Ultrafast</span></div></div>
     </div>
 
     <div class="fac-band">
@@ -1992,11 +1948,11 @@ body.admin-on .news-edit-btns { display: flex; }
     </div>
     <div class="fac-note">A full nanofabrication cleanroom — the standard process tools we use to build devices.</div>
     <div class="eq-grid">
-      <div class="eq-card" data-adm-card data-adm-type="equipment"><div class="eq-n">01</div><div class="eq-name">E-beam Evaporator</div><div class="eq-sub">Metal Deposition</div><p class="eq-desc">Electron-beam evaporation of high-purity metals for source/drain contacts and gate electrodes.</p><div class="eq-tags"><span class="eq-tag">Evaporation</span><span class="eq-tag">Contacts</span></div></div>
-      <div class="eq-card" data-adm-card data-adm-type="equipment"><div class="eq-n">02</div><div class="eq-name">Sputtering System</div><div class="eq-sub">Thin-Film Deposition</div><p class="eq-desc">Sputter deposition of metals and dielectrics for device stacks and encapsulation layers.</p><div class="eq-tags"><span class="eq-tag">Sputter</span><span class="eq-tag">Dielectrics</span></div></div>
-      <div class="eq-card" data-adm-card data-adm-type="equipment"><div class="eq-n">03</div><div class="eq-name">E-beam Lithography</div><div class="eq-sub">Nanoscale Patterning</div><p class="eq-desc">Direct-write electron-beam lithography for sub-100 nm device geometries and fine electrodes.</p><div class="eq-tags"><span class="eq-tag">EBL</span><span class="eq-tag">Sub-100 nm</span></div></div>
-      <div class="eq-card" data-adm-card data-adm-type="equipment"><div class="eq-n">04</div><div class="eq-name">Mask Aligner</div><div class="eq-sub">Photolithography</div><p class="eq-desc">UV contact-aligner photolithography for rapid, wafer-scale device patterning.</p><div class="eq-tags"><span class="eq-tag">Photolitho</span><span class="eq-tag">Wafer-scale</span></div></div>
-      <div class="eq-card" data-adm-card data-adm-type="equipment"><div class="eq-n">05</div><div class="eq-name">Reactive Ion Etcher</div><div class="eq-sub">Dry Etching</div><p class="eq-desc">Plasma-based reactive ion etching for anisotropic pattern transfer and layer thinning.</p><div class="eq-tags"><span class="eq-tag">RIE</span><span class="eq-tag">Plasma etch</span></div></div>
+      <div class="eq-card"><div class="eq-n">01</div><div class="eq-name">E-beam Evaporator</div><div class="eq-sub">Metal Deposition</div><p class="eq-desc">Electron-beam evaporation of high-purity metals for source/drain contacts and gate electrodes.</p><div class="eq-tags"><span class="eq-tag">Evaporation</span><span class="eq-tag">Contacts</span></div></div>
+      <div class="eq-card"><div class="eq-n">02</div><div class="eq-name">Sputtering System</div><div class="eq-sub">Thin-Film Deposition</div><p class="eq-desc">Sputter deposition of metals and dielectrics for device stacks and encapsulation layers.</p><div class="eq-tags"><span class="eq-tag">Sputter</span><span class="eq-tag">Dielectrics</span></div></div>
+      <div class="eq-card"><div class="eq-n">03</div><div class="eq-name">E-beam Lithography</div><div class="eq-sub">Nanoscale Patterning</div><p class="eq-desc">Direct-write electron-beam lithography for sub-100 nm device geometries and fine electrodes.</p><div class="eq-tags"><span class="eq-tag">EBL</span><span class="eq-tag">Sub-100 nm</span></div></div>
+      <div class="eq-card"><div class="eq-n">04</div><div class="eq-name">Mask Aligner</div><div class="eq-sub">Photolithography</div><p class="eq-desc">UV contact-aligner photolithography for rapid, wafer-scale device patterning.</p><div class="eq-tags"><span class="eq-tag">Photolitho</span><span class="eq-tag">Wafer-scale</span></div></div>
+      <div class="eq-card"><div class="eq-n">05</div><div class="eq-name">Reactive Ion Etcher</div><div class="eq-sub">Dry Etching</div><p class="eq-desc">Plasma-based reactive ion etching for anisotropic pattern transfer and layer thinning.</p><div class="eq-tags"><span class="eq-tag">RIE</span><span class="eq-tag">Plasma etch</span></div></div>
     </div>
   </section>
   <footer><div class="ft-left"><div class="ft-logo">QS Lab</div><div class="ft-addr">N Center 3F #86383, SKKU</div></div><div class="ft-right"><div class="ft-dept">© QS Lab, SKKU<span class="ft-admin-trigger">·</span></div></div></footer>
@@ -2010,18 +1966,18 @@ body.admin-on .news-edit-btns { display: flex; }
     <div class="sl-right sl-affil"><span>Dept. of Energy Science</span><span>Dept. of Energy · SKKU</span></div>
   </div>
   <div class="sem-wrap" id="sem-wrap"><div class="sem-label">2026 Spring</div>
-  <div class="ccard" data-adm-card data-adm-type="course"><div class="ccard-head"><span class="cbadge cb-ug">UG / Master</span><div><h3>Nanoscale Surface and Thin Film Science</h3><div class="ccard-code">ESC4023-41</div></div></div><div class="ccard-body">Thin film engineering — deposition fundamentals, vacuum technology, surface science, microstructure control, and analytical characterization.</div></div>
-  <div class="ccard" data-adm-card data-adm-type="course"><div class="ccard-head"><span class="cbadge cb-ug">Undergraduate</span><div><h3>Mathematics for Energy</h3><div class="ccard-code">COO2002</div></div></div><div class="ccard-body">Mathematical modeling for energy systems. Translating physical phenomena into frameworks for design, analysis, and optimization.</div></div>
+  <div class="ccard"><div class="ccard-head"><span class="cbadge cb-ug">UG / Master</span><div><h3>Nanoscale Surface and Thin Film Science</h3><div class="ccard-code">ESC4023-41</div></div></div><div class="ccard-body">Thin film engineering — deposition fundamentals, vacuum technology, surface science, microstructure control, and analytical characterization.</div></div>
+  <div class="ccard"><div class="ccard-head"><span class="cbadge cb-ug">Undergraduate</span><div><h3>Mathematics for Energy</h3><div class="ccard-code">COO2002</div></div></div><div class="ccard-body">Mathematical modeling for energy systems. Translating physical phenomena into frameworks for design, analysis, and optimization.</div></div>
   <div class="sem-label" style="margin-top:2.5rem">2025 Fall</div>
-  <div class="ccard" data-adm-card data-adm-type="course"><div class="ccard-head"><span class="cbadge cb-ug">UG / Master</span><div><h3>Low-Power Semiconductor Process</h3></div></div><div class="ccard-body">Semiconductor fabrication: diffusion, oxidation, lithography, deposition, CMOS integration.<div class="ctime">Thursday 15:00–16:15, 16:30–17:45</div></div></div>
-  <div class="ccard" data-adm-card data-adm-type="course"><div class="ccard-head"><span class="cbadge cb-grad">Graduate</span><div><h3>Low-Dimensional Heterostructures and Electrical Devices</h3></div></div><div class="ccard-body">2D material properties, band structure engineering, ferroelectric transistors, low-energy computing platforms.<div class="ctime">Friday 15:00–16:15, 16:30–17:45</div></div></div>
+  <div class="ccard"><div class="ccard-head"><span class="cbadge cb-ug">UG / Master</span><div><h3>Low-Power Semiconductor Process</h3></div></div><div class="ccard-body">Semiconductor fabrication: diffusion, oxidation, lithography, deposition, CMOS integration.<div class="ctime">Thursday 15:00–16:15, 16:30–17:45</div></div></div>
+  <div class="ccard graduate"><div class="ccard-head"><span class="cbadge cb-grad">Graduate</span><div><h3>Low-Dimensional Heterostructures and Electrical Devices</h3></div></div><div class="ccard-body">2D material properties, band structure engineering, ferroelectric transistors, low-energy computing platforms.<div class="ctime">Friday 15:00–16:15, 16:30–17:45</div></div></div>
   <div class="sem-label" style="margin-top:2.5rem">2025 Spring</div>
-  <div class="ccard" data-adm-card data-adm-type="course"><div class="ccard-head"><span class="cbadge cb-ug">UG / Master</span><div><h3>Nanoscale Surface and Thin Film Science</h3><div class="ccard-code">ESC4023-41</div></div></div><div class="ccard-body">Same curriculum as 2026 Spring.<div class="ctime">Friday 15:00–16:15, 16:30–17:45</div></div></div>
-  <div class="ccard" data-adm-card data-adm-type="course"><div class="ccard-head"><span class="cbadge cb-grad">Graduate</span><div><h3>Introduction to Low-Dimensional van der Waals Materials</h3><div class="ccard-code">ESC518-41</div></div></div><div class="ccard-body">2D material fundamentals, analytical tools, vdW heterostructures and applications.<div class="ctime">Thursday 15:00–16:15, 16:30–17:45</div></div></div>
+  <div class="ccard"><div class="ccard-head"><span class="cbadge cb-ug">UG / Master</span><div><h3>Nanoscale Surface and Thin Film Science</h3><div class="ccard-code">ESC4023-41</div></div></div><div class="ccard-body">Same curriculum as 2026 Spring.<div class="ctime">Friday 15:00–16:15, 16:30–17:45</div></div></div>
+  <div class="ccard graduate"><div class="ccard-head"><span class="cbadge cb-grad">Graduate</span><div><h3>Introduction to Low-Dimensional van der Waals Materials</h3><div class="ccard-code">ESC518-41</div></div></div><div class="ccard-body">2D material fundamentals, analytical tools, vdW heterostructures and applications.<div class="ctime">Thursday 15:00–16:15, 16:30–17:45</div></div></div>
   <div class="sem-label" style="margin-top:2.5rem">2024 Fall</div>
-  <div class="ccard" data-adm-card data-adm-type="course"><div class="ccard-head"><span class="cbadge cb-grad">Graduate</span><div><h3>Energy Nanomaterials 1 (에너지나노소재1)</h3><div class="ccard-code">ESC5002-41</div></div></div><div class="ccard-body">Energy-efficient electrical devices: materials science and chemistry.<div class="ctime">Thursday 12:00–13:15, 13:30–14:45</div></div></div></div>
+  <div class="ccard graduate"><div class="ccard-head"><span class="cbadge cb-grad">Graduate</span><div><h3>Energy Nanomaterials 1 (에너지나노소재1)</h3><div class="ccard-code">ESC5002-41</div></div></div><div class="ccard-body">Energy-efficient electrical devices: materials science and chemistry.<div class="ctime">Thursday 12:00–13:15, 13:30–14:45</div></div></div></div>
   <div style="height:var(--s4)"></div>
-  <footer><div class="ft-left"><div class="ft-logo">QS Lab</div><div class="ft-addr"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="7a091f0f141d0f113a0911110f541f1e0f">[email&#160;protected]</a> · Dept. of Energy Science, SKKU</div></div><div class="ft-right"><div class="ft-dept">© QS Lab, SKKU<span class="ft-admin-trigger">·</span></div></div></footer>
+  <footer><div class="ft-left"><div class="ft-logo">QS Lab</div><div class="ft-addr"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="7a091f0f141d0f113a0911110f541f1e0f">[email&nbsp;protected]</a> · Dept. of Energy Science, SKKU</div></div><div class="ft-right"><div class="ft-dept">© QS Lab, SKKU<span class="ft-admin-trigger">·</span></div></div></footer>
 </main>
 
 <!-- ═══════════════ NEWS ═══════════════ -->
@@ -2032,7 +1988,7 @@ body.admin-on .news-edit-btns { display: flex; }
     <div class="sl-right"><div class="sl-st"><div class="n">Mar 2026</div><div class="l">Latest update</div></div></div>
   </div>
   <div class="news-wrap" id="news-list-wrap">
-  <div class="news-item" data-adm-card data-adm-type="news">
+  <div class="news-item">
     <div class="news-date">2026-03-20</div>
     <div class="news-content">
       <h3>Sooyoung Choi joins as Research Associate</h3>
@@ -2040,7 +1996,7 @@ body.admin-on .news-edit-btns { display: flex; }
     </div>
   </div>
 
-  <div class="news-item" data-adm-card data-adm-type="news">
+  <div class="news-item">
     <div class="news-date">2026-03-19</div>
     <div class="news-content">
       <h3>Prof. Song selected as Nanoscale 2026 Emerging Investigator</h3>
@@ -2049,7 +2005,7 @@ body.admin-on .news-edit-btns { display: flex; }
     </div>
   </div>
 
-  <div class="news-item" data-adm-card data-adm-type="news">
+  <div class="news-item">
     <div class="news-date">2026-03-02</div>
     <div class="news-content">
       <h3>New undergraduate interns join QS Lab</h3>
@@ -2057,7 +2013,7 @@ body.admin-on .news-edit-btns { display: flex; }
     </div>
   </div>
 
-  <div class="news-item" data-adm-card data-adm-type="news">
+  <div class="news-item">
     <div class="news-date">2026-01-28</div>
     <div class="news-content">
       <h3>33rd Korean Conference on Semiconductors</h3>
@@ -2066,7 +2022,7 @@ body.admin-on .news-edit-btns { display: flex; }
     </div>
   </div>
 
-  <div class="news-item" data-adm-card data-adm-type="news">
+  <div class="news-item">
     <div class="news-date">2026-01-26</div>
     <div class="news-content">
       <h3>International Joint Workshop with NUS IFIM (Singapore)</h3>
@@ -2075,7 +2031,7 @@ body.admin-on .news-edit-btns { display: flex; }
     </div>
   </div>
 
-  <div class="news-item" data-adm-card data-adm-type="news">
+  <div class="news-item">
     <div class="news-date">2026-01-06</div>
     <div class="news-content">
       <h3>Nature Reviews Electrical Engineering — Indium selenides review published</h3>
@@ -2084,7 +2040,7 @@ body.admin-on .news-edit-btns { display: flex; }
     </div>
   </div>
 
-  <div class="news-item" data-adm-card data-adm-type="news">
+  <div class="news-item">
     <div class="news-date">2026-01-05</div>
     <div class="news-content">
       <h3>Gunmo Koo joins as undergraduate intern</h3>
@@ -2092,16 +2048,16 @@ body.admin-on .news-edit-btns { display: flex; }
     </div>
   </div>
 
-  <div class="news-item" data-adm-card data-adm-type="news">
+  <div class="news-item">
     <div class="news-date">2025-12-12</div>
     <div class="news-content">
       <h3>Joint Workshop with IBS &amp; University of Cambridge at ICAMD, Busan</h3>
       <p>Our lab, the IBS Center for 2D Quantum Heterostructures, and the University of Cambridge held a joint workshop at ICAMD in Busan — with talks by Profs. Mete Atatüre, Andrea Ferrari, and Manish Chhowalla.</p>
-      <img src="assets/news/icamd-cambridge.jpg" alt="Joint Workshop with IBS & University of Cambridge at ICAMD, Busan">
+      <img src="assets/news/icamd-cambridge.jpg" alt="Joint Workshop with IBS &amp; University of Cambridge at ICAMD, Busan">
     </div>
   </div>
 
-  <div class="news-item" data-adm-card data-adm-type="news">
+  <div class="news-item">
     <div class="news-date">2025-11-21</div>
     <div class="news-content">
       <h3>Device (Cell Press) — Low-voltage ferroelectric FET paper published</h3>
@@ -2110,7 +2066,7 @@ body.admin-on .news-edit-btns { display: flex; }
     </div>
   </div>
 
-  <div class="news-item" data-adm-card data-adm-type="news">
+  <div class="news-item">
     <div class="news-date">2025-10-31</div>
     <div class="news-content">
       <h3>Small Science — Edge-contacted nanosheet transistor paper published</h3>
@@ -2119,7 +2075,7 @@ body.admin-on .news-edit-btns { display: flex; }
     </div>
   </div>
 
-  <div class="news-item" data-adm-card data-adm-type="news">
+  <div class="news-item">
     <div class="news-date">2025-10-28</div>
     <div class="news-content">
       <h3>Sangwon Yun joins as undergraduate intern</h3>
@@ -2127,16 +2083,16 @@ body.admin-on .news-edit-btns { display: flex; }
     </div>
   </div>
 
-  <div class="news-item" data-adm-card data-adm-type="news">
+  <div class="news-item">
     <div class="news-date">2025-10-14</div>
     <div class="news-content">
       <h3>Joint Workshop with Active Soft Materials &amp; Robots Lab</h3>
       <p>Our Quantum Semiconductors Lab held a joint workshop with the Active Soft Materials &amp; Robots Lab (Mechanical Engineering, SKKU), planning a collaborative project on ionic-gel–based damage-free transfer of 2D materials.</p>
-      <img src="assets/news/robots-lab-workshop.jpg" alt="Joint Workshop with Active Soft Materials & Robots Lab">
+      <img src="assets/news/robots-lab-workshop.jpg" alt="Joint Workshop with Active Soft Materials &amp; Robots Lab">
     </div>
   </div>
 
-  <div class="news-item" data-adm-card data-adm-type="news">
+  <div class="news-item">
     <div class="news-date">2025-09-24</div>
     <div class="news-content">
       <h3>Nanoscale review — MOCVD of 2D chalcogenides published</h3>
@@ -2145,7 +2101,7 @@ body.admin-on .news-edit-btns { display: flex; }
     </div>
   </div>
 
-  <div class="news-item" data-adm-card data-adm-type="news">
+  <div class="news-item">
     <div class="news-date">2025-09-08</div>
     <div class="news-content">
       <h3>Seohee Park joins as undergraduate intern</h3>
@@ -2153,7 +2109,7 @@ body.admin-on .news-edit-btns { display: flex; }
     </div>
   </div>
 
-  <div class="news-item" data-adm-card data-adm-type="news">
+  <div class="news-item">
     <div class="news-date">2025-09-06</div>
     <div class="news-content">
       <h3>Advanced Functional Materials — Interfacial control in 2D heterostructures</h3>
@@ -2162,7 +2118,7 @@ body.admin-on .news-edit-btns { display: flex; }
     </div>
   </div>
 
-  <div class="news-item" data-adm-card data-adm-type="news">
+  <div class="news-item">
     <div class="news-date">2025-08-17</div>
     <div class="news-content">
       <h3>Nature Communications — Reconfigurable carbon-nanotube ferroelectric FET published</h3>
@@ -2171,7 +2127,7 @@ body.admin-on .news-edit-btns { display: flex; }
     </div>
   </div>
 
-  <div class="news-item" data-adm-card data-adm-type="news">
+  <div class="news-item">
     <div class="news-date">2025-08-11</div>
     <div class="news-content">
       <h3>Chaehui Lim joins as graduate student</h3>
@@ -2179,7 +2135,7 @@ body.admin-on .news-edit-btns { display: flex; }
     </div>
   </div>
 
-  <div class="news-item" data-adm-card data-adm-type="news">
+  <div class="news-item">
     <div class="news-date">2025-08-04</div>
     <div class="news-content">
       <h3>Yerin So joins as undergraduate intern</h3>
@@ -2187,7 +2143,7 @@ body.admin-on .news-edit-btns { display: flex; }
     </div>
   </div>
 
-  <div class="news-item" data-adm-card data-adm-type="news">
+  <div class="news-item">
     <div class="news-date">2025-08-01</div>
     <div class="news-content">
       <h3>Dr. Nasir Ali joins as postdoctoral researcher</h3>
@@ -2195,7 +2151,7 @@ body.admin-on .news-edit-btns { display: flex; }
     </div>
   </div>
 
-  <div class="news-item" data-adm-card data-adm-type="news">
+  <div class="news-item">
     <div class="news-date">2025-07-31</div>
     <div class="news-content">
       <h3>IBS Global Partner Lab with University of Cambridge (2025–2031)</h3>
@@ -2204,7 +2160,7 @@ body.admin-on .news-edit-btns { display: flex; }
     </div>
   </div>
 
-  <div class="news-item" data-adm-card data-adm-type="news">
+  <div class="news-item">
     <div class="news-date">2025-07-15</div>
     <div class="news-content">
       <h3>IBS 2DQH 2025 Summer Workshop, Vivaldi Park</h3>
@@ -2213,7 +2169,7 @@ body.admin-on .news-edit-btns { display: flex; }
     </div>
   </div>
 
-  <div class="news-item" data-adm-card data-adm-type="news">
+  <div class="news-item">
     <div class="news-date">2025-07-01</div>
     <div class="news-content">
       <h3>Ceramist — Review on electrical measurement of 2D transistors published</h3>
@@ -2222,7 +2178,7 @@ body.admin-on .news-edit-btns { display: flex; }
     </div>
   </div>
 
-  <div class="news-item" data-adm-card data-adm-type="news">
+  <div class="news-item">
     <div class="news-date">2025-03-04</div>
     <div class="news-content">
       <h3>New graduate students join QS Lab</h3>
@@ -2230,7 +2186,7 @@ body.admin-on .news-edit-btns { display: flex; }
     </div>
   </div>
 
-  <div class="news-item" data-adm-card data-adm-type="news">
+  <div class="news-item">
     <div class="news-date">2025-03-01</div>
     <div class="news-content">
       <h3>National research project awarded — vdW ferroelectric transistors</h3>
@@ -2238,7 +2194,7 @@ body.admin-on .news-edit-btns { display: flex; }
     </div>
   </div>
 
-  <div class="news-item" data-adm-card data-adm-type="news">
+  <div class="news-item">
     <div class="news-date">2025-03-01</div>
     <div class="news-content">
       <h3>National research infrastructure awarded — Cold-Wall MOCVD</h3>
@@ -2246,7 +2202,7 @@ body.admin-on .news-edit-btns { display: flex; }
     </div>
   </div>
 
-  <div class="news-item" data-adm-card data-adm-type="news">
+  <div class="news-item">
     <div class="news-date">2025-02-26</div>
     <div class="news-content">
       <h3>ACS Nano — High-performance MoS₂/AlScN FeFET paper published</h3>
@@ -2255,7 +2211,7 @@ body.admin-on .news-edit-btns { display: flex; }
     </div>
   </div>
 
-  <div class="news-item" data-adm-card data-adm-type="news">
+  <div class="news-item">
     <div class="news-date">2024-09-02</div>
     <div class="news-content">
       <h3>Participation in the BK21 FOUR program</h3>
@@ -2263,7 +2219,7 @@ body.admin-on .news-edit-btns { display: flex; }
     </div>
   </div>
 
-  <div class="news-item" data-adm-card data-adm-type="news">
+  <div class="news-item">
     <div class="news-date">2024-08-01</div>
     <div class="news-content">
       <h3>QS Lab at SKKU officially started!</h3>
@@ -2272,7 +2228,7 @@ body.admin-on .news-edit-btns { display: flex; }
     </div>
   </div>
 
-  <div class="news-item" data-adm-card data-adm-type="news">
+  <div class="news-item">
     <div class="news-date">2024-08-01</div>
     <div class="news-content">
       <h3>SKKU 2024 Start-up Fund awarded</h3>
@@ -2280,7 +2236,7 @@ body.admin-on .news-edit-btns { display: flex; }
     </div>
   </div>
 
-  <div class="news-item" data-adm-card data-adm-type="news">
+  <div class="news-item">
     <div class="news-date">2024-08-01</div>
     <div class="news-content">
       <h3>IBS collaborative project joined</h3>
@@ -2296,7 +2252,7 @@ body.admin-on .news-edit-btns { display: flex; }
 <main class="sec-page" id="page-contact">
   <div class="sl-head">
     <div class="sl-name"><span class="tag">QS Lab</span>Contact &amp; Openings</div>
-    <div class="sl-desc">Find us at <b>N-Center, SKKU</b> &middot; We are recruiting.</div>
+    <div class="sl-desc">Find us at <b>N-Center, SKKU</b> · We are recruiting.</div>
     <div class="sl-right sl-affil"><span class="hot">Recruiting</span><span>Graduate students</span><span>Postdoc</span></div>
   </div>
   <section class="ct-wrap">
@@ -2305,7 +2261,7 @@ body.admin-on .news-edit-btns { display: flex; }
       <div class="ct-row"><div class="ct-lbl">Address</div><div class="ct-val">N Center 3F #86383, Sungkyunkwan University (SKKU)<br>2066 Seobu-ro, Cheoncheon-dong, Jangan-gu, Suwon-si, Gyeonggi-do, South Korea</div></div>
       <div class="ct-row"><div class="ct-lbl">주소</div><div class="ct-val">16419 경기도 수원시 장안구 서부로 2066, 성균관대학교 N센터 86383호</div></div>
       <div class="ct-row"><div class="ct-lbl">Phone</div><div class="ct-val"><a href="tel:+82312994053">+82-31-299-4053</a></div></div>
-      <div class="ct-row"><div class="ct-lbl">Email</div><div class="ct-val"><a href="/cdn-cgi/l/email-protection#324157475c55475972415959471c575647"><span class="__cf_email__" data-cfemail="e79482928980928ca7948c8c92c9828392">[email&#160;protected]</span></a></div></div>
+      <div class="ct-row"><div class="ct-lbl">Email</div><div class="ct-val"><a href="/cdn-cgi/l/email-protection#324157475c55475972415959471c575647"><span class="__cf_email__" data-cfemail="e79482928980928ca7948c8c92c9828392">[email&nbsp;protected]</span></a></div></div>
       <div class="ct-row"><div class="ct-lbl">PI</div><div class="ct-val">Prof. Seunguk Song</div></div>
       <div class="ct-links"><a href="https://linkedin.com/in/seunguk-song-a1b338212" target="_blank">LinkedIn</a><a href="https://scholar.google.com/citations?user=IS8WIlBo_iIC" target="_blank">Google Scholar</a></div>
     </div>
@@ -2316,7 +2272,7 @@ body.admin-on .news-edit-btns { display: flex; }
     <p class="ct-intro">We are recruiting motivated undergraduates, graduate students, and postdoctoral researchers interested in low-dimensional semiconductor synthesis and quantum technologies. Our work spans chemistry, chemical engineering, physics, electrical engineering, and materials science. We offer full tuition scholarships, top-tier stipends, publication incentives, and support for international research exchange.</p>
     <div class="ct-jobs">
       <div class="ct-job">
-        <div class="jt">Graduate students &middot; M.S.–Ph.D. / Ph.D.</div>
+        <div class="jt">Graduate students · M.S.–Ph.D. / Ph.D.</div>
         <h4>Low-dimensional materials for emerging computing &amp; quantum information</h4>
         <p>Enrollment in the Department of Energy Science, SKKU, with research scholarship and stipend per SKKU and project regulations, plus international collaboration and conference opportunities.</p>
         <div class="jl">What you'll work on</div>
@@ -2334,7 +2290,7 @@ body.admin-on .news-edit-btns { display: flex; }
         <ul><li>Ph.D. in a relevant field (or expected by start date)</li><li>Strong proposal/manuscript writing and communication skills</li></ul>
       </div>
     </div>
-    <div class="ct-apply">Interested? Email a single PDF (CV + transcript + a short statement of research interest) to <a href="/cdn-cgi/l/email-protection#601305150e07150b20130b0b154e050415"><span class="__cf_email__" data-cfemail="cab9afbfa4adbfa18ab9a1a1bfe4afaebf">[email&#160;protected]</span></a>. Selection is by document review, an interview with research presentation and lab tour (Zoom option available), and final guidance on the SKKU graduate application.</div>
+    <div class="ct-apply">Interested? Email a single PDF (CV + transcript + a short statement of research interest) to <a href="/cdn-cgi/l/email-protection#601305150e07150b20130b0b154e050415"><span class="__cf_email__" data-cfemail="cab9afbfa4adbfa18ab9a1a1bfe4afaebf">[email&nbsp;protected]</span></a>. Selection is by document review, an interview with research presentation and lab tour (Zoom option available), and final guidance on the SKKU graduate application.</div>
   </section>
   <footer><div class="ft-left"><div class="ft-logo">QS Lab</div><div class="ft-addr">N Center 3F #86383, SKKU</div></div><div class="ft-right"><div class="ft-dept">© QS Lab, SKKU<span class="ft-admin-trigger" title="Admin">·</span></div></div></footer>
 </main>
@@ -4368,5 +4324,6 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 });
 </script>
-</body>
-</html>
+
+
+<div class="betternet-wrapper"></div></body><grammarly-desktop-integration data-grammarly-shadow-root="true"></grammarly-desktop-integration></html>
