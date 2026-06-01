@@ -1455,6 +1455,9 @@ body.admin-on .news-edit-btns { display: flex; }
     <button class="af-export" id="af-pubtoggle">⚙ Publish settings</button>
     <button class="af-export" id="af-reset">↺ Reset all edits</button>
     <button class="af-export" id="af-export">↓ Export HTML (backup)</button>
+    <button class="af-export" id="af-content-export">💾 내용 백업 (.json)</button>
+    <button class="af-export" id="af-content-import">📂 내용 복원 (.json)</button>
+    <input type="file" id="af-content-file" accept="application/json,.json" style="display:none">
   </div>
 </div>
 
@@ -1625,7 +1628,7 @@ body.admin-on .news-edit-btns { display: flex; }
       <button class="btn btn-amber" data-goto="people">Meet the team →</button>
     </div>
     <div class="op-right">
-      <div class="op-item"><h4>Postdoctoral Researcher</h4><p>1 vacancy — 2D heterostructure fabrication for QIS. <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="047761716a63716f44776f6f712a616071">[email&#160;protected]</a></p></div>
+      <div class="op-item"><h4>Postdoctoral Researcher</h4><p>1 vacancy — 2D heterostructure fabrication for QIS. <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="3c4f5949525b49577c4f57574912595849">[email&#160;protected]</a></p></div>
       <div class="op-item"><h4>Integrated M.S.–Ph.D. Students</h4><p>Ongoing recruitment. SKKU Department of Energy Science.</p></div>
       <div class="op-item"><h4>Undergraduate Interns (URP)</h4><p>SKKU Undergraduate Research Program — each semester.</p></div>
     </div>
@@ -1634,7 +1637,7 @@ body.admin-on .news-edit-btns { display: flex; }
   <footer>
     <div class="ft-left">
       <div class="ft-logo">QS Lab @ SKKU</div>
-      <div class="ft-addr">N Center 3F #86383, SKKU, Suwon, Korea<br><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="156670607b72607e55667e7e603b707160">[email&#160;protected]</a></div>
+      <div class="ft-addr">N Center 3F #86383, SKKU, Suwon, Korea<br><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="c9baacbca7aebca289baa2a2bce7acadbc">[email&#160;protected]</a></div>
     </div>
     <div class="ft-right">
       <div class="ft-dept">Energy Science · 성균관대학교 에너지학과<br><span style="font-size:.75rem">© QS Lab, SKKU<span class="ft-admin-trigger" title="Admin">·</span></span></div>
@@ -1646,42 +1649,42 @@ body.admin-on .news-edit-btns { display: flex; }
 <main class="sec-page" id="page-research">
   <div class="rhero">
     <div class="crumb"><b>Research</b> — Areas &amp; Opportunities</div>
-    <h1>Engineering <span class="bl">quantum states</span> in solid-state materials.</h1>
-    <p>One platform — atomically precise growth — driving quantum light, ferroelectric low-power electronics, and cryogenic quantum hardware.</p>
+    <h1 data-editable data-edit-html data-edit-label="✎ Edit" id="rhero-h1">Engineering <span class="bl">quantum states</span> in solid-state materials.</h1>
+    <p data-editable data-edit-label="✎ Edit" id="rhero-p">One platform — atomically precise growth — driving quantum light, ferroelectric low-power electronics, and cryogenic quantum hardware.</p>
   </div>
 
   <section class="rmap">
-    <div class="nh-libhead"><h2>One platform, three missions</h2><span class="t-eyebrow">How our research connects</span></div>
-    <p class="rmap-intro">Everything starts from a single capability — <strong>atomically precise growth</strong>. The same crystals and tools then drive three application missions: engineering <strong>quantum light</strong>, building <strong>ferroelectric low-power electronics</strong>, and creating <strong>cryogenic quantum hardware</strong>.</p>
+    <div class="nh-libhead"><h2 data-editable data-edit-label="✎ Edit" id="rmap-h2">One platform, three missions</h2><span class="t-eyebrow">How our research connects</span></div>
+    <p class="rmap-intro" data-editable data-edit-html data-edit-label="✎ Edit" id="rmap-intro">Everything starts from a single capability — <strong>atomically precise growth</strong>. The same crystals and tools then drive three application missions: engineering <strong>quantum light</strong>, building <strong>ferroelectric low-power electronics</strong>, and creating <strong>cryogenic quantum hardware</strong>.</p>
 
     <div class="rplatform" id="r-approach">
       <div class="lbl">Shared foundation · feeds every mission</div>
-      <h3>Atomic-Layer Synthesis Platform</h3>
-      <p>Wafer-scale, phase-pure epitaxy with atomic-level interface control — MOCVD, source-confined CVD, and ML-guided growth.</p>
+      <h3 data-editable data-edit-label="✎ Edit" id="rplat-h3">Atomic-Layer Synthesis Platform</h3>
+      <p data-editable data-edit-label="✎ Edit" id="rplat-p">Wafer-scale, phase-pure epitaxy with atomic-level interface control — MOCVD, source-confined CVD, and ML-guided growth.</p>
       <div class="grows">grows ↓</div>
     </div>
 
     <div class="rbranch"><div class="drop l"></div><div class="drop r"></div></div>
 
     <div class="rmissions">
-      <div class="mish m1" id="r-area-light">
-        <div class="mish-head"><div class="mish-n">Mission 01</div><h3 id="r-area-light-h" data-editable data-edit-label="✎ Edit heading">Quantum Light &amp; Information</h3><p id="r-area-light-p" data-editable data-edit-label="✎ Edit text">Manipulating quantum states of light and excitons in engineered 2D interfaces.</p></div>
+      <div class="mish m1" id="r-area-light" data-adm-card data-adm-type="mish">
+        <div class="mish-head"><div class="mish-n">Mission 01</div><h3 id="r-area-light-h">Quantum Light &amp; Information</h3><p id="r-area-light-p">Manipulating quantum states of light and excitons in engineered 2D interfaces.</p></div>
         <div class="mish-body">
           <div class="lbl2">Targets</div>
           <ul><li>Site-defined single-photon emitters</li><li>Ferroelectric-gated bound excitons</li></ul>
           <div class="mish-mats"><span>WS₂</span><span>MoSe₂</span><span>2D ferroelectrics</span></div>
         </div>
       </div>
-      <div class="mish m2" id="r-area-ferro">
-        <div class="mish-head"><div class="mish-n">Mission 02 · New</div><h3 id="r-area-ferro-h" data-editable data-edit-label="✎ Edit heading">Ferroelectric Logic &amp; Memory</h3><p id="r-area-ferro-p" data-editable data-edit-label="✎ Edit text">Low-power and cryogenic nanoelectronics from 2D ferroelectric devices.</p></div>
+      <div class="mish m2" id="r-area-ferro" data-adm-card data-adm-type="mish">
+        <div class="mish-head"><div class="mish-n">Mission 02 · New</div><h3 id="r-area-ferro-h">Ferroelectric Logic &amp; Memory</h3><p id="r-area-ferro-p">Low-power and cryogenic nanoelectronics from 2D ferroelectric devices.</p></div>
         <div class="mish-body">
           <div class="lbl2">Targets</div>
           <ul><li>Ferroelectric &amp; negative-capacitance FETs</li><li>Non-volatile memory</li><li>Cryogenic nanoelectronics</li></ul>
           <div class="mish-mats"><span>In₂Se₃</span><span>AlScN</span><span>InSe</span></div>
         </div>
       </div>
-      <div class="mish m3" id="r-area-quantum">
-        <div class="mish-head"><div class="mish-n">Mission 03</div><h3 id="r-area-quantum-h" data-editable data-edit-label="✎ Edit heading">Cryogenic &amp; Quantum Electronics</h3><p id="r-area-quantum-p" data-editable data-edit-label="✎ Edit text">Superconducting and topological hardware for quantum computing.</p></div>
+      <div class="mish m3" id="r-area-quantum" data-adm-card data-adm-type="mish">
+        <div class="mish-head"><div class="mish-n">Mission 03</div><h3 id="r-area-quantum-h">Cryogenic &amp; Quantum Electronics</h3><p id="r-area-quantum-p">Superconducting and topological hardware for quantum computing.</p></div>
         <div class="mish-body">
           <div class="lbl2">Targets</div>
           <ul><li>van der Waals transmon qubits</li><li>Josephson Ferroelectric FET</li><li>Topological spin–charge devices</li></ul>
@@ -1767,7 +1770,7 @@ body.admin-on .news-edit-btns { display: flex; }
       <img src="assets/sponsors/bk21.png" alt="Brain Korea 21 (BK21 FOUR)">
     </div>
   </div>
-  <footer><div class="ft-left"><div class="ft-logo">QS Lab</div><div class="ft-addr"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="ec9f8999828b9987ac9f878799c2898899">[email&#160;protected]</a></div></div><div class="ft-right"><div class="ft-dept">© QS Lab, SKKU<span class="ft-admin-trigger">·</span></div></div></footer>
+  <footer><div class="ft-left"><div class="ft-logo">QS Lab</div><div class="ft-addr"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="592a3c2c373e2c32192a32322c773c3d2c">[email&#160;protected]</a></div></div><div class="ft-right"><div class="ft-dept">© QS Lab, SKKU<span class="ft-admin-trigger">·</span></div></div></footer>
 </main>
 
 <!-- ═══════════════ RESEARCH DETAIL ═══════════════ -->
@@ -1779,7 +1782,7 @@ body.admin-on .news-edit-btns { display: flex; }
     <button id="rd-edit-body-btn" style="display:none;margin-top:var(--s2);font-family:var(--mono);font-size:.7rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;background:var(--amber);color:#fff;padding:.4rem 1rem;border:none;border-radius:var(--r2);cursor:pointer">✎ Edit Detail Content</button>
   </div>
   <div class="res-body" id="rd-body"></div>
-  <footer><div class="ft-left"><div class="ft-logo">QS Lab</div><div class="ft-addr"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="1b687e6e757c6e705b6870706e357e7f6e">[email&#160;protected]</a></div></div><div class="ft-right"><div class="ft-dept">© QS Lab, SKKU<span class="ft-admin-trigger">·</span></div></div></footer>
+  <footer><div class="ft-left"><div class="ft-logo">QS Lab</div><div class="ft-addr"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="067563736861736d46756d6d7328636273">[email&#160;protected]</a></div></div><div class="ft-right"><div class="ft-dept">© QS Lab, SKKU<span class="ft-admin-trigger">·</span></div></div></footer>
 </main>
 
 <!-- ═══════════════ PEOPLE ═══════════════ -->
@@ -1791,12 +1794,12 @@ body.admin-on .news-edit-btns { display: flex; }
   </div>
   <section class="people-hero">
     <figure class="ph-photo">
-      <img src="assets/people/group.jpg" alt="QS Lab group photo">
-      <figcaption>QS Lab · Sungkyunkwan University · 2026</figcaption>
+      <img id="group-img" src="assets/people/group.jpg" alt="QS Lab group photo">
+      <figcaption data-editable data-edit-label="✎ Edit caption" id="group-cap">QS Lab · Sungkyunkwan University · 2026</figcaption>
     </figure>
     <div class="ph-msg">
-      <h2>A small group that <span class="bl">grows together</span>.</h2>
-      <p>From wafer-scale crystal growth to cryogenic measurement, we work side by side across disciplines — sharing tools, ideas, and the occasional late-night lab run. We're always looking for curious students who want to build quantum technology from the atom up.</p>
+      <h2 data-editable data-edit-html data-edit-label="✎ Edit" id="ph-msg-h2">A small group that <span class="bl">grows together</span>.</h2>
+      <p data-editable data-edit-label="✎ Edit" id="ph-msg-p">From wafer-scale crystal growth to cryogenic measurement, we work side by side across disciplines — sharing tools, ideas, and the occasional late-night lab run. We're always looking for curious students who want to build quantum technology from the atom up.</p>
     </div>
   </section>
   <div class="pi-block">
@@ -1818,7 +1821,7 @@ body.admin-on .news-edit-btns { display: flex; }
       <div class="pi-links" data-editable data-edit-label="✎ Edit Links">
         <a class="pi-link" href="https://linkedin.com/in/seunguk-song-a1b338212" target="_blank">LinkedIn</a>
         <a class="pi-link" href="https://scholar.google.com/citations?user=IS8WIlBo_iIC" target="_blank">Google Scholar</a>
-        <a class="pi-link" href="/cdn-cgi/l/email-protection#304355455e57455b70435b5b451e555445"><span class="__cf_email__" data-cfemail="146771617a73617f54677f7f613a717061">[email&#160;protected]</span></a>
+        <a class="pi-link" href="/cdn-cgi/l/email-protection#126177677c75677952617979673c777667"><span class="__cf_email__" data-cfemail="502335253e37253b10233b3b257e353425">[email&#160;protected]</span></a>
       </div>
     </div>
   </div>
@@ -1866,7 +1869,7 @@ body.admin-on .news-edit-btns { display: flex; }
     </div>
     <div style="height:var(--s4)"></div>
   </div>
-  <footer><div class="ft-left"><div class="ft-logo">QS Lab</div><div class="ft-addr"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="502335253e37253b10233b3b257e353425">[email&#160;protected]</a></div></div><div class="ft-right"><div class="ft-dept">© QS Lab, SKKU<span class="ft-admin-trigger">·</span></div></div></footer>
+  <footer><div class="ft-left"><div class="ft-logo">QS Lab</div><div class="ft-addr"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="f18294849f96849ab1829a9a84df949584">[email&#160;protected]</a></div></div><div class="ft-right"><div class="ft-dept">© QS Lab, SKKU<span class="ft-admin-trigger">·</span></div></div></footer>
 </main>
 
 <!-- ═══════════════ PUBLICATIONS ═══════════════ -->
@@ -1960,8 +1963,8 @@ body.admin-on .news-edit-btns { display: flex; }
     <div class="sl-right sl-affil"><span class="hot">In-house</span><span>IBS 2DQH · AQT</span><span>CINAP</span></div>
   </div>
   <section class="eq-sec">
-    <div class="eq-head"><h2>Lab-Dedicated Instruments</h2><span class="t-eyebrow">QS Lab · in-house</span></div>
-    <p class="eq-intro">Core synthesis and low-temperature transport systems operated solely by our group at N Center, SKKU — the backbone of our day-to-day growth and device measurement.</p>
+    <div class="eq-head"><h2 data-editable data-edit-label="✎ Edit" id="eq-h2-lab">Lab-Dedicated Instruments</h2><span class="t-eyebrow">QS Lab · in-house</span></div>
+    <p class="eq-intro" data-editable data-edit-label="✎ Edit" id="eq-intro-lab">Core synthesis and low-temperature transport systems operated solely by our group at N Center, SKKU — the backbone of our day-to-day growth and device measurement.</p>
     <div class="eq-grid" id="eq-grid">
     <div class="eq-card" data-adm-card data-adm-type="equipment"><img class="eq-photo" src="assets/equipment/mocvd.jpg" alt="Cold-Wall MOCVD system"><div class="eq-n">01</div><div class="eq-name">Cold-Wall MOCVD</div><div class="eq-sub">III–VI Compound Semiconductors</div><p class="eq-desc">Metal-organic CVD with cold-wall reactor for wafer-scale growth of III–VI compound semiconductors — InSe, In₂Se₃, and GaₓIn₁₋ₓSeᵧ alloys — with controlled composition and layer number.</p><div class="eq-tags"><span class="eq-tag">MOCVD</span><span class="eq-tag">InSe · In₂Se₃</span><span class="eq-tag">(In,Ga)Se</span><span class="eq-tag">Wafer-scale</span></div></div>
     <div class="eq-card" data-adm-card data-adm-type="equipment"><img class="eq-photo" src="assets/equipment/mocvd-sc.jpg" alt="MOCVD Quantum Heterostructures system"><div class="eq-n">02</div><div class="eq-name">Cold-Wall MOCVD</div><div class="eq-sub">Superconductors &amp; vdW Heterostructures</div><p class="eq-desc">Dedicated MOCVD with in-situ monitoring for FeSe₁₋ₓTeₓ topological superconductor films and lateral in-plane 2D heterostructures.</p><div class="eq-tags"><span class="eq-tag">Heterostructures</span><span class="eq-tag">FeSeTe</span><span class="eq-tag">Topological SC</span></div></div>
@@ -1972,16 +1975,16 @@ body.admin-on .news-edit-btns { display: flex; }
     </div>
   </section>
   <section class="eq-sec">
-    <div class="eq-head"><h2>Shared Fab Facilities</h2><span class="t-eyebrow">Our member centers</span></div>
-    <p class="eq-intro">Beyond our own systems, our group is a <strong>participating group of the IBS Center for 2D Quantum Heterostructures (2DQH)</strong> and a member of SKKU's shared-instrument centers — so the instruments below are part of our everyday workflow, not occasional collaborations.</p>
+    <div class="eq-head"><h2 data-editable data-edit-label="✎ Edit" id="eq-h2-shared">Shared Fab Facilities</h2><span class="t-eyebrow">Our member centers</span></div>
+    <p class="eq-intro" data-editable data-edit-html data-edit-label="✎ Edit" id="eq-intro-shared">Beyond our own systems, our group is a <strong>participating group of the IBS Center for 2D Quantum Heterostructures (2DQH)</strong> and a member of SKKU's shared-instrument centers — so the instruments below are part of our everyday workflow, not occasional collaborations.</p>
 
-    <div class="fac-band">
+    <div class="fac-band" data-adm-card data-adm-type="facband">
       <div class="fac-tag">SKKU AQT · operated by IBS 2DQH · in our building</div>
       <h3>Advanced Quantum Technology Instrumentation Center</h3>
       <div class="fac-kr">성균관대학교 양자기술첨단기기센터 · N-Center C, Rm 86275</div>
       <p>AQT is operated under the <span class="mem">IBS Center for 2D Quantum Heterostructures (2DQH)</span>, which our group is part of — and it shares our building at N-Center, so its core systems sit steps from our growth reactors.</p>
     </div>
-    <div class="eq-grid">
+    <div class="eq-grid" id="eq-grid-aqt">
       <div class="eq-card" data-adm-card data-adm-type="equipment"><div class="eq-n">01</div><div class="eq-name">Cs-corrected STEM / TEM</div><div class="eq-sub">JEM-ARM300CF · ARM200CF</div><p class="eq-desc">Aberration-corrected scanning/transmission electron microscopy with EDS and EELS — atomic-scale structure and chemistry of 2D crystals, defects, and heterointerfaces.</p><div class="eq-tags"><span class="eq-tag">Atomic-res</span><span class="eq-tag">STEM/TEM</span><span class="eq-tag">EDS</span><span class="eq-tag">EELS</span></div></div>
       <div class="eq-card" data-adm-card data-adm-type="equipment"><div class="eq-n">02</div><div class="eq-name">PPMS Dynacool</div><div class="eq-sub">Cryogenic Magnetotransport</div><p class="eq-desc">Cryogen-free physical property measurement at 1.8–400 K and up to 14 T (and 9 T) — magnetotransport, Hall, and superconducting characterization of our devices.</p><div class="eq-tags"><span class="eq-tag">1.8–400 K</span><span class="eq-tag">14 T</span><span class="eq-tag">Hall</span></div></div>
       <div class="eq-card" data-adm-card data-adm-type="equipment"><div class="eq-n">03</div><div class="eq-name">X-ray Diffractometer</div><div class="eq-sub">SmartLab 9 kW</div><p class="eq-desc">High-resolution X-ray diffraction for phase identification, crystal orientation, and thin-film structural analysis of as-grown 2D layers.</p><div class="eq-tags"><span class="eq-tag">XRD</span><span class="eq-tag">Thin-film</span><span class="eq-tag">Phase</span></div></div>
@@ -1990,14 +1993,14 @@ body.admin-on .news-edit-btns { display: flex; }
       <div class="eq-card" data-adm-card data-adm-type="equipment"><div class="eq-n">06</div><div class="eq-name">THz Near-field Microscope</div><div class="eq-sub">Nanoscale Optics · SNOM</div><p class="eq-desc">Terahertz scanning near-field optical microscopy for sub-diffraction conductivity and carrier-density imaging, complemented by femtosecond transient-absorption and time-resolved PL.</p><div class="eq-tags"><span class="eq-tag">THz</span><span class="eq-tag">SNOM</span><span class="eq-tag">Ultrafast</span></div></div>
     </div>
 
-    <div class="fac-band">
+    <div class="fac-band" data-adm-card data-adm-type="facband">
       <div class="fac-tag">SKKU CINAP</div>
       <h3>Center for Integrated Nanostructure Physics</h3>
       <div class="fac-kr">성균관대학교 나노물리과학연구소</div>
       <p>Our lab is <span class="mem">affiliated with CINAP</span>, whose nanofabrication cleanroom provides the full device process flow — deposition, lithography, and etching — to turn our crystals into devices.</p>
     </div>
-    <div class="fac-note">A full nanofabrication cleanroom — the standard process tools we use to build devices.</div>
-    <div class="eq-grid">
+    <div class="fac-note" data-editable data-edit-label="✎ Edit" id="fac-note-cinap">A full nanofabrication cleanroom — the standard process tools we use to build devices.</div>
+    <div class="eq-grid" id="eq-grid-cinap">
       <div class="eq-card" data-adm-card data-adm-type="equipment"><div class="eq-n">01</div><div class="eq-name">E-beam Evaporator</div><div class="eq-sub">Metal Deposition</div><p class="eq-desc">Electron-beam evaporation of high-purity metals for source/drain contacts and gate electrodes.</p><div class="eq-tags"><span class="eq-tag">Evaporation</span><span class="eq-tag">Contacts</span></div></div>
       <div class="eq-card" data-adm-card data-adm-type="equipment"><div class="eq-n">02</div><div class="eq-name">Sputtering System</div><div class="eq-sub">Thin-Film Deposition</div><p class="eq-desc">Sputter deposition of metals and dielectrics for device stacks and encapsulation layers.</p><div class="eq-tags"><span class="eq-tag">Sputter</span><span class="eq-tag">Dielectrics</span></div></div>
       <div class="eq-card" data-adm-card data-adm-type="equipment"><div class="eq-n">03</div><div class="eq-name">E-beam Lithography</div><div class="eq-sub">Nanoscale Patterning</div><p class="eq-desc">Direct-write electron-beam lithography for sub-100 nm device geometries and fine electrodes.</p><div class="eq-tags"><span class="eq-tag">EBL</span><span class="eq-tag">Sub-100 nm</span></div></div>
@@ -2027,7 +2030,7 @@ body.admin-on .news-edit-btns { display: flex; }
   <div class="sem-label" style="margin-top:2.5rem">2024 Fall</div>
   <div class="ccard" data-adm-card data-adm-type="course"><div class="ccard-head"><span class="cbadge cb-grad">Graduate</span><div><h3>Energy Nanomaterials 1 (에너지나노소재1)</h3><div class="ccard-code">ESC5002-41</div></div></div><div class="ccard-body">Energy-efficient electrical devices: materials science and chemistry.<div class="ctime">Thursday 12:00–13:15, 13:30–14:45</div></div></div></div>
   <div style="height:var(--s4)"></div>
-  <footer><div class="ft-left"><div class="ft-logo">QS Lab</div><div class="ft-addr"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="156670607b72607e55667e7e603b707160">[email&#160;protected]</a> · Dept. of Energy Science, SKKU</div></div><div class="ft-right"><div class="ft-dept">© QS Lab, SKKU<span class="ft-admin-trigger">·</span></div></div></footer>
+  <footer><div class="ft-left"><div class="ft-logo">QS Lab</div><div class="ft-addr"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="94e7f1e1faf3e1ffd4e7ffffe1baf1f0e1">[email&#160;protected]</a> · Dept. of Energy Science, SKKU</div></div><div class="ft-right"><div class="ft-dept">© QS Lab, SKKU<span class="ft-admin-trigger">·</span></div></div></footer>
 </main>
 
 <!-- ═══════════════ NEWS ═══════════════ -->
@@ -2307,21 +2310,21 @@ body.admin-on .news-edit-btns { display: flex; }
   </div>
   <section class="ct-wrap">
     <div class="ct-info">
-      <h3>Quantum Semiconductor Laboratory</h3>
-      <div class="ct-row"><div class="ct-lbl">Address</div><div class="ct-val">N Center 3F #86383, Sungkyunkwan University (SKKU)<br>2066 Seobu-ro, Cheoncheon-dong, Jangan-gu, Suwon-si, Gyeonggi-do, South Korea</div></div>
-      <div class="ct-row"><div class="ct-lbl">주소</div><div class="ct-val">16419 경기도 수원시 장안구 서부로 2066, 성균관대학교 N센터 86383호</div></div>
-      <div class="ct-row"><div class="ct-lbl">Phone</div><div class="ct-val"><a href="tel:+82312994053">+82-31-299-4053</a></div></div>
-      <div class="ct-row"><div class="ct-lbl">Email</div><div class="ct-val"><a href="/cdn-cgi/l/email-protection#ec9f8999828b9987ac9f878799c2898899"><span class="__cf_email__" data-cfemail="7d0e1808131a08163d0e16160853181908">[email&#160;protected]</span></a></div></div>
-      <div class="ct-row"><div class="ct-lbl">PI</div><div class="ct-val">Prof. Seunguk Song</div></div>
-      <div class="ct-links"><a href="https://linkedin.com/in/seunguk-song-a1b338212" target="_blank">LinkedIn</a><a href="https://scholar.google.com/citations?user=IS8WIlBo_iIC" target="_blank">Google Scholar</a></div>
+      <h3 data-editable data-edit-label="✎ Edit" id="ct-h3">Quantum Semiconductor Laboratory</h3>
+      <div class="ct-row"><div class="ct-lbl">Address</div><div class="ct-val" data-editable data-edit-html data-edit-label="✎ Edit" id="ct-addr-en">N Center 3F #86383, Sungkyunkwan University (SKKU)<br>2066 Seobu-ro, Cheoncheon-dong, Jangan-gu, Suwon-si, Gyeonggi-do, South Korea</div></div>
+      <div class="ct-row"><div class="ct-lbl">주소</div><div class="ct-val" data-editable data-edit-html data-edit-label="✎ Edit" id="ct-addr-kr">16419 경기도 수원시 장안구 서부로 2066, 성균관대학교 N센터 86383호</div></div>
+      <div class="ct-row"><div class="ct-lbl">Phone</div><div class="ct-val" data-editable data-edit-html data-edit-label="✎ Edit" id="ct-phone"><a href="tel:+82312994053">+82-31-299-4053</a></div></div>
+      <div class="ct-row"><div class="ct-lbl">Email</div><div class="ct-val" data-editable data-edit-html data-edit-label="✎ Edit" id="ct-email"><a href="/cdn-cgi/l/email-protection#d5a6b0a0bbb2a0be95a6bebea0fbb0b1a0"><span class="__cf_email__" data-cfemail="691a0c1c070e1c02291a02021c470c0d1c">[email&#160;protected]</span></a></div></div>
+      <div class="ct-row"><div class="ct-lbl">PI</div><div class="ct-val" data-editable data-edit-label="✎ Edit" id="ct-pi">Prof. Seunguk Song</div></div>
+      <div class="ct-links" data-editable data-edit-html data-edit-label="✎ Edit links" id="ct-links"><a href="https://linkedin.com/in/seunguk-song-a1b338212" target="_blank">LinkedIn</a><a href="https://scholar.google.com/citations?user=IS8WIlBo_iIC" target="_blank">Google Scholar</a></div>
     </div>
     <div class="ct-map"><iframe src="https://maps.google.com/maps?q=37.291632,126.975539&amp;z=17&amp;output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="QS Lab location — N Center, SKKU"></iframe></div>
   </section>
   <section class="ct-openings">
-    <div class="nh-libhead"><h2>Open positions</h2><span class="t-eyebrow">Join the lab</span></div>
-    <p class="ct-intro">We are recruiting motivated undergraduates, graduate students, and postdoctoral researchers interested in low-dimensional semiconductor synthesis and quantum technologies. Our work spans chemistry, chemical engineering, physics, electrical engineering, and materials science. We offer full tuition scholarships, top-tier stipends, publication incentives, and support for international research exchange.</p>
+    <div class="nh-libhead"><h2 data-editable data-edit-label="✎ Edit" id="ct-op-title">Open positions</h2><span class="t-eyebrow">Join the lab</span></div>
+    <p class="ct-intro" data-editable data-edit-label="✎ Edit" id="ct-intro">We are recruiting motivated undergraduates, graduate students, and postdoctoral researchers interested in low-dimensional semiconductor synthesis and quantum technologies. Our work spans chemistry, chemical engineering, physics, electrical engineering, and materials science. We offer full tuition scholarships, top-tier stipends, publication incentives, and support for international research exchange.</p>
     <div class="ct-jobs">
-      <div class="ct-job">
+      <div class="ct-job" data-adm-card data-adm-type="ctjob">
         <div class="jt">Graduate students &middot; M.S.–Ph.D. / Ph.D.</div>
         <h4>Low-dimensional materials for emerging computing &amp; quantum information</h4>
         <p>Enrollment in the Department of Energy Science, SKKU, with research scholarship and stipend per SKKU and project regulations, plus international collaboration and conference opportunities.</p>
@@ -2330,7 +2333,7 @@ body.admin-on .news-edit-btns { display: flex; }
         <div class="jl">Who we're looking for</div>
         <ul><li>B.S. or M.S. in materials science, chemical engineering, physics, EE, chemistry, or related</li><li>Basic understanding of semiconductor physics (coursework is sufficient)</li></ul>
       </div>
-      <div class="ct-job pd">
+      <div class="ct-job pd" data-adm-card data-adm-type="ctjob">
         <div class="jt">Postdoctoral researcher</div>
         <h4>Quantum information science with 2D semiconductor heterostructures</h4>
         <p>One-year contract (renewable), full-time, with competitive salary commensurate with experience. Experience in photonics is preferred.</p>
@@ -2340,7 +2343,7 @@ body.admin-on .news-edit-btns { display: flex; }
         <ul><li>Ph.D. in a relevant field (or expected by start date)</li><li>Strong proposal/manuscript writing and communication skills</li></ul>
       </div>
     </div>
-    <div class="ct-apply">Interested? Email a single PDF (CV + transcript + a short statement of research interest) to <a href="/cdn-cgi/l/email-protection#661503130801130d26150d0d1348030213"><span class="__cf_email__" data-cfemail="116274647f76647a51627a7a643f747564">[email&#160;protected]</span></a>. Selection is by document review, an interview with research presentation and lab tour (Zoom option available), and final guidance on the SKKU graduate application.</div>
+    <div class="ct-apply" data-editable data-edit-html data-edit-label="✎ Edit" id="ct-apply">Interested? Email a single PDF (CV + transcript + a short statement of research interest) to <a href="/cdn-cgi/l/email-protection#2b584e5e454c5e406b5840405e054e4f5e"><span class="__cf_email__" data-cfemail="afdccadac1c8dac4efdcc4c4da81cacbda">[email&#160;protected]</span></a>. Selection is by document review, an interview with research presentation and lab tour (Zoom option available), and final guidance on the SKKU graduate application.</div>
   </section>
   <footer><div class="ft-left"><div class="ft-logo">QS Lab</div><div class="ft-addr">N Center 3F #86383, SKKU</div></div><div class="ft-right"><div class="ft-dept">© QS Lab, SKKU<span class="ft-admin-trigger" title="Admin">·</span></div></div></footer>
 </main>
@@ -2663,24 +2666,25 @@ var Admin = (function () {
   var pageNames = {
     home:'Home', research:'Research', 'research-detail':'Research Detail',
     people:'People', publications:'Publications', equipment:'Equipment',
-    teaching:'Teaching', news:'News'
+    teaching:'Teaching', news:'News', contact:'Contact'
   };
 
   var menus = {
     home:         [['Edit Hero',       'e','Editors.editHero()'],['Edit Ticker','e','Editors.editTicker()'],['Edit Openings','e','Editors.editOpenings()'],['+ News Card','a','Editors.addHomeNews()']],
-    research:     [],
+    research:     [['ℹ︎ 편집 안내','e','Editors.researchHelp()']],
     'research-detail': [
       ['Edit Title/Subtitle', 'e', 'Editors.editResearchDetailHeader()'],
       ['Edit Detail Content', 'e', 'Editors.editResearchDetailBody()'],
     ],
-    people:       [['Edit PI','e','Editors.editPI()'],['Change PI Photo','e',"Editors.uploadPhoto('pi-img')"],['+ Postdoc','a',"Editors.addMember('postdoc')"],['+ Research Associate','a',"Editors.addMember('ra')"],['+ Grad Student','a',"Editors.addMember('grad')"],['+ Intern','a',"Editors.addMember('intern')"],['+ Hiring Card','a','Editors.addHiringCard()']],
-    publications: [['+ Publication','a','Editors.addPub()'],['+ Featured Paper','a','Editors.addRepPaper()']],
+    people:       [['Change Group Photo','e','Editors.uploadGroupPhoto()'],['Edit PI','e','Editors.editPI()'],['Change PI Photo','e',"Editors.uploadPhoto('pi-img')"],['+ Postdoc','a',"Editors.addMember('postdoc')"],['+ Research Associate','a',"Editors.addMember('ra')"],['+ Grad Student','a',"Editors.addMember('grad')"],['+ Intern','a',"Editors.addMember('intern')"],['+ Hiring Card','a','Editors.addHiringCard()']],
+    publications: [['+ Publication','a','Editors.addPub()'],['+ Featured Paper','a','Editors.addRepPaper()'],['🔗 링크 자동 연결','e','Editors.autoLinkPubs()'],['ℹ︎ 안내','e','Editors.pubHelp()']],
     equipment:    [
       ['장비 편집',     'e','Editors.editEquipmentCard()'],
       ['+ Equipment',  'a','Editors.addEquipment()']
     ],
     teaching:     [['+ Course','a','Editors.addCourse()'],['+ Semester','a','Editors.addSemester()']],
-    news:         [['+ News Item','a','Editors.addNews()']]
+    news:         [['+ News Item','a','Editors.addNews()']],
+    contact:      [['ℹ︎ 안내','e','Editors.contactHelp()'],['+ Job Posting','a','Editors.addCtJob()']]
   };
 
   function openPWModal() {
@@ -2901,6 +2905,9 @@ var Admin = (function () {
         if (admType === 'news')      { Editors.editNewsItem(admCard);        return; }
         if (admType === 'capcard')   { Editors.editCapCard(admCard);         return; }
         if (admType === 'mtile')     { Editors.editMissionTile(admCard);     return; }
+        if (admType === 'ctjob')     { Editors.editCtJob(admCard);           return; }
+        if (admType === 'facband')   { Editors.editFacBand(admCard);         return; }
+        if (admType === 'mish')      { Editors.editMishCard(admCard);        return; }
       }
 
       /* inline editable regions (hero text, PI info, etc) */
@@ -3131,6 +3138,16 @@ var Editors = (function () {
   function editInline(el) {
     var id  = el.id;
     if (!id) return;
+    /* HTML-preserving edit for blocks that contain links / line breaks */
+    if (el.hasAttribute('data-edit-html')) {
+      var curHtml = el.innerHTML.replace(/<br\s*\/?>/gi, '\n').trim();
+      Modal.open('편집: ' + (el.getAttribute('data-edit-label') || id), [
+        { key:'val', label:'내용 (줄바꿈 = 새 줄, 링크는 그대로 두세요)', type:'textarea', value: curHtml }
+      ], function() {
+        el.innerHTML = gf('val').replace(/\n/g, '<br>');
+      });
+      return;
+    }
     var cur = el.textContent;
     /* Simple single-field modal for inline content */
     Modal.open('편집: ' + (el.getAttribute('data-edit-label') || id), [
@@ -3295,6 +3312,19 @@ var Editors = (function () {
       img.src = re.target.result;
     });
     reader.readAsDataURL(file);
+  }
+
+  function uploadGroupPhoto() {
+    var inp = document.createElement('input');
+    inp.type = 'file'; inp.accept = 'image/*';
+    inp.addEventListener('change', function(ev) {
+      var file = ev.target.files[0]; if (!file) return;
+      processImageFile(file, 1600, 0.85, function(dataUrl) {
+        var img = document.getElementById('group-img');
+        if (img) img.src = dataUrl;
+      });
+    });
+    inp.click();
   }
 
   function uploadPhoto(imgId) {
@@ -3675,6 +3705,70 @@ var Editors = (function () {
     modalDeleteBtn(row, pubName, renumberPubs);
   }
 
+  /* ---- Auto-link published papers via Crossref ----
+     Converts every link-less published paper row into a clickable
+     link by resolving its DOI from its title. ---- */
+  function floatingStatus() {
+    var el = document.createElement('div');
+    el.style.cssText = 'position:fixed;left:50%;bottom:24px;transform:translateX(-50%);z-index:99999;'
+      + 'background:var(--navy);color:#fff;font-family:var(--mono);font-size:.75rem;padding:.7rem 1.1rem;'
+      + 'border-radius:10px;box-shadow:0 6px 24px rgba(0,0,0,.3);max-width:90vw;text-align:center';
+    document.body.appendChild(el);
+    return { update: function(t){ el.textContent = t; }, remove: function(){ el.remove(); } };
+  }
+  function makeRowLink(row, url) {
+    if (row.tagName === 'A') { row.href = url; row.target = '_blank'; return row; }
+    var a = document.createElement('a');
+    a.className = (row.className || '').replace('pub-row-nolink', 'pub-row');
+    a.setAttribute('data-adm-card', ''); a.setAttribute('data-adm-type', 'pub');
+    a.href = url; a.target = '_blank';
+    while (row.firstChild) a.appendChild(row.firstChild);
+    if (row.parentNode) row.parentNode.replaceChild(a, row);
+    return a;
+  }
+  function autoLinkPubs() {
+    var list = document.getElementById('pub-list'); if (!list) return;
+    var rows = [], inPending = false;
+    Array.prototype.slice.call(list.children).forEach(function(ch) {
+      if (ch.classList && ch.classList.contains('pub-yr')) { inPending = /pending|review/i.test(ch.textContent); return; }
+      if (ch.classList && ch.classList.contains('pub-row-nolink') && !inPending) rows.push(ch);
+    });
+    if (!rows.length) { alert('링크가 필요한 (링크 없는) 출판 논문이 없습니다.\n\n참고: Pending / Under Review 섹션은 제외됩니다.'); return; }
+    if (!confirm(rows.length + '개의 링크 없는 출판 논문을 Crossref에서 검색해 자동으로 링크를 연결합니다.\n수십 초 걸릴 수 있어요. 계속할까요?')) return;
+    var status = floatingStatus();
+    var i = 0, ok = 0, fail = 0;
+    function next() {
+      if (i >= rows.length) {
+        status.update('✓ 완료: ' + ok + '개 연결, ' + fail + '개 미발견');
+        setTimeout(status.remove, 4500);
+        return;
+      }
+      var row = rows[i];
+      var titleEl = row.querySelector('.pub-t');
+      var title = titleEl ? titleEl.textContent.trim() : '';
+      status.update('(' + (i + 1) + '/' + rows.length + ') 검색 중: ' + title.slice(0, 36) + '…');
+      if (!title || title.length < 8) { fail++; i++; setTimeout(next, 60); return; }
+      crossrefLookup(title, '', function(rec) {
+        if (rec && rec.url && rec.score >= 65) { makeRowLink(row, rec.url); ok++; }
+        else fail++;
+        i++;
+        setTimeout(next, 350);
+      });
+    }
+    next();
+  }
+
+  function pubHelp() {
+    alert(
+      '【논문 추가】 "+ Publication" → 맨 위 "섹션"에서\n'
+      + ' • Pending / Under Review 를 고르면 → 미게재 논문 섹션 맨 위에 추가\n'
+      + ' • 연도(2026 등)를 고르면 → 해당 연도에 정렬되어 추가\n\n'
+      + '제목만 입력하고 "🔍 웹에서 정보 찾기"를 누르면 저널·권·페이지·연도·DOI가 자동으로 채워집니다.\n\n'
+      + '【링크 자동 연결】 이미 올라온 논문 중 링크가 없는 것들을 "🔗 링크 자동 연결"로 한 번에 DOI 링크에 연결할 수 있어요.\n\n'
+      + '【수락】 Pending 논문이 정식 게재되면, 그 카드에 마우스를 올려 "✓ Accept"를 누르면 연도 섹션으로 옮겨집니다.'
+    );
+  }
+
   /* ---- Accept a pending paper → publish it under its year & renumber the list ---- */
   function renumberPubs() {
     var list = document.getElementById('pub-list');
@@ -3755,6 +3849,11 @@ var Editors = (function () {
   /* ---- Equipment ---- */
   function addEquipment() {
     Modal.open('장비 추가', [
+      { key:'section', label:'섹션', type:'select', options:[
+        { value:'eq-grid', label:'Lab-Dedicated (연구실 전용)' },
+        { value:'eq-grid-aqt', label:'AQT 센터' },
+        { value:'eq-grid-cinap', label:'CINAP 센터' }
+      ] },
       { key:'name', label:'장비명' },
       { key:'sub',  label:'부제목' },
       { key:'desc', label:'설명', type:'textarea' },
@@ -3763,13 +3862,13 @@ var Editors = (function () {
       var name = gf('name'), sub = gf('sub'), desc = gf('desc');
       var tags = gf('tags').split(',').map(function(t) { return t.trim(); }).filter(Boolean);
       if (!name) return;
-      var grid = document.getElementById('eq-grid');
-      var n    = String(grid.children.length).padStart(2,'0');
+      var grid = document.getElementById(gf('section')) || document.getElementById('eq-grid');
+      var n    = String(grid.querySelectorAll('.eq-card').length + 1).padStart(2,'0');
       var card = document.createElement('div'); card.className = 'eq-card';
       card.setAttribute('data-adm-card', '');
       card.setAttribute('data-adm-type', 'equipment');
       card.innerHTML = '<div class="eq-n">'+n+'</div><div class="eq-name">'+name+'</div><div class="eq-sub">'+sub+'</div><p class="eq-desc">'+desc+'</p><div class="eq-tags">'+tags.map(function(t){return '<span class="eq-tag">'+t+'</span>';}).join('')+'</div>';
-      grid.insertBefore(card, grid.lastElementChild);
+      grid.appendChild(card);
       /* offer to add a photo right away */
       setTimeout(function() {
         if (confirm('이 장비에 사진을 추가하시겠습니까?')) equipPhotoPickerFor(card);
@@ -3777,9 +3876,70 @@ var Editors = (function () {
     });
   }
 
+  /* ---- Equipment: facility/center header band ---- */
+  function editFacBand(band) {
+    var tag = band.querySelector('.fac-tag');
+    var h3  = band.querySelector('h3');
+    var kr  = band.querySelector('.fac-kr');
+    var p   = band.querySelector('p');
+    Modal.open('센터 정보 편집', [
+      { key:'tag',  label:'태그 라벨', value: tag ? tag.textContent : '' },
+      { key:'name', label:'센터명', value: h3 ? h3.textContent : '' },
+      { key:'kr',   label:'국문/위치', value: kr ? kr.textContent : '' },
+      { key:'desc', label:'설명', type:'textarea', value: p ? p.textContent : '' }
+    ], function() {
+      if (tag) tag.textContent = gf('tag');
+      if (h3)  h3.textContent  = gf('name');
+      if (kr)  kr.textContent  = gf('kr');
+      if (p)   p.textContent   = gf('desc');
+    });
+  }
+
   /* ---- Teaching ---- */
+  /* rank a semester label "2026 Spring" → sortable number (newest first) */
+  function semRank(label) {
+    var m = (label || '').match(/(\d{4})/);
+    var year = m ? parseInt(m[1], 10) : 0;
+    var s = (label || '').toLowerCase();
+    var season = /winter/.test(s) ? 4 : (/fall|autumn/.test(s) ? 3 : (/summer/.test(s) ? 2 : (/spring/.test(s) ? 1 : 0)));
+    return year * 10 + season;
+  }
+  /* re-group & sort the teaching list by year/semester (newest first) */
+  function regroupTeaching() {
+    var sw = document.getElementById('sem-wrap'); if (!sw) return;
+    var groups = [], cur = null;
+    Array.prototype.slice.call(sw.children).forEach(function(ch) {
+      if (ch.classList && ch.classList.contains('sem-label')) {
+        cur = { label: ch.textContent.trim(), cards: [] }; groups.push(cur);
+      } else if (ch.classList && ch.classList.contains('ccard')) {
+        if (!cur) { cur = { label: '기타', cards: [] }; groups.push(cur); }
+        cur.cards.push(ch);
+      }
+    });
+    /* merge groups with identical labels */
+    var merged = {};
+    var order = [];
+    groups.forEach(function(g) {
+      if (!merged[g.label]) { merged[g.label] = { label: g.label, cards: [] }; order.push(g.label); }
+      g.cards.forEach(function(c) { merged[g.label].cards.push(c); });
+    });
+    var list = order.map(function(k) { return merged[k]; });
+    list.sort(function(a, b) { return semRank(b.label) - semRank(a.label); });
+    sw.innerHTML = '';
+    list.forEach(function(g, i) {
+      var lbl = document.createElement('div');
+      lbl.className = 'sem-label';
+      if (i > 0) lbl.style.marginTop = '2.5rem';
+      lbl.textContent = g.label;
+      sw.appendChild(lbl);
+      g.cards.forEach(function(c) { sw.appendChild(c); });
+    });
+  }
+
   function addCourse() {
     Modal.open('강좌 추가', [
+      { key:'year',   label:'연도', placeholder:'예: 2026' },
+      { key:'season', label:'학기', type:'select', options:['Spring','Summer','Fall','Winter'] },
       { key:'level', label:'레벨 (ug / grad)' },
       { key:'title', label:'강좌명' },
       { key:'code',  label:'과목코드 (선택)' },
@@ -3788,23 +3948,39 @@ var Editors = (function () {
     ], function() {
       var isGrad = gf('level').toLowerCase().indexOf('grad') >= 0;
       var title  = gf('title'), code = gf('code'), desc = gf('desc'), time = gf('time');
+      var year = gf('year').trim(), season = gf('season').trim();
       if (!title) return;
+      var sem = (year + ' ' + season).trim() || '기타';
       var card = document.createElement('div'); card.className = 'ccard';
+      card.setAttribute('data-adm-card',''); card.setAttribute('data-adm-type','course');
       card.innerHTML = '<div class="ccard-head"><span class="cbadge '+(isGrad?'cb-grad':'cb-ug')+'">'+(isGrad?'Graduate':'UG / Master')+'</span><div><h3>'+title+'</h3>'+(code?'<div class="ccard-code">'+code+'</div>':'')+'</div></div><div class="ccard-body">'+desc+(time?'<div class="ctime">'+time+'</div>':'')+'</div>';
-      var sw = document.getElementById('sem-wrap');
-      var fl = sw ? sw.querySelector('.sem-label') : null;
-      if (fl) sw.insertBefore(card, fl); else if (sw) sw.appendChild(card);
+      var sw = document.getElementById('sem-wrap'); if (!sw) return;
+      /* find or create the semester label, then append card to its group */
+      var target = null;
+      sw.querySelectorAll('.sem-label').forEach(function(l) {
+        if (l.textContent.trim().toLowerCase() === sem.toLowerCase()) target = l;
+      });
+      if (!target) { target = document.createElement('div'); target.className = 'sem-label'; target.textContent = sem; sw.appendChild(target); }
+      var next = target.nextElementSibling;
+      while (next && next.classList.contains('ccard')) next = next.nextElementSibling;
+      sw.insertBefore(card, next);
+      regroupTeaching();
     });
   }
 
   function addSemester() {
-    Modal.open('학기 추가', [{ key:'sem', label:'학기 이름', placeholder:'e.g. 2027 Spring' }], function() {
-      var sem = gf('sem'); if (!sem) return;
-      var lbl = document.createElement('div');
-      lbl.className = 'sem-label'; lbl.style.marginTop = 'var(--s4)'; lbl.textContent = sem;
-      var sw = document.getElementById('sem-wrap');
-      var fl = sw ? sw.querySelector('.sem-label') : null;
-      if (fl) sw.insertBefore(lbl, fl); else if (sw) sw.prepend(lbl);
+    Modal.open('학기 추가', [
+      { key:'year',   label:'연도', placeholder:'예: 2027' },
+      { key:'season', label:'학기', type:'select', options:['Spring','Summer','Fall','Winter'] }
+    ], function() {
+      var sem = (gf('year').trim() + ' ' + gf('season').trim()).trim(); if (!sem) return;
+      var sw = document.getElementById('sem-wrap'); if (!sw) return;
+      var exists = false;
+      sw.querySelectorAll('.sem-label').forEach(function(l) { if (l.textContent.trim().toLowerCase() === sem.toLowerCase()) exists = true; });
+      if (exists) { regroupTeaching(); return; }
+      var lbl = document.createElement('div'); lbl.className = 'sem-label'; lbl.textContent = sem;
+      sw.appendChild(lbl);
+      regroupTeaching();
     });
   }
 
@@ -3975,6 +4151,74 @@ var Editors = (function () {
       if (h3El) h3El.textContent = gf('title');
       if (pEl)  pEl.textContent  = gf('desc');
     });
+  }
+
+  /* ---- Research: mission card on the Research page ---- */
+  function editMishCard(card) {
+    var h3 = card.querySelector('.mish-head h3');
+    var p  = card.querySelector('.mish-head p');
+    var ul = card.querySelector('.mish-body ul');
+    var mats = card.querySelector('.mish-mats');
+    Modal.open('Research 미션 편집', [
+      { key:'title', label:'제목', value: h3 ? h3.textContent : '' },
+      { key:'desc',  label:'설명', type:'textarea', value: p ? p.textContent : '' },
+      { key:'targets', label:'Targets (한 줄에 하나)', type:'textarea', value: ulToText(ul) },
+      { key:'mats',  label:'소재 태그 (쉼표로 구분)', value: mats ? Array.prototype.slice.call(mats.querySelectorAll('span')).map(function(s){return s.textContent;}).join(', ') : '' }
+    ], function() {
+      if (h3) h3.textContent = gf('title');
+      if (p)  p.textContent  = gf('desc');
+      if (ul) ul.innerHTML = textToUl(gf('targets'));
+      if (mats) mats.innerHTML = gf('mats').split(',').map(function(t){return t.trim();}).filter(Boolean).map(function(t){return '<span>'+t+'</span>';}).join('');
+    });
+  }
+  function researchHelp() {
+    alert('Research 페이지: 제목·소개글·플랫폼 설명에 마우스를 올리면 ✎ Edit 가 떠요 — 클릭해서 수정하세요. 아래 3개 미션 카드는 카드를 클릭하면 제목·설명·타깃·소재를 한 번에 편집할 수 있어요.');
+  }
+
+  /* ---- Contact: job posting card ---- */
+  function ulToText(ul) { return ul ? Array.prototype.slice.call(ul.querySelectorAll('li')).map(function(li){return li.textContent;}).join('\n') : ''; }
+  function textToUl(text) {
+    return text.split('\n').map(function(l){return l.trim();}).filter(Boolean)
+      .map(function(l){return '<li>'+l+'</li>';}).join('');
+  }
+  function editCtJob(card) {
+    var jt = card.querySelector('.jt'), h4 = card.querySelector('h4'), p = card.querySelector('p');
+    var uls = card.querySelectorAll('ul');
+    Modal.open('채용 공고 편집', [
+      { key:'jt',    label:'구분 라벨', value: jt ? jt.textContent : '' },
+      { key:'title', label:'제목', value: h4 ? h4.textContent : '' },
+      { key:'desc',  label:'설명', type:'textarea', value: p ? p.textContent : '' },
+      { key:'work',  label:'업무 (한 줄에 하나)', type:'textarea', value: ulToText(uls[0]) },
+      { key:'who',   label:'자격 (한 줄에 하나)', type:'textarea', value: ulToText(uls[1]) }
+    ], function() {
+      if (jt) jt.textContent = gf('jt');
+      if (h4) h4.textContent = gf('title');
+      if (p)  p.textContent  = gf('desc');
+      if (uls[0]) uls[0].innerHTML = textToUl(gf('work'));
+      if (uls[1]) uls[1].innerHTML = textToUl(gf('who'));
+    });
+    modalDeleteBtn(card, h4 ? h4.textContent.slice(0,30) : '공고');
+  }
+  function addCtJob() {
+    Modal.open('채용 공고 추가', [
+      { key:'jt',    label:'구분 라벨 (예: Graduate students)' },
+      { key:'title', label:'제목' },
+      { key:'desc',  label:'설명', type:'textarea' },
+      { key:'work',  label:'업무 (한 줄에 하나)', type:'textarea' },
+      { key:'who',   label:'자격 (한 줄에 하나)', type:'textarea' }
+    ], function() {
+      var title = gf('title'); if (!title) return;
+      var jobs = document.querySelector('.ct-jobs'); if (!jobs) return;
+      var card = document.createElement('div'); card.className = 'ct-job';
+      card.setAttribute('data-adm-card',''); card.setAttribute('data-adm-type','ctjob');
+      card.innerHTML = '<div class="jt">'+gf('jt')+'</div><h4>'+title+'</h4><p>'+gf('desc')+'</p>'
+        + '<div class="jl">What you\'ll work on</div><ul>'+textToUl(gf('work'))+'</ul>'
+        + '<div class="jl">Who we\'re looking for</div><ul>'+textToUl(gf('who'))+'</ul>';
+      jobs.appendChild(card);
+    });
+  }
+  function contactHelp() {
+    alert('Contact 페이지는 각 항목(주소·전화·이메일·PI·링크·소개글)에 마우스를 올리면 ✎ Edit 가 떠요. 클릭해서 바로 수정하세요. 채용 공고 카드도 클릭하면 편집·삭제할 수 있고, "+ Job Posting" 으로 새 공고를 추가할 수 있어요.');
   }
 
   /* ---- Equipment card inline edit ---- */
@@ -4278,6 +4522,7 @@ var Editors = (function () {
     addHomeNews:      addHomeNews,
     editPI:           editPI,
     uploadPhoto:      uploadPhoto,
+    uploadGroupPhoto: uploadGroupPhoto,
     editMcard:        editMcard,
     deleteMcard:      deleteMcard,
     toHiring:         toHiring,
@@ -4287,6 +4532,8 @@ var Editors = (function () {
     addHiringCard:    addHiringCard,
     addPub:           addPub,
     addRepPaper:      addRepPaper,
+    autoLinkPubs:     autoLinkPubs,
+    pubHelp:          pubHelp,
     editPubRow:       editPubRow,
     acceptPub:        acceptPub,
     addEquipment:     addEquipment,
@@ -4302,6 +4549,12 @@ var Editors = (function () {
     equipPhotoPickerFor:   equipPhotoPickerFor,
     editCapCard:           editCapCard,
     editMissionTile:       editMissionTile,
+    editMishCard:          editMishCard,
+    researchHelp:          researchHelp,
+    editCtJob:             editCtJob,
+    addCtJob:              addCtJob,
+    contactHelp:           contactHelp,
+    editFacBand:           editFacBand,
     editCourseCard:        editCourseCard,
     editCourseCardEl:      editCourseCardEl,
     editPILinks:           editPILinks,
@@ -4577,7 +4830,7 @@ var OrcidSync = (function () {
    Versioned key prefix isolates from any older snapshots. ── */
 var Persist = (function () {
   var PREFIX = 'qslab_v3_';
-  var BUILD = '2026-06-01-home-edit';  /* bump on any structural/CSS change to invalidate stale snapshots */
+  var BUILD = '2026-06-01-admin-freedom';  /* bump on any structural/CSS change to invalidate stale snapshots */
   var IDS = ['page-home','page-research','page-people','page-publications','page-equipment','page-teaching','page-news','page-contact'];
   var restoring = false;
   var t = 0;
@@ -4648,6 +4901,56 @@ var Persist = (function () {
     location.reload();
   }
 
+  /* ── Content backup: export per-page content as a portable JSON ──
+     Lets the admin carry their web edits across an index.html swap:
+     Export before replacing the file, Import after. ── */
+  function exportContent() {
+    var data = { build: BUILD, savedAt: new Date().toISOString(), pages: {} };
+    IDS.forEach(function(id){
+      var el = document.getElementById(id);
+      if (el) data.pages[id] = cleanInner(el);
+    });
+    var blob = new Blob([JSON.stringify(data)], { type: 'application/json' });
+    var a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = 'qslab-content-backup.json';
+    document.body.appendChild(a); a.click(); document.body.removeChild(a);
+    setTimeout(function(){ URL.revokeObjectURL(a.href); }, 8000);
+  }
+
+  function importContent(file) {
+    var reader = new FileReader();
+    reader.onload = function(e) {
+      var data;
+      try { data = JSON.parse(e.target.result); } catch (err) { alert('백업 파일을 읽을 수 없습니다 (JSON 형식 오류).'); return; }
+      if (!data || !data.pages) { alert('올바른 내용 백업 파일이 아닙니다.'); return; }
+      var diffBuild = data.build && data.build !== BUILD;
+      var msg = '이 백업의 내용으로 현재 페이지들을 덮어씁니다. 계속할까요?';
+      if (diffBuild) msg = '⚠ 이 백업은 다른 사이트 버전(' + data.build + ')에서 만들어졌습니다.\n복원 후 레이아웃이 어긋나면, 새로 만든 기능 영역은 다시 확인해 주세요.\n\n계속할까요?';
+      if (!confirm(msg)) return;
+      restoring = true;
+      try {
+        IDS.forEach(function(id){
+          if (data.pages[id] != null) {
+            var el = document.getElementById(id);
+            if (el) el.innerHTML = data.pages[id];
+          }
+        });
+      } catch (err) {}
+      restoring = false;
+      /* persist to this browser + re-run dynamic hooks */
+      saveAll();
+      try {
+        if (window.refreshPeopleCounts) window.refreshPeopleCounts();
+        if (window.highlightLabAuthors) window.highlightLabAuthors();
+        if (window.syncHomeNews) window.syncHomeNews();
+        if (window.Admin && Admin.isOn && Admin.isOn()) Admin.reinject && Admin.reinject();
+      } catch (err) {}
+      alert('내용 복원 완료. 화면을 확인하고, 이상 없으면 🚀 발행로 실제 사이트에 반영하세요.');
+    };
+    reader.readAsText(file);
+  }
+
   function flash() {
     var n = document.getElementById('af-saved');
     if (!n) return;
@@ -4656,7 +4959,7 @@ var Persist = (function () {
     flash._t = setTimeout(function(){ n.style.opacity = '0'; }, 1100);
   }
 
-  return { restore: restore, observe: observe, saveAll: saveAll, reset: reset };
+  return { restore: restore, observe: observe, saveAll: saveAll, reset: reset, exportContent: exportContent, importContent: importContent };
 })();
 
 
@@ -4827,6 +5130,18 @@ document.addEventListener('DOMContentLoaded', function () {
   /* ── Auto-save: reset button + start observing ── */
   var afReset = document.getElementById('af-reset');
   if (afReset) afReset.addEventListener('click', Persist.reset);
+  /* content backup / restore */
+  var afCExport = document.getElementById('af-content-export');
+  if (afCExport) afCExport.addEventListener('click', Persist.exportContent);
+  var afCImport = document.getElementById('af-content-import');
+  var afCFile   = document.getElementById('af-content-file');
+  if (afCImport && afCFile) {
+    afCImport.addEventListener('click', function(){ afCFile.click(); });
+    afCFile.addEventListener('change', function(ev){
+      var f = ev.target.files[0]; if (f) Persist.importContent(f);
+      ev.target.value = '';
+    });
+  }
   Persist.observe();
 
   /* ── QS wordplay: Q and S each hint at our research areas ── */
