@@ -964,6 +964,9 @@ body.admin-on .mcard[data-alumni="1"] .mc-hire { display: none; }
 .mcard-hiring-title { font-family: var(--serif); font-size: .95rem; font-weight: 600; color: var(--ink); margin-bottom: .4rem; }
 .mcard-hiring-sub { font-size: .78rem; color: var(--ink3); line-height: 1.65; }
 .alumni-text { font-size: .88rem; color: var(--ink2); line-height: 2; }
+/* Name-only alumni cards (no photo): compact, centered tile */
+.mcard-nameonly { display: flex; flex-direction: column; justify-content: center; min-height: 92px; align-self: start; }
+.mcard-nameonly .mcard-name { margin-bottom: .25rem; }
 
 /* ---------- Publications ---------- */
 .rep-section { background: var(--bg2); padding: var(--s4) var(--s4); border-bottom: 1px solid var(--border); }
@@ -1642,7 +1645,7 @@ body.admin-on .news-edit-btns { display: flex; }
       <button class="btn btn-amber" data-goto="people">Meet the team →</button>
     </div>
     <div class="op-right">
-      <div class="op-item"><h4>Postdoctoral Researcher</h4><p>1 vacancy — 2D heterostructure fabrication for QIS. <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="a2d1c7d7ccc5d7c9e2d1c9c9d78cc7c6d7">[email&#160;protected]</a></p></div>
+      <div class="op-item"><h4>Postdoctoral Researcher</h4><p>1 vacancy — 2D heterostructure fabrication for QIS. <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="86f5e3f3e8e1f3edc6f5ededf3a8e3e2f3">[email&#160;protected]</a></p></div>
       <div class="op-item"><h4>Integrated M.S.–Ph.D. Students</h4><p>Ongoing recruitment. SKKU Department of Energy Science.</p></div>
       <div class="op-item"><h4>Undergraduate Interns (URP)</h4><p>SKKU Undergraduate Research Program — each semester.</p></div>
     </div>
@@ -1651,7 +1654,7 @@ body.admin-on .news-edit-btns { display: flex; }
   <footer>
     <div class="ft-left">
       <div class="ft-logo">QS Lab @ SKKU</div>
-      <div class="ft-addr">N Center 3F #86383, SKKU, Suwon, Korea<br><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="b5c6d0c0dbd2c0def5c6dedec09bd0d1c0">[email&#160;protected]</a></div>
+      <div class="ft-addr">N Center 3F #86383, SKKU, Suwon, Korea<br><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="186b7d6d767f6d73586b73736d367d7c6d">[email&#160;protected]</a></div>
     </div>
     <div class="ft-right">
       <div class="ft-dept">Energy Science · 성균관대학교 에너지학과<br><span style="font-size:.75rem">© QS Lab, SKKU<span class="ft-admin-trigger" title="Admin">·</span></span></div>
@@ -1784,7 +1787,7 @@ body.admin-on .news-edit-btns { display: flex; }
       <img src="assets/sponsors/bk21.png" alt="Brain Korea 21 (BK21 FOUR)">
     </div>
   </div>
-  <footer><div class="ft-left"><div class="ft-logo">QS Lab</div><div class="ft-addr"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="ee9d8b9b80899b85ae9d85859bc08b8a9b">[email&#160;protected]</a></div></div><div class="ft-right"><div class="ft-dept">© QS Lab, SKKU<span class="ft-admin-trigger">·</span></div></div></footer>
+  <footer><div class="ft-left"><div class="ft-logo">QS Lab</div><div class="ft-addr"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="8cffe9f9e2ebf9e7ccffe7e7f9a2e9e8f9">[email&#160;protected]</a></div></div><div class="ft-right"><div class="ft-dept">© QS Lab, SKKU<span class="ft-admin-trigger">·</span></div></div></footer>
 </main>
 
 <!-- ═══════════════ RESEARCH DETAIL ═══════════════ -->
@@ -1796,7 +1799,7 @@ body.admin-on .news-edit-btns { display: flex; }
     <button id="rd-edit-body-btn" style="display:none;margin-top:var(--s2);font-family:var(--mono);font-size:.7rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;background:var(--amber);color:#fff;padding:.4rem 1rem;border:none;border-radius:var(--r2);cursor:pointer">✎ Edit Detail Content</button>
   </div>
   <div class="res-body" id="rd-body"></div>
-  <footer><div class="ft-left"><div class="ft-logo">QS Lab</div><div class="ft-addr"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="d3a0b6a6bdb4a6b893a0b8b8a6fdb6b7a6">[email&#160;protected]</a></div></div><div class="ft-right"><div class="ft-dept">© QS Lab, SKKU<span class="ft-admin-trigger">·</span></div></div></footer>
+  <footer><div class="ft-left"><div class="ft-logo">QS Lab</div><div class="ft-addr"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="255640504b42504e65564e4e500b404150">[email&#160;protected]</a></div></div><div class="ft-right"><div class="ft-dept">© QS Lab, SKKU<span class="ft-admin-trigger">·</span></div></div></footer>
 </main>
 
 <!-- ═══════════════ PEOPLE ═══════════════ -->
@@ -1835,14 +1838,14 @@ body.admin-on .news-edit-btns { display: flex; }
       <div class="pi-links" data-editable data-edit-label="✎ Edit Links">
         <a class="pi-link" href="https://linkedin.com/in/seunguk-song-a1b338212" target="_blank">LinkedIn</a>
         <a class="pi-link" href="https://scholar.google.com/citations?user=IS8WIlBo_iIC" target="_blank">Google Scholar</a>
-        <a class="pi-link" href="/cdn-cgi/l/email-protection#cab9afbfa4adbfa18ab9a1a1bfe4afaebf"><span class="__cf_email__" data-cfemail="e59680908b82908ea5968e8e90cb808190">[email&#160;protected]</span></a>
+        <a class="pi-link" href="/cdn-cgi/l/email-protection#a7d4c2d2c9c0d2cce7d4ccccd289c2c3d2"><span class="__cf_email__" data-cfemail="dba8beaeb5bcaeb09ba8b0b0aef5bebfae">[email&#160;protected]</span></a>
       </div>
     </div>
   </div>
 
   <div class="mgroup">
     <div class="mg-label">Postdoctoral Fellows</div>
-    <div class="mgrid" id="grid-postdoc"><div class="mcard mcard-hiring" data-adm-card data-adm-type="hiring"><div class="mcard-hiring-icon">🔬</div><div class="mcard-hiring-title">We Are Hiring</div><div class="mcard-hiring-sub">Postdoctoral Researcher<br>2D heterostructure fabrication for QIS<br>Contact: <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="bccfd9c9d2dbc9d7fccfd7d7c992d9d8c9">[email&#160;protected]</a></div></div></div>
+    <div class="mgrid" id="grid-postdoc"><div class="mcard mcard-hiring" data-adm-card data-adm-type="hiring"><div class="mcard-hiring-icon">🔬</div><div class="mcard-hiring-title">We Are Hiring</div><div class="mcard-hiring-sub">Postdoctoral Researcher<br>2D heterostructure fabrication for QIS<br>Contact: <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="a5d6c0d0cbc2d0cee5d6ceced08bc0c1d0">[email&#160;protected]</a></div></div></div>
     <div class="mg-label">Research Associate</div>
     <div class="mgrid" id="grid-ra"><div class="mcard" data-adm-card data-adm-type="member"><div class="mcard-img-wrap"><img src="assets/people/sooyoung-choi.jpg" alt="Sooyoung Choi"></div><div class="mcard-name">Sooyoung Choi</div><div class="mcard-role">Research Associate (Mar 2026)</div><div class="mcard-desc">Received M.S. in Electrical Engineering from the University of Pennsylvania. Joined the lab as Research Associate in March 2026. Research interests include 2D superconductors and twist angle-dependent electronic properties in 2D heterostructures.</div></div></div>
     <div class="mg-label">Graduate Students</div>
@@ -1877,15 +1880,15 @@ body.admin-on .news-edit-btns { display: flex; }
         <div style="padding:var(--s2);border:1px solid var(--border);border-radius:var(--r2)"><div class="mcard-name">Kyung-Rok Kang</div><div class="mcard-role">KITECH</div></div>
       </div>
       <div class="mg-label" id="alumni-card-label" style="margin-top:var(--s3)">Alumni</div>
-      <div class="mgrid" id="grid-alumni" style="margin-bottom:var(--s2)"><div class="mcard" data-adm-card data-adm-type="member" data-alumni="1"><div class="mcard-img-wrap"><img src="assets/people/nasir-ali.png" alt="Dr. Nasir Ali"></div><div class="mcard-name">Dr. Nasir Ali</div><div class="mcard-role">Alumni (ex-Postdoc) · 2020–2025</div><div class="mcard-desc">Received B.Sc./M.Sc. from Aligarh Muslim University and Ph.D. in Physics from Jawaharlal Nehru University (2020). Postdoc at SAINT, SKKU (2020–2025). Research focused on quantum phase metal-insulator transitions, metallic transport, and critical phenomena in 2D materials via semimetal and 2D metallic contacts.</div></div></div>
+      <div class="mgrid" id="grid-alumni" style="margin-bottom:var(--s2)"><div class="mcard" data-adm-card data-adm-type="member" data-alumni="1"><div class="mcard-img-wrap"><img src="assets/people/nasir-ali.png" alt="Dr. Nasir Ali"></div><div class="mcard-name">Dr. Nasir Ali</div><div class="mcard-role">Alumni (ex-Postdoc) · 2020–2025</div><div class="mcard-desc">Received B.Sc./M.Sc. from Aligarh Muslim University and Ph.D. in Physics from Jawaharlal Nehru University (2020). Postdoc at SAINT, SKKU (2020–2025). Research focused on quantum phase metal-insulator transitions, metallic transport, and critical phenomena in 2D materials via semimetal and 2D metallic contacts.</div></div><div class="mcard mcard-nameonly" data-adm-card data-adm-type="member" data-alumni="1"><div class="mcard-name">Chengyun Hong</div><div class="mcard-role">Alumni (ex-Ph.D.) · → Postdoc, POSTECH MSE</div></div></div>
       <div style="margin-top:var(--s3)">
         <strong style="font-size:.84rem;color:var(--ink)">Alumni — </strong>
-        <span class="alumni-text" id="alumni-text">Chengyun Hong (Ph.D. → Postdoc POSTECH MSE) · Hyemyeong Lee · Hyungjeong Lee · Yunyeong Kim · Gunmo Koo · Sangwon Yun · Eunpyo Lee</span>
+        <span class="alumni-text" id="alumni-text">Hyemyeong Lee · Hyungjeong Lee · Yunyeong Kim · Gunmo Koo · Sangwon Yun · Eunpyo Lee</span>
       </div>
     </div>
     <div style="height:var(--s4)"></div>
   </div>
-  <footer><div class="ft-left"><div class="ft-logo">QS Lab</div><div class="ft-addr"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="1d6e7868737a68765d6e76766833787968">[email&#160;protected]</a></div></div><div class="ft-right"><div class="ft-dept">© QS Lab, SKKU<span class="ft-admin-trigger">·</span></div></div></footer>
+  <footer><div class="ft-left"><div class="ft-logo">QS Lab</div><div class="ft-addr"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="b1c2d4c4dfd6c4daf1c2dadac49fd4d5c4">[email&#160;protected]</a></div></div><div class="ft-right"><div class="ft-dept">© QS Lab, SKKU<span class="ft-admin-trigger">·</span></div></div></footer>
 </main>
 
 <!-- ═══════════════ PUBLICATIONS ═══════════════ -->
@@ -2046,7 +2049,7 @@ body.admin-on .news-edit-btns { display: flex; }
   <div class="sem-label" style="margin-top:2.5rem">2024 Fall</div>
   <div class="ccard" data-adm-card data-adm-type="course"><div class="ccard-head"><span class="cbadge cb-grad">Graduate</span><div><h3>Energy Nanomaterials 1 (에너지나노소재1)</h3><div class="ccard-code">ESC5002-41</div></div></div><div class="ccard-body">Energy-efficient electrical devices: materials science and chemistry.<div class="ctime">Thursday 12:00–13:15, 13:30–14:45</div></div></div></div>
   <div style="height:var(--s4)"></div>
-  <footer><div class="ft-left"><div class="ft-logo">QS Lab</div><div class="ft-addr"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="d9aabcacb7beacb299aab2b2acf7bcbdac">[email&#160;protected]</a> · Dept. of Energy Science, SKKU</div></div><div class="ft-right"><div class="ft-dept">© QS Lab, SKKU<span class="ft-admin-trigger">·</span></div></div></footer>
+  <footer><div class="ft-left"><div class="ft-logo">QS Lab</div><div class="ft-addr"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="037066766d64766843706868762d666776">[email&#160;protected]</a> · Dept. of Energy Science, SKKU</div></div><div class="ft-right"><div class="ft-dept">© QS Lab, SKKU<span class="ft-admin-trigger">·</span></div></div></footer>
 </main>
 
 <!-- ═══════════════ NEWS ═══════════════ -->
@@ -2330,7 +2333,7 @@ body.admin-on .news-edit-btns { display: flex; }
       <div class="ct-row"><div class="ct-lbl">Address</div><div class="ct-val" data-editable data-edit-html data-edit-label="✎ Edit" id="ct-addr-en">N Center 3F #86383, Sungkyunkwan University (SKKU)<br>2066 Seobu-ro, Cheoncheon-dong, Jangan-gu, Suwon-si, Gyeonggi-do, South Korea</div></div>
       <div class="ct-row"><div class="ct-lbl">주소</div><div class="ct-val" data-editable data-edit-html data-edit-label="✎ Edit" id="ct-addr-kr">16419 경기도 수원시 장안구 서부로 2066, 성균관대학교 N센터 86383호</div></div>
       <div class="ct-row"><div class="ct-lbl">Phone</div><div class="ct-val" data-editable data-edit-html data-edit-label="✎ Edit" id="ct-phone"><a href="tel:+82312994053">+82-31-299-4053</a></div></div>
-      <div class="ct-row"><div class="ct-lbl">Email</div><div class="ct-val" data-editable data-edit-html data-edit-label="✎ Edit" id="ct-email"><a href="/cdn-cgi/l/email-protection#bfccdacad1d8cad4ffccd4d4ca91dadbca"><span class="__cf_email__" data-cfemail="186b7d6d767f6d73586b73736d367d7c6d">[email&#160;protected]</span></a></div></div>
+      <div class="ct-row"><div class="ct-lbl">Email</div><div class="ct-val" data-editable data-edit-html data-edit-label="✎ Edit" id="ct-email"><a href="/cdn-cgi/l/email-protection#205345554e47554b60534b4b550e454455"><span class="__cf_email__" data-cfemail="4b382e3e252c3e200b3820203e652e2f3e">[email&#160;protected]</span></a></div></div>
       <div class="ct-row"><div class="ct-lbl">PI</div><div class="ct-val" data-editable data-edit-label="✎ Edit" id="ct-pi">Prof. Seunguk Song</div></div>
       <div class="ct-links" data-editable data-edit-html data-edit-label="✎ Edit links" id="ct-links"><a href="https://linkedin.com/in/seunguk-song-a1b338212" target="_blank">LinkedIn</a><a href="https://scholar.google.com/citations?user=IS8WIlBo_iIC" target="_blank">Google Scholar</a></div>
     </div>
@@ -2359,7 +2362,7 @@ body.admin-on .news-edit-btns { display: flex; }
         <ul><li>Ph.D. in a relevant field (or expected by start date)</li><li>Strong proposal/manuscript writing and communication skills</li></ul>
       </div>
     </div>
-    <div class="ct-apply" data-editable data-edit-html data-edit-label="✎ Edit" id="ct-apply">Interested? Email a single PDF (CV + transcript + a short statement of research interest) to <a href="/cdn-cgi/l/email-protection#572432223930223c17243c3c2279323322"><span class="__cf_email__" data-cfemail="2d5e4858434a58466d5e46465803484958">[email&#160;protected]</span></a>. Selection is by document review, an interview with research presentation and lab tour (Zoom option available), and final guidance on the SKKU graduate application.</div>
+    <div class="ct-apply" data-editable data-edit-html data-edit-label="✎ Edit" id="ct-apply">Interested? Email a single PDF (CV + transcript + a short statement of research interest) to <a href="/cdn-cgi/l/email-protection#2b584e5e454c5e406b5840405e054e4f5e"><span class="__cf_email__" data-cfemail="e59680908b82908ea5968e8e90cb808190">[email&#160;protected]</span></a>. Selection is by document review, an interview with research presentation and lab tour (Zoom option available), and final guidance on the SKKU graduate application.</div>
   </section>
   <footer><div class="ft-left"><div class="ft-logo">QS Lab</div><div class="ft-addr">N Center 3F #86383, SKKU</div></div><div class="ft-right"><div class="ft-dept">© QS Lab, SKKU<span class="ft-admin-trigger" title="Admin">·</span></div></div></footer>
 </main>
@@ -2694,7 +2697,7 @@ var Admin = (function () {
       ['Edit Title/Subtitle', 'e', 'Editors.editResearchDetailHeader()'],
       ['Edit Detail Content', 'e', 'Editors.editResearchDetailBody()'],
     ],
-    people:       [['Change Group Photo','e','Editors.uploadGroupPhoto()'],['Edit PI','e','Editors.editPI()'],['Change PI Photo','e',"Editors.uploadPhoto('pi-img')"],['+ Postdoc','a',"Editors.addMember('postdoc')"],['+ Research Associate','a',"Editors.addMember('ra')"],['+ Grad Student','a',"Editors.addMember('grad')"],['+ Intern','a',"Editors.addMember('intern')"],['+ Hiring Card','a','Editors.addHiringCard()']],
+    people:       [['Change Group Photo','e','Editors.uploadGroupPhoto()'],['Edit PI','e','Editors.editPI()'],['Change PI Photo','e',"Editors.uploadPhoto('pi-img')"],['+ Postdoc','a',"Editors.addMember('postdoc')"],['+ Research Associate','a',"Editors.addMember('ra')"],['+ Grad Student','a',"Editors.addMember('grad')"],['+ Intern','a',"Editors.addMember('intern')"],['+ Alumni (이름만)','a','Editors.addAlumniName()'],['+ Hiring Card','a','Editors.addHiringCard()']],
     publications: [['+ Publication','a','Editors.addPub()'],['+ Featured Paper','a','Editors.addRepPaper()'],['🔗 링크 자동 연결','e','Editors.autoLinkPubs()'],['ℹ︎ 안내','e','Editors.pubHelp()']],
     equipment:    [
       ['장비 편집',     'e','Editors.editEquipmentCard()'],
@@ -3491,6 +3494,16 @@ var Editors = (function () {
     }
     /* mark as alumni so styling / future logic can target it */
     card.setAttribute('data-alumni', '1');
+    /* Name-only alumni: if the card has no REAL photo (just an initials
+       placeholder), drop the image box so it becomes a compact name card.
+       Cards with an actual <img> keep their photo. */
+    if (!hasPhoto) {
+      var wrap = card.querySelector('.mcard-img-wrap');
+      if (wrap) wrap.remove();
+      var descEl = card.querySelector('.mcard-desc');
+      if (descEl) descEl.remove();   /* alumni name cards stay compact */
+      card.classList.add('mcard-nameonly');
+    }
 
     var grid = document.getElementById('grid-alumni');
     var lbl  = document.getElementById('alumni-card-label');
@@ -3602,6 +3615,37 @@ var Editors = (function () {
       setTimeout(function() {
         if (confirm('이 멤버의 사진을 지금 추가하시겠습니까?')) photoPickerFor(card);
       }, 100);
+    });
+  }
+
+  /* Add a name-only Alumni card (no photo) — for past members/interns */
+  function addAlumniName() {
+    Modal.open('Alumni 추가 (이름만)', [
+      { key:'name', label:'이름' },
+      { key:'dest', label:'행선지 / 현재 (선택)', value:'' },
+      { key:'prev', label:'이전 소속 (예: ex-Intern, ex-Ph.D.) (선택)', value:'' }
+    ], function() {
+      var name = gf('name'); if (!name) return;
+      var dest = gf('dest').trim(), prev = gf('prev').trim();
+      var label = 'Alumni' + (prev ? ' (' + prev + ')' : '');
+      if (dest) label += ' · → ' + dest;
+
+      var card = document.createElement('div');
+      card.className = 'mcard mcard-nameonly';
+      card.setAttribute('data-adm-card','');
+      card.setAttribute('data-adm-type','member');
+      card.setAttribute('data-alumni','1');
+      var row = document.createElement('div'); row.className = 'mcard-btns';
+      var eb = document.createElement('button'); eb.className = 'mc-btn mc-edit'; eb.textContent = '✎ Edit';   eb.setAttribute('data-action','edit');   row.appendChild(eb);
+      var db = document.createElement('button'); db.className = 'mc-btn mc-del';  db.textContent = '✕ Delete'; db.setAttribute('data-action','delete'); row.appendChild(db);
+      var nm = document.createElement('div'); nm.className = 'mcard-name'; nm.textContent = name;
+      var ro = document.createElement('div'); ro.className = 'mcard-role'; ro.textContent = label;
+      card.appendChild(row); card.appendChild(nm); card.appendChild(ro);
+
+      var grid = document.getElementById('grid-alumni');
+      var lbl  = document.getElementById('alumni-card-label');
+      if (grid) { grid.appendChild(card); if (lbl) lbl.style.display = ''; }
+      if (window.highlightLabAuthors) window.highlightLabAuthors();
     });
   }
 
@@ -4726,6 +4770,7 @@ var Editors = (function () {
     editHiringCard:   editHiringCard,
     photoPickerFor:   photoPickerFor,
     addMember:        addMember,
+    addAlumniName:    addAlumniName,
     addHiringCard:    addHiringCard,
     addPub:           addPub,
     addRepPaper:      addRepPaper,
@@ -5027,7 +5072,7 @@ var OrcidSync = (function () {
    Versioned key prefix isolates from any older snapshots. ── */
 var Persist = (function () {
   var PREFIX = 'qslab_v3_';
-  var BUILD = '2026-06-02-people-repair';  /* bump on any structural/CSS change to invalidate stale snapshots */
+  var BUILD = '2026-06-02-alumni-cards2';  /* bump on any structural/CSS change to invalidate stale snapshots */
   var IDS = ['page-home','page-research','page-people','page-publications','page-equipment','page-teaching','page-news','page-contact'];
   var restoring = false;
   var t = 0;
@@ -5105,11 +5150,11 @@ var Persist = (function () {
   /* Monotonic content-schema counter. Bump when a page's STRUCTURE is
      fixed in source so older published snapshots of that page are ignored
      (and the corrected source is used instead) until the user republishes. */
-  var BUILD_SEQ = 7;
+  var BUILD_SEQ = 8;
   /* Per-page minimum acceptable buildSeq. A published page OLDER than its
      minimum is skipped on load (source HTML is kept). Other pages always
      apply, so unrelated edits (e.g. publications) are preserved. */
-  var PAGE_MIN_SEQ = { 'page-people': 7 };
+  var PAGE_MIN_SEQ = { 'page-people': 8 };
 
   function getContent() {
     var data = { build: BUILD, buildSeq: BUILD_SEQ, savedAt: new Date().toISOString(), pages: {} };
