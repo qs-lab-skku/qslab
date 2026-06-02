@@ -1441,7 +1441,7 @@ body.admin-on .news-edit-btns { display: flex; }
     </div>
     <div class="af-btns" id="af-btns"></div>
     <div class="af-note">✓ Edits auto-save to this browser<span id="af-saved" class="af-saved">Saved</span></div>
-    <button class="af-publish" id="af-publish">🚀 Publish to live site</button>
+    <button class="af-publish" id="af-publish">🚀 Publish content (글·사진)</button>
     <div class="af-pubstatus" id="af-pubstatus"></div>
     <div class="af-pubsettings" id="af-pubsettings">
       <label class="af-publabel" for="af-token">GitHub access token</label>
@@ -1453,11 +1453,13 @@ body.admin-on .news-edit-btns { display: flex; }
       <div class="af-pubhint">Stored only in this browser. Needs <b>Contents: Read &amp; write</b> on the qslab repo.</div>
     </div>
     <button class="af-export" id="af-pubtoggle">⚙ Publish settings</button>
+    <button class="af-export" id="af-publish-code">🧩 Publish code (기능 업데이트)</button>
     <button class="af-export" id="af-reset">↺ Reset all edits</button>
     <button class="af-export" id="af-export">↓ Export HTML (backup)</button>
     <button class="af-export" id="af-content-export">💾 내용 백업 (.json)</button>
     <button class="af-export" id="af-content-import">📂 내용 복원 (.json)</button>
     <input type="file" id="af-content-file" accept="application/json,.json" style="display:none">
+    <div class="af-pubhint" style="margin-top:.4rem;line-height:1.5">🚀 = 글·사진을 content.json에 저장 (코드 교체해도 유지). 🧩 = 새 기능(index.html)을 사이트에 반영.</div>
   </div>
 </div>
 
@@ -1628,7 +1630,7 @@ body.admin-on .news-edit-btns { display: flex; }
       <button class="btn btn-amber" data-goto="people">Meet the team →</button>
     </div>
     <div class="op-right">
-      <div class="op-item"><h4>Postdoctoral Researcher</h4><p>1 vacancy — 2D heterostructure fabrication for QIS. <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="f98a9c8c979e8c92b98a92928cd79c9d8c">[email&#160;protected]</a></p></div>
+      <div class="op-item"><h4>Postdoctoral Researcher</h4><p>1 vacancy — 2D heterostructure fabrication for QIS. <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="b9cadcccd7deccd2f9cad2d2cc97dcddcc">[email&#160;protected]</a></p></div>
       <div class="op-item"><h4>Integrated M.S.–Ph.D. Students</h4><p>Ongoing recruitment. SKKU Department of Energy Science.</p></div>
       <div class="op-item"><h4>Undergraduate Interns (URP)</h4><p>SKKU Undergraduate Research Program — each semester.</p></div>
     </div>
@@ -1637,7 +1639,7 @@ body.admin-on .news-edit-btns { display: flex; }
   <footer>
     <div class="ft-left">
       <div class="ft-logo">QS Lab @ SKKU</div>
-      <div class="ft-addr">N Center 3F #86383, SKKU, Suwon, Korea<br><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="f98a9c8c979e8c92b98a92928cd79c9d8c">[email&#160;protected]</a></div>
+      <div class="ft-addr">N Center 3F #86383, SKKU, Suwon, Korea<br><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="b9cadcccd7deccd2f9cad2d2cc97dcddcc">[email&#160;protected]</a></div>
     </div>
     <div class="ft-right">
       <div class="ft-dept">Energy Science · 성균관대학교 에너지학과<br><span style="font-size:.75rem">© QS Lab, SKKU<span class="ft-admin-trigger" title="Admin">·</span></span></div>
@@ -1770,7 +1772,7 @@ body.admin-on .news-edit-btns { display: flex; }
       <img src="assets/sponsors/bk21.png" alt="Brain Korea 21 (BK21 FOUR)">
     </div>
   </div>
-  <footer><div class="ft-left"><div class="ft-logo">QS Lab</div><div class="ft-addr"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="8dfee8f8e3eaf8e6cdfee6e6f8a3e8e9f8">[email&#160;protected]</a></div></div><div class="ft-right"><div class="ft-dept">© QS Lab, SKKU<span class="ft-admin-trigger">·</span></div></div></footer>
+  <footer><div class="ft-left"><div class="ft-logo">QS Lab</div><div class="ft-addr"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="4d3e2838232a38260d3e26263863282938">[email&#160;protected]</a></div></div><div class="ft-right"><div class="ft-dept">© QS Lab, SKKU<span class="ft-admin-trigger">·</span></div></div></footer>
 </main>
 
 <!-- ═══════════════ RESEARCH DETAIL ═══════════════ -->
@@ -1782,7 +1784,7 @@ body.admin-on .news-edit-btns { display: flex; }
     <button id="rd-edit-body-btn" style="display:none;margin-top:var(--s2);font-family:var(--mono);font-size:.7rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;background:var(--amber);color:#fff;padding:.4rem 1rem;border:none;border-radius:var(--r2);cursor:pointer">✎ Edit Detail Content</button>
   </div>
   <div class="res-body" id="rd-body"></div>
-  <footer><div class="ft-left"><div class="ft-logo">QS Lab</div><div class="ft-addr"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="5e2d3b2b30392b351e2d35352b703b3a2b">[email&#160;protected]</a></div></div><div class="ft-right"><div class="ft-dept">© QS Lab, SKKU<span class="ft-admin-trigger">·</span></div></div></footer>
+  <footer><div class="ft-left"><div class="ft-logo">QS Lab</div><div class="ft-addr"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="116274647f76647a51627a7a643f747564">[email&#160;protected]</a></div></div><div class="ft-right"><div class="ft-dept">© QS Lab, SKKU<span class="ft-admin-trigger">·</span></div></div></footer>
 </main>
 
 <!-- ═══════════════ PEOPLE ═══════════════ -->
@@ -1821,7 +1823,7 @@ body.admin-on .news-edit-btns { display: flex; }
       <div class="pi-links" data-editable data-edit-label="✎ Edit Links">
         <a class="pi-link" href="https://linkedin.com/in/seunguk-song-a1b338212" target="_blank">LinkedIn</a>
         <a class="pi-link" href="https://scholar.google.com/citations?user=IS8WIlBo_iIC" target="_blank">Google Scholar</a>
-        <a class="pi-link" href="/cdn-cgi/l/email-protection#3e4d5b4b50594b557e4d55554b105b5a4b"><span class="__cf_email__" data-cfemail="e99a8c9c878e9c82a99a82829cc78c8d9c">[email&#160;protected]</span></a>
+        <a class="pi-link" href="/cdn-cgi/l/email-protection#2c5f4959424b59476c5f47475902494859"><span class="__cf_email__" data-cfemail="ec9f8999828b9987ac9f878799c2898899">[email&#160;protected]</span></a>
       </div>
     </div>
   </div>
@@ -1869,7 +1871,7 @@ body.admin-on .news-edit-btns { display: flex; }
     </div>
     <div style="height:var(--s4)"></div>
   </div>
-  <footer><div class="ft-left"><div class="ft-logo">QS Lab</div><div class="ft-addr"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="552630203b32203e15263e3e207b303120">[email&#160;protected]</a></div></div><div class="ft-right"><div class="ft-dept">© QS Lab, SKKU<span class="ft-admin-trigger">·</span></div></div></footer>
+  <footer><div class="ft-left"><div class="ft-logo">QS Lab</div><div class="ft-addr"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="651600100b02100e25160e0e104b000110">[email&#160;protected]</a></div></div><div class="ft-right"><div class="ft-dept">© QS Lab, SKKU<span class="ft-admin-trigger">·</span></div></div></footer>
 </main>
 
 <!-- ═══════════════ PUBLICATIONS ═══════════════ -->
@@ -2030,7 +2032,7 @@ body.admin-on .news-edit-btns { display: flex; }
   <div class="sem-label" style="margin-top:2.5rem">2024 Fall</div>
   <div class="ccard" data-adm-card data-adm-type="course"><div class="ccard-head"><span class="cbadge cb-grad">Graduate</span><div><h3>Energy Nanomaterials 1 (에너지나노소재1)</h3><div class="ccard-code">ESC5002-41</div></div></div><div class="ccard-body">Energy-efficient electrical devices: materials science and chemistry.<div class="ctime">Thursday 12:00–13:15, 13:30–14:45</div></div></div></div>
   <div style="height:var(--s4)"></div>
-  <footer><div class="ft-left"><div class="ft-logo">QS Lab</div><div class="ft-addr"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="582b3d2d363f2d33182b33332d763d3c2d">[email&#160;protected]</a> · Dept. of Energy Science, SKKU</div></div><div class="ft-right"><div class="ft-dept">© QS Lab, SKKU<span class="ft-admin-trigger">·</span></div></div></footer>
+  <footer><div class="ft-left"><div class="ft-logo">QS Lab</div><div class="ft-addr"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="9ae9ffeff4fdeff1dae9f1f1efb4fffeef">[email&#160;protected]</a> · Dept. of Energy Science, SKKU</div></div><div class="ft-right"><div class="ft-dept">© QS Lab, SKKU<span class="ft-admin-trigger">·</span></div></div></footer>
 </main>
 
 <!-- ═══════════════ NEWS ═══════════════ -->
@@ -2314,7 +2316,7 @@ body.admin-on .news-edit-btns { display: flex; }
       <div class="ct-row"><div class="ct-lbl">Address</div><div class="ct-val" data-editable data-edit-html data-edit-label="✎ Edit" id="ct-addr-en">N Center 3F #86383, Sungkyunkwan University (SKKU)<br>2066 Seobu-ro, Cheoncheon-dong, Jangan-gu, Suwon-si, Gyeonggi-do, South Korea</div></div>
       <div class="ct-row"><div class="ct-lbl">주소</div><div class="ct-val" data-editable data-edit-html data-edit-label="✎ Edit" id="ct-addr-kr">16419 경기도 수원시 장안구 서부로 2066, 성균관대학교 N센터 86383호</div></div>
       <div class="ct-row"><div class="ct-lbl">Phone</div><div class="ct-val" data-editable data-edit-html data-edit-label="✎ Edit" id="ct-phone"><a href="tel:+82312994053">+82-31-299-4053</a></div></div>
-      <div class="ct-row"><div class="ct-lbl">Email</div><div class="ct-val" data-editable data-edit-html data-edit-label="✎ Edit" id="ct-email"><a href="/cdn-cgi/l/email-protection#4a392f3f242d3f210a3921213f642f2e3f"><span class="__cf_email__" data-cfemail="314254445f56445a71425a5a441f545544">[email&#160;protected]</span></a></div></div>
+      <div class="ct-row"><div class="ct-lbl">Email</div><div class="ct-val" data-editable data-edit-html data-edit-label="✎ Edit" id="ct-email"><a href="/cdn-cgi/l/email-protection#077462726960726c47746c6c7229626372"><span class="__cf_email__" data-cfemail="5d2e3828333a28361d2e36362873383928">[email&#160;protected]</span></a></div></div>
       <div class="ct-row"><div class="ct-lbl">PI</div><div class="ct-val" data-editable data-edit-label="✎ Edit" id="ct-pi">Prof. Seunguk Song</div></div>
       <div class="ct-links" data-editable data-edit-html data-edit-label="✎ Edit links" id="ct-links"><a href="https://linkedin.com/in/seunguk-song-a1b338212" target="_blank">LinkedIn</a><a href="https://scholar.google.com/citations?user=IS8WIlBo_iIC" target="_blank">Google Scholar</a></div>
     </div>
@@ -2343,7 +2345,7 @@ body.admin-on .news-edit-btns { display: flex; }
         <ul><li>Ph.D. in a relevant field (or expected by start date)</li><li>Strong proposal/manuscript writing and communication skills</li></ul>
       </div>
     </div>
-    <div class="ct-apply" data-editable data-edit-html data-edit-label="✎ Edit" id="ct-apply">Interested? Email a single PDF (CV + transcript + a short statement of research interest) to <a href="/cdn-cgi/l/email-protection#d3a0b6a6bdb4a6b893a0b8b8a6fdb6b7a6"><span class="__cf_email__" data-cfemail="512234243f36243a11223a3a247f343524">[email&#160;protected]</span></a>. Selection is by document review, an interview with research presentation and lab tour (Zoom option available), and final guidance on the SKKU graduate application.</div>
+    <div class="ct-apply" data-editable data-edit-html data-edit-label="✎ Edit" id="ct-apply">Interested? Email a single PDF (CV + transcript + a short statement of research interest) to <a href="/cdn-cgi/l/email-protection#3a495f4f545d4f517a4951514f145f5e4f"><span class="__cf_email__" data-cfemail="ccbfa9b9a2abb9a78cbfa7a7b9e2a9a8b9">[email&#160;protected]</span></a>. Selection is by document review, an interview with research presentation and lab tour (Zoom option available), and final guidance on the SKKU graduate application.</div>
   </section>
   <footer><div class="ft-left"><div class="ft-logo">QS Lab</div><div class="ft-addr">N Center 3F #86383, SKKU</div></div><div class="ft-right"><div class="ft-dept">© QS Lab, SKKU<span class="ft-admin-trigger" title="Admin">·</span></div></div></footer>
 </main>
@@ -3057,6 +3059,7 @@ var Publisher = (function () {
   var REPO   = 'qs-lab-skku/qslab';   /* owner/repo */
   var BRANCH = 'main';
   var PATH   = 'index.html';
+  var PATH_CONTENT = 'content.json';  /* content lives here, separate from code */
   var TKEY   = 'qslab_gh_token';
 
   function getToken()  { try { return localStorage.getItem(TKEY) || ''; } catch(e){ return ''; } }
@@ -3078,32 +3081,18 @@ var Publisher = (function () {
     return fetch('https://api.github.com/repos/' + REPO + '/contents/' + path, opts);
   }
 
-  /* Publish current edited page to GitHub */
-  function publish(statusCb) {
-    function status(msg, kind){ if(statusCb) statusCb(msg, kind); }
-    if (!hasToken()) { status('No token set. Open Publish settings first.', 'err'); return; }
-
-    status('Building page…', 'work');
-    var html = Admin.buildPublishHTML();
-
-    status('Fetching current version…', 'work');
-    /* Step 1: get current file SHA (required to update) */
-    api(PATH + '?ref=' + BRANCH, { method: 'GET' })
+  /* PUT a file (create or update) to the repo. */
+  function putFile(path, contentStr, message) {
+    return api(path + '?ref=' + BRANCH, { method: 'GET' })
       .then(function(r){
         if (r.status === 401 || r.status === 403) throw new Error('AUTH');
         if (!r.ok && r.status !== 404) throw new Error('GET ' + r.status);
         return r.status === 404 ? null : r.json();
       })
       .then(function(meta){
-        var sha = meta ? meta.sha : undefined;
-        status('Uploading to GitHub…', 'work');
-        var body = {
-          message: 'Update site via admin · ' + new Date().toISOString(),
-          content: toBase64(html),
-          branch: BRANCH
-        };
-        if (sha) body.sha = sha;
-        return api(PATH, {
+        var body = { message: message, content: toBase64(contentStr), branch: BRANCH };
+        if (meta && meta.sha) body.sha = meta.sha;
+        return api(path, {
           method: 'PUT',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(body)
@@ -3113,19 +3102,49 @@ var Publisher = (function () {
         if (r.status === 401 || r.status === 403) throw new Error('AUTH');
         if (!r.ok) return r.json().then(function(j){ throw new Error(j.message || ('PUT ' + r.status)); });
         return r.json();
-      })
+      });
+  }
+
+  /* Publish current edited content to GitHub as content.json.
+     Code (index.html) is NOT touched — so future code updates won't
+     clobber the content, and this content reloads over any new index.html. */
+  function publish(statusCb) {
+    function status(msg, kind){ if(statusCb) statusCb(msg, kind); }
+    if (!hasToken()) { status('No token set. Open Publish settings first.', 'err'); return; }
+
+    status('내용 수집 중…', 'work');
+    var data = Persist.getContent();
+    var json = JSON.stringify(data);
+
+    status('GitHub에 업로드 중…', 'work');
+    putFile(PATH_CONTENT, json, 'Update content via admin · ' + new Date().toISOString())
       .then(function(){
-        status('✓ Published! Live site updates in ~1 min.', 'ok');
+        Persist.markPublished(data.savedAt);
+        status('✓ 발행 완료! 약 1분 후 사이트에 반영됩니다.', 'ok');
       })
       .catch(function(e){
-        if (e.message === 'AUTH') status('✗ Token rejected. Check it has “Contents: write” on this repo.', 'err');
-        else status('✗ Failed: ' + e.message, 'err');
+        if (e.message === 'AUTH') status('✗ 토큰이 거부됨. “Contents: write” 권한을 확인하세요.', 'err');
+        else status('✗ 실패: ' + e.message, 'err');
+      });
+  }
+
+  /* One-time / occasional: push the full index.html (code) too.
+     Use after the assistant ships new features so the live file matches. */
+  function publishCode(statusCb) {
+    function status(msg, kind){ if(statusCb) statusCb(msg, kind); }
+    if (!hasToken()) { status('No token set.', 'err'); return; }
+    status('코드(index.html) 업로드 중…', 'work');
+    putFile(PATH, Admin.buildPublishHTML(), 'Update code via admin · ' + new Date().toISOString())
+      .then(function(){ status('✓ 코드 발행 완료! ~1분 후 반영.', 'ok'); })
+      .catch(function(e){
+        if (e.message === 'AUTH') status('✗ 토큰 거부됨.', 'err');
+        else status('✗ 실패: ' + e.message, 'err');
       });
   }
 
   return {
     getToken: getToken, setToken: setToken, hasToken: hasToken,
-    publish: publish, REPO: REPO
+    publish: publish, publishCode: publishCode, REPO: REPO
   };
 })();
 
@@ -4891,6 +4910,7 @@ var Persist = (function () {
         if (el) localStorage.setItem(PREFIX + id, cleanInner(el));
       });
       localStorage.setItem(PREFIX + '__build', BUILD);
+      localStorage.setItem(PREFIX + '__savedAt', new Date().toISOString());
       flash();
     } catch (e) {
       if (!quotaWarned) {
@@ -4937,16 +4957,53 @@ var Persist = (function () {
     location.reload();
   }
 
-  /* ── Content backup: export per-page content as a portable JSON ──
-     Lets the admin carry their web edits across an index.html swap:
-     Export before replacing the file, Import after. ── */
-  function exportContent() {
+  /* ── Content model shared by backup, publish, and content.json load ── */
+  function getContent() {
     var data = { build: BUILD, savedAt: new Date().toISOString(), pages: {} };
     IDS.forEach(function(id){
       var el = document.getElementById(id);
       if (el) data.pages[id] = cleanInner(el);
     });
-    var blob = new Blob([JSON.stringify(data)], { type: 'application/json' });
+    return data;
+  }
+  /* Apply a content object's page innerHTML onto the live DOM. */
+  function applyContent(data) {
+    if (!data || !data.pages) return false;
+    restoring = true;
+    try {
+      IDS.forEach(function(id){
+        if (data.pages[id] != null) {
+          var el = document.getElementById(id);
+          if (el) el.innerHTML = data.pages[id];
+        }
+      });
+    } catch (err) {}
+    restoring = false;
+    return true;
+  }
+  function localSavedAt() { try { return localStorage.getItem(PREFIX + '__savedAt') || ''; } catch(e){ return ''; } }
+  /* record that the current content was published (so local cache won't
+     be treated as "newer unpublished work" after a publish) */
+  function markPublished(savedAt) {
+    try {
+      localStorage.setItem(PREFIX + '__build', BUILD);
+      localStorage.setItem(PREFIX + '__savedAt', savedAt || new Date().toISOString());
+      localStorage.setItem(PREFIX + '__published', '1');
+    } catch (e) {}
+  }
+  function rerunHooks() {
+    try {
+      if (window.refreshPeopleCounts) window.refreshPeopleCounts();
+      if (window.highlightLabAuthors) window.highlightLabAuthors();
+      if (window.syncHomeNews) window.syncHomeNews();
+    } catch (err) {}
+  }
+
+  /* ── Content backup: export per-page content as a portable JSON ──
+     Lets the admin carry their web edits across an index.html swap:
+     Export before replacing the file, Import after. ── */
+  function exportContent() {
+    var blob = new Blob([JSON.stringify(getContent())], { type: 'application/json' });
     var a = document.createElement('a');
     a.href = URL.createObjectURL(blob);
     a.download = 'qslab-content-backup.json';
@@ -4964,24 +5021,11 @@ var Persist = (function () {
       var msg = '이 백업의 내용으로 현재 페이지들을 덮어씁니다. 계속할까요?';
       if (diffBuild) msg = '⚠ 이 백업은 다른 사이트 버전(' + data.build + ')에서 만들어졌습니다.\n복원 후 레이아웃이 어긋나면, 새로 만든 기능 영역은 다시 확인해 주세요.\n\n계속할까요?';
       if (!confirm(msg)) return;
-      restoring = true;
-      try {
-        IDS.forEach(function(id){
-          if (data.pages[id] != null) {
-            var el = document.getElementById(id);
-            if (el) el.innerHTML = data.pages[id];
-          }
-        });
-      } catch (err) {}
-      restoring = false;
+      applyContent(data);
       /* persist to this browser + re-run dynamic hooks */
       saveAll();
-      try {
-        if (window.refreshPeopleCounts) window.refreshPeopleCounts();
-        if (window.highlightLabAuthors) window.highlightLabAuthors();
-        if (window.syncHomeNews) window.syncHomeNews();
-        if (window.Admin && Admin.isOn && Admin.isOn()) Admin.reinject && Admin.reinject();
-      } catch (err) {}
+      rerunHooks();
+      try { if (window.Admin && Admin.isOn && Admin.isOn()) Admin.reinject && Admin.reinject(); } catch (err) {}
       alert('내용 복원 완료. 화면을 확인하고, 이상 없으면 🚀 발행로 실제 사이트에 반영하세요.');
     };
     reader.readAsText(file);
@@ -4995,7 +5039,11 @@ var Persist = (function () {
     flash._t = setTimeout(function(){ n.style.opacity = '0'; }, 1100);
   }
 
-  return { restore: restore, observe: observe, saveAll: saveAll, reset: reset, exportContent: exportContent, importContent: importContent };
+  return { restore: restore, observe: observe, saveAll: saveAll, reset: reset,
+           exportContent: exportContent, importContent: importContent,
+           getContent: getContent, applyContent: applyContent,
+           markPublished: markPublished, localSavedAt: localSavedAt,
+           rerunHooks: rerunHooks, BUILD: BUILD };
 })();
 
 
@@ -5003,6 +5051,27 @@ document.addEventListener('DOMContentLoaded', function () {
 
   /* ── Restore saved admin edits BEFORE anything mounts ── */
   Persist.restore();
+
+  /* ── Load published content.json from the repo (authoritative).
+     This is what makes web edits survive an index.html (code) swap:
+     content lives in content.json, not baked into the HTML. ── */
+  (function loadPublishedContent() {
+    if (!window.fetch) return;
+    fetch('content.json?t=' + Date.now(), { cache: 'no-store' })
+      .then(function(r){ return r.ok ? r.json() : null; })
+      .then(function(data){
+        if (!data || !data.pages) return;
+        var localAt = Persist.localSavedAt();      /* this browser's last edit time */
+        var pubAt   = data.savedAt || '';          /* published content time */
+        /* Keep local edits only if they are strictly newer (unpublished work
+           on this browser); otherwise the published content wins. */
+        if (localAt && pubAt && localAt > pubAt) return;
+        Persist.applyContent(data);
+        Persist.markPublished(pubAt);
+        Persist.rerunHooks();
+      })
+      .catch(function(){ /* offline or no content.json yet — keep defaults/local */ });
+  })();
 
   Admin.initImgErrors();
   Canvas.mount();
@@ -5159,6 +5228,22 @@ document.addEventListener('DOMContentLoaded', function () {
     Publisher.publish(function(msg, kind) {
       pubStatus(msg, kind);
       if (kind === 'ok' || kind === 'err') afPublish.disabled = false;
+    });
+  });
+  /* publish code (index.html) — for shipping new features to the live site */
+  var afPubCode = document.getElementById('af-publish-code');
+  if (afPubCode) afPubCode.addEventListener('click', function() {
+    if (!Publisher.hasToken()) {
+      if (afPubSet) afPubSet.classList.add('open');
+      if (afToken) afToken.focus();
+      pubStatus('Add your GitHub token below to enable publishing.', 'work');
+      return;
+    }
+    if (!confirm('현재 페이지의 코드(index.html)를 사이트에 올립니다.\n새 기능을 반영할 때 사용하세요. 계속할까요?')) return;
+    afPubCode.disabled = true;
+    Publisher.publishCode(function(msg, kind) {
+      pubStatus(msg, kind);
+      if (kind === 'ok' || kind === 'err') afPubCode.disabled = false;
     });
   });
   refreshPubUI();
