@@ -5132,6 +5132,10 @@ var Persist = (function () {
   function cleanInner(el) {
     var c = el.cloneNode(true);
     c.querySelectorAll('.adm-edit-btn').forEach(function(b){ b.remove(); });
+    /* TOC thumbnails are runtime-rendered from data-toc — never bake the
+       injected DOM (it would double the stored size). The data-toc attr on
+       each row is what persists. */
+    c.querySelectorAll('.pub-thumb, #pub-toc-batch, #pub-toc-menu').forEach(function(b){ b.remove(); });
     c.querySelectorAll('[data-editable][style]').forEach(function(n){
       if (n.style && n.style.position === 'relative') n.style.removeProperty('position');
       if (!n.getAttribute('style')) n.removeAttribute('style');
@@ -5184,7 +5188,7 @@ var Persist = (function () {
 
   function observe() {
     var opts = { childList:true, subtree:true, characterData:true, attributes:true,
-                 attributeFilter:['src','href','style','class','value','alt'] };
+                 attributeFilter:['src','href','style','class','value','alt','data-toc'] };
     IDS.forEach(function(id){
       var el = document.getElementById(id);
       if (el) new MutationObserver(scheduleSave).observe(el, opts);
@@ -5299,6 +5303,7 @@ var Persist = (function () {
       if (window.highlightLabAuthors) window.highlightLabAuthors();
       if (window.syncHomeNews) window.syncHomeNews();
       if (window.refreshNewsMeta) window.refreshNewsMeta();
+      if (window.refreshPubThumbs) window.refreshPubThumbs();
       /* migrate renamed labels that may arrive via an older content.json */
       document.querySelectorAll('.mg-label').forEach(function(el){
         if (el.textContent.trim() === 'Undergraduate Interns (URP)') {
@@ -6057,7 +6062,10 @@ document.addEventListener('DOMContentLoaded', function () {
 
 <style id="pub-toc-css">
 /* ===== Publication TOC thumbnails ===== */
-#pub-list .pub-row, #pub-list .pub-row-nolink { grid-template-columns: 48px 132px 1fr; }
+/* 3-column grid ONLY on rows that actually have a thumbnail — rows
+   re-rendered from content.json (thumb not yet injected) keep the
+   original 2-column layout, so the text never gets squeezed. */
+#pub-list .pub-row:has(> .pub-thumb), #pub-list .pub-row-nolink:has(> .pub-thumb) { grid-template-columns: 48px 132px 1fr; }
 #pub-list .pub-edit-btns { grid-column: 1 / -1; }
 .pub-thumb {
   width: 132px; height: 94px;
@@ -6094,7 +6102,7 @@ body.admin-on #pub-toc-batch { display: inline-flex; }
 #pub-toc-menu button:hover { background: rgba(255,255,255,.18); color: #fff; }
 #pub-toc-menu .ptm-note { font-family: var(--mono); font-size: .56rem; color: rgba(255,255,255,.45); padding: .1rem .2rem .2rem; line-height: 1.5; }
 @media (max-width: 760px) {
-  #pub-list .pub-row, #pub-list .pub-row-nolink { grid-template-columns: 34px 86px 1fr; }
+  #pub-list .pub-row:has(> .pub-thumb), #pub-list .pub-row-nolink:has(> .pub-thumb) { grid-template-columns: 34px 86px 1fr; }
   .pub-thumb { width: 86px; height: 64px; }
 }
 </style>
@@ -6160,13 +6168,18 @@ body.admin-on #pub-toc-batch { display: inline-flex; }
   function initAll() {
     var l = list(); if (!l) return;
     l.querySelectorAll('.pub-row, .pub-row-nolink').forEach(makeThumb);
-    if (!document.getElementById('pub-toc-batch')) {
-      var btn = document.createElement('button');
+    var btn = document.getElementById('pub-toc-batch');
+    if (!btn) {
+      btn = document.createElement('button');
       btn.id = 'pub-toc-batch';
       btn.type = 'button';
       btn.textContent = '🖼 TOC 자동 가져오기';
-      btn.addEventListener('click', function () { batchFetch(btn); });
       l.insertBefore(btn, l.firstChild);
+    }
+    /* (re)bind — a button restored via innerHTML has no listener */
+    if (!btn.__wired) {
+      btn.__wired = true;
+      btn.addEventListener('click', function () { batchFetch(btn); });
     }
   }
 
@@ -6316,11 +6329,20 @@ body.admin-on #pub-toc-batch { display: inline-flex; }
   }, true);
   window.addEventListener('scroll', closeMenu, { passive: true });
 
-  /* re-render thumbs when admin adds/edits pubs */
-  var l = list();
-  if (l) {
-    new MutationObserver(function () { initAll(); }).observe(l, { childList: true });
-  }
+  /* expose for Persist.rerunHooks (content.json re-apply) */
+  window.refreshPubThumbs = initAll;
+
+  /* re-render thumbs whenever the publications page is re-built —
+     content.json apply replaces #pub-list wholesale, so watch the
+     whole body (debounced) instead of one node that may be removed */
+  var moTimer = null;
+  new MutationObserver(function () {
+    if (moTimer) clearTimeout(moTimer);
+    moTimer = setTimeout(function () {
+      moTimer = null;
+      initAll();
+    }, 150);
+  }).observe(document.body, { childList: true, subtree: true });
 
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', initAll);
