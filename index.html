@@ -1978,7 +1978,7 @@ body.admin-on .news-edit-btns { display: flex; }
   <div class="pub-yr">2023</div>
   <div class="pub-row-nolink" data-adm-card data-adm-type="pub"><div class="pub-n">16</div><div><div class="pub-t">Tailoring Exciton Dynamics in TMDC Heterobilayers in the Ultranarrow Gap-Plasmon Regime</div><div class="pub-a">Mahfujur Rahaman, Gwangwoo Kim, Kyung Yeol Ma, <strong>Seunguk Song</strong>, Hyeon Suk Shin, Deep Jariwala*</div><div class="pub-v"><strong>npj 2D Materials and Applications</strong>, 7, 66 (2023)</div></div></div>
   <div class="pub-row-nolink" data-adm-card data-adm-type="pub"><div class="pub-n">15</div><div><div class="pub-t">Vertical van der Waals Heterojunction Diodes comprising 2D Semiconductors on 3D β-Ga₂O₃</div><div class="pub-a">Chloe Leblanc, Dinusha H. Mudiyanselage, <strong>Seunguk Song</strong>, Huairuo Zhang, Albert Davydov, Houqiang Fu, Deep Jariwala*</div><div class="pub-v"><strong>Nanoscale</strong>, 15, 9964-9972 (2023)</div></div></div>
-  <a class="pub-row" data-adm-card data-adm-type="pub" href="https://www.nature.com/articles/s41565-023-01399-g" target="_blank"><div class="pub-n">14</div><div><div class="pub-t">Scalable CMOS back-end-of-line-compatible AlScN/two-dimensional channel ferroelectric field-effect transistors</div><div class="pub-a">Kwan-Ho Kim, Seyong Oh, Merrilyn Mercy Adzo Fiagbenu, Jeffrey Zheng, Pariasadat Musavigharavi, Pawan Kumar, Nicholas Trainor, Areej Aljarb, Yi Wan, Hyong Min Kim, Keshava Katti, <strong>Seunguk Song</strong>, Gwangwoo Kim, Zichen Tang, Jui-Han Fu, Mariam Hakami, Vincent C. Tung, Joan M. Redwing, Eric A. Stach, Roy H. Olsson III*, Deep Jariwala*</div><div class="pub-v"><strong>Nature Nanotechnology</strong>, 18, 1044-1050 (2023)</div></div></a>
+  <a class="pub-row" data-adm-card data-adm-type="pub" href="https://www.nature.com/articles/s41565-023-01399-y" target="_blank"><div class="pub-n">14</div><div><div class="pub-t">Scalable CMOS back-end-of-line-compatible AlScN/two-dimensional channel ferroelectric field-effect transistors</div><div class="pub-a">Kwan-Ho Kim, Seyong Oh, Merrilyn Mercy Adzo Fiagbenu, Jeffrey Zheng, Pariasadat Musavigharavi, Pawan Kumar, Nicholas Trainor, Areej Aljarb, Yi Wan, Hyong Min Kim, Keshava Katti, <strong>Seunguk Song</strong>, Gwangwoo Kim, Zichen Tang, Jui-Han Fu, Mariam Hakami, Vincent C. Tung, Joan M. Redwing, Eric A. Stach, Roy H. Olsson III*, Deep Jariwala*</div><div class="pub-v"><strong>Nature Nanotechnology</strong>, 18, 1044-1050 (2023)</div></div></a>
   <a class="pub-row" data-adm-card data-adm-type="pub" href="https://pubs.aip.org/aip/apl/article/123/18/183501/2919098" target="_blank"><div class="pub-n">13</div><div><div class="pub-t">Negative capacitance field-effect transistors based on ferroelectric AlScN and 2D MoS₂</div><div class="pub-a"><strong>Seunguk Song†</strong>, Kwan-Ho Kim†, Srikrishna Chakravarthi†, Zirun Han, Gwangwoo Kim, Kyung Yeol Ma, Hyeon Suk Shin, Roy H. Olsson III, Deep Jariwala*</div><div class="pub-v"><strong>Applied Physics Letters</strong>, 123, 183501 (2023)</div></div></a>
   <a class="pub-row" data-adm-card data-adm-type="pub" href="https://www.cell.com/matter/fulltext/S2590-2385%2823%2900368-5" target="_blank"><div class="pub-n">12</div><div><div class="pub-t">Wafer-scale growth of two-dimensional, phase-pure InSe (Featured Article)</div><div class="pub-a"><strong>Seunguk Song</strong>, Sungho Jeon, Mahfujur Rahaman, Jason Lynch, Dongjoon Rhee, Pawan Kumar, Srikrishna Chakravarthi, Gwangwoo Kim, Xingyu Du, Eric Blanton, Mike Snure, Kim Kisslinger, Nicholas R. Glavin, Eric A. Stach, Troy Olsson, Deep Jariwala*</div><div class="pub-v"><strong>Matter</strong>, 6, 3483-3498 (2023)</div></div></a>
   <a class="pub-row" data-adm-card data-adm-type="pub" href="https://www.nature.com/articles/s41467-023-40448-x" target="_blank"><div class="pub-n">11</div><div><div class="pub-t">Fabrication of p-type 2D single-crystalline transistor arrays with Fermi-level-tuned van der Waals semimetal electrodes</div><div class="pub-a"><strong>Seunguk Song†</strong>, Aram Yoon†, Sora Jang†, Jason Lynch, Jihoon Yang, Juwon Han, Young Ho Jin, Cindy Yueli Chen, Yeryun Cheon, Jinsung Kwak, Changwook Jeong, Hyeonsik Cheong, Deep Jariwala, Zonghoon Lee*, Soon-Yong Kwon*</div><div class="pub-v"><strong>Nature Communications</strong>, 14, 4747 (2023)</div></div></a>
@@ -6269,41 +6269,124 @@ body.admin-on #pub-toc-batch { display: inline-flex; }
     return c.toDataURL('image/jpeg', q || 0.82);
   }
 
-  /* Load a remote image through a CORS-friendly proxy and embed it
+  /* Load a remote image through CORS-friendly proxies and embed it
      as a small JPEG data URL so it lives inside the page forever. */
   function embedRemote(src) {
+    var proxies = [
+      'https://images.weserv.nl/?url=' + encodeURIComponent(src) + '&w=460&output=jpg',
+      'https://wsrv.nl/?url=' + encodeURIComponent(src) + '&w=460&output=jpg',
+      'https://corsproxy.io/?url=' + encodeURIComponent(src)
+    ];
+    var i = 0;
     return new Promise(function (res, rej) {
-      var img = new Image();
-      img.crossOrigin = 'anonymous';
-      img.onload = function () {
-        try { res(shrinkToDataURL(img)); }
-        catch (e) { rej(new Error('이미지 변환 실패')); }
-      };
-      img.onerror = function () { rej(new Error('이미지 로드 실패')); };
-      img.src = 'https://images.weserv.nl/?url=' + encodeURIComponent(src) + '&w=520';
+      function attempt() {
+        if (i >= proxies.length) { rej(new Error('이미지 로드 실패')); return; }
+        var img = new Image();
+        img.crossOrigin = 'anonymous';
+        img.onload = function () {
+          if (img.naturalWidth < 80 || img.naturalHeight < 60) { i++; attempt(); return; }
+          try { res(shrinkToDataURL(img, 460, 0.82)); }
+          catch (e) { i++; attempt(); }
+        };
+        img.onerror = function () { i++; attempt(); };
+        img.src = proxies[i];
+      }
+      attempt();
     });
   }
 
-  /* Ask microlink.io for the paper page's representative (og:image)
-     image — publishers put the TOC figure / journal art there.
-     arXiv only exposes its logo, so we skip it and keep the brand tile. */
-  function fetchToc(row) {
-    var url = row.getAttribute('href') || '';
-    if (!url) return Promise.reject(new Error('링크 없음'));
-    var isArxiv = /arxiv\.org/i.test(url);
+  /* fetch() with an abort timeout so one slow proxy can't hang the batch. */
+  function fetchText(u, opts, ms) {
+    return new Promise(function (res, rej) {
+      var ac = new AbortController();
+      var t = setTimeout(function () { ac.abort(); }, ms || 15000);
+      fetch(u, Object.assign({ signal: ac.signal }, opts || {}))
+        .then(function (r) { clearTimeout(t); if (!r.ok) throw new Error('http ' + r.status); return r.text(); })
+        .then(res, function (e) { clearTimeout(t); rej(e); });
+    });
+  }
+
+  /* Fetch the article page's HTML through a chain of CORS-friendly readers.
+     Jina (r.jina.ai) actually renders the page, beating some bot walls. */
+  function proxiedHTML(url) {
+    var attempts = [
+      function () { return fetchText('https://r.jina.ai/' + url, { headers: { 'X-Return-Format': 'html' } }, 9000); },
+      function () { return fetchText('https://api.allorigins.win/raw?url=' + encodeURIComponent(url), null, 9000); }
+    ];
+    var i = 0;
+    function next() {
+      if (i >= attempts.length) return Promise.reject(new Error('페이지 로드 실패'));
+      return attempts[i++]()
+        .then(function (t) { if (!t || t.length < 200) throw new Error('빈 응답'); return t; })
+        .catch(function () { return next(); });
+    }
+    return next();
+  }
+
+  /* Parse the page and pick the best representative image, skipping logos. */
+  function pickImage(html, base) {
+    var doc;
+    try { doc = new DOMParser().parseFromString(html, 'text/html'); }
+    catch (e) { return ''; }
+    function attr(sel, a) { var el = doc.querySelector(sel); return el ? (el.getAttribute(a) || '') : ''; }
+    var cands = [
+      attr('meta[property="og:image:secure_url"]', 'content'),
+      attr('meta[property="og:image"]', 'content'),
+      attr('meta[name="twitter:image"]', 'content'),
+      attr('meta[name="twitter:image:src"]', 'content'),
+      attr('meta[name="citation_image"]', 'content'),
+      attr('link[rel="image_src"]', 'href')
+    ];
+    var ga = doc.querySelector(
+      'img.graphical-abstract-image, .article-section__abstract img, figure.graphic img, ' +
+      'img[alt*="graphical abstract" i], img[alt*="abstract image" i]'
+    );
+    if (ga) cands.push(ga.getAttribute('src') || ga.getAttribute('data-src') || '');
+    var BAD = /\.svg(\?|$)|logo|sprite|favicon|placeholder|spinner|loading|blank\.|default-|\/icons?\/|menu-|search-|user-|trolley-|arrow-|chevron|facebook|twitter|linkedin|youtube|share|orcid|crossmark|verify|beacon|pixel|tracker|1x1|doubleclick/i;
+    for (var k = 0; k < cands.length; k++) {
+      var u = (cands[k] || '').trim();
+      if (!u || BAD.test(u)) continue;
+      try { u = new URL(u, base).href; } catch (e) {}
+      return u;
+    }
+    /* last resort: first body <img> that looks like a real figure */
+    var FIG = /\/(image|images|figure|media|asset|cms|art)\/|-ga\.|graphical|abstract|\.(jpe?g|png|gif|webp)(\?|$)/i;
+    var imgs = doc.querySelectorAll('img');
+    for (var m = 0; m < imgs.length; m++) {
+      var s = imgs[m].getAttribute('src') || imgs[m].getAttribute('data-src') || '';
+      if (!s || BAD.test(s) || !FIG.test(s)) continue;
+      try { s = new URL(s, base).href; } catch (e) {}
+      return s;
+    }
+    return '';
+  }
+
+  function microlinkImage(url) {
     return fetch('https://api.microlink.io/?url=' + encodeURIComponent(url) + '&palette=false')
       .then(function (r) { return r.json(); })
       .then(function (j) {
-        var d = (j && j.data) || {};
-        var im = d.image || {};
-        var src = im.url || '';
-        var w = im.width || 0, h = im.height || 0;
-        var looksLogo = /logo|sprite|favicon|\bicon\b/i.test(src);
-        if (isArxiv) src = '';                       /* arXiv og:image = logo */
-        if (src && looksLogo && !(w >= 200 && h >= 150)) src = '';
-        if (!src) throw new Error('대표 이미지 없음 (수동 업로드 권장)');
-        return embedRemote(src);
-      })
+        var d = (j && j.data) || {}, im = d.image || {};
+        var s = im.url || '';
+        if (/logo|sprite|favicon/i.test(s)) s = '';
+        if (!s) throw new Error('대표 이미지 없음');
+        return s;
+      });
+  }
+
+  /* Get the paper's representative figure: read the page HTML ourselves and
+     pick og:image / twitter:image (publishers put the TOC graphic there);
+     fall back to microlink. arXiv only exposes its logo, so we skip it. */
+  function fetchToc(row) {
+    var url = row.getAttribute('href') || '';
+    if (!url) return Promise.reject(new Error('링크 없음'));
+    if (/arxiv\.org/i.test(url))
+      return Promise.reject(new Error('arXiv는 대표 그림이 없어 수동 업로드 필요'));
+    return proxiedHTML(url)
+      .then(function (html) {
+        var img = pickImage(html, url);
+        return img || microlinkImage(url);
+      }, function () { return microlinkImage(url); })
+      .then(function (imgUrl) { return embedRemote(imgUrl); })
       .then(function (dataUrl) {
         row.setAttribute('data-toc', dataUrl);
         refresh(row);
@@ -6339,14 +6422,14 @@ body.admin-on #pub-toc-batch { display: inline-flex; }
       function (r) { return r.getAttribute('href') && !r.getAttribute('data-toc'); }
     );
     if (!rows.length) { alert('가져올 항목이 없습니다.\n(링크가 있고 아직 이미지가 없는 논문 대상)'); return; }
-    if (!confirm(rows.length + '개 논문의 대표 이미지를 자동으로 가져옵니다.\n무료 조회 한도(하루 약 50회) 때문에 하루 한 번만 실행하는 걸 권장합니다.\n계속할까요?')) return;
+    if (!confirm(rows.length + '개 논문의 대표 이미지를 자동으로 가져옵니다.\n\n· 출판사 페이지를 하나씩 읽어오므로 몇 분 걸립니다(논문당 수〜십 초).\n· Nature 등 일부 출판사는 자동 차단해서 실패할 수 있으며, 그런 논문은 썸네일을 클릭해 "이미지 주소 붙여넣기/업로드"로 채우면 됩니다.\n· arXiv는 대표 그림이 없어 자동으로는 건너뜁니다.\n\n계속할까요?')) return;
     var i = 0, ok = 0, fail = 0;
     btn.disabled = true;
     (function next() {
       if (i >= rows.length) {
         btn.disabled = false;
         btn.textContent = '🖼 TOC 자동 가져오기';
-        alert('완료: 성공 ' + ok + ' · 실패 ' + fail + '\n\n결과 확인 후 "🚀 Publish content"로 발행하세요.');
+        alert('완료: 성공 ' + ok + ' · 실패 ' + fail + '\n\n실패한 논문은 썸네일을 클릭해 수동으로 채울 수 있습니다.\n결과 확인 후 "🚀 Publish to live site"로 발행하세요.');
         return;
       }
       var row = rows[i++];
@@ -6354,7 +6437,7 @@ body.admin-on #pub-toc-batch { display: inline-flex; }
       fetchToc(row)
         .then(function () { ok++; })
         .catch(function () { fail++; })
-        .then(function () { setTimeout(next, 900); });
+        .then(function () { setTimeout(next, 500); });
     })();
   }
 
@@ -6382,8 +6465,15 @@ body.admin-on #pub-toc-batch { display: inline-flex; }
         .catch(function (e) { b.textContent = '❌ ' + e.message + ' — 다시 시도'; });
     });
     mkBtn('📁 이미지 업로드', function () { closeMenu(); uploadToc(row); });
+    mkBtn('🔗 이미지 주소 붙여넣기', function () {
+      var u = prompt('이미지 주소(URL)를 붙여넣으세요.\n\n팁: 논문 페이지에서 TOC 그림을 우클릭 → "이미지 주소 복사" 후 여기에 붙여넣기.');
+      if (!u) return;
+      embedRemote(u.trim())
+        .then(function (d) { row.setAttribute('data-toc', d); refresh(row); closeMenu(); })
+        .catch(function () { alert('이미지를 불러오지 못했습니다. 주소를 확인하거나 파일 업로드를 이용하세요.'); });
+    });
     if (row.getAttribute('data-toc')) {
-      mkBtn('🗑 이미지 제거 (저널 배지로 복귀)', function () {
+      mkBtn('🗑 이미지 제거 (브랜드 타일로 복귀)', function () {
         row.removeAttribute('data-toc'); refresh(row); closeMenu();
       });
     }
