@@ -2737,7 +2737,7 @@ var Admin = (function () {
       ['Edit Detail Content', 'e', 'Editors.editResearchDetailBody()'],
     ],
     people:       [['Change Group Photo','e','Editors.uploadGroupPhoto()'],['Edit PI','e','Editors.editPI()'],['Change PI Photo','e',"Editors.uploadPhoto('pi-img')"],['+ Postdoc','a',"Editors.addMember('postdoc')"],['+ Research Associate','a',"Editors.addMember('ra')"],['+ Grad Student','a',"Editors.addMember('grad')"],['+ Intern','a',"Editors.addMember('intern')"],['+ Alumni (이름만)','a','Editors.addAlumniName()'],['+ Hiring Card','a','Editors.addHiringCard()']],
-    publications: [['+ Publication','a','Editors.addPub()'],['+ Featured Paper','a','Editors.addRepPaper()'],['🔗 링크 자동 연결','e','Editors.autoLinkPubs()'],['ℹ︎ 안내','e','Editors.pubHelp()']],
+    publications: [['+ Publication','a','Editors.addPub()'],['+ Featured Paper','a','Editors.addRepPaper()'],['🖼 TOC 자동 가져오기','a','window.pubTocBatch(this)'],['🔗 링크 자동 연결','e','Editors.autoLinkPubs()'],['ℹ︎ 안내','e','Editors.pubHelp()']],
     equipment:    [
       ['장비 편집',     'e','Editors.editEquipmentCard()'],
       ['+ Equipment',  'a','Editors.addEquipment()']
@@ -6253,6 +6253,7 @@ body.admin-on #pub-toc-batch { display: inline-flex; }
 
   /* ---- batch fetch (admin) ---- */
   function batchFetch(btn) {
+    if (!btn) return;
     var rows = Array.prototype.filter.call(
       list().querySelectorAll('.pub-row'),
       function (r) { return r.getAttribute('href') && !r.getAttribute('data-toc'); }
@@ -6331,6 +6332,12 @@ body.admin-on #pub-toc-batch { display: inline-flex; }
 
   /* expose for Persist.rerunHooks (content.json re-apply) */
   window.refreshPubThumbs = initAll;
+
+  /* entry point for the admin floating panel button */
+  window.pubTocBatch = function (btn) {
+    initAll();   /* make sure thumbs/slots exist before fetching */
+    batchFetch(btn || document.getElementById('pub-toc-batch'));
+  };
 
   /* re-render thumbs whenever the publications page is re-built —
      content.json apply replaces #pub-list wholesale, so watch the
