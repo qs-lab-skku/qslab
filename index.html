@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>QS Lab @ SKKU — Quantum States Laboratory</title>
+<title>QS Lab @ SKKU</title>
 <meta name="description" content="QS Lab engineers quantum states in 2D materials and van der Waals heterostructures at Sungkyunkwan University, Korea.">
 <meta name="keywords" content="2D materials, quantum, SKKU, MOCVD, superconductor, TMD, heterostructure, Song Seunguk">
 
@@ -30,7 +30,7 @@
 <meta name="twitter:image" content="https://qs-lab-skku.github.io/qslab/assets/og-image.png">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,600;0,900;1,300;1,600&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,600;0,900;1,300;1,600&family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 /* ================================================================
    QS Lab Design System  |  v5.0  |  2024
@@ -45,6 +45,7 @@
   --blue:      #2347d6;
   --blue2:     #4068e6;
   --blue3:     #cdd9fa;
+  --member:    #0e8f63;
   --amber:     #2347d6;
   --amber2:    #4068e6;
   --amber3:    #eef2fd;
@@ -106,6 +107,7 @@
     --blue:      #3a8fd1;
     --blue2:     #60b3f5;
     --blue3:     #e7ecfb;
+    --member:    #34d399;
     --amber:     #f5b93e;
     --amber2:    #fcd34d;
     --amber3:    #1a1100;
@@ -466,6 +468,39 @@ body.admin-on .af { display: block; }
 .af-note { font-family: var(--mono); font-size: .6rem; letter-spacing: .03em; color: rgba(255,255,255,.42); margin: var(--s1) 0 .4rem; display: flex; align-items: center; gap: .4rem; }
 .af-saved { color: #6fe0a0; opacity: 0; transition: opacity .2s; font-weight: 500; }
 #af-reset { margin-bottom: .3rem; }
+
+/* ---------- Publish to GitHub ---------- */
+.af-publish {
+  width: 100%; margin: .2rem 0 .4rem;
+  font-family: var(--mono); font-size: .7rem; font-weight: 600; letter-spacing: .05em; text-transform: uppercase;
+  color: #fff; background: #1f8a4c; border: 1px solid #2aa15b;
+  border-radius: var(--r2); padding: .6rem .75rem; cursor: pointer;
+  transition: background var(--t1), opacity var(--t1);
+}
+.af-publish:hover { background: #25a259; }
+.af-publish:disabled { opacity: .6; cursor: default; }
+.af-pubstatus {
+  font-family: var(--mono); font-size: .62rem; line-height: 1.5; letter-spacing: .02em;
+  margin: 0 0 .4rem; min-height: 0; color: rgba(255,255,255,.6);
+  transition: color var(--t1);
+}
+.af-pubstatus.work { color: #ffd27a; }
+.af-pubstatus.ok   { color: #6fe0a0; }
+.af-pubstatus.err  { color: #ff9b9b; }
+.af-pubstatus:empty { margin: 0; }
+.af-pubsettings { display: none; margin: 0 0 .4rem; padding: .55rem; background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.12); border-radius: var(--r2); }
+.af-pubsettings.open { display: block; }
+.af-publabel { display: block; font-family: var(--mono); font-size: .58rem; letter-spacing: .05em; text-transform: uppercase; color: rgba(255,255,255,.55); margin-bottom: .3rem; }
+.af-tokeninput {
+  width: 100%; box-sizing: border-box; font-family: var(--mono); font-size: .68rem;
+  color: #fff; background: rgba(0,0,0,.28); border: 1px solid rgba(255,255,255,.2);
+  border-radius: var(--r1); padding: .45rem .5rem; margin-bottom: .4rem;
+}
+.af-tokeninput:focus { outline: none; border-color: rgba(255,255,255,.45); }
+.af-pubrow { display: flex; gap: .4rem; }
+.af-pubrow .af-export { width: auto; flex: 1; margin: 0; }
+.af-pubhint { font-family: var(--mono); font-size: .57rem; line-height: 1.5; color: rgba(255,255,255,.42); margin-top: .4rem; }
+.af-pubhint b { color: rgba(255,255,255,.7); }
 
 /* ---------- Modal / Bottom Sheet ---------- */
 .modal-bg {
@@ -894,6 +929,14 @@ body.admin-on .pi-photo-hint { display: block; }
 .mgrid.single-card .mcard-img-wrap { width: 200px; height: 250px; flex-shrink: 0; }
 .mgrid.single-card .mcard-ph { width: 200px; height: 250px; flex-shrink: 0; margin-bottom: 0; }
 .mgrid.single-card .mcard-desc { font-size: .88rem; line-height: 1.78; color: var(--ink2); }
+/* hiring cards must NEVER inherit the single-card wide grid layout
+   (it stretched their Edit/Delete buttons full width). Keep them as
+   self-contained centered tiles regardless of grid state. */
+.mgrid.single-card .mcard.mcard-hiring {
+  display: flex; flex-direction: column; align-items: center;
+  justify-content: center; grid-template-columns: none;
+}
+.mgrid.single-card .mcard.mcard-hiring .mcard-btns { grid-column: auto; width: 100%; }
 @media(max-width:600px) {
   .mgrid.single-card .mcard { grid-template-columns: 1fr; }
   .mgrid.single-card .mcard img,
@@ -924,6 +967,9 @@ body.admin-on .mcard-btns { display: flex; }
 .mc-del:hover { background: #b91c1c; }
 .mc-hire { background: var(--amber); color: #fff; }
 .mc-hire:hover { background: var(--amber2); }
+/* Alumni cards can never be converted to a "We Are Hiring" tile —
+   hide the Hiring button on them regardless of when it was injected. */
+body.admin-on .mcard[data-alumni="1"] .mc-hire { display: none; }
 .mcard-img-wrap { width: 100%; aspect-ratio: 4 / 5; background: var(--bg3); border-radius: var(--r1); margin-bottom: .8rem; overflow: hidden; display: flex; align-items: center; justify-content: center; }
 .mcard img { width: 100%; height: 100%; object-fit: cover; object-position: center top; display: block; border-radius: var(--r1); }
 .mcard-ph { width: 100%; height: 80px; background: var(--bg3); border-radius: var(--r1); margin-bottom: .8rem; display: flex; align-items: center; justify-content: center; font-family: var(--serif); font-size: 1.8rem; color: var(--ink4); }
@@ -941,6 +987,9 @@ body.admin-on .mcard-btns { display: flex; }
 .mcard-hiring-title { font-family: var(--serif); font-size: .95rem; font-weight: 600; color: var(--ink); margin-bottom: .4rem; }
 .mcard-hiring-sub { font-size: .78rem; color: var(--ink3); line-height: 1.65; }
 .alumni-text { font-size: .88rem; color: var(--ink2); line-height: 2; }
+/* Name-only alumni cards (no photo): compact, centered tile */
+.mcard-nameonly { display: flex; flex-direction: column; justify-content: center; min-height: 92px; align-self: start; }
+.mcard-nameonly .mcard-name { margin-bottom: .25rem; }
 
 /* ---------- Publications ---------- */
 .rep-section { background: var(--bg2); padding: var(--s4) var(--s4); border-bottom: 1px solid var(--border); }
@@ -1096,8 +1145,9 @@ body.admin-on .news-edit-btns { display: flex; }
   .bhero { min-height: 0; }
   .bhead { font-size: clamp(2rem, 8.5vw, 2.7rem); line-height: 1.04; }
   .bhero-content { padding: var(--s5) var(--gx) var(--s4); max-width: 100%; }
-  .bhero-veil { background: linear-gradient(180deg, rgba(255,255,255,.93) 40%, rgba(255,255,255,.6) 100%); }
-  .bhero-bg #lattice-canvas { opacity: .5; -webkit-mask-image: none; mask-image: none; }
+  .bhero-veil { background: linear-gradient(180deg, rgba(255,255,255,.78) 0%, rgba(255,255,255,.96) 20%, #fff 42%); }
+  .bhero-bg #lattice-canvas { opacity: .30; -webkit-mask-image: linear-gradient(180deg, #000 0%, rgba(0,0,0,0) 46%); mask-image: linear-gradient(180deg, #000 0%, rgba(0,0,0,0) 46%); }
+  .bhero-p { color: var(--ink); }
   .bhero .qs-tag { display: none; }
   .bhero-sub { font-size: 1rem; }
   .bhero-p { font-size: 1.02rem; line-height: 1.65; }
@@ -1158,7 +1208,10 @@ body.admin-on .news-edit-btns { display: flex; }
 .pub-n { font-family: var(--mono); font-size: 1.05rem; color: var(--blue); font-weight: 500; }
 .pub-t { font-family: var(--sans); font-weight: 600; font-size: 1.06rem; letter-spacing: -.01em; line-height: 1.4; margin-bottom: 5px; }
 .pub-a { font-size: .9rem; line-height: 1.62; color: var(--ink2); }
-.pub-a strong { color: var(--blue); font-weight: 700; }
+/* PI (corresponding/first author) = dark ink + bold. Lab members = emerald (distinct from blue journal/number). */
+.pub-a strong { color: var(--ink); font-weight: 700; }
+.pub-a .lab-member { color: var(--member); font-weight: 600; }
+.pub-a strong.lab-member, .pub-a .lab-member strong { color: var(--member); }
 .pub-v { font-family: var(--mono); font-size: .82rem; color: var(--ink3); font-weight: 500; }
 .pub-v strong, .pub-v em { color: var(--blue); font-style: normal; font-weight: 600; }
 /* ===== Research v4 — one platform → two thrusts (branch map) ===== */
@@ -1308,14 +1361,14 @@ body.admin-on .news-edit-btns { display: flex; }
 .rhero p { font-size: 1.08rem; line-height: 1.6; color: var(--ink2); max-width: 62ch; margin: 0; }
 
 /* People — compact group photo + warm key message */
-.people-hero { display: grid; grid-template-columns: 1.15fr .85fr; gap: var(--s5); align-items: center; padding: var(--s5) var(--gx); border-bottom: 1px solid var(--border); }
-.people-hero .ph-photo { margin: 0; }
-.people-hero .ph-photo img { width: 100%; height: 300px; object-fit: cover; object-position: center 42%; border-radius: var(--r3); display: block; box-shadow: var(--sh2); }
+.people-hero { display: grid; grid-template-columns: 1fr 1fr; gap: var(--s5); align-items: center; padding: var(--s5) var(--gx); border-bottom: 1px solid var(--border); }
+.people-hero .ph-photo { margin: 0; max-width: 460px; }
+.people-hero .ph-photo img { width: 100%; height: auto; max-height: 300px; object-fit: contain; border-radius: var(--r3); display: block; box-shadow: var(--sh2); background: var(--bg2); }
 .people-hero .ph-photo figcaption { font-family: var(--mono); font-size: .62rem; letter-spacing: .08em; text-transform: uppercase; color: var(--ink3); margin-top: .6rem; }
 .people-hero .ph-msg h2 { font-family: var(--sans); font-weight: 800; font-size: clamp(1.5rem, 2.4vw, 2rem); letter-spacing: -.025em; line-height: 1.14; margin: 0 0 var(--s3); color: var(--ink); }
 .people-hero .ph-msg h2 .bl { color: var(--blue); }
 .people-hero .ph-msg p { font-size: 1rem; line-height: 1.7; color: var(--ink2); margin: 0; }
-@media (max-width: 820px) { .people-hero { grid-template-columns: 1fr; gap: var(--s4); } .people-hero .ph-photo img { height: 240px; } }
+@media (max-width: 820px) { .people-hero { grid-template-columns: 1fr; gap: var(--s4); } .people-hero .ph-photo { max-width: none; } .people-hero .ph-photo img { max-height: 260px; } }
 
 /* ===== Home v3 — poster hero + synthesis→device (B3) ===== */
 .bhero { position: relative; overflow: hidden; padding: 0; border-bottom: 1px solid var(--border); background: linear-gradient(150deg, #f7f9ff, #eef2fd); min-height: clamp(500px, 60vh, 660px); display: flex; align-items: center; }
@@ -1425,8 +1478,30 @@ body.admin-on .news-edit-btns { display: flex; }
     </div>
     <div class="af-btns" id="af-btns"></div>
     <div class="af-note">✓ Edits auto-save to this browser<span id="af-saved" class="af-saved">Saved</span></div>
+    <div id="af-unpub" style="display:none;font-family:var(--mono);font-size:.62rem;line-height:1.5;color:#ffd479;background:rgba(217,119,6,.16);border:1px solid rgba(217,119,6,.4);border-radius:8px;padding:.45rem .6rem;margin-bottom:.4rem">● 미발행 변경사항 — <b>🚀 Publish content</b>를 눌러야 사이트·교체에 반영됩니다.</div>
+    <button class="af-publish" id="af-publish">🚀 Publish content (글·사진)</button>
+    <div class="af-pubstatus" id="af-pubstatus"></div>
+    <div class="af-pubsettings" id="af-pubsettings">
+      <label class="af-publabel" for="af-token">GitHub access token</label>
+      <input class="af-tokeninput" id="af-token" type="password" placeholder="github_pat_…" autocomplete="off" spellcheck="false">
+      <div class="af-pubrow">
+        <button class="af-export" id="af-token-save">Save token</button>
+        <button class="af-export" id="af-token-clear">Clear</button>
+      </div>
+      <div class="af-pubhint">Stored only in this browser. Needs <b>Contents: Read &amp; write</b> on the qslab repo.</div>
+    </div>
+    <button class="af-export" id="af-pubtoggle">⚙ Publish settings</button>
+    <button class="af-export" id="af-publish-code">🧩 Publish code (기능 업데이트)</button>
     <button class="af-export" id="af-reset">↺ Reset all edits</button>
-    <button class="af-export" id="af-export">↓ Export HTML to publish</button>
+    <button class="af-export" id="af-export">↓ Export HTML (backup)</button>
+    <button class="af-export" id="af-content-export">💾 내용 백업 (.json)</button>
+    <button class="af-export" id="af-content-import">📂 내용 복원 (.json)</button>
+    <input type="file" id="af-content-file" accept="application/json,.json" style="display:none">
+    <div class="af-pubhint" style="margin-top:.4rem;line-height:1.5">🚀 = 글·사진을 content.json에 저장 (코드 교체해도 유지). 🧩 = 새 기능(index.html)을 사이트에 반영.</div>
+    <div style="display:flex;gap:.4rem;margin-top:.6rem;padding-top:.5rem;border-top:1px solid rgba(255,255,255,.12)">
+      <button class="af-export" id="af-exit-keep" style="flex:1">✕ 나가기 (편집 유지)</button>
+      <button class="af-export" id="af-exit-discard" style="flex:1;color:#ffb4b4">🗑 저장 없이 나가기</button>
+    </div>
   </div>
 </div>
 
@@ -1523,23 +1598,23 @@ body.admin-on .news-edit-btns { display: flex; }
 
   <!-- Capability strip: synthesis → device -->
   <section class="capsec">
-    <div class="caphead"><h2>We do it all in-house — growth to measurement</h2><span class="t-eyebrow">Synthesis → Device</span></div>
+    <div class="caphead"><h2 data-editable data-edit-label="✎ Edit" id="cap-title">We do it all in-house — growth to measurement</h2><span class="t-eyebrow">Synthesis → Device</span></div>
     <div class="capgrid">
-      <div class="capcard"><img class="cap-img" src="assets/home/mocvd-schematic-2.png" alt="MOCVD growth schematic"><div class="body"><div class="capstep">01 · Synthesize</div><h4>Wafer-scale growth</h4><p>MOCVD &amp; thermal CVD</p></div><div class="caparrow">→</div></div>
-      <div class="capcard"><img class="cap-img" src="assets/home/stem-ws2.png" alt="Atomic-resolution STEM of Mn-doped WS2"><div class="body"><div class="capstep">02 · Characterize</div><h4>Atomic-scale check</h4><p>Raman · STEM · AFM</p></div><div class="caparrow">→</div></div>
-      <div class="capcard"><img class="cap-img" src="assets/home/device-stack.png" alt="van der Waals device optical micrograph"><div class="body"><div class="capstep">03 · Fabricate</div><h4>Interface &amp; process engineering</h4><p>vdW assembly · gating · litho</p></div><div class="caparrow">→</div></div>
-      <div class="capcard"><img class="cap-img" src="assets/home/measure-transport.png" alt="Device transport measurement"><div class="body"><div class="capstep">04 · Measure</div><h4>Device &amp; quantum measurement</h4><p>Transport · I–V · optical</p></div></div>
+      <div class="capcard" data-adm-card data-adm-type="capcard"><img class="cap-img" src="assets/home/mocvd-schematic-2.png" alt="MOCVD growth schematic"><div class="body"><div class="capstep">01 · Synthesize</div><h4>Wafer-scale growth</h4><p>MOCVD &amp; thermal CVD</p></div><div class="caparrow">→</div></div>
+      <div class="capcard" data-adm-card data-adm-type="capcard"><img class="cap-img" src="assets/home/stem-ws2.png" alt="Atomic-resolution STEM of Mn-doped WS2"><div class="body"><div class="capstep">02 · Characterize</div><h4>Atomic-scale check</h4><p>Raman · STEM · AFM</p></div><div class="caparrow">→</div></div>
+      <div class="capcard" data-adm-card data-adm-type="capcard"><img class="cap-img" src="assets/home/device-stack.png" alt="van der Waals device optical micrograph"><div class="body"><div class="capstep">03 · Fabricate</div><h4>Interface &amp; process engineering</h4><p>vdW assembly · gating · litho</p></div><div class="caparrow">→</div></div>
+      <div class="capcard" data-adm-card data-adm-type="capcard"><img class="cap-img" src="assets/home/measure-transport.png" alt="Device transport measurement"><div class="body"><div class="capstep">04 · Measure</div><h4>Device &amp; quantum measurement</h4><p>Transport · I–V · optical</p></div></div>
     </div>
   </section>
 
   <!-- Mission tiles -->
   <section class="capsec" style="padding-top:0;padding-bottom:var(--s3)">
-    <div class="caphead"><h2>Three research missions</h2><span class="t-eyebrow">Research</span></div>
+    <div class="caphead"><h2 data-editable data-edit-label="✎ Edit" id="mission-title">Three research missions</h2><span class="t-eyebrow">Research</span></div>
   </section>
   <div class="mtiles" id="r-grid">
-    <article class="mtile t1" data-rgoto="r-area-light" tabindex="0"><div class="tn">Mission 01</div><h3>Quantum Light &amp; Information</h3><p>Single-photon emitters &amp; excitons in engineered 2D interfaces.</p><span class="ar" aria-hidden="true">→</span></article>
-    <article class="mtile t2" data-rgoto="r-area-ferro" tabindex="0"><div class="tn">Mission 02 · New</div><h3>Ferroelectric Logic &amp; Memory</h3><p>Low-power &amp; cryogenic nanoelectronics from 2D ferroelectrics.</p><span class="ar" aria-hidden="true">→</span></article>
-    <article class="mtile t3" data-rgoto="r-area-quantum" tabindex="0"><div class="tn">Mission 03</div><h3>Cryogenic &amp; Quantum Electronics</h3><p>Superconducting &amp; topological hardware for quantum computing.</p><span class="ar" aria-hidden="true">→</span></article>
+    <article class="mtile t1" data-adm-card data-adm-type="mtile" data-rgoto="r-area-light" tabindex="0"><div class="tn">Mission 01</div><h3>Quantum Light &amp; Information</h3><p>Single-photon emitters &amp; excitons in engineered 2D interfaces.</p><span class="ar" aria-hidden="true">→</span></article>
+    <article class="mtile t2" data-adm-card data-adm-type="mtile" data-rgoto="r-area-ferro" tabindex="0"><div class="tn">Mission 02 · New</div><h3>Ferroelectric Logic &amp; Memory</h3><p>Low-power &amp; cryogenic nanoelectronics from 2D ferroelectrics.</p><span class="ar" aria-hidden="true">→</span></article>
+    <article class="mtile t3" data-adm-card data-adm-type="mtile" data-rgoto="r-area-quantum" tabindex="0"><div class="tn">Mission 03</div><h3>Cryogenic &amp; Quantum Electronics</h3><p>Superconducting &amp; topological hardware for quantum computing.</p><span class="ar" aria-hidden="true">→</span></article>
   </div>
 
   <!-- News highlights -->
@@ -1597,7 +1672,7 @@ body.admin-on .news-edit-btns { display: flex; }
       <button class="btn btn-amber" data-goto="people">Meet the team →</button>
     </div>
     <div class="op-right">
-      <div class="op-item"><h4>Postdoctoral Researcher</h4><p>1 vacancy — 2D heterostructure fabrication for QIS. seunguk@skku.edu</p></div>
+      <div class="op-item"><h4>Postdoctoral Researcher</h4><p>1 vacancy — 2D heterostructure fabrication for QIS. <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="730016061d14061833001818065d161706">[email&#160;protected]</a></p></div>
       <div class="op-item"><h4>Integrated M.S.–Ph.D. Students</h4><p>Ongoing recruitment. SKKU Department of Energy Science.</p></div>
       <div class="op-item"><h4>Undergraduate Interns (URP)</h4><p>SKKU Undergraduate Research Program — each semester.</p></div>
     </div>
@@ -1605,8 +1680,8 @@ body.admin-on .news-edit-btns { display: flex; }
 
   <footer>
     <div class="ft-left">
-      <div class="ft-logo">QS Lab — Quantum Semiconductor Laboratory</div>
-      <div class="ft-addr">N Center 3F #86383, SKKU, Suwon, Korea<br>seunguk@skku.edu</div>
+      <div class="ft-logo">QS Lab @ SKKU</div>
+      <div class="ft-addr">N Center 3F #86383, SKKU, Suwon, Korea<br><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="c6b5a3b3a8a1b3ad86b5adadb3e8a3a2b3">[email&#160;protected]</a></div>
     </div>
     <div class="ft-right">
       <div class="ft-dept">Energy Science · 성균관대학교 에너지학과<br><span style="font-size:.75rem">© QS Lab, SKKU<span class="ft-admin-trigger" title="Admin">·</span></span></div>
@@ -1618,42 +1693,42 @@ body.admin-on .news-edit-btns { display: flex; }
 <main class="sec-page" id="page-research">
   <div class="rhero">
     <div class="crumb"><b>Research</b> — Areas &amp; Opportunities</div>
-    <h1>Engineering <span class="bl">quantum states</span> in solid-state materials.</h1>
-    <p>One platform — atomically precise growth — driving quantum light, ferroelectric low-power electronics, and cryogenic quantum hardware.</p>
+    <h1 data-editable data-edit-html data-edit-label="✎ Edit" id="rhero-h1">Engineering <span class="bl">quantum states</span> in solid-state materials.</h1>
+    <p data-editable data-edit-label="✎ Edit" id="rhero-p">One platform — atomically precise growth — driving quantum light, ferroelectric low-power electronics, and cryogenic quantum hardware.</p>
   </div>
 
   <section class="rmap">
-    <div class="nh-libhead"><h2>One platform, three missions</h2><span class="t-eyebrow">How our research connects</span></div>
-    <p class="rmap-intro">Everything starts from a single capability — <strong>atomically precise growth</strong>. The same crystals and tools then drive three application missions: engineering <strong>quantum light</strong>, building <strong>ferroelectric low-power electronics</strong>, and creating <strong>cryogenic quantum hardware</strong>.</p>
+    <div class="nh-libhead"><h2 data-editable data-edit-label="✎ Edit" id="rmap-h2">One platform, three missions</h2><span class="t-eyebrow">How our research connects</span></div>
+    <p class="rmap-intro" data-editable data-edit-html data-edit-label="✎ Edit" id="rmap-intro">Everything starts from a single capability — <strong>atomically precise growth</strong>. The same crystals and tools then drive three application missions: engineering <strong>quantum light</strong>, building <strong>ferroelectric low-power electronics</strong>, and creating <strong>cryogenic quantum hardware</strong>.</p>
 
     <div class="rplatform" id="r-approach">
       <div class="lbl">Shared foundation · feeds every mission</div>
-      <h3>Atomic-Layer Synthesis Platform</h3>
-      <p>Wafer-scale, phase-pure epitaxy with atomic-level interface control — MOCVD, source-confined CVD, and ML-guided growth.</p>
+      <h3 data-editable data-edit-label="✎ Edit" id="rplat-h3">Atomic-Layer Synthesis Platform</h3>
+      <p data-editable data-edit-label="✎ Edit" id="rplat-p">Wafer-scale, phase-pure epitaxy with atomic-level interface control — MOCVD, source-confined CVD, and ML-guided growth.</p>
       <div class="grows">grows ↓</div>
     </div>
 
     <div class="rbranch"><div class="drop l"></div><div class="drop r"></div></div>
 
     <div class="rmissions">
-      <div class="mish m1" id="r-area-light">
-        <div class="mish-head"><div class="mish-n">Mission 01</div><h3 id="r-area-light-h" data-editable data-edit-label="✎ Edit heading">Quantum Light &amp; Information</h3><p id="r-area-light-p" data-editable data-edit-label="✎ Edit text">Manipulating quantum states of light and excitons in engineered 2D interfaces.</p></div>
+      <div class="mish m1" id="r-area-light" data-adm-card data-adm-type="mish">
+        <div class="mish-head"><div class="mish-n">Mission 01</div><h3 id="r-area-light-h">Quantum Light &amp; Information</h3><p id="r-area-light-p">Manipulating quantum states of light and excitons in engineered 2D interfaces.</p></div>
         <div class="mish-body">
           <div class="lbl2">Targets</div>
           <ul><li>Site-defined single-photon emitters</li><li>Ferroelectric-gated bound excitons</li></ul>
           <div class="mish-mats"><span>WS₂</span><span>MoSe₂</span><span>2D ferroelectrics</span></div>
         </div>
       </div>
-      <div class="mish m2" id="r-area-ferro">
-        <div class="mish-head"><div class="mish-n">Mission 02 · New</div><h3 id="r-area-ferro-h" data-editable data-edit-label="✎ Edit heading">Ferroelectric Logic &amp; Memory</h3><p id="r-area-ferro-p" data-editable data-edit-label="✎ Edit text">Low-power and cryogenic nanoelectronics from 2D ferroelectric devices.</p></div>
+      <div class="mish m2" id="r-area-ferro" data-adm-card data-adm-type="mish">
+        <div class="mish-head"><div class="mish-n">Mission 02 · New</div><h3 id="r-area-ferro-h">Ferroelectric Logic &amp; Memory</h3><p id="r-area-ferro-p">Low-power and cryogenic nanoelectronics from 2D ferroelectric devices.</p></div>
         <div class="mish-body">
           <div class="lbl2">Targets</div>
           <ul><li>Ferroelectric &amp; negative-capacitance FETs</li><li>Non-volatile memory</li><li>Cryogenic nanoelectronics</li></ul>
           <div class="mish-mats"><span>In₂Se₃</span><span>AlScN</span><span>InSe</span></div>
         </div>
       </div>
-      <div class="mish m3" id="r-area-quantum">
-        <div class="mish-head"><div class="mish-n">Mission 03</div><h3 id="r-area-quantum-h" data-editable data-edit-label="✎ Edit heading">Cryogenic &amp; Quantum Electronics</h3><p id="r-area-quantum-p" data-editable data-edit-label="✎ Edit text">Superconducting and topological hardware for quantum computing.</p></div>
+      <div class="mish m3" id="r-area-quantum" data-adm-card data-adm-type="mish">
+        <div class="mish-head"><div class="mish-n">Mission 03</div><h3 id="r-area-quantum-h">Cryogenic &amp; Quantum Electronics</h3><p id="r-area-quantum-p">Superconducting and topological hardware for quantum computing.</p></div>
         <div class="mish-body">
           <div class="lbl2">Targets</div>
           <ul><li>van der Waals transmon qubits</li><li>Josephson Ferroelectric FET</li><li>Topological spin–charge devices</li></ul>
@@ -1739,7 +1814,7 @@ body.admin-on .news-edit-btns { display: flex; }
       <img src="assets/sponsors/bk21.png" alt="Brain Korea 21 (BK21 FOUR)">
     </div>
   </div>
-  <footer><div class="ft-left"><div class="ft-logo">QS Lab</div><div class="ft-addr">seunguk@skku.edu</div></div><div class="ft-right"><div class="ft-dept">© QS Lab, SKKU<span class="ft-admin-trigger">·</span></div></div></footer>
+  <footer><div class="ft-left"><div class="ft-logo">QS Lab</div><div class="ft-addr"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="8af9efffe4edffe1caf9e1e1ffa4efeeff">[email&#160;protected]</a></div></div><div class="ft-right"><div class="ft-dept">© QS Lab, SKKU<span class="ft-admin-trigger">·</span></div></div></footer>
 </main>
 
 <!-- ═══════════════ RESEARCH DETAIL ═══════════════ -->
@@ -1751,7 +1826,7 @@ body.admin-on .news-edit-btns { display: flex; }
     <button id="rd-edit-body-btn" style="display:none;margin-top:var(--s2);font-family:var(--mono);font-size:.7rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;background:var(--amber);color:#fff;padding:.4rem 1rem;border:none;border-radius:var(--r2);cursor:pointer">✎ Edit Detail Content</button>
   </div>
   <div class="res-body" id="rd-body"></div>
-  <footer><div class="ft-left"><div class="ft-logo">QS Lab</div><div class="ft-addr">seunguk@skku.edu</div></div><div class="ft-right"><div class="ft-dept">© QS Lab, SKKU<span class="ft-admin-trigger">·</span></div></div></footer>
+  <footer><div class="ft-left"><div class="ft-logo">QS Lab</div><div class="ft-addr"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="f08395859e97859bb0839b9b85de959485">[email&#160;protected]</a></div></div><div class="ft-right"><div class="ft-dept">© QS Lab, SKKU<span class="ft-admin-trigger">·</span></div></div></footer>
 </main>
 
 <!-- ═══════════════ PEOPLE ═══════════════ -->
@@ -1759,16 +1834,16 @@ body.admin-on .news-edit-btns { display: flex; }
   <div class="sl-head">
     <div class="sl-name"><span class="tag">QS Lab</span>People</div>
     <div class="sl-desc">A multidisciplinary team across <b>physics, materials science, chemistry &amp; EE</b>.</div>
-    <div class="sl-right sl-chips"><span><b>1</b> PI</span><span><b>1</b> Postdoc</span><span><b>1</b> Research Assoc.</span><span><b>8</b> Graduate</span><span><b>5</b> Interns</span></div>
+    <div class="sl-right sl-chips"><span><b id="cnt-pi">1</b> PI</span><span><b id="cnt-postdoc">1</b> Postdoc</span><span><b id="cnt-ra">1</b> Research Assoc.</span><span><b id="cnt-grad">8</b> Graduate</span><span><b id="cnt-intern">5</b> Interns</span></div>
   </div>
   <section class="people-hero">
     <figure class="ph-photo">
-      <img src="assets/people/group.jpg" alt="QS Lab group photo">
-      <figcaption>QS Lab · Sungkyunkwan University · 2026</figcaption>
+      <img id="group-img" src="assets/people/group.jpg" alt="QS Lab group photo">
+      <figcaption data-editable data-edit-label="✎ Edit caption" id="group-cap">QS Lab · Sungkyunkwan University · 2026</figcaption>
     </figure>
     <div class="ph-msg">
-      <h2>A small group that <span class="bl">grows together</span>.</h2>
-      <p>From wafer-scale crystal growth to cryogenic measurement, we work side by side across disciplines — sharing tools, ideas, and the occasional late-night lab run. We're always looking for curious students who want to build quantum technology from the atom up.</p>
+      <h2 data-editable data-edit-html data-edit-label="✎ Edit" id="ph-msg-h2">A small group that <span class="bl">grows together</span>.</h2>
+      <p data-editable data-edit-label="✎ Edit" id="ph-msg-p">From wafer-scale crystal growth to cryogenic measurement, we work side by side across disciplines — sharing tools, ideas, and the occasional late-night lab run. We're always looking for curious students who want to build quantum technology from the atom up.</p>
     </div>
   </section>
   <div class="pi-block">
@@ -1790,14 +1865,14 @@ body.admin-on .news-edit-btns { display: flex; }
       <div class="pi-links" data-editable data-edit-label="✎ Edit Links">
         <a class="pi-link" href="https://linkedin.com/in/seunguk-song-a1b338212" target="_blank">LinkedIn</a>
         <a class="pi-link" href="https://scholar.google.com/citations?user=IS8WIlBo_iIC" target="_blank">Google Scholar</a>
-        <a class="pi-link" href="mailto:seunguk@skku.edu">seunguk@skku.edu</a>
+        <a class="pi-link" href="/cdn-cgi/l/email-protection#91e2f4e4fff6e4fad1e2fafae4bff4f5e4"><span class="__cf_email__" data-cfemail="057660706b62706e45766e6e702b606170">[email&#160;protected]</span></a>
       </div>
     </div>
   </div>
 
   <div class="mgroup">
     <div class="mg-label">Postdoctoral Fellows</div>
-    <div class="mgrid" id="grid-postdoc"><div class="mcard" data-adm-card data-adm-type="member"><div class="mcard-img-wrap"><img src="assets/people/nasir-ali.png" alt="Dr. Nasir Ali"></div><div class="mcard-name">Dr. Nasir Ali</div><div class="mcard-role">Postdoctoral Fellow</div><div class="mcard-desc">Received B.Sc./M.Sc. from Aligarh Muslim University and Ph.D. in Physics from Jawaharlal Nehru University (2020). Postdoc at SAINT, SKKU (2020–2025). Research focuses on quantum phase metal-insulator transitions, metallic transport, and critical phenomena in 2D materials via semimetal and 2D metallic contacts.</div></div></div>
+    <div class="mgrid" id="grid-postdoc"><div class="mcard mcard-hiring" data-adm-card data-adm-type="hiring"><div class="mcard-hiring-icon">🔬</div><div class="mcard-hiring-title">We Are Hiring</div><div class="mcard-hiring-sub">Postdoctoral Researcher<br>2D heterostructure fabrication for QIS<br>Contact: <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="5b283e2e353c2e301b2830302e753e3f2e">[email&#160;protected]</a></div></div></div>
     <div class="mg-label">Research Associate</div>
     <div class="mgrid" id="grid-ra"><div class="mcard" data-adm-card data-adm-type="member"><div class="mcard-img-wrap"><img src="assets/people/sooyoung-choi.jpg" alt="Sooyoung Choi"></div><div class="mcard-name">Sooyoung Choi</div><div class="mcard-role">Research Associate (Mar 2026)</div><div class="mcard-desc">Received M.S. in Electrical Engineering from the University of Pennsylvania. Joined the lab as Research Associate in March 2026. Research interests include 2D superconductors and twist angle-dependent electronic properties in 2D heterostructures.</div></div></div>
     <div class="mg-label">Graduate Students</div>
@@ -1809,7 +1884,7 @@ body.admin-on .news-edit-btns { display: flex; }
     <div class="mcard" data-adm-card data-adm-type="member"><div class="mcard-img-wrap"><img src="assets/people/chaehui-lim.jpg" alt="Chaehui Lim"></div><div class="mcard-name">Chaehui Lim</div><div class="mcard-role">Integrated M.S.-Ph.D. (Sep 2025)</div><div class="mcard-desc">Master-PhD Combined Program student since September 2025. Research focuses on MOCVD-based synthesis of lateral in-plane 2D heterostructures for quantum information science applications.</div></div>
     <div class="mcard" data-adm-card data-adm-type="member"><div class="mcard-img-wrap"><img src="assets/people/kyungwu-kwon.jpg" alt="Kyungwu Kwon"></div><div class="mcard-name">Kyungwu Kwon</div><div class="mcard-role">Graduate Student (Mar 2026)</div><div class="mcard-desc">Undergraduate intern since March 2025, transitioning to graduate student in March 2026. Research on synthesis of 2D topological semimetals and semiconductors for nanoelectronics.</div></div>
     <div class="mcard" data-adm-card data-adm-type="member"><div class="mcard-img-wrap"><img src="assets/people/yerin-so.jpg" alt="Yerin So"></div><div class="mcard-name">Yerin So</div><div class="mcard-role">Graduate Student (Mar 2026)</div><div class="mcard-desc">Physics undergraduate at Sookmyung Women's University, research intern since August 2025, graduate studies starting March 2026. Research: 2D superconductors and fundamental physical properties for superconducting qubit applications.</div></div></div>
-    <div class="mg-label">Undergraduate Interns (URP)</div>
+    <div class="mg-label">Interns and Undergraduate Research Program (URP)</div>
     <div class="mgrid" id="grid-intern"><div class="mcard" data-adm-card data-adm-type="member"><div class="mcard-img-wrap"><img src="assets/people/seohee-park.jpg" alt="Seohee Park"></div><div class="mcard-name">Seohee Park</div><div class="mcard-role">Intern (Sep 2025)</div><div class="mcard-desc">Undergraduate intern since September 2025. Research: synthesizing 2D ferroelectric materials and fabricating devices for next-generation semiconductor applications.</div></div>
     <div class="mcard" data-adm-card data-adm-type="member"><div class="mcard-img-wrap"><img src="assets/people/taeyoung-jeon.jpg" alt="Taeyoung Jeon"></div><div class="mcard-name">Taeyoung Jeon</div><div class="mcard-role">Undergrad Intern</div><div class="mcard-desc">Chemical Engineering undergraduate. Research: MOCVD-based synthesis of 2D heterostructures and their applicability.</div></div>
     <div class="mcard" data-adm-card data-adm-type="member"><div class="mcard-img-wrap"><img src="assets/people/sungwoo-yoon.jpg" alt="Sungwoo Yoon"></div><div class="mcard-name">Sungwoo Yoon</div><div class="mcard-role">Undergrad Intern</div><div class="mcard-desc">Chemical Engineering undergraduate. Research: wafer-scale synthesis of PtTe₂ via TCVD for next-generation semiconductor interconnects and spintronics.</div></div>
@@ -1831,14 +1906,16 @@ body.admin-on .news-edit-btns { display: flex; }
         <div style="padding:var(--s2);border:1px solid var(--border);border-radius:var(--r2)"><div class="mcard-name">Shujin Lee</div><div class="mcard-role">KITECH</div></div>
         <div style="padding:var(--s2);border:1px solid var(--border);border-radius:var(--r2)"><div class="mcard-name">Kyung-Rok Kang</div><div class="mcard-role">KITECH</div></div>
       </div>
+      <div class="mg-label" id="alumni-card-label" style="margin-top:var(--s3)">Alumni</div>
+      <div class="mgrid" id="grid-alumni" style="margin-bottom:var(--s2)"><div class="mcard" data-adm-card data-adm-type="member" data-alumni="1"><div class="mcard-img-wrap"><img src="assets/people/nasir-ali.png" alt="Dr. Nasir Ali"></div><div class="mcard-name">Dr. Nasir Ali</div><div class="mcard-role">Alumni (ex-Postdoc) · 2020–2025</div><div class="mcard-desc">Received B.Sc./M.Sc. from Aligarh Muslim University and Ph.D. in Physics from Jawaharlal Nehru University (2020). Postdoc at SAINT, SKKU (2020–2025). Research focused on quantum phase metal-insulator transitions, metallic transport, and critical phenomena in 2D materials via semimetal and 2D metallic contacts.</div></div><div class="mcard mcard-nameonly" data-adm-card data-adm-type="member" data-alumni="1"><div class="mcard-name">Chengyun Hong</div><div class="mcard-role">Alumni (ex-Ph.D.) · → Postdoc, POSTECH MSE</div></div></div>
       <div style="margin-top:var(--s3)">
         <strong style="font-size:.84rem;color:var(--ink)">Alumni — </strong>
-        <span class="alumni-text" id="alumni-text">Chengyun Hong (Ph.D. → Postdoc POSTECH MSE) · Hyemyeong Lee · Hyungjeong Lee · Yunyeong Kim · Gunmo Koo · Sangwon Yun · Eunpyo Lee</span>
+        <span class="alumni-text" id="alumni-text">Hyemyeong Lee · Hyungjeong Lee · Yunyeong Kim · Gunmo Koo · Sangwon Yun · Eunpyo Lee</span>
       </div>
     </div>
     <div style="height:var(--s4)"></div>
   </div>
-  <footer><div class="ft-left"><div class="ft-logo">QS Lab</div><div class="ft-addr">seunguk@skku.edu</div></div><div class="ft-right"><div class="ft-dept">© QS Lab, SKKU<span class="ft-admin-trigger">·</span></div></div></footer>
+  <footer><div class="ft-left"><div class="ft-logo">QS Lab</div><div class="ft-addr"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="8af9efffe4edffe1caf9e1e1ffa4efeeff">[email&#160;protected]</a></div></div><div class="ft-right"><div class="ft-dept">© QS Lab, SKKU<span class="ft-admin-trigger">·</span></div></div></footer>
 </main>
 
 <!-- ═══════════════ PUBLICATIONS ═══════════════ -->
@@ -1920,6 +1997,7 @@ body.admin-on .news-edit-btns { display: flex; }
   <a class="pub-row" data-adm-card data-adm-type="pub" href="https://onlinelibrary.wiley.com/doi/full/10.1002/advs.201801370" target="_blank"><div class="pub-n">2</div><div><div class="pub-t">Electrically robust single-crystalline WTe₂ nanobelts for nanoscale electrical interconnects (Frontispiece)</div><div class="pub-a"><strong>Seunguk Song</strong>, Se-Yang Kim, Jinsung Kwak, Yongsu Jo, Jung Hwa Kim, Jong Hwa Lee, Jae-Ung Lee, Jong Uk Kim, Hyung Duk Yun, Yeoseon Sim, Jaewon Wang, Do Hee Lee, Shi-Hyun Seok, Tae-il Kim, Hyeonsik Cheong, Zonghoon Lee, Soon-Yong Kwon*</div><div class="pub-v"><strong>Advanced Science</strong>, 6, 1801370 (2019)</div></div></a>
   <div class="pub-yr">2018</div>
   <a class="pub-row" data-adm-card data-adm-type="pub" href="https://onlinelibrary.wiley.com/doi/full/10.1002/adma.201707260" target="_blank"><div class="pub-n">1</div><div><div class="pub-t">Single-crystalline nanobelts composed of transition metal ditellurides</div><div class="pub-a">Jinsung Kwak, Yongsu Jo, <strong>Seunguk Song</strong>, Jung Hwa Kim, Se-Yang Kim, Jae-Ung Lee, Sungwoo Lee, Jungmin Park, Kangwon Kim, Gun-Do Lee, Jung-Woo Yoo, Sung Youb Kim, Young-Min Kong, Gwan-Hyoung Lee, Wan-Gyu Lee, Jucheol Park, Xiaodong Xu, Hyeonsik Cheong, Euijoon Yoon, Zonghoon Lee, Soon-Yong Kwon*</div><div class="pub-v"><strong>Advanced Materials</strong>, 30, 1707260 (2018)</div></div></a></div>
+  <div class="pub-section" id="orcid-pub-section" style="display:none"><div class="orcid-state" style="padding:var(--s5) var(--s2);text-align:center;font-family:var(--mono);font-size:.78rem;color:var(--ink3)">Loading live publications from ORCID…</div></div>
   <footer><div class="ft-left"><div class="ft-logo">QS Lab</div><div class="ft-addr"><a href="https://scholar.google.com/citations?user=IS8WIlBo_iIC" target="_blank" style="color:rgba(255,255,255,.6)">Google Scholar</a></div></div><div class="ft-right"><div class="ft-dept">© QS Lab, SKKU<span class="ft-admin-trigger">·</span></div></div></footer>
 </main>
 
@@ -1931,8 +2009,8 @@ body.admin-on .news-edit-btns { display: flex; }
     <div class="sl-right sl-affil"><span class="hot">In-house</span><span>IBS 2DQH · AQT</span><span>CINAP</span></div>
   </div>
   <section class="eq-sec">
-    <div class="eq-head"><h2>Lab-Dedicated Instruments</h2><span class="t-eyebrow">QS Lab · in-house</span></div>
-    <p class="eq-intro">Core synthesis and low-temperature transport systems operated solely by our group at N Center, SKKU — the backbone of our day-to-day growth and device measurement.</p>
+    <div class="eq-head"><h2 data-editable data-edit-label="✎ Edit" id="eq-h2-lab">Lab-Dedicated Instruments</h2><span class="t-eyebrow">QS Lab · in-house</span></div>
+    <p class="eq-intro" data-editable data-edit-label="✎ Edit" id="eq-intro-lab">Core synthesis and low-temperature transport systems operated solely by our group at N Center, SKKU — the backbone of our day-to-day growth and device measurement.</p>
     <div class="eq-grid" id="eq-grid">
     <div class="eq-card" data-adm-card data-adm-type="equipment"><img class="eq-photo" src="assets/equipment/mocvd.jpg" alt="Cold-Wall MOCVD system"><div class="eq-n">01</div><div class="eq-name">Cold-Wall MOCVD</div><div class="eq-sub">III–VI Compound Semiconductors</div><p class="eq-desc">Metal-organic CVD with cold-wall reactor for wafer-scale growth of III–VI compound semiconductors — InSe, In₂Se₃, and GaₓIn₁₋ₓSeᵧ alloys — with controlled composition and layer number.</p><div class="eq-tags"><span class="eq-tag">MOCVD</span><span class="eq-tag">InSe · In₂Se₃</span><span class="eq-tag">(In,Ga)Se</span><span class="eq-tag">Wafer-scale</span></div></div>
     <div class="eq-card" data-adm-card data-adm-type="equipment"><img class="eq-photo" src="assets/equipment/mocvd-sc.jpg" alt="MOCVD Quantum Heterostructures system"><div class="eq-n">02</div><div class="eq-name">Cold-Wall MOCVD</div><div class="eq-sub">Superconductors &amp; vdW Heterostructures</div><p class="eq-desc">Dedicated MOCVD with in-situ monitoring for FeSe₁₋ₓTeₓ topological superconductor films and lateral in-plane 2D heterostructures.</p><div class="eq-tags"><span class="eq-tag">Heterostructures</span><span class="eq-tag">FeSeTe</span><span class="eq-tag">Topological SC</span></div></div>
@@ -1943,16 +2021,16 @@ body.admin-on .news-edit-btns { display: flex; }
     </div>
   </section>
   <section class="eq-sec">
-    <div class="eq-head"><h2>Shared Fab Facilities</h2><span class="t-eyebrow">Our member centers</span></div>
-    <p class="eq-intro">Beyond our own systems, our group is a <strong>participating group of the IBS Center for 2D Quantum Heterostructures (2DQH)</strong> and a member of SKKU's shared-instrument centers — so the instruments below are part of our everyday workflow, not occasional collaborations.</p>
+    <div class="eq-head"><h2 data-editable data-edit-label="✎ Edit" id="eq-h2-shared">Shared Fab Facilities</h2><span class="t-eyebrow">Our member centers</span></div>
+    <p class="eq-intro" data-editable data-edit-html data-edit-label="✎ Edit" id="eq-intro-shared">Beyond our own systems, our group is a <strong>participating group of the IBS Center for 2D Quantum Heterostructures (2DQH)</strong> and a member of SKKU's shared-instrument centers — so the instruments below are part of our everyday workflow, not occasional collaborations.</p>
 
-    <div class="fac-band">
+    <div class="fac-band" data-adm-card data-adm-type="facband">
       <div class="fac-tag">SKKU AQT · operated by IBS 2DQH · in our building</div>
       <h3>Advanced Quantum Technology Instrumentation Center</h3>
       <div class="fac-kr">성균관대학교 양자기술첨단기기센터 · N-Center C, Rm 86275</div>
       <p>AQT is operated under the <span class="mem">IBS Center for 2D Quantum Heterostructures (2DQH)</span>, which our group is part of — and it shares our building at N-Center, so its core systems sit steps from our growth reactors.</p>
     </div>
-    <div class="eq-grid">
+    <div class="eq-grid" id="eq-grid-aqt">
       <div class="eq-card" data-adm-card data-adm-type="equipment"><div class="eq-n">01</div><div class="eq-name">Cs-corrected STEM / TEM</div><div class="eq-sub">JEM-ARM300CF · ARM200CF</div><p class="eq-desc">Aberration-corrected scanning/transmission electron microscopy with EDS and EELS — atomic-scale structure and chemistry of 2D crystals, defects, and heterointerfaces.</p><div class="eq-tags"><span class="eq-tag">Atomic-res</span><span class="eq-tag">STEM/TEM</span><span class="eq-tag">EDS</span><span class="eq-tag">EELS</span></div></div>
       <div class="eq-card" data-adm-card data-adm-type="equipment"><div class="eq-n">02</div><div class="eq-name">PPMS Dynacool</div><div class="eq-sub">Cryogenic Magnetotransport</div><p class="eq-desc">Cryogen-free physical property measurement at 1.8–400 K and up to 14 T (and 9 T) — magnetotransport, Hall, and superconducting characterization of our devices.</p><div class="eq-tags"><span class="eq-tag">1.8–400 K</span><span class="eq-tag">14 T</span><span class="eq-tag">Hall</span></div></div>
       <div class="eq-card" data-adm-card data-adm-type="equipment"><div class="eq-n">03</div><div class="eq-name">X-ray Diffractometer</div><div class="eq-sub">SmartLab 9 kW</div><p class="eq-desc">High-resolution X-ray diffraction for phase identification, crystal orientation, and thin-film structural analysis of as-grown 2D layers.</p><div class="eq-tags"><span class="eq-tag">XRD</span><span class="eq-tag">Thin-film</span><span class="eq-tag">Phase</span></div></div>
@@ -1961,14 +2039,14 @@ body.admin-on .news-edit-btns { display: flex; }
       <div class="eq-card" data-adm-card data-adm-type="equipment"><div class="eq-n">06</div><div class="eq-name">THz Near-field Microscope</div><div class="eq-sub">Nanoscale Optics · SNOM</div><p class="eq-desc">Terahertz scanning near-field optical microscopy for sub-diffraction conductivity and carrier-density imaging, complemented by femtosecond transient-absorption and time-resolved PL.</p><div class="eq-tags"><span class="eq-tag">THz</span><span class="eq-tag">SNOM</span><span class="eq-tag">Ultrafast</span></div></div>
     </div>
 
-    <div class="fac-band">
+    <div class="fac-band" data-adm-card data-adm-type="facband">
       <div class="fac-tag">SKKU CINAP</div>
       <h3>Center for Integrated Nanostructure Physics</h3>
       <div class="fac-kr">성균관대학교 나노물리과학연구소</div>
       <p>Our lab is <span class="mem">affiliated with CINAP</span>, whose nanofabrication cleanroom provides the full device process flow — deposition, lithography, and etching — to turn our crystals into devices.</p>
     </div>
-    <div class="fac-note">A full nanofabrication cleanroom — the standard process tools we use to build devices.</div>
-    <div class="eq-grid">
+    <div class="fac-note" data-editable data-edit-label="✎ Edit" id="fac-note-cinap">A full nanofabrication cleanroom — the standard process tools we use to build devices.</div>
+    <div class="eq-grid" id="eq-grid-cinap">
       <div class="eq-card" data-adm-card data-adm-type="equipment"><div class="eq-n">01</div><div class="eq-name">E-beam Evaporator</div><div class="eq-sub">Metal Deposition</div><p class="eq-desc">Electron-beam evaporation of high-purity metals for source/drain contacts and gate electrodes.</p><div class="eq-tags"><span class="eq-tag">Evaporation</span><span class="eq-tag">Contacts</span></div></div>
       <div class="eq-card" data-adm-card data-adm-type="equipment"><div class="eq-n">02</div><div class="eq-name">Sputtering System</div><div class="eq-sub">Thin-Film Deposition</div><p class="eq-desc">Sputter deposition of metals and dielectrics for device stacks and encapsulation layers.</p><div class="eq-tags"><span class="eq-tag">Sputter</span><span class="eq-tag">Dielectrics</span></div></div>
       <div class="eq-card" data-adm-card data-adm-type="equipment"><div class="eq-n">03</div><div class="eq-name">E-beam Lithography</div><div class="eq-sub">Nanoscale Patterning</div><p class="eq-desc">Direct-write electron-beam lithography for sub-100 nm device geometries and fine electrodes.</p><div class="eq-tags"><span class="eq-tag">EBL</span><span class="eq-tag">Sub-100 nm</span></div></div>
@@ -1998,7 +2076,7 @@ body.admin-on .news-edit-btns { display: flex; }
   <div class="sem-label" style="margin-top:2.5rem">2024 Fall</div>
   <div class="ccard" data-adm-card data-adm-type="course"><div class="ccard-head"><span class="cbadge cb-grad">Graduate</span><div><h3>Energy Nanomaterials 1 (에너지나노소재1)</h3><div class="ccard-code">ESC5002-41</div></div></div><div class="ccard-body">Energy-efficient electrical devices: materials science and chemistry.<div class="ctime">Thursday 12:00–13:15, 13:30–14:45</div></div></div></div>
   <div style="height:var(--s4)"></div>
-  <footer><div class="ft-left"><div class="ft-logo">QS Lab</div><div class="ft-addr">seunguk@skku.edu · Dept. of Energy Science, SKKU</div></div><div class="ft-right"><div class="ft-dept">© QS Lab, SKKU<span class="ft-admin-trigger">·</span></div></div></footer>
+  <footer><div class="ft-left"><div class="ft-logo">QS Lab</div><div class="ft-addr"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="e99a8c9c878e9c82a99a82829cc78c8d9c">[email&#160;protected]</a> · Dept. of Energy Science, SKKU</div></div><div class="ft-right"><div class="ft-dept">© QS Lab, SKKU<span class="ft-admin-trigger">·</span></div></div></footer>
 </main>
 
 <!-- ═══════════════ NEWS ═══════════════ -->
@@ -2006,7 +2084,7 @@ body.admin-on .news-edit-btns { display: flex; }
   <div class="sl-head">
     <div class="sl-name"><span class="tag">QS Lab</span>News &amp; Gallery</div>
     <div class="sl-desc">Publications, awards, grants &amp; events from the lab.</div>
-    <div class="sl-right"><div class="sl-st"><div class="n">Mar 2026</div><div class="l">Latest update</div></div></div>
+    <div class="sl-right"><div class="sl-st"><div class="n" id="news-latest">Mar 2026</div><div class="l">Latest update</div></div></div>
   </div>
   <div class="news-wrap" id="news-list-wrap">
   <div class="news-item" data-adm-card data-adm-type="news">
@@ -2278,21 +2356,21 @@ body.admin-on .news-edit-btns { display: flex; }
   </div>
   <section class="ct-wrap">
     <div class="ct-info">
-      <h3>Quantum Semiconductor Laboratory</h3>
-      <div class="ct-row"><div class="ct-lbl">Address</div><div class="ct-val">N Center 3F #86383, Sungkyunkwan University (SKKU)<br>2066 Seobu-ro, Cheoncheon-dong, Jangan-gu, Suwon-si, Gyeonggi-do, South Korea</div></div>
-      <div class="ct-row"><div class="ct-lbl">주소</div><div class="ct-val">16419 경기도 수원시 장안구 서부로 2066, 성균관대학교 N센터 86383호</div></div>
-      <div class="ct-row"><div class="ct-lbl">Phone</div><div class="ct-val"><a href="tel:+82312994053">+82-31-299-4053</a></div></div>
-      <div class="ct-row"><div class="ct-lbl">Email</div><div class="ct-val"><a href="mailto:seunguk@skku.edu">seunguk@skku.edu</a></div></div>
-      <div class="ct-row"><div class="ct-lbl">PI</div><div class="ct-val">Prof. Seunguk Song</div></div>
-      <div class="ct-links"><a href="https://linkedin.com/in/seunguk-song-a1b338212" target="_blank">LinkedIn</a><a href="https://scholar.google.com/citations?user=IS8WIlBo_iIC" target="_blank">Google Scholar</a></div>
+      <h3 data-editable data-edit-label="✎ Edit" id="ct-h3">Quantum Semiconductor Laboratory</h3>
+      <div class="ct-row"><div class="ct-lbl">Address</div><div class="ct-val" data-editable data-edit-html data-edit-label="✎ Edit" id="ct-addr-en">N Center 3F #86383, Sungkyunkwan University (SKKU)<br>2066 Seobu-ro, Cheoncheon-dong, Jangan-gu, Suwon-si, Gyeonggi-do, South Korea</div></div>
+      <div class="ct-row"><div class="ct-lbl">주소</div><div class="ct-val" data-editable data-edit-html data-edit-label="✎ Edit" id="ct-addr-kr">16419 경기도 수원시 장안구 서부로 2066, 성균관대학교 N센터 86383호</div></div>
+      <div class="ct-row"><div class="ct-lbl">Phone</div><div class="ct-val" data-editable data-edit-html data-edit-label="✎ Edit" id="ct-phone"><a href="tel:+82312994053">+82-31-299-4053</a></div></div>
+      <div class="ct-row"><div class="ct-lbl">Email</div><div class="ct-val" data-editable data-edit-html data-edit-label="✎ Edit" id="ct-email"><a href="/cdn-cgi/l/email-protection#9be8feeef5fceef0dbe8f0f0eeb5feffee"><span class="__cf_email__" data-cfemail="89faecfce7eefce2c9fae2e2fca7ecedfc">[email&#160;protected]</span></a></div></div>
+      <div class="ct-row"><div class="ct-lbl">PI</div><div class="ct-val" data-editable data-edit-label="✎ Edit" id="ct-pi">Prof. Seunguk Song</div></div>
+      <div class="ct-links" data-editable data-edit-html data-edit-label="✎ Edit links" id="ct-links"><a href="https://linkedin.com/in/seunguk-song-a1b338212" target="_blank">LinkedIn</a><a href="https://scholar.google.com/citations?user=IS8WIlBo_iIC" target="_blank">Google Scholar</a></div>
     </div>
     <div class="ct-map"><iframe src="https://maps.google.com/maps?q=37.291632,126.975539&amp;z=17&amp;output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="QS Lab location — N Center, SKKU"></iframe></div>
   </section>
   <section class="ct-openings">
-    <div class="nh-libhead"><h2>Open positions</h2><span class="t-eyebrow">Join the lab</span></div>
-    <p class="ct-intro">We are recruiting motivated undergraduates, graduate students, and postdoctoral researchers interested in low-dimensional semiconductor synthesis and quantum technologies. Our work spans chemistry, chemical engineering, physics, electrical engineering, and materials science. We offer full tuition scholarships, top-tier stipends, publication incentives, and support for international research exchange.</p>
+    <div class="nh-libhead"><h2 data-editable data-edit-label="✎ Edit" id="ct-op-title">Open positions</h2><span class="t-eyebrow">Join the lab</span></div>
+    <p class="ct-intro" data-editable data-edit-label="✎ Edit" id="ct-intro">We are recruiting motivated undergraduates, graduate students, and postdoctoral researchers interested in low-dimensional semiconductor synthesis and quantum technologies. Our work spans chemistry, chemical engineering, physics, electrical engineering, and materials science. We offer full tuition scholarships, top-tier stipends, publication incentives, and support for international research exchange.</p>
     <div class="ct-jobs">
-      <div class="ct-job">
+      <div class="ct-job" data-adm-card data-adm-type="ctjob">
         <div class="jt">Graduate students &middot; M.S.–Ph.D. / Ph.D.</div>
         <h4>Low-dimensional materials for emerging computing &amp; quantum information</h4>
         <p>Enrollment in the Department of Energy Science, SKKU, with research scholarship and stipend per SKKU and project regulations, plus international collaboration and conference opportunities.</p>
@@ -2301,7 +2379,7 @@ body.admin-on .news-edit-btns { display: flex; }
         <div class="jl">Who we're looking for</div>
         <ul><li>B.S. or M.S. in materials science, chemical engineering, physics, EE, chemistry, or related</li><li>Basic understanding of semiconductor physics (coursework is sufficient)</li></ul>
       </div>
-      <div class="ct-job pd">
+      <div class="ct-job pd" data-adm-card data-adm-type="ctjob">
         <div class="jt">Postdoctoral researcher</div>
         <h4>Quantum information science with 2D semiconductor heterostructures</h4>
         <p>One-year contract (renewable), full-time, with competitive salary commensurate with experience. Experience in photonics is preferred.</p>
@@ -2311,12 +2389,12 @@ body.admin-on .news-edit-btns { display: flex; }
         <ul><li>Ph.D. in a relevant field (or expected by start date)</li><li>Strong proposal/manuscript writing and communication skills</li></ul>
       </div>
     </div>
-    <div class="ct-apply">Interested? Email a single PDF (CV + transcript + a short statement of research interest) to <a href="mailto:seunguk@skku.edu">seunguk@skku.edu</a>. Selection is by document review, an interview with research presentation and lab tour (Zoom option available), and final guidance on the SKKU graduate application.</div>
+    <div class="ct-apply" data-editable data-edit-html data-edit-label="✎ Edit" id="ct-apply">Interested? Email a single PDF (CV + transcript + a short statement of research interest) to <a href="/cdn-cgi/l/email-protection#532036263d34263813203838267d363726"><span class="__cf_email__" data-cfemail="2c5f4959424b59476c5f47475902494859">[email&#160;protected]</span></a>. Selection is by document review, an interview with research presentation and lab tour (Zoom option available), and final guidance on the SKKU graduate application.</div>
   </section>
   <footer><div class="ft-left"><div class="ft-logo">QS Lab</div><div class="ft-addr">N Center 3F #86383, SKKU</div></div><div class="ft-right"><div class="ft-dept">© QS Lab, SKKU<span class="ft-admin-trigger" title="Admin">·</span></div></div></footer>
 </main>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 /* ================================================================
    QS Lab Application  |  v5.0
    Modules: UI, Router, Canvas, Admin, Modal, Editors, Export
@@ -2383,6 +2461,8 @@ var Router = (function () {
     window.scrollTo(0, 0);
     current = id;
     Admin.refreshPanel();
+    /* keep People headcount chips in sync whenever the page is shown */
+    if (id === 'people' && window.refreshPeopleCounts) window.refreshPeopleCounts();
     /* Re-inject edit buttons for newly visible editable elements */
     if (Admin.isActive()) Admin.injectAllButtons();
   }
@@ -2414,9 +2494,11 @@ var Router = (function () {
 /* ── Canvas Module (MoS₂ Lattice) ── */
 var Canvas = (function () {
   var canvas, ctx, W, H, rafId;
+  var running = false;
   var mouse = { x: 0.5, y: 0.5, active: false };
   var t = 0;
   var lattice = [], bonds = [];
+  var globalsBound = false;
 
   var MO_COL   = '#2347d6';
   var S_COL    = '#0f1320';
@@ -2480,6 +2562,7 @@ var Canvas = (function () {
   }
 
   function frame() {
+    if (!running) return;
     sync();
     t += 0.016;
     ctx.clearRect(0, 0, W, H);
@@ -2532,19 +2615,58 @@ var Canvas = (function () {
   }
 
   function mount() {
-    canvas = document.getElementById('lattice-canvas');
-    if (!canvas) return;
+    var el = document.getElementById('lattice-canvas');
+    if (!el) return;
+    /* already mounted on this very element? nothing to do */
+    if (el === canvas && ctx) { sync(); if (isOnScreen()) start(); return; }
+    /* a fresh canvas node replaced the old one (e.g. content.json applied
+       over #page-home) — stop the old loop and rebind to the new node */
+    stop();
+    canvas = el;
     ctx = canvas.getContext('2d');
     /* Initial sync after layout is complete */
     sync();
     canvas.addEventListener('mousemove', onPointer);
     canvas.addEventListener('touchmove', onPointer, { passive: true });
-    /* Also re-sync on window resize */
-    window.addEventListener('resize', function() { sync(); }, { passive: true });
-    frame();
+    /* Also re-sync on window resize (bind once) */
+    if (!globalsBound) {
+      window.addEventListener('resize', function() { sync(); }, { passive: true });
+    }
+
+    /* Honor reduced-motion: paint a single static frame, no loop */
+    var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduce) { running = true; frame(); running = false; return; }
+
+    /* Only animate while the canvas is actually on screen (saves CPU
+       on other pages / when scrolled away) */
+    if (window.IntersectionObserver) {
+      var io = new IntersectionObserver(function(entries) {
+        if (entries[0].isIntersecting) start(); else stop();
+      }, { threshold: 0.01 });
+      io.observe(canvas);
+    } else {
+      start();
+    }
+    /* also pause when the tab is hidden (bind once) */
+    if (!globalsBound) {
+      document.addEventListener('visibilitychange', function() {
+        if (document.hidden) stop();
+        else if (isOnScreen()) start();
+      });
+    }
+    globalsBound = true;
   }
 
-  function destroy() { cancelAnimationFrame(rafId); }
+  function isOnScreen() {
+    if (!canvas) return false;
+    var r = canvas.getBoundingClientRect();
+    return r.bottom > 0 && r.top < (window.innerHeight || 0) &&
+           canvas.offsetParent !== null;
+  }
+  function start() { if (running) return; running = true; frame(); }
+  function stop()  { running = false; cancelAnimationFrame(rafId); }
+
+  function destroy() { stop(); }
 
   return { mount: mount, destroy: destroy };
 })();
@@ -2562,10 +2684,21 @@ var Modal = (function () {
       var lbl = document.createElement('label');
       lbl.textContent = f.label;
       c.appendChild(lbl);
-      var inp = document.createElement(f.type === 'textarea' ? 'textarea' : 'input');
+      var inp;
+      if (f.type === 'select') {
+        inp = document.createElement('select');
+        (f.options || []).forEach(function(opt) {
+          var o = document.createElement('option');
+          if (typeof opt === 'string') { o.value = opt; o.textContent = opt; }
+          else { o.value = opt.value; o.textContent = opt.label; }
+          inp.appendChild(o);
+        });
+      } else {
+        inp = document.createElement(f.type === 'textarea' ? 'textarea' : 'input');
+        if (f.placeholder) inp.placeholder = f.placeholder;
+      }
       inp.id    = 'mf-' + f.key;
       inp.value = f.value || '';
-      if (f.placeholder) inp.placeholder = f.placeholder;
       c.appendChild(inp);
     });
     saveCb = onSave;
@@ -2593,24 +2726,25 @@ var Admin = (function () {
   var pageNames = {
     home:'Home', research:'Research', 'research-detail':'Research Detail',
     people:'People', publications:'Publications', equipment:'Equipment',
-    teaching:'Teaching', news:'News'
+    teaching:'Teaching', news:'News', contact:'Contact'
   };
 
   var menus = {
     home:         [['Edit Hero',       'e','Editors.editHero()'],['Edit Ticker','e','Editors.editTicker()'],['Edit Openings','e','Editors.editOpenings()'],['+ News Card','a','Editors.addHomeNews()']],
-    research:     [],
+    research:     [['ℹ︎ 편집 안내','e','Editors.researchHelp()']],
     'research-detail': [
       ['Edit Title/Subtitle', 'e', 'Editors.editResearchDetailHeader()'],
       ['Edit Detail Content', 'e', 'Editors.editResearchDetailBody()'],
     ],
-    people:       [['Edit PI','e','Editors.editPI()'],['Change PI Photo','e',"Editors.uploadPhoto('pi-img')"],['+ Postdoc','a',"Editors.addMember('postdoc')"],['+ Grad Student','a',"Editors.addMember('grad')"],['+ Intern','a',"Editors.addMember('intern')"],['+ Hiring Card','a','Editors.addHiringCard()']],
-    publications: [['+ Publication','a','Editors.addPub()'],['+ Featured Paper','a','Editors.addRepPaper()']],
+    people:       [['Change Group Photo','e','Editors.uploadGroupPhoto()'],['Edit PI','e','Editors.editPI()'],['Change PI Photo','e',"Editors.uploadPhoto('pi-img')"],['+ Postdoc','a',"Editors.addMember('postdoc')"],['+ Research Associate','a',"Editors.addMember('ra')"],['+ Grad Student','a',"Editors.addMember('grad')"],['+ Intern','a',"Editors.addMember('intern')"],['+ Alumni (이름만)','a','Editors.addAlumniName()'],['+ Hiring Card','a','Editors.addHiringCard()']],
+    publications: [['+ Publication','a','Editors.addPub()'],['+ Featured Paper','a','Editors.addRepPaper()'],['🔗 링크 자동 연결','e','Editors.autoLinkPubs()'],['ℹ︎ 안내','e','Editors.pubHelp()']],
     equipment:    [
       ['장비 편집',     'e','Editors.editEquipmentCard()'],
       ['+ Equipment',  'a','Editors.addEquipment()']
     ],
     teaching:     [['+ Course','a','Editors.addCourse()'],['+ Semester','a','Editors.addSemester()']],
-    news:         [['+ News Item','a','Editors.addNews()']]
+    news:         [['+ News Item','a','Editors.addNews()']],
+    contact:      [['ℹ︎ 안내','e','Editors.contactHelp()'],['+ Job Posting','a','Editors.addCtJob()']]
   };
 
   function openPWModal() {
@@ -2641,7 +2775,12 @@ var Admin = (function () {
   }
 
   function isActive() { return active; }
-  function getPubCount() { return pubCount; }
+  /* leave admin mode WITHOUT publishing (keeps any auto-saved draft) */
+  function exitAdmin() {
+    active = false;
+    document.body.classList.remove('admin-on');
+    var ab = document.getElementById('admin-btn'); if (ab) ab.classList.remove('on');
+  }  function getPubCount() { return pubCount; }
   function incPubCount() { pubCount++; return pubCount; }
 
   function refreshPanel() {
@@ -2713,6 +2852,15 @@ var Admin = (function () {
       var hb = document.createElement('button'); hb.className = 'mc-btn mc-hire';  hb.textContent = '→ Hiring'; hb.setAttribute('data-action','hiring'); row.appendChild(hb);
       card.prepend(row);
     });
+    /* hiring cards (incl. ones authored statically in the HTML) get
+       Edit / Delete buttons so admins can manage them too */
+    document.querySelectorAll('.mcard-hiring').forEach(function(card) {
+      if (card.querySelector('.mcard-btns')) return;
+      var row = document.createElement('div'); row.className = 'mcard-btns';
+      var eb = document.createElement('button'); eb.className = 'mc-btn mc-edit'; eb.textContent = '✎ Edit';   eb.setAttribute('data-action','hiring-edit');   row.appendChild(eb);
+      var db = document.createElement('button'); db.className = 'mc-btn mc-del';  db.textContent = '✕ Delete'; db.setAttribute('data-action','hiring-delete'); row.appendChild(db);
+      card.prepend(row);
+    });
     /* pub buttons */
     document.querySelectorAll('.pub-row, .pub-row-nolink').forEach(function(row) {
       if (row.querySelector('.pub-edit-btns')) return;
@@ -2755,8 +2903,8 @@ var Admin = (function () {
     document.addEventListener('click', function(e) {
       if (!active) return;
 
-      /* mcard */
-      var mcBtn = e.target.closest('.mcard-btns [data-action]');
+      /* mcard (non-hiring members only — hiring cards handled below) */
+      var mcBtn = e.target.closest('.mcard:not(.mcard-hiring) .mcard-btns [data-action]');
       if (mcBtn) {
         e.stopPropagation();
         var card = mcBtn.closest('.mcard');
@@ -2829,6 +2977,11 @@ var Admin = (function () {
         if (admType === 'research')  { Editors.editResearchCard(admCard);    return; }
         if (admType === 'pub')       { Editors.editPubRow(admCard);          return; }
         if (admType === 'news')      { Editors.editNewsItem(admCard);        return; }
+        if (admType === 'capcard')   { Editors.editCapCard(admCard);         return; }
+        if (admType === 'mtile')     { Editors.editMissionTile(admCard);     return; }
+        if (admType === 'ctjob')     { Editors.editCtJob(admCard);           return; }
+        if (admType === 'facband')   { Editors.editFacBand(admCard);         return; }
+        if (admType === 'mish')      { Editors.editMishCard(admCard);        return; }
       }
 
       /* inline editable regions (hero text, PI info, etc) */
@@ -2854,7 +3007,8 @@ var Admin = (function () {
   }
 
   /* ── Export ── */
-  function exportHTML() {
+  /* ── Build clean HTML string (shared by export + publish) ── */
+  function buildCleanHTML() {
     /* ── Step 1: clone the entire document for mutation ── */
     var clone = document.documentElement.cloneNode(true);
 
@@ -2865,6 +3019,9 @@ var Admin = (function () {
     var adminSelectors = [
       '.adm-edit-btn',      /* floating ✎ Edit buttons */
       '.mcard-btns',        /* member card action rows */
+      '.pub-thumb',         /* pub TOC thumbnails (re-rendered by JS) */
+      '#pub-toc-batch',     /* pub TOC batch button */
+      '#pub-toc-menu',      /* pub TOC popover menu */
       '.pub-edit-btns',     /* pub row edit/delete */
       '.news-edit-btns',    /* news item edit/delete */
       '.rep-del-btn',       /* rep paper delete */
@@ -2897,9 +3054,49 @@ var Admin = (function () {
     });
 
     /* ── Step 7: generate clean HTML ── */
-    var html = '<!DOCTYPE html>\n' + clone.outerHTML;
+    return '<!DOCTYPE html>\n' + clone.outerHTML;
+  }
 
-    /* ── Step 8: download ── */
+  /* ── Build PUBLISH HTML — keeps admin machinery so the live
+       site can be edited & re-published again next time. Only the
+       transient "admin is currently on" state is stripped. ── */
+  function buildPublishHTML() {
+    var clone = document.documentElement.cloneNode(true);
+
+    /* turn admin mode OFF in the published copy */
+    clone.querySelector('body').classList.remove('admin-on');
+
+    /* remove ONLY runtime-injected edit buttons (re-created when
+       admin is activated again) — keep the panels & data attrs */
+    var injected = [
+      '.adm-edit-btn', '.mcard-btns', '.pub-edit-btns',
+      '.news-edit-btns', '.rep-del-btn',
+      '.pub-thumb', '#pub-toc-batch', '#pub-toc-menu'
+    ];
+    injected.forEach(function(sel) {
+      clone.querySelectorAll(sel).forEach(function(el) { el.remove(); });
+    });
+
+    /* remove inline position:relative injected by injectAllButtons */
+    clone.querySelectorAll('[style*="position: relative"]').forEach(function(el) {
+      el.style.removeProperty('position');
+      if (!el.getAttribute('style')) el.removeAttribute('style');
+    });
+
+    /* close any open modal / overlay / settings */
+    clone.querySelectorAll('.open').forEach(function(el) { el.classList.remove('open'); });
+
+    /* reset transient publish-UI state (never bake in token or status) */
+    var st = clone.querySelector('#af-pubstatus'); if (st) { st.textContent = ''; st.className = 'af-pubstatus'; }
+    var tok = clone.querySelector('#af-token'); if (tok) { tok.removeAttribute('value'); }
+    var ps = clone.querySelector('#af-pubsettings'); if (ps) ps.classList.remove('open');
+
+    return '<!DOCTYPE html>\n' + clone.outerHTML;
+  }
+
+  /* ── Export (download to file) ── */
+  function exportHTML() {
+    var html = buildCleanHTML();
     var blob = new Blob([html], { type: 'text/html' });
     var a    = document.createElement('a');
     a.href   = URL.createObjectURL(blob);
@@ -2915,13 +3112,116 @@ var Admin = (function () {
     closePWModal:  closePWModal,
     checkPW:       checkPW,
     isActive:      isActive,
+    exitAdmin:     exitAdmin,
     getPubCount:   getPubCount,
     incPubCount:   incPubCount,
     refreshPanel:  refreshPanel,
     initImgErrors: initImgErrors,
     injectAllButtons: injectAllButtons,
     bindDelegation: bindDelegation,
+    buildCleanHTML: buildCleanHTML,
+    buildPublishHTML: buildPublishHTML,
     exportHTML:    exportHTML
+  };
+})();
+
+
+/* ================================================================
+   Publisher Module — commits index.html straight to GitHub
+   so the live site (GitHub Pages) updates with one click.
+   The token lives ONLY in this browser's localStorage and is
+   never written into the page that gets committed.
+================================================================ */
+var Publisher = (function () {
+  var REPO   = 'qs-lab-skku/qslab';   /* owner/repo */
+  var BRANCH = 'main';
+  var PATH   = 'index.html';
+  var PATH_CONTENT = 'content.json';  /* content lives here, separate from code */
+  var TKEY   = 'qslab_gh_token';
+
+  function getToken()  { try { return localStorage.getItem(TKEY) || ''; } catch(e){ return ''; } }
+  function setToken(t) { try { if(t) localStorage.setItem(TKEY, t); else localStorage.removeItem(TKEY); } catch(e){} }
+  function hasToken()  { return !!getToken(); }
+
+  /* UTF-8 safe base64 (handles Korean text) */
+  function toBase64(str) {
+    return btoa(unescape(encodeURIComponent(str)));
+  }
+
+  function api(path, opts) {
+    opts = opts || {};
+    opts.headers = Object.assign({
+      'Authorization': 'Bearer ' + getToken(),
+      'Accept': 'application/vnd.github+json',
+      'X-GitHub-Api-Version': '2022-11-28'
+    }, opts.headers || {});
+    return fetch('https://api.github.com/repos/' + REPO + '/contents/' + path, opts);
+  }
+
+  /* PUT a file (create or update) to the repo. */
+  function putFile(path, contentStr, message) {
+    return api(path + '?ref=' + BRANCH, { method: 'GET' })
+      .then(function(r){
+        if (r.status === 401 || r.status === 403) throw new Error('AUTH');
+        if (!r.ok && r.status !== 404) throw new Error('GET ' + r.status);
+        return r.status === 404 ? null : r.json();
+      })
+      .then(function(meta){
+        var body = { message: message, content: toBase64(contentStr), branch: BRANCH };
+        if (meta && meta.sha) body.sha = meta.sha;
+        return api(path, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(body)
+        });
+      })
+      .then(function(r){
+        if (r.status === 401 || r.status === 403) throw new Error('AUTH');
+        if (!r.ok) return r.json().then(function(j){ throw new Error(j.message || ('PUT ' + r.status)); });
+        return r.json();
+      });
+  }
+
+  /* Publish current edited content to GitHub as content.json.
+     Code (index.html) is NOT touched — so future code updates won't
+     clobber the content, and this content reloads over any new index.html. */
+  function publish(statusCb) {
+    function status(msg, kind){ if(statusCb) statusCb(msg, kind); }
+    if (!hasToken()) { status('No token set. Open Publish settings first.', 'err'); return; }
+
+    status('내용 수집 중…', 'work');
+    var data = Persist.getContent();
+    var json = JSON.stringify(data);
+
+    status('GitHub에 업로드 중…', 'work');
+    putFile(PATH_CONTENT, json, 'Update content via admin · ' + new Date().toISOString())
+      .then(function(){
+        Persist.markPublished(data.savedAt);
+        status('✓ 발행 완료! 약 1분 후 사이트에 반영됩니다.', 'ok');
+      })
+      .catch(function(e){
+        if (e.message === 'AUTH') status('✗ 토큰이 거부됨. “Contents: write” 권한을 확인하세요.', 'err');
+        else status('✗ 실패: ' + e.message, 'err');
+      });
+  }
+
+  /* One-time / occasional: push the full index.html (code) too.
+     Use after the assistant ships new features so the live file matches. */
+  function publishCode(statusCb) {
+    function status(msg, kind){ if(statusCb) statusCb(msg, kind); }
+    if (!hasToken()) { status('No token set.', 'err'); return; }
+    status('코드(index.html) 업로드 중…', 'work');
+    putFile(PATH, Admin.buildPublishHTML(), 'Update code via admin · ' + new Date().toISOString())
+      .then(function(){ status('✓ 코드 발행 완료! ~1분 후 반영.', 'ok'); })
+      .catch(function(e){
+        if (e.message === 'AUTH') status('✗ 토큰 거부됨.', 'err');
+        else status('✗ 실패: ' + e.message, 'err');
+      });
+  }
+
+  return {
+    getToken: getToken, setToken: setToken, hasToken: hasToken,
+    publish: publish, publishCode: publishCode, REPO: REPO
   };
 })();
 
@@ -2934,6 +3234,16 @@ var Editors = (function () {
   function editInline(el) {
     var id  = el.id;
     if (!id) return;
+    /* HTML-preserving edit for blocks that contain links / line breaks */
+    if (el.hasAttribute('data-edit-html')) {
+      var curHtml = el.innerHTML.replace(/<br\s*\/?>/gi, '\n').trim();
+      Modal.open('편집: ' + (el.getAttribute('data-edit-label') || id), [
+        { key:'val', label:'내용 (줄바꿈 = 새 줄, 링크는 그대로 두세요)', type:'textarea', value: curHtml }
+      ], function() {
+        el.innerHTML = gf('val').replace(/\n/g, '<br>');
+      });
+      return;
+    }
     var cur = el.textContent;
     /* Simple single-field modal for inline content */
     Modal.open('편집: ' + (el.getAttribute('data-edit-label') || id), [
@@ -3034,21 +3344,99 @@ var Editors = (function () {
     });
   }
 
+  /* ---- Shared modal helpers ----
+     Append an extra action button to the currently-open modal. ---- */
+  function modalActionBtn(label, onClick, danger) {
+    setTimeout(function() {
+      var f = document.getElementById('modal-fields');
+      if (!f) return;
+      var btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'btn ' + (danger ? 'btn-danger' : 'btn-outline');
+      btn.style.width = '100%'; btn.style.marginTop = 'var(--s2)';
+      btn.textContent = label;
+      btn.addEventListener('click', onClick);
+      f.appendChild(btn);
+    }, 50);
+  }
+  /* A delete button that removes `el` (after confirm) and closes the modal. */
+  function modalDeleteBtn(el, name, after) {
+    modalActionBtn('🗑 ' + (name || '삭제'), function() {
+      if (!confirm((name ? '"' + name + '"' : '이 항목') + '을(를) 삭제하시겠습니까?')) return;
+      el.remove();
+      Modal.close();
+      if (typeof after === 'function') after();
+    }, true);
+  }
+
+  /* ---- Shared image downscaler ----
+     Reads a File, downscales so the longest edge ≤ maxEdge, and
+     re-encodes as JPEG to keep the embedded data URL small.
+     Calls back with a data URL string. ---- */
+  function processImageFile(file, maxEdge, quality, cb) {
+    maxEdge = maxEdge || 1200;
+    quality = quality || 0.82;
+    var reader = new FileReader();
+    reader.addEventListener('load', function(re) {
+      var img = new Image();
+      img.addEventListener('load', function() {
+        var w = img.naturalWidth, h = img.naturalHeight;
+        var scale = Math.min(1, maxEdge / Math.max(w, h));
+        var nw = Math.round(w * scale), nh = Math.round(h * scale);
+        try {
+          var canvas = document.createElement('canvas');
+          canvas.width = nw; canvas.height = nh;
+          var ctx = canvas.getContext('2d');
+          ctx.imageSmoothingQuality = 'high';
+          ctx.drawImage(img, 0, 0, nw, nh);
+          /* keep PNG transparency for PNGs without a photographic background;
+             otherwise JPEG is far smaller */
+          var isPng = /image\/png/i.test(file.type);
+          var out = canvas.toDataURL(isPng ? 'image/png' : 'image/jpeg', quality);
+          /* if PNG came out bigger than a JPEG would, fall back to JPEG */
+          if (isPng) {
+            var jpg = canvas.toDataURL('image/jpeg', quality);
+            if (jpg.length < out.length) out = jpg;
+          }
+          cb(out);
+        } catch (err) {
+          /* canvas failed (e.g. tainted) — fall back to raw data URL */
+          cb(re.target.result);
+        }
+      });
+      img.addEventListener('error', function() { cb(re.target.result); });
+      img.src = re.target.result;
+    });
+    reader.readAsDataURL(file);
+  }
+
+  function uploadGroupPhoto() {
+    var inp = document.createElement('input');
+    inp.type = 'file'; inp.accept = 'image/*';
+    inp.addEventListener('change', function(ev) {
+      var file = ev.target.files[0]; if (!file) return;
+      processImageFile(file, 1600, 0.85, function(dataUrl) {
+        var img = document.getElementById('group-img');
+        if (img) img.src = dataUrl;
+      });
+    });
+    inp.click();
+  }
+
   function uploadPhoto(imgId) {
     var inp = document.createElement('input');
     inp.type = 'file'; inp.accept = 'image/*';
     inp.addEventListener('change', function(ev) {
       var file = ev.target.files[0]; if (!file) return;
-      var reader = new FileReader();
-      reader.addEventListener('load', function(re) {
+      /* PI / profile photos: portrait, 900px long edge is plenty */
+      processImageFile(file, 900, 0.85, function(dataUrl) {
         var img = document.getElementById(imgId);
-        if (img) { img.src = re.target.result; img.style.display = 'block'; }
+        if (img) { img.src = dataUrl; img.style.display = 'block'; }
         if (imgId === 'pi-img') {
           var piph = document.getElementById('pi-ph');
           if (piph) piph.style.display = 'none';
         }
       });
-      reader.readAsDataURL(file);
     });
     inp.click();
   }
@@ -3072,20 +3460,132 @@ var Editors = (function () {
       btn.textContent = '📷 사진 업로드';
       btn.addEventListener('click', function() { photoPickerFor(card); });
       f.appendChild(btn);
+
+      /* ── Move between sections (계급/섹션 자유 이동) ── */
+      var lbl = document.createElement('div');
+      lbl.style.cssText = 'font-family:var(--mono);font-size:.62rem;letter-spacing:.06em;text-transform:uppercase;color:var(--ink3);margin:var(--s3) 0 .4rem';
+      lbl.textContent = '섹션 이동 (현재: ' + (memberCategory(card) || (card.getAttribute('data-alumni')==='1' ? 'Alumni' : '—')) + ')';
+      f.appendChild(lbl);
+
+      var wrap = document.createElement('div');
+      wrap.style.cssText = 'display:flex;flex-wrap:wrap;gap:.4rem';
+      var targets = [
+        ['Postdoc',           'grid-postdoc'],
+        ['Research Assoc.',   'grid-ra'],
+        ['Graduate',          'grid-grad'],
+        ['Intern · URP',      'grid-intern'],
+        ['🎓 Alumni',         'grid-alumni']
+      ];
+      var curGrid = card.closest('.mgrid') ? card.closest('.mgrid').id : '';
+      targets.forEach(function(t) {
+        var b = document.createElement('button');
+        b.type = 'button';
+        b.className = 'btn btn-outline';
+        b.style.cssText = 'flex:1 1 auto;font-size:.72rem;padding:.5rem .6rem' + (t[1] === curGrid ? ';opacity:.45;pointer-events:none' : '');
+        b.textContent = t[0];
+        b.addEventListener('click', function() { moveMemberTo(card, t[1]); });
+        wrap.appendChild(b);
+      });
+      f.appendChild(wrap);
     }, 50);
+  }
+
+  /* Move a member card to another section grid (keeps photo).
+     Alumni is handled by toAlumni (asks destination). */
+  function moveMemberTo(card, gridId) {
+    if (gridId === 'grid-alumni') { toAlumni(card); return; }
+    var grid = document.getElementById(gridId);
+    if (!grid) return;
+    /* leaving alumni: clear the alumni mark + reset role hint */
+    if (card.getAttribute('data-alumni') === '1') {
+      card.removeAttribute('data-alumni');
+    }
+    grid.appendChild(card);
+    if (window.refreshPeopleCounts) window.refreshPeopleCounts();
+    if (window.highlightLabAuthors) window.highlightLabAuthors();
+    Modal.close();
+  }
+
+  /* detect which category a member card currently sits in */
+  function memberCategory(card) {
+    var grid = card.closest('.mgrid');
+    var id = grid ? grid.id : '';
+    if (id === 'grid-postdoc') return 'Postdoc';
+    if (id === 'grid-ra')      return 'Research Associate';
+    if (id === 'grid-grad')    return 'Graduate';
+    if (id === 'grid-intern') {
+      var role = card.querySelector('.mcard-role');
+      if (role && /urp/i.test(role.textContent)) return 'URP';
+      return 'Intern';
+    }
+    return '';
+  }
+
+  /* Move a member card into the Alumni section, keeping its photo,
+     recording the prior category in parentheses + where they joined. */
+  function toAlumni(card) {
+    var name = card.querySelector('.mcard-name') ? card.querySelector('.mcard-name').textContent : '멤버';
+    var cat  = memberCategory(card);
+    var dest = prompt('"' + name + '"의 졸업 후 행선지를 입력하세요.\n(예: Postdoc, MIT  /  Process Engineer, Samsung)\n비워두면 행선지 없이 이동합니다.', '');
+    if (dest === null) return; /* cancelled */
+    dest = dest.trim();
+
+    var hasPhoto = !!(card.querySelector('.mcard-img-wrap img'));
+    /* rewrite the role line: "Alumni · ex-Graduate → MIT" */
+    var roleEl = card.querySelector('.mcard-role');
+    var label = 'Alumni' + (cat ? ' (ex-' + cat + ')' : '');
+    if (dest) label += ' · → ' + dest;
+    if (roleEl) roleEl.textContent = label;
+    else {
+      roleEl = document.createElement('div'); roleEl.className = 'mcard-role'; roleEl.textContent = label;
+      var nm = card.querySelector('.mcard-name');
+      if (nm) nm.insertAdjacentElement('afterend', roleEl); else card.appendChild(roleEl);
+    }
+    /* mark as alumni so styling / future logic can target it */
+    card.setAttribute('data-alumni', '1');
+    /* Name-only alumni: if the card has no REAL photo (just an initials
+       placeholder), drop the image box so it becomes a compact name card.
+       Cards with an actual <img> keep their photo. */
+    if (!hasPhoto) {
+      var wrap = card.querySelector('.mcard-img-wrap');
+      if (wrap) wrap.remove();
+      var descEl = card.querySelector('.mcard-desc');
+      if (descEl) descEl.remove();   /* alumni name cards stay compact */
+      card.classList.add('mcard-nameonly');
+    }
+
+    var grid = document.getElementById('grid-alumni');
+    var lbl  = document.getElementById('alumni-card-label');
+    if (grid) { grid.appendChild(card); if (lbl) lbl.style.display = ''; }
+
+    if (window.refreshPeopleCounts) window.refreshPeopleCounts();
+    if (window.highlightLabAuthors) window.highlightLabAuthors();
+    Modal.close();
   }
 
   function deleteMcard(card) {
     var name = card.querySelector('.mcard-name') ? card.querySelector('.mcard-name').textContent : '멤버';
-    if (!confirm('"' + name + '" 카드를 삭제하시겠습니까?')) return;
-    if (confirm('"' + name + '"을(를) Alumni 목록에 추가하시겠습니까?')) {
-      var txt = document.querySelector('.alumni-text');
-      if (txt) txt.textContent += ' · ' + name;
+    var cat  = memberCategory(card);
+    /* 1) Offer to move to Alumni (keeps card + photo) */
+    if (confirm('"' + name + '"을(를) Alumni로 이동하시겠습니까?\n\n[확인] = 사진과 함께 Alumni 카드로 이동\n[취소] = 다음 단계(완전 삭제) 선택')) {
+      toAlumni(card);
+      return;
     }
+    /* 2) Otherwise offer permanent delete */
+    if (!confirm('"' + name + '" 카드를 완전히 삭제할까요? (되돌릴 수 없음)')) return;
     card.remove();
+    if (window.refreshPeopleCounts) window.refreshPeopleCounts();
+    if (window.highlightLabAuthors) window.highlightLabAuthors();
   }
 
   function toHiring(card) {
+    /* Guard: a "We Are Hiring" recruitment tile must never live in the
+       Alumni section. Alumni cards represent people who have left — they
+       are not open positions. Refuse the conversion. */
+    if (card.getAttribute('data-alumni') === '1' || (card.closest('.mgrid') && card.closest('.mgrid').id === 'grid-alumni')) {
+      alert('Alumni 카드는 채용(Hiring) 카드로 전환할 수 없습니다.\n채용 공고는 Postdoc/Graduate 등 현재 멤버 섹션에서만 만들 수 있어요.');
+      return;
+    }
     var role = card.querySelector('.mcard-role') ? card.querySelector('.mcard-role').textContent : '포지션';
     if (!confirm('"' + role + '" 자리를 Hiring 카드로 전환하시겠습니까?')) return;
 
@@ -3101,6 +3601,9 @@ var Editors = (function () {
     sub.innerHTML = role + '<br>Qualified candidates welcome.<br>Contact: seunguk@skku.edu';
 
     card.appendChild(btns); card.appendChild(ico); card.appendChild(tit); card.appendChild(sub);
+    /* a converted card may have left its old grid at 0 real members —
+       recompute so the single-card (wide) layout class is dropped */
+    if (window.refreshPeopleCounts) window.refreshPeopleCounts();
   }
 
   function editHiringCard(card) {
@@ -3117,27 +3620,27 @@ var Editors = (function () {
     var inp = document.createElement('input'); inp.type = 'file'; inp.accept = 'image/*';
     inp.addEventListener('change', function(ev) {
       var file = ev.target.files[0]; if (!file) return;
-      var reader = new FileReader();
-      reader.addEventListener('load', function(re) {
+      processImageFile(file, 800, 0.82, function(dataUrl) {
         var wrap = card.querySelector('.mcard-img-wrap');
-        if (!wrap) { wrap = document.createElement('div'); wrap.className = 'mcard-img-wrap'; card.appendChild(wrap); }
+        if (!wrap) { wrap = document.createElement('div'); wrap.className = 'mcard-img-wrap'; card.insertBefore(wrap, card.firstChild); }
         wrap.innerHTML = '';
         var imgEl = document.createElement('img');
-        imgEl.src = re.target.result;
-        imgEl.style.cssText = 'width:100%;height:175px;object-fit:cover;object-position:top;display:block;border-radius:var(--r1)';
+        imgEl.src = dataUrl;
+        imgEl.alt = card.querySelector('.mcard-name') ? card.querySelector('.mcard-name').textContent : 'Member';
+        /* no inline sizing — inherit the card's standard 4:5 frame + cover */
         wrap.appendChild(imgEl);
       });
-      reader.readAsDataURL(file);
     });
     inp.click();
   }
 
   function addMember(type) {
-    var gridMap = { postdoc:'grid-postdoc', grad:'grid-grad', intern:'grid-intern' };
+    var gridMap = { postdoc:'grid-postdoc', ra:'grid-ra', grad:'grid-grad', intern:'grid-intern' };
+    var roleMap = { postdoc:'Postdoctoral Fellow', ra:'Research Associate', grad:'Graduate Student', intern:'Undergraduate Intern' };
     var gridId  = gridMap[type] || 'grid-grad';
     Modal.open('멤버 추가', [
       { key:'name', label:'이름' },
-      { key:'role', label:'직위/프로그램' },
+      { key:'role', label:'직위/프로그램', value: roleMap[type] || '' },
       { key:'desc', label:'소개', type:'textarea' }
     ], function() {
       var name = gf('name'), role = gf('role'), desc = gf('desc'); if (!name) return;
@@ -3157,6 +3660,41 @@ var Editors = (function () {
       card.appendChild(row); card.appendChild(wrap); card.appendChild(nm); card.appendChild(ro); card.appendChild(ds);
       var g = document.getElementById(gridId);
       if (g) g.appendChild(card);
+      if (window.refreshPeopleCounts) window.refreshPeopleCounts();
+      setTimeout(function() {
+        if (confirm('이 멤버의 사진을 지금 추가하시겠습니까?')) photoPickerFor(card);
+      }, 100);
+    });
+  }
+
+  /* Add a name-only Alumni card (no photo) — for past members/interns */
+  function addAlumniName() {
+    Modal.open('Alumni 추가 (이름만)', [
+      { key:'name', label:'이름' },
+      { key:'dest', label:'행선지 / 현재 (선택)', value:'' },
+      { key:'prev', label:'이전 소속 (예: ex-Intern, ex-Ph.D.) (선택)', value:'' }
+    ], function() {
+      var name = gf('name'); if (!name) return;
+      var dest = gf('dest').trim(), prev = gf('prev').trim();
+      var label = 'Alumni' + (prev ? ' (' + prev + ')' : '');
+      if (dest) label += ' · → ' + dest;
+
+      var card = document.createElement('div');
+      card.className = 'mcard mcard-nameonly';
+      card.setAttribute('data-adm-card','');
+      card.setAttribute('data-adm-type','member');
+      card.setAttribute('data-alumni','1');
+      var row = document.createElement('div'); row.className = 'mcard-btns';
+      var eb = document.createElement('button'); eb.className = 'mc-btn mc-edit'; eb.textContent = '✎ Edit';   eb.setAttribute('data-action','edit');   row.appendChild(eb);
+      var db = document.createElement('button'); db.className = 'mc-btn mc-del';  db.textContent = '✕ Delete'; db.setAttribute('data-action','delete'); row.appendChild(db);
+      var nm = document.createElement('div'); nm.className = 'mcard-name'; nm.textContent = name;
+      var ro = document.createElement('div'); ro.className = 'mcard-role'; ro.textContent = label;
+      card.appendChild(row); card.appendChild(nm); card.appendChild(ro);
+
+      var grid = document.getElementById('grid-alumni');
+      var lbl  = document.getElementById('alumni-card-label');
+      if (grid) { grid.appendChild(card); if (lbl) lbl.style.display = ''; }
+      if (window.highlightLabAuthors) window.highlightLabAuthors();
     });
   }
 
@@ -3164,10 +3702,13 @@ var Editors = (function () {
     Modal.open('Hiring 카드 추가', [
       { key:'pos',  label:'포지션 제목' },
       { key:'desc', label:'설명', type:'textarea', value:'Qualified candidates welcome.\nContact: seunguk@skku.edu' },
-      { key:'grid', label:'섹션 (postdoc / grad / intern)', value:'postdoc' }
+      { key:'grid', label:'섹션 (postdoc / ra / grad / intern)', value:'postdoc' }
     ], function() {
-      var pos  = gf('pos'), desc = gf('desc').replace(/\n/g,'<br>'), gt = gf('grid');
-      var gid  = gt.indexOf('grad') >= 0 ? 'grid-grad' : gt.indexOf('intern') >= 0 ? 'grid-intern' : 'grid-postdoc';
+      var pos  = gf('pos'), desc = gf('desc').replace(/\n/g,'<br>'), gt = gf('grid').toLowerCase().trim();
+      var gid  = gt.indexOf('grad') >= 0 ? 'grid-grad'
+               : gt.indexOf('intern') >= 0 ? 'grid-intern'
+               : gt === 'ra' || gt.indexOf('research') >= 0 || gt.indexOf('assoc') >= 0 ? 'grid-ra'
+               : 'grid-postdoc';
       var card = document.createElement('div'); card.className = 'mcard mcard-hiring';
       var btns = document.createElement('div'); btns.className = 'mcard-btns';
       var eb = document.createElement('button'); eb.className = 'mc-btn mc-edit'; eb.textContent = '✎ Edit';   eb.setAttribute('data-action','hiring-edit');   btns.appendChild(eb);
@@ -3182,24 +3723,114 @@ var Editors = (function () {
   }
 
   /* ---- Publications ---- */
+
+  /* Look up publication metadata from Crossref (free, no key, CORS-enabled).
+     Given a title (and optional journal), returns a normalized record.
+     Restricts to journal articles and rejects supplementary-file DOIs. */
+  function crossrefLookup(title, journalHint, cb) {
+    var q = encodeURIComponent(title);
+    var url = 'https://api.crossref.org/works?query.bibliographic=' + q
+            + '&filter=type:journal-article&rows=8&select=' +
+              encodeURIComponent('title,container-title,volume,page,article-number,issued,published-print,published-online,DOI,author,type');
+    fetch(url, { headers: { 'Accept': 'application/json' } })
+      .then(function(r) { return r.json(); })
+      .then(function(data) {
+        var items = (data && data.message && data.message.items) || [];
+        /* drop supplementary / component DOIs (…s001, …s002, type component) */
+        items = items.filter(function(it) {
+          var doi = (it.DOI || '').toLowerCase();
+          if (/\.s\d{2,}$/.test(doi)) return false;          /* acs.nanolett.6c00871.s001 */
+          if (it.type && it.type === 'component') return false;
+          return true;
+        });
+        if (!items.length) { cb(null); return; }
+
+        /* word-set (Jaccard) similarity — robust to word order & subscripts */
+        function words(s) {
+          return (s || '').toLowerCase()
+            .replace(/[₀-₉]/g, function(d){ return '0123456789'['₀₁₂₃₄₅₆₇₈₉'.indexOf(d)]; })
+            .replace(/[^a-z0-9 ]/g, ' ')
+            .split(/\s+/).filter(function(w){ return w.length > 1; });
+        }
+        var wantW = words(title);
+        var wantSet = {}; wantW.forEach(function(w){ wantSet[w] = 1; });
+
+        var best = items[0], bestScore = -1;
+        items.forEach(function(it) {
+          var t = (it.title && it.title[0]) || '';
+          var tw = words(t);
+          var inter = 0; var seen = {};
+          tw.forEach(function(w){ if (wantSet[w] && !seen[w]) { inter++; seen[w] = 1; } });
+          var union = Object.keys(wantSet).length + tw.length - inter;
+          var score = union ? Math.round(100 * inter / union) : 0;
+          /* exact / containment boosts */
+          var nt = t.toLowerCase().replace(/[^a-z0-9]/g,''), nw = title.toLowerCase().replace(/[^a-z0-9]/g,'');
+          if (nt === nw) score = 100;
+          else if (nt.indexOf(nw) >= 0 || nw.indexOf(nt) >= 0) score = Math.max(score, 88);
+          /* journal hint */
+          if (journalHint && it['container-title'] && it['container-title'][0] &&
+              it['container-title'][0].toLowerCase().indexOf(journalHint.toLowerCase().slice(0,8)) >= 0) score += 8;
+          if (score > bestScore) { bestScore = score; best = it; }
+        });
+
+        var it = best;
+        var journal = (it['container-title'] && it['container-title'][0]) || '';
+        var vol  = it.volume || '';
+        var page = it.page || (it['article-number'] ? it['article-number'] : '');
+        var year = '';
+        var dp = it['published-print'] || it['published-online'] || it['issued'] || it['created'];
+        if (dp && dp['date-parts'] && dp['date-parts'][0]) year = dp['date-parts'][0][0];
+        var doi = it.DOI || '';
+        var matchedTitle = (it.title && it.title[0]) || '';
+
+        /* authors → "First Last, First Last, …" */
+        var authors = '';
+        if (it.author && it.author.length) {
+          authors = it.author.map(function(a) {
+            return ((a.given || '') + ' ' + (a.family || '')).trim();
+          }).filter(Boolean).join(', ');
+        }
+
+        /* venue string: "Journal vol, page (year)" */
+        var venue = journal;
+        if (vol)  venue += ' ' + vol;
+        if (page) venue += ', ' + page;
+        if (year) venue += ' (' + year + ')';
+
+        cb({
+          matchedTitle: matchedTitle, journal: journal, volume: vol, page: page,
+          year: year, doi: doi, url: doi ? 'https://doi.org/' + doi : '', authors: authors,
+          score: Math.min(bestScore, 100)
+        });
+      })
+      .catch(function() { cb(null); });
+  }
+
   function addPub() {
     var num = Admin.incPubCount();
     Modal.open('논문 추가', [
-      { key:'title',   label:'제목' },
-      { key:'authors', label:'저자 (**Song S** → bold)' },
-      { key:'venue',   label:'학술지 / 연도' },
-      { key:'url',     label:'DOI / URL (선택)' },
-      { key:'status',  label:'상태 (선택)' }
+      { key:'section', label:'섹션', type:'select', options:[
+        { value:'pending', label:'Pending / Under Review' },
+        { value:'2026', label:'2026' }, { value:'2025', label:'2025' },
+        { value:'2024', label:'2024' }, { value:'2023', label:'2023' },
+        { value:'other', label:'기타 (직접 입력)' }
+      ] },
+      { key:'yearcustom', label:'기타 연도 (위에서 기타 선택 시)', placeholder:'예: 2027' },
+      { key:'title',   label:'제목 (필수)' },
+      { key:'authors', label:'저자 (연구실 멤버 자동 강조, PI는 **Song S**)' },
+      { key:'venue',   label:'학술지 / 상태 (예: Nature, 2026  또는  Under review)' },
+      { key:'url',     label:'DOI / URL (선택)' }
     ], function() {
       var title   = gf('title');
       var authors = gf('authors').replace(/\*\*([^*]+)\*\*/g,'<strong>$1</strong>');
-      var venue = gf('venue'), url = gf('url'), status = gf('status');
+      var venue = gf('venue'), url = gf('url');
+      var section = gf('section'), yearcustom = gf('yearcustom');
       if (!title) return;
 
       var list = document.getElementById('pub-list');
-      var yr   = document.createElement('div'); yr.className = 'pub-yr'; yr.textContent = 'Newly Added';
       var row  = url ? document.createElement('a') : document.createElement('div');
       row.className = url ? 'pub-row' : 'pub-row-nolink';
+      row.setAttribute('data-adm-card', ''); row.setAttribute('data-adm-type', 'pub');
       if (url) { row.href = url; row.target = '_blank'; }
 
       var numDiv = document.createElement('div'); numDiv.className = 'pub-n'; numDiv.textContent = num;
@@ -3207,15 +3838,68 @@ var Editors = (function () {
       var td = document.createElement('div'); td.className = 'pub-t'; td.innerHTML = title; body.appendChild(td);
       var ad = document.createElement('div'); ad.className = 'pub-a'; ad.innerHTML = authors; body.appendChild(ad);
       if (venue)  { var vd = document.createElement('div'); vd.className = 'pub-v'; vd.textContent = venue; body.appendChild(vd); }
-      if (status) { var sd = document.createElement('div'); sd.className = 'pub-s'; sd.textContent = status; body.appendChild(sd); }
-      var btns = document.createElement('div'); btns.className = 'pub-edit-btns';
-      var pb1 = document.createElement('button'); pb1.className = 'pub-edit-btn edit'; pb1.textContent = '✎ Edit';   pb1.setAttribute('data-pubaction','edit');   btns.appendChild(pb1);
-      var pb2 = document.createElement('button'); pb2.className = 'pub-edit-btn del';  pb2.textContent = '✕ Delete'; pb2.setAttribute('data-pubaction','delete'); btns.appendChild(pb2);
-      body.appendChild(btns);
       row.appendChild(numDiv); row.appendChild(body);
-      list.insertBefore(row, list.firstChild);
-      list.insertBefore(yr,  list.firstChild);
+
+      if (section === 'pending') {
+        /* insert at very top, under the (first) Pending header */
+        var firstHeader = list.querySelector('.pub-yr');
+        if (firstHeader && /pending|review/i.test(firstHeader.textContent)) {
+          firstHeader.insertAdjacentElement('afterend', row);
+        } else {
+          var ph = document.createElement('div'); ph.className = 'pub-yr'; ph.textContent = 'Pending / Under Review';
+          list.insertBefore(row, list.firstChild);
+          list.insertBefore(ph, list.firstChild);
+        }
+      } else {
+        var year = section === 'other' ? (yearcustom || 'Newly Added') : section;
+        movePubToYear(row, year);
+      }
+      highlightLabAuthors(row);
+      if (window.refreshPeopleCounts) {} /* no-op */
     });
+    /* inject "🔍 Auto-fill from Crossref" button + status into the modal */
+    setTimeout(function() {
+      var f = document.getElementById('modal-fields'); if (!f) return;
+      var status = document.createElement('div');
+      status.id = 'mf-cr-status';
+      status.style.cssText = 'font-family:var(--mono);font-size:.7rem;color:var(--ink3);margin-top:var(--s2);line-height:1.5;min-height:1em';
+      var btn = document.createElement('button');
+      btn.type='button'; btn.className='btn btn-outline'; btn.style.width='100%'; btn.style.marginTop='var(--s2)';
+      btn.textContent = '🔍 웹에서 정보 찾기 (제목 기반)';
+      btn.addEventListener('click', function() {
+        var titleEl = document.getElementById('mf-title');
+        var venueEl = document.getElementById('mf-venue');
+        var title = titleEl ? titleEl.value.trim() : '';
+        if (!title || title.length < 8) { status.textContent = '⚠ 먼저 제목을 (충분히) 입력하세요.'; status.style.color = 'var(--amber)'; return; }
+        status.style.color = 'var(--ink3)';
+        status.textContent = '⏳ Crossref에서 검색 중…';
+        btn.disabled = true;
+        crossrefLookup(title, venueEl ? venueEl.value.trim() : '', function(rec) {
+          btn.disabled = false;
+          if (!rec) { status.textContent = '✗ 일치하는 논문을 찾지 못했습니다. 직접 입력해 주세요.'; status.style.color = 'var(--amber)'; return; }
+          /* fill venue + url; fill authors only if empty */
+          if (venueEl && rec.venue) venueEl.value = rec.venue;
+          var urlEl = document.getElementById('mf-url');
+          if (urlEl && rec.url) urlEl.value = rec.url;
+          var authEl = document.getElementById('mf-authors');
+          if (authEl && rec.authors && !authEl.value.trim()) authEl.value = rec.authors;
+          /* auto-pick year section if it's a year */
+          var secEl = document.getElementById('mf-section');
+          if (secEl && rec.year) {
+            for (var i = 0; i < secEl.options.length; i++) {
+              if (secEl.options[i].value === String(rec.year)) { secEl.value = String(rec.year); break; }
+            }
+          }
+          var conf = rec.score >= 90 ? '높음' : rec.score >= 65 ? '보통' : '낮음 — 확인 필요';
+          status.style.color = rec.score >= 65 ? 'var(--member)' : 'var(--amber)';
+          status.innerHTML = '✓ 찾음 (일치도 ' + conf + '):<br>' +
+            '<span style="color:var(--ink2)">' + rec.matchedTitle + '</span><br>' +
+            (rec.venue ? rec.venue : '') + (rec.doi ? ' · DOI ' + rec.doi : '');
+        });
+      });
+      f.appendChild(btn);
+      f.appendChild(status);
+    }, 50);
   }
 
   function addRepPaper() {
@@ -3239,15 +3923,138 @@ var Editors = (function () {
     var t = row.querySelector('.pub-t') ? row.querySelector('.pub-t').innerHTML : '';
     var a = row.querySelector('.pub-a') ? row.querySelector('.pub-a').innerHTML.replace(/<strong>/g,'**').replace(/<\/strong>/g,'**') : '';
     var v = row.querySelector('.pub-v') ? row.querySelector('.pub-v').textContent : '';
+    var curUrl = (row.tagName === 'A') ? (row.getAttribute('href') || '') : '';
     Modal.open('논문 편집', [
       { key:'title',   label:'제목',   value: t },
       { key:'authors', label:'저자',   value: a },
-      { key:'venue',   label:'게재처', value: v }
+      { key:'venue',   label:'게재처 (저널 권, 페이지 (연도))', value: v },
+      { key:'url',     label:'링크 (DOI / URL)', value: curUrl, placeholder:'https://doi.org/...' }
     ], function() {
-      if (row.querySelector('.pub-t')) row.querySelector('.pub-t').innerHTML   = gf('title');
-      if (row.querySelector('.pub-a')) row.querySelector('.pub-a').innerHTML   = gf('authors').replace(/\*\*([^*]+)\*\*/g,'<strong>$1</strong>');
-      if (row.querySelector('.pub-v')) row.querySelector('.pub-v').textContent = gf('venue');
+      var body = row.querySelector('.pub-t') ? row.querySelector('.pub-t').parentNode : row;
+      /* title */
+      if (row.querySelector('.pub-t')) row.querySelector('.pub-t').innerHTML = gf('title');
+      /* authors — create .pub-a if missing */
+      var aEl = row.querySelector('.pub-a');
+      if (!aEl && body) { aEl = document.createElement('div'); aEl.className = 'pub-a';
+        var vRef = row.querySelector('.pub-v'); if (vRef) body.insertBefore(aEl, vRef); else body.appendChild(aEl); }
+      if (aEl) aEl.innerHTML = gf('authors').replace(/\*\*([^*]+)\*\*/g,'<strong>$1</strong>');
+      /* venue: create the element if it didn't exist */
+      var vEl = row.querySelector('.pub-v');
+      if (gf('venue')) {
+        if (!vEl && body) { vEl = document.createElement('div'); vEl.className = 'pub-v'; body.appendChild(vEl); }
+        if (vEl) vEl.textContent = gf('venue');
+      } else if (vEl) { vEl.textContent = ''; }
+      /* link: turn the row into a clickable <a> (or update / remove it) */
+      var newUrl = gf('url').trim();
+      if (newUrl) {
+        var linked = makeRowLink(row, newUrl);   /* converts div→a if needed, returns the live element */
+        if (window.highlightLabAuthors) window.highlightLabAuthors(linked);
+      } else {
+        if (window.highlightLabAuthors) window.highlightLabAuthors(row);
+      }
     });
+    /* Crossref auto-fill in edit modal — fills venue + URL fields */
+    setTimeout(function() {
+      var f = document.getElementById('modal-fields'); if (!f) return;
+      var status = document.createElement('div');
+      status.style.cssText = 'font-family:var(--mono);font-size:.7rem;color:var(--ink3);margin-top:var(--s2);line-height:1.55;min-height:1em';
+      var btn = document.createElement('button');
+      btn.type='button'; btn.className='btn btn-outline'; btn.style.width='100%'; btn.style.marginTop='var(--s2)';
+      btn.textContent = '🔍 웹에서 정보 찾기 → 게재처·링크 채우기';
+      btn.addEventListener('click', function() {
+        var titleEl = document.getElementById('mf-title');
+        var venueEl = document.getElementById('mf-venue');
+        var urlEl   = document.getElementById('mf-url');
+        var title = titleEl ? titleEl.value.trim() : '';
+        if (!title || title.length < 8) { status.textContent = '⚠ 제목을 확인하세요.'; status.style.color = 'var(--amber)'; return; }
+        status.style.color = 'var(--ink3)'; status.textContent = '⏳ 검색 중…'; btn.disabled = true;
+        crossrefLookup(title, venueEl ? venueEl.value.trim() : '', function(rec) {
+          btn.disabled = false;
+          if (!rec) { status.textContent = '✗ 찾지 못함. 직접 입력하세요.'; status.style.color = 'var(--amber)'; return; }
+          /* APPLY to the fields so SAVE will persist them */
+          if (venueEl && rec.venue) venueEl.value = rec.venue;
+          if (urlEl && rec.url)     urlEl.value   = rec.url;
+          /* fill authors too — bold the PI (Song) with ** so it renders dark */
+          var authEl2 = document.getElementById('mf-authors');
+          if (authEl2 && rec.authors) {
+            authEl2.value = rec.authors.replace(/\b([A-Z][a-z]+\s+)?Song\b/g, function(m){ return '**' + m.trim() + '**'; });
+          }
+          var conf = rec.score >= 90 ? '높음' : rec.score >= 70 ? '보통' : '낮음 — 확인 필요';
+          status.style.color = rec.score >= 70 ? 'var(--member)' : 'var(--amber)';
+          status.innerHTML = '✓ 게재처·저자·링크를 채웠습니다 (일치도 ' + conf + ') — <b>SAVE</b>를 눌러 반영하세요.<br>'
+            + '<span style="color:var(--ink2)">' + rec.matchedTitle + '</span><br>'
+            + (rec.venue || '') + (rec.doi ? '<br>DOI ' + rec.doi : '')
+            + (rec.score < 70 ? '<br>⚠ 제목·DOI가 맞는지 확인 후 저장하세요.' : '');
+        });
+      });
+      f.appendChild(btn); f.appendChild(status);
+    }, 50);
+    var pubName = row.querySelector('.pub-t') ? row.querySelector('.pub-t').textContent.slice(0,40) : '논문';
+    modalDeleteBtn(row, pubName, renumberPubs);
+  }
+
+  /* ---- Auto-link published papers via Crossref ----
+     Converts every link-less published paper row into a clickable
+     link by resolving its DOI from its title. ---- */
+  function floatingStatus() {
+    var el = document.createElement('div');
+    el.style.cssText = 'position:fixed;left:50%;bottom:24px;transform:translateX(-50%);z-index:99999;'
+      + 'background:var(--navy);color:#fff;font-family:var(--mono);font-size:.75rem;padding:.7rem 1.1rem;'
+      + 'border-radius:10px;box-shadow:0 6px 24px rgba(0,0,0,.3);max-width:90vw;text-align:center';
+    document.body.appendChild(el);
+    return { update: function(t){ el.textContent = t; }, remove: function(){ el.remove(); } };
+  }
+  function makeRowLink(row, url) {
+    if (row.tagName === 'A') { row.href = url; row.target = '_blank'; return row; }
+    var a = document.createElement('a');
+    a.className = (row.className || '').replace('pub-row-nolink', 'pub-row');
+    a.setAttribute('data-adm-card', ''); a.setAttribute('data-adm-type', 'pub');
+    a.href = url; a.target = '_blank';
+    while (row.firstChild) a.appendChild(row.firstChild);
+    if (row.parentNode) row.parentNode.replaceChild(a, row);
+    return a;
+  }
+  function autoLinkPubs() {
+    var list = document.getElementById('pub-list'); if (!list) return;
+    var rows = [], inPending = false;
+    Array.prototype.slice.call(list.children).forEach(function(ch) {
+      if (ch.classList && ch.classList.contains('pub-yr')) { inPending = /pending|review/i.test(ch.textContent); return; }
+      if (ch.classList && ch.classList.contains('pub-row-nolink') && !inPending) rows.push(ch);
+    });
+    if (!rows.length) { alert('링크가 필요한 (링크 없는) 출판 논문이 없습니다.\n\n참고: Pending / Under Review 섹션은 제외됩니다.'); return; }
+    if (!confirm(rows.length + '개의 링크 없는 출판 논문을 Crossref에서 검색해 자동으로 링크를 연결합니다.\n수십 초 걸릴 수 있어요. 계속할까요?')) return;
+    var status = floatingStatus();
+    var i = 0, ok = 0, fail = 0;
+    function next() {
+      if (i >= rows.length) {
+        status.update('✓ 완료: ' + ok + '개 연결, ' + fail + '개 미발견');
+        setTimeout(status.remove, 4500);
+        return;
+      }
+      var row = rows[i];
+      var titleEl = row.querySelector('.pub-t');
+      var title = titleEl ? titleEl.textContent.trim() : '';
+      status.update('(' + (i + 1) + '/' + rows.length + ') 검색 중: ' + title.slice(0, 36) + '…');
+      if (!title || title.length < 8) { fail++; i++; setTimeout(next, 60); return; }
+      crossrefLookup(title, '', function(rec) {
+        if (rec && rec.url && rec.score >= 65) { makeRowLink(row, rec.url); ok++; }
+        else fail++;
+        i++;
+        setTimeout(next, 350);
+      });
+    }
+    next();
+  }
+
+  function pubHelp() {
+    alert(
+      '【논문 추가】 "+ Publication" → 맨 위 "섹션"에서\n'
+      + ' • Pending / Under Review 를 고르면 → 미게재 논문 섹션 맨 위에 추가\n'
+      + ' • 연도(2026 등)를 고르면 → 해당 연도에 정렬되어 추가\n\n'
+      + '제목만 입력하고 "🔍 웹에서 정보 찾기"를 누르면 저널·권·페이지·연도·DOI가 자동으로 채워집니다.\n\n'
+      + '【링크 자동 연결】 이미 올라온 논문 중 링크가 없는 것들을 "🔗 링크 자동 연결"로 한 번에 DOI 링크에 연결할 수 있어요.\n\n'
+      + '【수락】 Pending 논문이 정식 게재되면, 그 카드에 마우스를 올려 "✓ Accept"를 누르면 연도 섹션으로 옮겨집니다.'
+    );
   }
 
   /* ---- Accept a pending paper → publish it under its year & renumber the list ---- */
@@ -3330,6 +4137,11 @@ var Editors = (function () {
   /* ---- Equipment ---- */
   function addEquipment() {
     Modal.open('장비 추가', [
+      { key:'section', label:'섹션', type:'select', options:[
+        { value:'eq-grid', label:'Lab-Dedicated (연구실 전용)' },
+        { value:'eq-grid-aqt', label:'AQT 센터' },
+        { value:'eq-grid-cinap', label:'CINAP 센터' }
+      ] },
       { key:'name', label:'장비명' },
       { key:'sub',  label:'부제목' },
       { key:'desc', label:'설명', type:'textarea' },
@@ -3338,17 +4150,84 @@ var Editors = (function () {
       var name = gf('name'), sub = gf('sub'), desc = gf('desc');
       var tags = gf('tags').split(',').map(function(t) { return t.trim(); }).filter(Boolean);
       if (!name) return;
-      var grid = document.getElementById('eq-grid');
-      var n    = String(grid.children.length).padStart(2,'0');
+      var grid = document.getElementById(gf('section')) || document.getElementById('eq-grid');
+      var n    = String(grid.querySelectorAll('.eq-card').length + 1).padStart(2,'0');
       var card = document.createElement('div'); card.className = 'eq-card';
+      card.setAttribute('data-adm-card', '');
+      card.setAttribute('data-adm-type', 'equipment');
       card.innerHTML = '<div class="eq-n">'+n+'</div><div class="eq-name">'+name+'</div><div class="eq-sub">'+sub+'</div><p class="eq-desc">'+desc+'</p><div class="eq-tags">'+tags.map(function(t){return '<span class="eq-tag">'+t+'</span>';}).join('')+'</div>';
-      grid.insertBefore(card, grid.lastElementChild);
+      grid.appendChild(card);
+      /* offer to add a photo right away */
+      setTimeout(function() {
+        if (confirm('이 장비에 사진을 추가하시겠습니까?')) equipPhotoPickerFor(card);
+      }, 100);
+    });
+  }
+
+  /* ---- Equipment: facility/center header band ---- */
+  function editFacBand(band) {
+    var tag = band.querySelector('.fac-tag');
+    var h3  = band.querySelector('h3');
+    var kr  = band.querySelector('.fac-kr');
+    var p   = band.querySelector('p');
+    Modal.open('센터 정보 편집', [
+      { key:'tag',  label:'태그 라벨', value: tag ? tag.textContent : '' },
+      { key:'name', label:'센터명', value: h3 ? h3.textContent : '' },
+      { key:'kr',   label:'국문/위치', value: kr ? kr.textContent : '' },
+      { key:'desc', label:'설명', type:'textarea', value: p ? p.textContent : '' }
+    ], function() {
+      if (tag) tag.textContent = gf('tag');
+      if (h3)  h3.textContent  = gf('name');
+      if (kr)  kr.textContent  = gf('kr');
+      if (p)   p.textContent   = gf('desc');
     });
   }
 
   /* ---- Teaching ---- */
+  /* rank a semester label "2026 Spring" → sortable number (newest first) */
+  function semRank(label) {
+    var m = (label || '').match(/(\d{4})/);
+    var year = m ? parseInt(m[1], 10) : 0;
+    var s = (label || '').toLowerCase();
+    var season = /winter/.test(s) ? 4 : (/fall|autumn/.test(s) ? 3 : (/summer/.test(s) ? 2 : (/spring/.test(s) ? 1 : 0)));
+    return year * 10 + season;
+  }
+  /* re-group & sort the teaching list by year/semester (newest first) */
+  function regroupTeaching() {
+    var sw = document.getElementById('sem-wrap'); if (!sw) return;
+    var groups = [], cur = null;
+    Array.prototype.slice.call(sw.children).forEach(function(ch) {
+      if (ch.classList && ch.classList.contains('sem-label')) {
+        cur = { label: ch.textContent.trim(), cards: [] }; groups.push(cur);
+      } else if (ch.classList && ch.classList.contains('ccard')) {
+        if (!cur) { cur = { label: '기타', cards: [] }; groups.push(cur); }
+        cur.cards.push(ch);
+      }
+    });
+    /* merge groups with identical labels */
+    var merged = {};
+    var order = [];
+    groups.forEach(function(g) {
+      if (!merged[g.label]) { merged[g.label] = { label: g.label, cards: [] }; order.push(g.label); }
+      g.cards.forEach(function(c) { merged[g.label].cards.push(c); });
+    });
+    var list = order.map(function(k) { return merged[k]; });
+    list.sort(function(a, b) { return semRank(b.label) - semRank(a.label); });
+    sw.innerHTML = '';
+    list.forEach(function(g, i) {
+      var lbl = document.createElement('div');
+      lbl.className = 'sem-label';
+      if (i > 0) lbl.style.marginTop = '2.5rem';
+      lbl.textContent = g.label;
+      sw.appendChild(lbl);
+      g.cards.forEach(function(c) { sw.appendChild(c); });
+    });
+  }
+
   function addCourse() {
     Modal.open('강좌 추가', [
+      { key:'year',   label:'연도', placeholder:'예: 2026' },
+      { key:'season', label:'학기', type:'select', options:['Spring','Summer','Fall','Winter'] },
       { key:'level', label:'레벨 (ug / grad)' },
       { key:'title', label:'강좌명' },
       { key:'code',  label:'과목코드 (선택)' },
@@ -3357,23 +4236,39 @@ var Editors = (function () {
     ], function() {
       var isGrad = gf('level').toLowerCase().indexOf('grad') >= 0;
       var title  = gf('title'), code = gf('code'), desc = gf('desc'), time = gf('time');
+      var year = gf('year').trim(), season = gf('season').trim();
       if (!title) return;
+      var sem = (year + ' ' + season).trim() || '기타';
       var card = document.createElement('div'); card.className = 'ccard';
+      card.setAttribute('data-adm-card',''); card.setAttribute('data-adm-type','course');
       card.innerHTML = '<div class="ccard-head"><span class="cbadge '+(isGrad?'cb-grad':'cb-ug')+'">'+(isGrad?'Graduate':'UG / Master')+'</span><div><h3>'+title+'</h3>'+(code?'<div class="ccard-code">'+code+'</div>':'')+'</div></div><div class="ccard-body">'+desc+(time?'<div class="ctime">'+time+'</div>':'')+'</div>';
-      var sw = document.getElementById('sem-wrap');
-      var fl = sw ? sw.querySelector('.sem-label') : null;
-      if (fl) sw.insertBefore(card, fl); else if (sw) sw.appendChild(card);
+      var sw = document.getElementById('sem-wrap'); if (!sw) return;
+      /* find or create the semester label, then append card to its group */
+      var target = null;
+      sw.querySelectorAll('.sem-label').forEach(function(l) {
+        if (l.textContent.trim().toLowerCase() === sem.toLowerCase()) target = l;
+      });
+      if (!target) { target = document.createElement('div'); target.className = 'sem-label'; target.textContent = sem; sw.appendChild(target); }
+      var next = target.nextElementSibling;
+      while (next && next.classList.contains('ccard')) next = next.nextElementSibling;
+      sw.insertBefore(card, next);
+      regroupTeaching();
     });
   }
 
   function addSemester() {
-    Modal.open('학기 추가', [{ key:'sem', label:'학기 이름', placeholder:'e.g. 2027 Spring' }], function() {
-      var sem = gf('sem'); if (!sem) return;
-      var lbl = document.createElement('div');
-      lbl.className = 'sem-label'; lbl.style.marginTop = 'var(--s4)'; lbl.textContent = sem;
-      var sw = document.getElementById('sem-wrap');
-      var fl = sw ? sw.querySelector('.sem-label') : null;
-      if (fl) sw.insertBefore(lbl, fl); else if (sw) sw.prepend(lbl);
+    Modal.open('학기 추가', [
+      { key:'year',   label:'연도', placeholder:'예: 2027' },
+      { key:'season', label:'학기', type:'select', options:['Spring','Summer','Fall','Winter'] }
+    ], function() {
+      var sem = (gf('year').trim() + ' ' + gf('season').trim()).trim(); if (!sem) return;
+      var sw = document.getElementById('sem-wrap'); if (!sw) return;
+      var exists = false;
+      sw.querySelectorAll('.sem-label').forEach(function(l) { if (l.textContent.trim().toLowerCase() === sem.toLowerCase()) exists = true; });
+      if (exists) { regroupTeaching(); return; }
+      var lbl = document.createElement('div'); lbl.className = 'sem-label'; lbl.textContent = sem;
+      sw.appendChild(lbl);
+      regroupTeaching();
     });
   }
 
@@ -3383,27 +4278,54 @@ var Editors = (function () {
       { key:'date',  label:'날짜 (e.g. 2026-06-01)' },
       { key:'title', label:'제목' },
       { key:'body',  label:'내용', type:'textarea' },
-      { key:'url',   label:'링크 URL (선택)' },
-      { key:'img',   label:'이미지 URL (선택)' }
+      { key:'url',   label:'링크 URL (선택)' }
     ], function() {
-      var date = gf('date'), title = gf('title'), body = gf('body'), url = gf('url'), img = gf('img');
+      var date = gf('date'), title = gf('title'), body = gf('body'), url = gf('url');
       if (!title) return;
       var wrap = document.getElementById('news-list-wrap');
       var item = document.createElement('div'); item.className = 'news-item';
+      item.setAttribute('data-adm-card', ''); item.setAttribute('data-adm-type', 'news');
       var dateD = document.createElement('div'); dateD.className = 'news-date'; dateD.textContent = date;
       var cont  = document.createElement('div'); cont.className  = 'news-content';
       var h3    = document.createElement('h3');  h3.textContent  = title;
       var p     = document.createElement('p');   p.textContent   = body;
       if (url) { var al = document.createElement('a'); al.href = url; al.target = '_blank'; al.textContent = ' Link →'; al.style.color = 'var(--blue)'; p.appendChild(al); }
       cont.appendChild(h3); cont.appendChild(p);
-      if (img) { var imgEl = document.createElement('img'); imgEl.src = img; imgEl.alt = title; cont.appendChild(imgEl); }
+      /* attach pending uploaded photo if one was chosen in the modal */
+      if (window.__pendingNewsPhoto) {
+        var imgEl = document.createElement('img'); imgEl.src = window.__pendingNewsPhoto; imgEl.alt = title;
+        cont.appendChild(imgEl);
+        window.__pendingNewsPhoto = null;
+      }
       var btns = document.createElement('div'); btns.className = 'news-edit-btns';
       var nb1 = document.createElement('button'); nb1.className = 'news-edit-btn edit'; nb1.textContent = '✎ Edit';   nb1.setAttribute('data-newsaction','edit');   btns.appendChild(nb1);
       var nb2 = document.createElement('button'); nb2.className = 'news-edit-btn del';  nb2.textContent = '✕ Delete'; nb2.setAttribute('data-newsaction','delete'); btns.appendChild(nb2);
       cont.appendChild(btns);
       item.appendChild(dateD); item.appendChild(cont);
       if (wrap) wrap.insertBefore(item, wrap.firstChild);
+      if (window.refreshNewsMeta) window.refreshNewsMeta();
+      if (window.syncHomeNews) window.syncHomeNews();
     });
+    /* photo upload button (auto-resized) */
+    window.__pendingNewsPhoto = null;
+    setTimeout(function() {
+      var f = document.getElementById('modal-fields'); if (!f) return;
+      var btn = document.createElement('button');
+      btn.type='button'; btn.className='btn btn-outline'; btn.style.width='100%'; btn.style.marginTop='var(--s2)';
+      btn.textContent = '📷 사진 추가 (선택)';
+      btn.addEventListener('click', function() {
+        var inp = document.createElement('input'); inp.type='file'; inp.accept='image/*';
+        inp.addEventListener('change', function(ev) {
+          var file = ev.target.files[0]; if (!file) return;
+          processImageFile(file, 1200, 0.82, function(dataUrl) {
+            window.__pendingNewsPhoto = dataUrl;
+            btn.textContent = '📷 사진 선택됨 ✓';
+          });
+        });
+        inp.click();
+      });
+      f.appendChild(btn);
+    }, 50);
   }
 
   function editNewsItem(item) {
@@ -3415,14 +4337,185 @@ var Editors = (function () {
       if (item.querySelector('.news-date')) item.querySelector('.news-date').textContent = gf('date');
       if (item.querySelector('h3'))         item.querySelector('h3').textContent         = gf('title');
       if (item.querySelector('p'))          item.querySelector('p').textContent          = gf('body');
+      if (window.refreshNewsMeta) window.refreshNewsMeta();
+      if (window.syncHomeNews) window.syncHomeNews();
     });
+    /* photo change / add / remove */
+    setTimeout(function() {
+      var f = document.getElementById('modal-fields'); if (!f) return;
+      var cont = item.querySelector('.news-content') || item;
+      var hasImg = !!item.querySelector('img');
+      var btn = document.createElement('button');
+      btn.type='button'; btn.className='btn btn-outline'; btn.style.width='100%'; btn.style.marginTop='var(--s2)';
+      btn.textContent = hasImg ? '📷 사진 변경' : '📷 사진 추가';
+      btn.addEventListener('click', function() {
+        var inp = document.createElement('input'); inp.type='file'; inp.accept='image/*';
+        inp.addEventListener('change', function(ev) {
+          var file = ev.target.files[0]; if (!file) return;
+          processImageFile(file, 1200, 0.82, function(dataUrl) {
+            var img = item.querySelector('img');
+            if (img) { img.src = dataUrl; }
+            else {
+              img = document.createElement('img'); img.src = dataUrl;
+              img.alt = item.querySelector('h3') ? item.querySelector('h3').textContent : '';
+              var btnsRow = cont.querySelector('.news-edit-btns');
+              if (btnsRow) cont.insertBefore(img, btnsRow); else cont.appendChild(img);
+            }
+            if (window.syncHomeNews) window.syncHomeNews();
+            Modal.close();
+          });
+        });
+        inp.click();
+      });
+      f.appendChild(btn);
+      if (hasImg) {
+        var rm = document.createElement('button');
+        rm.type='button'; rm.className='btn btn-outline'; rm.style.width='100%'; rm.style.marginTop='var(--s2)';
+        rm.textContent = '🗑 사진 제거';
+        rm.addEventListener('click', function() {
+          var img = item.querySelector('img'); if (img) img.remove();
+          if (window.syncHomeNews) window.syncHomeNews();
+          rm.remove(); btn.textContent = '📷 사진 추가';
+        });
+        f.appendChild(rm);
+      }
+    }, 50);
+    var newsName = item.querySelector('h3') ? item.querySelector('h3').textContent.slice(0,40) : '뉴스';
+    modalDeleteBtn(item, newsName, function(){ if (window.syncHomeNews) window.syncHomeNews(); });
+  }
+
+  /* ---- Home: capability card (synthesis → device) ---- */
+  function editCapCard(card) {
+    var stepEl = card.querySelector('.capstep');
+    var h4El   = card.querySelector('h4');
+    var pEl    = card.querySelector('p');
+    Modal.open('Capability 카드 편집', [
+      { key:'step',  label:'단계 (예: 01 · Synthesize)', value: stepEl ? stepEl.textContent : '' },
+      { key:'title', label:'제목', value: h4El ? h4El.textContent : '' },
+      { key:'desc',  label:'설명', value: pEl ? pEl.textContent : '' }
+    ], function() {
+      if (stepEl) stepEl.textContent = gf('step');
+      if (h4El)   h4El.textContent   = gf('title');
+      if (pEl)    pEl.textContent    = gf('desc');
+    });
+    /* photo controls */
+    setTimeout(function() {
+      var f = document.getElementById('modal-fields'); if (!f) return;
+      var hasImg = !!card.querySelector('.cap-img');
+      var pbtn = document.createElement('button');
+      pbtn.type='button'; pbtn.className='btn btn-outline'; pbtn.style.width='100%'; pbtn.style.marginTop='var(--s2)';
+      pbtn.textContent = hasImg ? '📷 이미지 변경' : '📷 이미지 추가';
+      pbtn.addEventListener('click', function() { capCardPhotoPicker(card); });
+      f.appendChild(pbtn);
+    }, 50);
+  }
+
+  function capCardPhotoPicker(card) {
+    var inp = document.createElement('input'); inp.type='file'; inp.accept='image/*';
+    inp.addEventListener('change', function(ev) {
+      var file = ev.target.files[0]; if (!file) return;
+      processImageFile(file, 1000, 0.82, function(dataUrl) {
+        var img = card.querySelector('.cap-img');
+        if (img) { img.src = dataUrl; }
+        else {
+          img = document.createElement('img');
+          img.className = 'cap-img'; img.src = dataUrl; img.alt = '';
+          card.insertBefore(img, card.firstChild);
+        }
+      });
+    });
+    inp.click();
+  }
+
+  /* ---- Home: research mission tile ---- */
+  function editMissionTile(tile) {
+    var tnEl = tile.querySelector('.tn');
+    var h3El = tile.querySelector('h3');
+    var pEl  = tile.querySelector('p');
+    Modal.open('Mission 타일 편집', [
+      { key:'tag',   label:'라벨 (예: Mission 01)', value: tnEl ? tnEl.textContent : '' },
+      { key:'title', label:'제목', value: h3El ? h3El.textContent : '' },
+      { key:'desc',  label:'설명', value: pEl ? pEl.textContent : '' }
+    ], function() {
+      if (tnEl) tnEl.textContent = gf('tag');
+      if (h3El) h3El.textContent = gf('title');
+      if (pEl)  pEl.textContent  = gf('desc');
+    });
+  }
+
+  /* ---- Research: mission card on the Research page ---- */
+  function editMishCard(card) {
+    var h3 = card.querySelector('.mish-head h3');
+    var p  = card.querySelector('.mish-head p');
+    var ul = card.querySelector('.mish-body ul');
+    var mats = card.querySelector('.mish-mats');
+    Modal.open('Research 미션 편집', [
+      { key:'title', label:'제목', value: h3 ? h3.textContent : '' },
+      { key:'desc',  label:'설명', type:'textarea', value: p ? p.textContent : '' },
+      { key:'targets', label:'Targets (한 줄에 하나)', type:'textarea', value: ulToText(ul) },
+      { key:'mats',  label:'소재 태그 (쉼표로 구분)', value: mats ? Array.prototype.slice.call(mats.querySelectorAll('span')).map(function(s){return s.textContent;}).join(', ') : '' }
+    ], function() {
+      if (h3) h3.textContent = gf('title');
+      if (p)  p.textContent  = gf('desc');
+      if (ul) ul.innerHTML = textToUl(gf('targets'));
+      if (mats) mats.innerHTML = gf('mats').split(',').map(function(t){return t.trim();}).filter(Boolean).map(function(t){return '<span>'+t+'</span>';}).join('');
+    });
+  }
+  function researchHelp() {
+    alert('Research 페이지: 제목·소개글·플랫폼 설명에 마우스를 올리면 ✎ Edit 가 떠요 — 클릭해서 수정하세요. 아래 3개 미션 카드는 카드를 클릭하면 제목·설명·타깃·소재를 한 번에 편집할 수 있어요.');
+  }
+
+  /* ---- Contact: job posting card ---- */
+  function ulToText(ul) { return ul ? Array.prototype.slice.call(ul.querySelectorAll('li')).map(function(li){return li.textContent;}).join('\n') : ''; }
+  function textToUl(text) {
+    return text.split('\n').map(function(l){return l.trim();}).filter(Boolean)
+      .map(function(l){return '<li>'+l+'</li>';}).join('');
+  }
+  function editCtJob(card) {
+    var jt = card.querySelector('.jt'), h4 = card.querySelector('h4'), p = card.querySelector('p');
+    var uls = card.querySelectorAll('ul');
+    Modal.open('채용 공고 편집', [
+      { key:'jt',    label:'구분 라벨', value: jt ? jt.textContent : '' },
+      { key:'title', label:'제목', value: h4 ? h4.textContent : '' },
+      { key:'desc',  label:'설명', type:'textarea', value: p ? p.textContent : '' },
+      { key:'work',  label:'업무 (한 줄에 하나)', type:'textarea', value: ulToText(uls[0]) },
+      { key:'who',   label:'자격 (한 줄에 하나)', type:'textarea', value: ulToText(uls[1]) }
+    ], function() {
+      if (jt) jt.textContent = gf('jt');
+      if (h4) h4.textContent = gf('title');
+      if (p)  p.textContent  = gf('desc');
+      if (uls[0]) uls[0].innerHTML = textToUl(gf('work'));
+      if (uls[1]) uls[1].innerHTML = textToUl(gf('who'));
+    });
+    modalDeleteBtn(card, h4 ? h4.textContent.slice(0,30) : '공고');
+  }
+  function addCtJob() {
+    Modal.open('채용 공고 추가', [
+      { key:'jt',    label:'구분 라벨 (예: Graduate students)' },
+      { key:'title', label:'제목' },
+      { key:'desc',  label:'설명', type:'textarea' },
+      { key:'work',  label:'업무 (한 줄에 하나)', type:'textarea' },
+      { key:'who',   label:'자격 (한 줄에 하나)', type:'textarea' }
+    ], function() {
+      var title = gf('title'); if (!title) return;
+      var jobs = document.querySelector('.ct-jobs'); if (!jobs) return;
+      var card = document.createElement('div'); card.className = 'ct-job';
+      card.setAttribute('data-adm-card',''); card.setAttribute('data-adm-type','ctjob');
+      card.innerHTML = '<div class="jt">'+gf('jt')+'</div><h4>'+title+'</h4><p>'+gf('desc')+'</p>'
+        + '<div class="jl">What you\'ll work on</div><ul>'+textToUl(gf('work'))+'</ul>'
+        + '<div class="jl">Who we\'re looking for</div><ul>'+textToUl(gf('who'))+'</ul>';
+      jobs.appendChild(card);
+    });
+  }
+  function contactHelp() {
+    alert('Contact 페이지는 각 항목(주소·전화·이메일·PI·링크·소개글)에 마우스를 올리면 ✎ Edit 가 떠요. 클릭해서 바로 수정하세요. 채용 공고 카드도 클릭하면 편집·삭제할 수 있고, "+ Job Posting" 으로 새 공고를 추가할 수 있어요.');
   }
 
   /* ---- Equipment card inline edit ---- */
   function editEquipmentCard() {
-    /* 첫 번째 eq-card 찾아서 선택 UI 제공 */
-    var cards = document.querySelectorAll('.eq-card[data-eqedit]');
-    if (!cards.length) return;
+    /* find equipment cards (admin-clickable) and offer a picker */
+    var cards = document.querySelectorAll('.eq-card[data-adm-type="equipment"]');
+    if (!cards.length) { alert('장비 카드를 찾을 수 없습니다.'); return; }
     var names = Array.from(cards).map(function(c, i) {
       return (i+1) + '. ' + (c.querySelector('.eq-name') ? c.querySelector('.eq-name').textContent : '장비 '+(i+1));
     }).join('\n');
@@ -3446,6 +4539,57 @@ var Editors = (function () {
         card.querySelector('.eq-tags').innerHTML = tags.map(function(t){return '<span class="eq-tag">'+t+'</span>';}).join('');
       }
     });
+    /* append a photo upload button to the modal (same pattern as members) */
+    setTimeout(function() {
+      var f = document.getElementById('modal-fields');
+      if (!f) return;
+      var hasPhoto = !!card.querySelector('.eq-photo');
+      var btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'btn btn-outline'; btn.style.width = '100%'; btn.style.marginTop = 'var(--s2)';
+      btn.textContent = hasPhoto ? '📷 사진 변경' : '📷 사진 추가';
+      btn.addEventListener('click', function() { equipPhotoPickerFor(card); });
+      f.appendChild(btn);
+
+      if (hasPhoto) {
+        var rm = document.createElement('button');
+        rm.type = 'button';
+        rm.className = 'btn btn-outline'; rm.style.width = '100%'; rm.style.marginTop = 'var(--s2)';
+        rm.textContent = '🗑 사진 제거';
+        rm.addEventListener('click', function() {
+          var img = card.querySelector('.eq-photo');
+          if (img) img.remove();
+          rm.remove(); btn.textContent = '📷 사진 추가';
+        });
+        f.appendChild(rm);
+      }
+    }, 50);
+    /* delete the whole equipment card */
+    modalDeleteBtn(card, card.querySelector('.eq-name') ? card.querySelector('.eq-name').textContent : '장비');
+  }
+
+  /* upload / replace an equipment card's photo */
+  function equipPhotoPickerFor(card) {
+    var inp = document.createElement('input'); inp.type = 'file'; inp.accept = 'image/*';
+    inp.addEventListener('change', function(ev) {
+      var file = ev.target.files[0]; if (!file) return;
+      /* equipment photos are wide — allow up to 1400px long edge */
+      processImageFile(file, 1400, 0.82, function(dataUrl) {
+        var img = card.querySelector('.eq-photo');
+        if (img) {
+          /* replace existing photo */
+          img.src = dataUrl;
+        } else {
+          /* insert a new photo at the very top of the card */
+          img = document.createElement('img');
+          img.className = 'eq-photo eq-cover';
+          img.src = dataUrl;
+          img.alt = card.querySelector('.eq-name') ? card.querySelector('.eq-name').textContent : 'Equipment';
+          card.insertBefore(img, card.firstChild);
+        }
+      });
+    });
+    inp.click();
   }
 
   /* ---- Teaching ccard inline edit ---- */
@@ -3481,6 +4625,7 @@ var Editors = (function () {
         body.innerHTML = gf('desc') + (newTime ? '<div class="ctime">'+newTime+'</div>' : '');
       }
     });
+    modalDeleteBtn(card, h3 ? h3.textContent : '강좌');
   }
 
   /* ---- PI Links 편집 ---- */
@@ -3565,6 +4710,7 @@ var Editors = (function () {
       var d   = Router.getResearchData()[key];
       if (d) { d.title = gf('title'); }
     });
+    modalDeleteBtn(card, card.querySelector('h3') ? card.querySelector('h3').textContent : 'Research 카드');
   }
 
   /* ---- Research Detail Header (title + subtitle) ---- */
@@ -3666,15 +4812,21 @@ var Editors = (function () {
     addHomeNews:      addHomeNews,
     editPI:           editPI,
     uploadPhoto:      uploadPhoto,
+    uploadGroupPhoto: uploadGroupPhoto,
     editMcard:        editMcard,
     deleteMcard:      deleteMcard,
+    toAlumni:         toAlumni,
+    moveMemberTo:     moveMemberTo,
     toHiring:         toHiring,
     editHiringCard:   editHiringCard,
     photoPickerFor:   photoPickerFor,
     addMember:        addMember,
+    addAlumniName:    addAlumniName,
     addHiringCard:    addHiringCard,
     addPub:           addPub,
     addRepPaper:      addRepPaper,
+    autoLinkPubs:     autoLinkPubs,
+    pubHelp:          pubHelp,
     editPubRow:       editPubRow,
     acceptPub:        acceptPub,
     addEquipment:     addEquipment,
@@ -3687,6 +4839,15 @@ var Editors = (function () {
     editResearchDetailBody:    editResearchDetailBody,
     editEquipmentCard:     editEquipmentCard,
     editEquipmentCardEl:   editEquipmentCardEl,
+    equipPhotoPickerFor:   equipPhotoPickerFor,
+    editCapCard:           editCapCard,
+    editMissionTile:       editMissionTile,
+    editMishCard:          editMishCard,
+    researchHelp:          researchHelp,
+    editCtJob:             editCtJob,
+    addCtJob:              addCtJob,
+    contactHelp:           contactHelp,
+    editFacBand:           editFacBand,
     editCourseCard:        editCourseCard,
     editCourseCardEl:      editCourseCardEl,
     editPILinks:           editPILinks,
@@ -3780,9 +4941,15 @@ var OrcidSync = (function () {
 
   /* ---------- Publications ---------- */
   function syncPublications() {
+    function showState(msg) {
+      var section = document.getElementById('orcid-pub-section');
+      if (section) section.innerHTML = '<div class="orcid-state" style="padding:var(--s5) var(--s2);text-align:center;font-family:var(--mono);font-size:.78rem;color:var(--ink3);line-height:1.7">'
+        + msg
+        + '<br><a href="https://orcid.org/0000-0002-7075-9704" target="_blank" style="color:var(--blue)">View publications on ORCID →</a></div>';
+    }
     fetchJSON('/works').then(function(data) {
       var groups = data.group || [];
-      if (!groups.length) return;
+      if (!groups.length) { showState('No publications found on ORCID yet.'); return; }
 
       /* Sort by year desc */
       var works = groups.map(function(g) {
@@ -3818,7 +4985,9 @@ var OrcidSync = (function () {
       Promise.all(promises).then(function(detailed) {
         renderOrcidPubs(detailed, works);
       });
-    }).catch(function() {});
+    }).catch(function() {
+      showState('Could not reach ORCID right now. Please try again later.');
+    });
   }
 
   /* ---------- Render publications into #orcid-pub-section ---------- */
@@ -3913,8 +5082,10 @@ var OrcidSync = (function () {
 
   /* ---------- Public API ---------- */
   function init() {
+    /* PI profile sync is light (2 requests); publications sync is
+       heavy (10+ requests) so we defer it until the user actually
+       opens the "Live from ORCID" tab (handled in switchTab). */
     syncPIProfile();
-    syncPublications();
   }
 
   function switchTab(tab) {
@@ -3952,7 +5123,7 @@ var OrcidSync = (function () {
    Versioned key prefix isolates from any older snapshots. ── */
 var Persist = (function () {
   var PREFIX = 'qslab_v3_';
-  var BUILD = '2026-05-30-c';  /* bump on any structural/CSS change to invalidate stale snapshots */
+  var BUILD = '2026-06-02-alumni-cards2';  /* bump on any structural/CSS change to invalidate stale snapshots */
   var IDS = ['page-home','page-research','page-people','page-publications','page-equipment','page-teaching','page-news','page-contact'];
   var restoring = false;
   var t = 0;
@@ -3977,7 +5148,9 @@ var Persist = (function () {
         if (el) localStorage.setItem(PREFIX + id, cleanInner(el));
       });
       localStorage.setItem(PREFIX + '__build', BUILD);
+      localStorage.setItem(PREFIX + '__savedAt', new Date().toISOString());
       flash();
+      updateUnpublishedBadge();
     } catch (e) {
       if (!quotaWarned) {
         quotaWarned = true;
@@ -3986,16 +5159,17 @@ var Persist = (function () {
     }
   }
 
-  function scheduleSave() { clearTimeout(t); t = setTimeout(saveAll, 500); }
+  function scheduleSave() { window.__qsEdited = true; clearTimeout(t); t = setTimeout(saveAll, 500); }
 
   function restore() {
     restoring = true;
     try {
-      /* If the saved snapshot was captured against an older site build,
-         discard it so the freshly-shipped design/structure shows cleanly. */
+      /* Build mismatch: the saved snapshot was captured against an older
+         site build. We do NOT delete it (that previously destroyed
+         unpublished edits). Instead we skip auto-applying it over the
+         new structure; content.json (published) becomes the base, and a
+         recovery banner offers to re-apply this local draft if wanted. */
       if (localStorage.getItem(PREFIX + '__build') !== BUILD) {
-        IDS.forEach(function(id){ localStorage.removeItem(PREFIX + id); });
-        localStorage.removeItem(PREFIX + '__build');
         restoring = false;
         return;
       }
@@ -4022,6 +5196,152 @@ var Persist = (function () {
     IDS.forEach(function(id){ localStorage.removeItem(PREFIX + id); });
     location.reload();
   }
+  /* clear this browser's unpublished page edits (no confirm/reload) */
+  function discardLocal() {
+    try {
+      IDS.forEach(function(id){ localStorage.removeItem(PREFIX + id); });
+      localStorage.removeItem(PREFIX + '__build');
+      localStorage.removeItem(PREFIX + '__savedAt');
+    } catch (e) {}
+  }
+
+  /* ── Content model shared by backup, publish, and content.json load ── */
+  /* Monotonic content-schema counter. Bump when a page's STRUCTURE is
+     fixed in source so older published snapshots of that page are ignored
+     (and the corrected source is used instead) until the user republishes. */
+  var BUILD_SEQ = 8;
+  /* Per-page minimum acceptable buildSeq. A published page OLDER than its
+     minimum is skipped on load (source HTML is kept). Other pages always
+     apply, so unrelated edits (e.g. publications) are preserved. */
+  var PAGE_MIN_SEQ = { 'page-people': 8 };
+
+  function getContent() {
+    var data = { build: BUILD, buildSeq: BUILD_SEQ, savedAt: new Date().toISOString(), pages: {} };
+    IDS.forEach(function(id){
+      var el = document.getElementById(id);
+      if (el) data.pages[id] = cleanInner(el);
+    });
+    return data;
+  }
+  /* Apply a content object's page innerHTML onto the live DOM. */
+  function applyContent(data) {
+    if (!data || !data.pages) return false;
+    restoring = true;
+    try {
+      IDS.forEach(function(id){
+        if (data.pages[id] != null) {
+          var el = document.getElementById(id);
+          if (el) el.innerHTML = data.pages[id];
+        }
+      });
+    } catch (err) {}
+    restoring = false;
+    return true;
+  }
+  /* Like applyContent, but per-page: a page whose published buildSeq is
+     older than its PAGE_MIN_SEQ is SKIPPED (keeps the corrected source).
+     This lets us repair one page in code without discarding other pages'
+     published edits. Returns a list of skipped page ids. */
+  function applyContentSelective(data) {
+    if (!data || !data.pages) return [];
+    var seq = data.buildSeq || 0;
+    var skipped = [];
+    restoring = true;
+    try {
+      IDS.forEach(function(id){
+        if (data.pages[id] == null) return;
+        var min = PAGE_MIN_SEQ[id];
+        if (min && seq < min) { skipped.push(id); return; }  /* keep source */
+        var el = document.getElementById(id);
+        if (el) el.innerHTML = data.pages[id];
+      });
+    } catch (err) {}
+    restoring = false;
+    return skipped;
+  }
+  function localSavedAt() { try { return localStorage.getItem(PREFIX + '__savedAt') || ''; } catch(e){ return ''; } }
+  function lastPublishedAt() { try { return localStorage.getItem(PREFIX + '__pubAt') || ''; } catch(e){ return ''; } }
+  /* true when this browser has edits saved locally that are newer than
+     the last published content.json (i.e. not yet on the live site) */
+  function hasUnpublishedEdits() {
+    var l = localSavedAt(), p = lastPublishedAt();
+    return !!l && (!p || l > p);
+  }
+  /* read the raw saved sections from localStorage (any build) */
+  function getLocalDraft() {
+    var pages = {}, found = false;
+    IDS.forEach(function(id){
+      try { var v = localStorage.getItem(PREFIX + id); if (v != null) { pages[id] = v; found = true; } } catch(e){}
+    });
+    return found ? { pages: pages, savedAt: localSavedAt(), build: (function(){try{return localStorage.getItem(PREFIX+'__build')||'';}catch(e){return '';}})() } : null;
+  }
+  /* record that the current content was published (so local cache won't
+     be treated as "newer unpublished work" after a publish) */
+  function markPublished(savedAt) {
+    try {
+      var at = savedAt || new Date().toISOString();
+      localStorage.setItem(PREFIX + '__build', BUILD);
+      localStorage.setItem(PREFIX + '__savedAt', at);
+      localStorage.setItem(PREFIX + '__pubAt', at);   /* last PUBLISH time */
+      localStorage.setItem(PREFIX + '__published', '1');
+    } catch (e) {}
+    updateUnpublishedBadge();
+  }
+  /* show/hide the "unpublished changes" reminder in the admin panel */
+  function updateUnpublishedBadge() {
+    var el = document.getElementById('af-unpub');
+    if (!el) return;
+    el.style.display = hasUnpublishedEdits() ? 'block' : 'none';
+  }
+  function rerunHooks() {
+    try {
+      if (window.refreshPeopleCounts) window.refreshPeopleCounts();
+      if (window.highlightLabAuthors) window.highlightLabAuthors();
+      if (window.syncHomeNews) window.syncHomeNews();
+      if (window.refreshNewsMeta) window.refreshNewsMeta();
+      /* migrate renamed labels that may arrive via an older content.json */
+      document.querySelectorAll('.mg-label').forEach(function(el){
+        if (el.textContent.trim() === 'Undergraduate Interns (URP)') {
+          el.textContent = 'Interns and Undergraduate Research Program (URP)';
+        }
+      });
+      /* content.json may have replaced #page-home (and its lattice canvas);
+         re-bind the animation to the fresh canvas node */
+      if (typeof Canvas !== 'undefined' && Canvas.mount) Canvas.mount();
+    } catch (err) {}
+  }
+
+  /* ── Content backup: export per-page content as a portable JSON ──
+     Lets the admin carry their web edits across an index.html swap:
+     Export before replacing the file, Import after. ── */
+  function exportContent() {
+    var blob = new Blob([JSON.stringify(getContent())], { type: 'application/json' });
+    var a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = 'qslab-content-backup.json';
+    document.body.appendChild(a); a.click(); document.body.removeChild(a);
+    setTimeout(function(){ URL.revokeObjectURL(a.href); }, 8000);
+  }
+
+  function importContent(file) {
+    var reader = new FileReader();
+    reader.onload = function(e) {
+      var data;
+      try { data = JSON.parse(e.target.result); } catch (err) { alert('백업 파일을 읽을 수 없습니다 (JSON 형식 오류).'); return; }
+      if (!data || !data.pages) { alert('올바른 내용 백업 파일이 아닙니다.'); return; }
+      var diffBuild = data.build && data.build !== BUILD;
+      var msg = '이 백업의 내용으로 현재 페이지들을 덮어씁니다. 계속할까요?';
+      if (diffBuild) msg = '⚠ 이 백업은 다른 사이트 버전(' + data.build + ')에서 만들어졌습니다.\n복원 후 레이아웃이 어긋나면, 새로 만든 기능 영역은 다시 확인해 주세요.\n\n계속할까요?';
+      if (!confirm(msg)) return;
+      applyContent(data);
+      /* persist to this browser + re-run dynamic hooks */
+      saveAll();
+      rerunHooks();
+      try { if (window.Admin && Admin.isOn && Admin.isOn()) Admin.reinject && Admin.reinject(); } catch (err) {}
+      alert('내용 복원 완료. 화면을 확인하고, 이상 없으면 🚀 발행로 실제 사이트에 반영하세요.');
+    };
+    reader.readAsText(file);
+  }
 
   function flash() {
     var n = document.getElementById('af-saved');
@@ -4031,7 +5351,15 @@ var Persist = (function () {
     flash._t = setTimeout(function(){ n.style.opacity = '0'; }, 1100);
   }
 
-  return { restore: restore, observe: observe, saveAll: saveAll, reset: reset };
+  return { restore: restore, observe: observe, saveAll: saveAll, reset: reset,
+           discardLocal: discardLocal,
+           exportContent: exportContent, importContent: importContent,
+           getContent: getContent, applyContent: applyContent,
+           applyContentSelective: applyContentSelective,
+           markPublished: markPublished, localSavedAt: localSavedAt,
+           lastPublishedAt: lastPublishedAt, hasUnpublishedEdits: hasUnpublishedEdits,
+           getLocalDraft: getLocalDraft, updateUnpublishedBadge: updateUnpublishedBadge,
+           rerunHooks: rerunHooks, BUILD: BUILD };
 })();
 
 
@@ -4039,6 +5367,98 @@ document.addEventListener('DOMContentLoaded', function () {
 
   /* ── Restore saved admin edits BEFORE anything mounts ── */
   Persist.restore();
+
+  /* ── Load published content.json from the repo (authoritative).
+     This is what makes web edits survive an index.html (code) swap:
+     content lives in content.json, not baked into the HTML. ── */
+  (function loadPublishedContent() {
+    if (!window.fetch) { Persist.updateUnpublishedBadge && Persist.updateUnpublishedBadge(); return; }
+    /* If the user starts editing (enters admin and changes something)
+       BEFORE this async fetch resolves, we must NOT overwrite their work
+       with the older published snapshot. Track interaction. */
+    var userTouched = false;
+    var touch = function(){ userTouched = true; };
+    document.addEventListener('input', touch, true);
+    document.addEventListener('qslab-edit', touch, true);
+
+    fetch('content.json?t=' + Date.now(), { cache: 'no-store' })
+      .then(function(r){ return r.ok ? r.json() : null; })
+      .then(function(data){
+        var pubAt = data && data.savedAt ? data.savedAt : '';
+        var localAt = Persist.localSavedAt();
+        var sameBuild = false;
+        try { sameBuild = (localStorage.getItem('qslab_v3___build') === Persist.BUILD); } catch(e){}
+
+        /* Apply published content as the base, BUT never clobber:
+           - a live admin session that has already changed the DOM
+             (MutationObserver sets window.__qsEdited synchronously), or
+           - newer local edits on the same build (already applied by restore). */
+        var adminEditing = (document.body.classList.contains('admin-on') && (userTouched || window.__qsEdited));
+        if (data && data.pages && !adminEditing) {
+          if (!(sameBuild && localAt && pubAt && localAt > pubAt)) {
+            var skipped = Persist.applyContentSelective(data);   /* per-page: ignore stale pages, keep source */
+            sanitizeAlumni();          /* strip any bogus hiring tile saved into Alumni */
+            Persist.markPublished(pubAt);
+            Persist.rerunHooks();
+            if (skipped && skipped.length) {
+              try { console.info('[QS Lab] kept source for outdated published page(s):', skipped.join(', '), '— republish to refresh.'); } catch(e){}
+            }
+          }
+        }
+
+        /* Recovery: this browser has unpublished edits NEWER than the
+           published content (e.g. left over from before a file swap).
+           Offer to restore them so nothing is silently lost. */
+        if (Persist.hasUnpublishedEdits && Persist.hasUnpublishedEdits()
+            && localAt && (!pubAt || localAt > pubAt)) {
+          showDraftRecovery();
+        }
+        Persist.updateUnpublishedBadge && Persist.updateUnpublishedBadge();
+        document.removeEventListener('input', touch, true);
+        document.removeEventListener('qslab-edit', touch, true);
+      })
+      .catch(function(){ Persist.updateUnpublishedBadge && Persist.updateUnpublishedBadge(); });
+  })();
+
+  /* A "We Are Hiring" tile must never sit inside the Alumni grid (an old
+     bug saved some). Remove any that slipped into a published snapshot. */
+  function sanitizeAlumni() {
+    try {
+      document.querySelectorAll('#grid-alumni .mcard-hiring').forEach(function(h){ h.remove(); });
+      var ag = document.getElementById('grid-alumni');
+      var lbl = document.getElementById('alumni-card-label');
+      if (ag && lbl) lbl.style.display = ag.querySelector('.mcard') ? '' : 'none';
+    } catch(e){}
+  }
+
+  /* Non-blocking banner offering to re-apply unpublished local edits */
+  function showDraftRecovery() {
+    if (document.getElementById('draft-recovery')) return;
+    var draft = Persist.getLocalDraft && Persist.getLocalDraft();
+    if (!draft) return;
+    var bar = document.createElement('div');
+    bar.id = 'draft-recovery';
+    bar.style.cssText = 'position:fixed;left:50%;bottom:20px;transform:translateX(-50%);z-index:99998;'
+      + 'background:#0f1320;color:#fff;font-family:var(--mono);font-size:.72rem;line-height:1.5;'
+      + 'padding:.85rem 1rem;border-radius:12px;box-shadow:0 8px 30px rgba(0,0,0,.35);max-width:92vw;'
+      + 'display:flex;gap:.7rem;align-items:center;flex-wrap:wrap;justify-content:center';
+    bar.innerHTML = '이 브라우저에 <b style="color:#34d399">발행되지 않은 편집</b>이 남아 있습니다.';
+    var yes = document.createElement('button');
+    yes.textContent = '복원하기';
+    yes.style.cssText = 'font-family:var(--mono);font-size:.72rem;font-weight:600;background:#2347d6;color:#fff;border:none;border-radius:8px;padding:.45rem .9rem;cursor:pointer';
+    yes.addEventListener('click', function(){
+      Persist.applyContent(draft);
+      Persist.rerunHooks();
+      bar.remove();
+      alert('미발행 편집을 복원했습니다. 확인 후 🚀 Publish content 로 사이트에 반영하세요.');
+    });
+    var no = document.createElement('button');
+    no.textContent = '무시';
+    no.style.cssText = 'font-family:var(--mono);font-size:.72rem;background:transparent;color:rgba(255,255,255,.6);border:1px solid rgba(255,255,255,.3);border-radius:8px;padding:.45rem .9rem;cursor:pointer';
+    no.addEventListener('click', function(){ bar.remove(); });
+    bar.appendChild(yes); bar.appendChild(no);
+    document.body.appendChild(bar);
+  }
 
   Admin.initImgErrors();
   Canvas.mount();
@@ -4111,8 +5531,10 @@ document.addEventListener('DOMContentLoaded', function () {
   var adminBtn = document.getElementById('admin-btn');
   if (adminBtn) adminBtn.addEventListener('click', Admin.openPWModal);
 
-  document.querySelectorAll('.ft-admin-trigger').forEach(function(el) {
-    el.addEventListener('click', Admin.openPWModal);
+  /* delegated so it survives content.json innerHTML replacement of the
+     page sections (the footer trigger lives inside those sections) */
+  document.addEventListener('click', function(e) {
+    if (e.target.closest('.ft-admin-trigger')) Admin.openPWModal();
   });
 
   var pwSubmit = document.getElementById('pw-submit');
@@ -4145,9 +5567,103 @@ document.addEventListener('DOMContentLoaded', function () {
   var afExport = document.getElementById('af-export');
   if (afExport) afExport.addEventListener('click', Admin.exportHTML);
 
+  /* ── Publish to GitHub ── */
+  var afPublish   = document.getElementById('af-publish');
+  var afPubStatus = document.getElementById('af-pubstatus');
+  var afPubToggle = document.getElementById('af-pubtoggle');
+  var afPubSet    = document.getElementById('af-pubsettings');
+  var afToken     = document.getElementById('af-token');
+  var afTokSave   = document.getElementById('af-token-save');
+  var afTokClear  = document.getElementById('af-token-clear');
+
+  function pubStatus(msg, kind) {
+    if (!afPubStatus) return;
+    afPubStatus.textContent = msg || '';
+    afPubStatus.className = 'af-pubstatus' + (kind ? ' ' + kind : '');
+  }
+  function refreshPubUI() {
+    if (afPublish) afPublish.textContent = Publisher.hasToken() ? '🚀 Publish to live site' : '🔑 Set up publishing';
+  }
+
+  if (afPubToggle && afPubSet) {
+    afPubToggle.addEventListener('click', function() {
+      afPubSet.classList.toggle('open');
+      if (afPubSet.classList.contains('open') && afToken) afToken.value = Publisher.getToken();
+    });
+  }
+  if (afTokSave) afTokSave.addEventListener('click', function() {
+    var t = (afToken && afToken.value || '').trim();
+    if (!t) { pubStatus('Paste a token first.', 'err'); return; }
+    Publisher.setToken(t);
+    if (afToken) afToken.value = '';
+    if (afPubSet) afPubSet.classList.remove('open');
+    refreshPubUI();
+    pubStatus('✓ Token saved. You can publish now.', 'ok');
+  });
+  if (afTokClear) afTokClear.addEventListener('click', function() {
+    Publisher.setToken('');
+    if (afToken) afToken.value = '';
+    refreshPubUI();
+    pubStatus('Token cleared.', '');
+  });
+  if (afPublish) afPublish.addEventListener('click', function() {
+    if (!Publisher.hasToken()) {
+      if (afPubSet) afPubSet.classList.add('open');
+      if (afToken) afToken.focus();
+      pubStatus('Add your GitHub token below to enable publishing.', 'work');
+      return;
+    }
+    afPublish.disabled = true;
+    Publisher.publish(function(msg, kind) {
+      pubStatus(msg, kind);
+      if (kind === 'ok' || kind === 'err') afPublish.disabled = false;
+    });
+  });
+  /* publish code (index.html) — for shipping new features to the live site */
+  var afPubCode = document.getElementById('af-publish-code');
+  if (afPubCode) afPubCode.addEventListener('click', function() {
+    if (!Publisher.hasToken()) {
+      if (afPubSet) afPubSet.classList.add('open');
+      if (afToken) afToken.focus();
+      pubStatus('Add your GitHub token below to enable publishing.', 'work');
+      return;
+    }
+    if (!confirm('현재 페이지의 코드(index.html)를 사이트에 올립니다.\n새 기능을 반영할 때 사용하세요. 계속할까요?')) return;
+    afPubCode.disabled = true;
+    Publisher.publishCode(function(msg, kind) {
+      pubStatus(msg, kind);
+      if (kind === 'ok' || kind === 'err') afPubCode.disabled = false;
+    });
+  });
+  refreshPubUI();
+
   /* ── Auto-save: reset button + start observing ── */
   var afReset = document.getElementById('af-reset');
   if (afReset) afReset.addEventListener('click', Persist.reset);
+  /* exit admin without publishing — keep draft */
+  var afExitKeep = document.getElementById('af-exit-keep');
+  if (afExitKeep) afExitKeep.addEventListener('click', function() {
+    Admin.exitAdmin();
+  });
+  /* exit admin and DISCARD this browser's unpublished edits */
+  var afExitDiscard = document.getElementById('af-exit-discard');
+  if (afExitDiscard) afExitDiscard.addEventListener('click', function() {
+    if (!confirm('발행하지 않은 변경사항을 모두 버리고 Admin을 종료합니다.\n(이미 🚀 발행한 내용은 그대로 유지됩니다.)\n\n계속할까요?')) return;
+    Persist.discardLocal();
+    location.reload();
+  });
+  /* content backup / restore */
+  var afCExport = document.getElementById('af-content-export');
+  if (afCExport) afCExport.addEventListener('click', Persist.exportContent);
+  var afCImport = document.getElementById('af-content-import');
+  var afCFile   = document.getElementById('af-content-file');
+  if (afCImport && afCFile) {
+    afCImport.addEventListener('click', function(){ afCFile.click(); });
+    afCFile.addEventListener('change', function(ev){
+      var f = ev.target.files[0]; if (f) Persist.importContent(f);
+      ev.target.value = '';
+    });
+  }
   Persist.observe();
 
   /* ── QS wordplay: Q and S each hint at our research areas ── */
@@ -4194,6 +5710,624 @@ document.addEventListener('DOMContentLoaded', function () {
     Router.go(btn.getAttribute('data-goto'));
   });
 });
+</script>
+<script>
+/* ================================================================
+   Email display guard — ensures the lab email always renders
+   correctly even if a proxy/CDN obfuscates it, and keeps the
+   plain address out of the static HTML so scrapers can't grab it.
+================================================================ */
+(function () {
+  var mail = 'seunguk' + String.fromCharCode(64) + 'skku.edu';
+  function looksObf(s) { return /\[email[\s\u00a0]*protected\]/i.test(s || ''); }
+
+  function restore() {
+    /* 1: text nodes showing the placeholder */
+    try {
+      var tw = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, null);
+      var node, hits = [];
+      while ((node = tw.nextNode())) { if (looksObf(node.nodeValue)) hits.push(node); }
+      hits.forEach(function (t) { t.nodeValue = t.nodeValue.replace(/\[email[\s\u00a0]*protected\]/ig, mail); });
+    } catch (e) {}
+
+    /* 2: anchors with obfuscated href or text */
+    document.querySelectorAll('a').forEach(function (a) {
+      var href = a.getAttribute('href') || '';
+      if (href.indexOf('email-protection') > -1 || looksObf(a.textContent)) {
+        a.setAttribute('href', 'mailto:' + mail);
+        if (looksObf(a.textContent)) a.textContent = mail;
+      }
+    });
+  }
+
+  restore();
+  /* run again shortly in case the obfuscator script swaps content after load */
+  setTimeout(restore, 600);
+  setTimeout(restore, 1800);
+})();
+</script>
+<script>
+/* ================================================================
+   People headcount — derive the chips from the actual member
+   cards so the numbers are always correct (URP counted as interns).
+================================================================ */
+(function () {
+  function countCards(gridId) {
+    var g = document.getElementById(gridId);
+    /* count real member cards only — exclude "We are hiring" cards */
+    return g ? g.querySelectorAll('.mcard:not(.mcard-hiring)').length : null;
+  }
+  function setChip(label, n) {
+    if (n === null) return;
+    var chips = document.querySelectorAll('.sl-chips span');
+    for (var i = 0; i < chips.length; i++) {
+      if (chips[i].textContent.indexOf(label) > -1) {
+        var b = chips[i].querySelector('b');
+        if (b && b.textContent !== String(n)) b.textContent = n;
+        chips[i].style.display = (n === 0) ? 'none' : '';  /* hide empty categories */
+        return;
+      }
+    }
+  }
+  function refresh() {
+    setChip('Postdoc',         countCards('grid-postdoc'));
+    setChip('Research Assoc.', countCards('grid-ra'));
+    setChip('Graduate',        countCards('grid-grad'));
+    setChip('Interns',         countCards('grid-intern'));
+    /* single-card layout (PI-style wide row) only makes sense with one
+       member; once a second is added, switch to the normal card grid */
+    ['grid-postdoc','grid-ra'].forEach(function(id) {
+      var g = document.getElementById(id);
+      if (!g) return;
+      var n = g.querySelectorAll('.mcard:not(.mcard-hiring)').length;
+      g.classList.toggle('single-card', n === 1);
+    });
+  }
+  /* Count once on load, plus a couple of delayed passes to catch any
+     late-rendered cards. NO live observer — avoids any mutation loop. */
+  refresh();
+  setTimeout(refresh, 800);
+  setTimeout(refresh, 2500);
+  /* expose so admin add/remove can recount on demand if desired */
+  window.refreshPeopleCounts = refresh;
+})();
+</script>
+<script>
+/* ================================================================
+   Lab-member author highlighting.
+   Collects current member names from the People page and highlights
+   any matching name in every publication author list — in brand
+   blue, distinct from the PI (who stays bold/dark via <strong>).
+================================================================ */
+(function () {
+  /* --- collect member names from People cards + alumni list --- */
+  function collectMembers() {
+    var names = [];
+    document.querySelectorAll('#page-people .mcard:not(.mcard-hiring) .mcard-name').forEach(function(el) {
+      var raw = el.textContent.trim();
+      if (raw) names.push(raw);
+    });
+    /* alumni — names in #alumni-text separated by "·", strip "(…)" notes */
+    var alumniEl = document.getElementById('alumni-text');
+    if (alumniEl) {
+      alumniEl.textContent.split('·').forEach(function(chunk) {
+        var nm = chunk.replace(/\(.*?\)/g, '').replace(/→.*$/, '').trim();
+        if (nm && nm.split(/\s+/).length >= 2) names.push(nm);
+      });
+    }
+    return names;
+  }
+
+  /* Build {first, last, full} tokens. Author lists are usually
+     "First Last" while some use "Last F." — match on full name first,
+     then on "Last" + first-initial to stay safe. */
+  function parseName(name) {
+    /* strip honorifics (Dr./Prof./…) and parenthetical/arrow notes */
+    var clean = name.replace(/\(.*?\)/g,'').replace(/→.*$/,'')
+      .replace(/\b(dr|prof|professor|mr|ms|mrs|phd|ph\.d)\b\.?/ig, '')
+      .replace(/\s+/g,' ').trim();
+    var parts = clean.split(/\s+/).filter(Boolean);
+    if (parts.length < 2) return { full: clean, last: clean, first: '', init: '' };
+    var last = parts[parts.length - 1];
+    var first = parts[0];
+    return { full: parts.join(' '), last: last, first: first, init: first.charAt(0) };
+  }
+
+  function escapeReg(s) { return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); }
+
+  function compileMembers(members) {
+    var compiled = [];
+    members.forEach(function(m) {
+      var p = parseName(m);
+      if (!(p.first && p.last)) return;
+      var patterns = [
+        escapeReg(p.first + ' ' + p.last),            /* First Last */
+        escapeReg(p.last + ' ' + p.init) + '\\.?',     /* Last F. */
+        escapeReg(p.last + ', ' + p.init) + '\\.?'     /* Last, F. */
+      ];
+      compiled.push(new RegExp('(^|[^\\w])(' + patterns.join('|') + ')(?=$|[^\\w])', 'g'));
+    });
+    return compiled;
+  }
+
+  function highlightInAuthorEl(aEl, compiled) {
+    /* skip if already processed */
+    if (aEl.getAttribute('data-lab-hl') === '1') return;
+
+    /* work over child nodes; never touch text already inside <strong> (PI) */
+    compiled.forEach(function(re) {
+      /* iterate direct text nodes only (so we don't re-wrap PI <strong>) */
+      var walker = document.createTreeWalker(aEl, NodeFilter.SHOW_TEXT, null);
+      var textNodes = [], n;
+      while ((n = walker.nextNode())) {
+        if (n.parentNode && n.parentNode.classList && n.parentNode.classList.contains('lab-member')) continue;
+        textNodes.push(n);
+      }
+      textNodes.forEach(function(tn) {
+        var txt = tn.nodeValue;
+        if (!re.test(txt)) return;
+        re.lastIndex = 0;
+        var frag = document.createDocumentFragment();
+        var last = 0, match;
+        while ((match = re.exec(txt)) !== null) {
+          var pre = match[1];
+          var nameStr = match[2];
+          var start = match.index + pre.length;
+          frag.appendChild(document.createTextNode(txt.slice(last, start)));
+          var span = document.createElement('span');
+          span.className = 'lab-member';
+          span.textContent = nameStr;
+          frag.appendChild(span);
+          last = start + nameStr.length;
+        }
+        frag.appendChild(document.createTextNode(txt.slice(last)));
+        tn.parentNode.replaceChild(frag, tn);
+      });
+    });
+    aEl.setAttribute('data-lab-hl', '1');
+  }
+
+  function run() {
+    var members = collectMembers();
+    if (!members.length) return;
+    var compiled = compileMembers(members);
+    document.querySelectorAll('.pub-a').forEach(function(aEl) {
+      highlightInAuthorEl(aEl, compiled);
+    });
+  }
+
+  /* expose for admin: re-run after adding a paper or editing members */
+  window.highlightLabAuthors = function(scope) {
+    var members = collectMembers();
+    if (!members.length) return;
+    var compiled = compileMembers(members);
+    var els;
+    if (scope) {
+      els = [];
+      if (scope.classList && scope.classList.contains('pub-a')) els.push(scope);
+      scope.querySelectorAll && scope.querySelectorAll('.pub-a').forEach(function(e){ els.push(e); });
+    } else {
+      els = document.querySelectorAll('.pub-a');
+    }
+    els.forEach(function(aEl) { aEl.removeAttribute('data-lab-hl'); highlightInAuthorEl(aEl, compiled); });
+  };
+
+  run();
+  setTimeout(run, 1200);
+})();
+</script>
+<script>
+/* ================================================================
+   Home "News & Highlights" — auto-populate from the News page.
+   Pulls the most recent News items that HAVE a photo (up to 4) and
+   renders them as home highlight cards, so the home strip always
+   mirrors the latest visual news without manual duplication.
+================================================================ */
+(function () {
+  function classify(title) {
+    var t = (title || '').toLowerCase();
+    if (/award|selected|emerging investigator|prize|honor|fellow/.test(t)) return 'Award';
+    if (/published|paper|review|nature|device|small science|nanoscale|perspective|journal/.test(t)) return 'Publication';
+    if (/workshop|conference|symposium|seminar|talk|poster|presentation/.test(t)) return 'Conference';
+    if (/partner|collaborat|joint|mou|agreement|established/.test(t)) return 'Collaboration';
+    if (/joins|join |welcome|new member|intern|recruit/.test(t)) return 'People';
+    return 'News';
+  }
+  function fmtDate(raw) {
+    /* "2026-03-19" → "2026 · 03" ; fall back to raw text */
+    var m = (raw || '').trim().match(/(\d{4})[-./](\d{1,2})/);
+    if (m) return m[1] + ' · ' + ('0' + m[2]).slice(-2);
+    return (raw || '').trim();
+  }
+
+  function sync() {
+    var grid = document.getElementById('home-news-grid');
+    var list = document.getElementById('news-list-wrap');
+    if (!grid || !list) return;
+
+    var items = Array.prototype.slice.call(list.querySelectorAll('.news-item'));
+    var withPhoto = items.filter(function(it) { return it.querySelector('img'); }).slice(0, 4);
+    if (!withPhoto.length) return; /* keep existing static cards if none found */
+
+    grid.innerHTML = '';
+    withPhoto.forEach(function(it) {
+      var img   = it.querySelector('img');
+      var h3    = it.querySelector('h3');
+      var dateEl= it.querySelector('.news-date');
+      var title = h3 ? h3.textContent.trim() : '';
+      var date  = dateEl ? fmtDate(dateEl.textContent) : '';
+      var tag   = classify(title);
+
+      /* link: if the news item itself is an <a> with href, reuse it;
+         otherwise the card jumps to the News page */
+      var href = null;
+      if (it.tagName === 'A' && it.getAttribute('href') && it.getAttribute('href') !== '#') href = it.getAttribute('href');
+
+      var card = document.createElement('a');
+      card.className = 'news-hl-card';
+      if (href) { card.href = href; card.target = '_blank'; }
+      else { card.href = '#'; card.setAttribute('data-goto', 'news'); }
+
+      var imgWrap = document.createElement('div');
+      imgWrap.className = 'news-hl-img';
+      var newImg = document.createElement('img');
+      newImg.src = img.getAttribute('src');
+      newImg.alt = '';
+      /* preserve "contain on white" treatment for logo/figure-style images */
+      var st = img.getAttribute('style') || '';
+      if (/contain/.test(st)) { newImg.style.objectFit = 'contain'; newImg.style.background = '#fff'; }
+      imgWrap.appendChild(newImg);
+
+      var body = document.createElement('div');
+      body.className = 'news-hl-body';
+      body.innerHTML = '<span class="news-hl-tag">' + tag + '</span>'
+        + '<div class="news-hl-caption">' + title + '</div>'
+        + '<div class="news-hl-date">' + date + '</div>';
+
+      card.appendChild(imgWrap);
+      card.appendChild(body);
+      grid.appendChild(card);
+    });
+  }
+
+  /* expose so admin can refresh the home strip after editing/adding news */
+  window.syncHomeNews = sync;
+  sync();
+  setTimeout(sync, 1000);
+
+  /* Keep the News page sorted newest-first and the "Latest update" badge
+     in sync with the most recent news date (auto-updates as admin edits). */
+  function refreshNewsMeta() {
+    var list = document.getElementById('news-list-wrap');
+    if (!list) return;
+    var items = Array.prototype.slice.call(list.querySelectorAll('.news-item'));
+    if (!items.length) return;
+    /* Lenient date reader: handles full dates (2026-04-17) but also
+       partial/placeholder ones like "2026-04-xx", "2026-04", "Apr 2026". */
+    function parseLoose(raw) {
+      raw = (raw || '').trim();
+      var t = Date.parse(raw);
+      if (!isNaN(t)) return t;
+      /* yyyy-mm[-anything] e.g. 2026-04-xx → first of that month */
+      var m = raw.match(/(\d{4})\s*[-./]\s*(\d{1,2})/);
+      if (m) {
+        var mo = parseInt(m[2], 10);
+        if (mo >= 1 && mo <= 12) return new Date(parseInt(m[1],10), mo - 1, 1).getTime();
+      }
+      /* "Apr 2026" / "April 2026" */
+      var m2 = raw.match(/([A-Za-z]{3,9})\s+(\d{4})/);
+      if (m2) {
+        var t2 = Date.parse(m2[1] + ' 1, ' + m2[2]);
+        if (!isNaN(t2)) return t2;
+      }
+      return NaN;
+    }
+    function ts(it) {
+      var e = it.querySelector('.news-date');
+      var t = e ? parseLoose(e.textContent) : NaN;
+      return isNaN(t) ? -Infinity : t;
+    }
+    items.sort(function(a, b) { return ts(b) - ts(a); });
+    items.forEach(function(it) { list.appendChild(it); });  /* reorder newest-first */
+    var badge = document.getElementById('news-latest');
+    if (!badge) {
+      /* content.json may have been published from an older build whose badge
+         had no id — locate it by structure (.sl-st whose label says "Latest update") */
+      var sts = document.querySelectorAll('#page-news .sl-st');
+      for (var i = 0; i < sts.length; i++) {
+        var lbl = sts[i].querySelector('.l');
+        if (lbl && /latest update/i.test(lbl.textContent)) { badge = sts[i].querySelector('.n'); break; }
+      }
+    }
+    if (badge) {
+      var top = items[0].querySelector('.news-date');
+      var tt  = top ? parseLoose(top.textContent) : NaN;
+      var dt  = isNaN(tt) ? null : new Date(tt);
+      if (dt) {
+        var M = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+        badge.textContent = M[dt.getMonth()] + ' ' + dt.getFullYear();
+      }
+    }
+  }
+  window.refreshNewsMeta = refreshNewsMeta;
+  refreshNewsMeta();
+  setTimeout(refreshNewsMeta, 1000);
+})();
+</script>
+
+<style id="pub-toc-css">
+/* ===== Publication TOC thumbnails ===== */
+#pub-list .pub-row, #pub-list .pub-row-nolink { grid-template-columns: 48px 132px 1fr; }
+#pub-list .pub-edit-btns { grid-column: 1 / -1; }
+.pub-thumb {
+  width: 132px; height: 94px;
+  border: 1px solid var(--border); border-radius: var(--r2);
+  background: #fff; overflow: hidden; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+}
+.pub-thumb img { width: 100%; height: 100%; object-fit: contain; display: block; }
+.pub-thumb .pt-badge {
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  gap: .35rem; width: 100%; height: 100%; background: var(--bg2); padding: .5rem; text-align: center;
+}
+.pt-badge b { font-family: var(--sans); font-weight: 800; font-size: .74rem; letter-spacing: -.01em; color: var(--blue); line-height: 1.25; }
+.pt-badge span { font-family: var(--mono); font-size: .54rem; letter-spacing: .12em; text-transform: uppercase; color: var(--ink4); }
+body.admin-on .pub-thumb { cursor: pointer; outline: 1.5px dashed var(--blue2); outline-offset: 2px; }
+#pub-toc-batch {
+  display: none; margin: var(--s2) 0 var(--s2);
+  font-family: var(--mono); font-size: .68rem; font-weight: 600; letter-spacing: .04em; text-transform: uppercase;
+  color: #fff; background: var(--blue); border: none; border-radius: var(--r2);
+  padding: .55rem .9rem; cursor: pointer;
+}
+body.admin-on #pub-toc-batch { display: inline-flex; }
+#pub-toc-batch:disabled { opacity: .65; cursor: default; }
+#pub-toc-menu {
+  position: fixed; z-index: 950; background: var(--navy);
+  border: 1px solid rgba(255,255,255,.14); border-radius: 10px; padding: .45rem;
+  display: flex; flex-direction: column; gap: .3rem; box-shadow: var(--sh4); min-width: 230px;
+}
+#pub-toc-menu button {
+  font-family: var(--mono); font-size: .68rem; letter-spacing: .03em; text-align: left;
+  color: rgba(255,255,255,.85); background: rgba(255,255,255,.07);
+  border: none; border-radius: 6px; padding: .5rem .7rem; cursor: pointer;
+}
+#pub-toc-menu button:hover { background: rgba(255,255,255,.18); color: #fff; }
+#pub-toc-menu .ptm-note { font-family: var(--mono); font-size: .56rem; color: rgba(255,255,255,.45); padding: .1rem .2rem .2rem; line-height: 1.5; }
+@media (max-width: 760px) {
+  #pub-list .pub-row, #pub-list .pub-row-nolink { grid-template-columns: 34px 86px 1fr; }
+  .pub-thumb { width: 86px; height: 64px; }
+}
+</style>
+
+<script id="pub-toc-js">
+/* ================================================================
+   Publication TOC thumbnails
+   · Every pub row gets a thumbnail slot between number and text.
+   · If the row has data-toc="<dataURL>" → show the image.
+   · Otherwise → auto journal badge derived from .pub-v text.
+   · Admin mode: click a thumbnail → 자동 가져오기 / 업로드 / 제거.
+     "🖼 TOC 자동 가져오기" batch button fills all missing ones.
+   · data-toc persists through Publish; injected DOM never does.
+================================================================ */
+(function () {
+  function list() { return document.getElementById('pub-list'); }
+  function isAdmin() { return document.body.classList.contains('admin-on'); }
+
+  function journalOf(row) {
+    var v = row.querySelector('.pub-v');
+    if (!v) return '';
+    var t = v.textContent.trim();
+    var m = t.match(/^[^0-9,(]+/);
+    return (m ? m[0] : t).replace(/[\s·–\-]+$/, '').trim();
+  }
+
+  function fill(row, d) {
+    var src = row.getAttribute('data-toc');
+    d.innerHTML = '';
+    if (src) {
+      var img = document.createElement('img');
+      img.src = src; img.alt = ''; img.loading = 'lazy';
+      d.appendChild(img);
+    } else {
+      var j = journalOf(row);
+      var badge = document.createElement('div');
+      badge.className = 'pt-badge';
+      var b = document.createElement('b');
+      b.textContent = j || 'In review';
+      var s = document.createElement('span');
+      s.textContent = j ? 'journal' : 'preprint';
+      badge.appendChild(b); badge.appendChild(s);
+      d.appendChild(badge);
+    }
+  }
+
+  function refresh(row) {
+    var d = row.querySelector('.pub-thumb');
+    if (!d) { makeThumb(row); return; }
+    fill(row, d);
+  }
+
+  function makeThumb(row) {
+    if (row.querySelector('.pub-thumb')) return;
+    var n = row.querySelector('.pub-n');
+    if (!n) return;
+    var d = document.createElement('div');
+    d.className = 'pub-thumb';
+    fill(row, d);
+    n.insertAdjacentElement('afterend', d);
+  }
+
+  function initAll() {
+    var l = list(); if (!l) return;
+    l.querySelectorAll('.pub-row, .pub-row-nolink').forEach(makeThumb);
+    if (!document.getElementById('pub-toc-batch')) {
+      var btn = document.createElement('button');
+      btn.id = 'pub-toc-batch';
+      btn.type = 'button';
+      btn.textContent = '🖼 TOC 자동 가져오기';
+      btn.addEventListener('click', function () { batchFetch(btn); });
+      l.insertBefore(btn, l.firstChild);
+    }
+  }
+
+  /* ---- image helpers ---- */
+  function shrinkToDataURL(img, maxW, q) {
+    var sc = Math.min(1, (maxW || 520) / img.naturalWidth);
+    var c = document.createElement('canvas');
+    c.width = Math.max(1, Math.round(img.naturalWidth * sc));
+    c.height = Math.max(1, Math.round(img.naturalHeight * sc));
+    var ctx = c.getContext('2d');
+    ctx.fillStyle = '#fff'; ctx.fillRect(0, 0, c.width, c.height);
+    ctx.imageSmoothingQuality = 'high';
+    ctx.drawImage(img, 0, 0, c.width, c.height);
+    return c.toDataURL('image/jpeg', q || 0.82);
+  }
+
+  /* Load a remote image through a CORS-friendly proxy and embed it
+     as a small JPEG data URL so it lives inside the page forever. */
+  function embedRemote(src) {
+    return new Promise(function (res, rej) {
+      var img = new Image();
+      img.crossOrigin = 'anonymous';
+      img.onload = function () {
+        try { res(shrinkToDataURL(img)); }
+        catch (e) { rej(new Error('이미지 변환 실패')); }
+      };
+      img.onerror = function () { rej(new Error('이미지 로드 실패')); };
+      img.src = 'https://images.weserv.nl/?url=' + encodeURIComponent(src) + '&w=520';
+    });
+  }
+
+  /* Ask microlink.io for the paper page's representative (og:image)
+     image — publishers put the TOC figure / journal art there. */
+  function fetchToc(row) {
+    var url = row.getAttribute('href') || '';
+    if (!url) return Promise.reject(new Error('링크 없음'));
+    return fetch('https://api.microlink.io/?url=' + encodeURIComponent(url))
+      .then(function (r) { return r.json(); })
+      .then(function (j) {
+        var d = (j && j.data) || {};
+        var img = (d.image && d.image.url) || (d.logo && d.logo.url) || '';
+        if (!img) throw new Error('대표 이미지 없음');
+        return embedRemote(img);
+      })
+      .then(function (dataUrl) {
+        row.setAttribute('data-toc', dataUrl);
+        refresh(row);
+      });
+  }
+
+  function uploadToc(row) {
+    var inp = document.createElement('input');
+    inp.type = 'file'; inp.accept = 'image/*';
+    inp.addEventListener('change', function (ev) {
+      var f = ev.target.files[0]; if (!f) return;
+      var rd = new FileReader();
+      rd.onload = function (e) {
+        var img = new Image();
+        img.onload = function () {
+          try {
+            row.setAttribute('data-toc', shrinkToDataURL(img, 520, 0.85));
+            refresh(row);
+          } catch (err) { alert('이미지 처리 실패: ' + err.message); }
+        };
+        img.src = e.target.result;
+      };
+      rd.readAsDataURL(f);
+    });
+    inp.click();
+  }
+
+  /* ---- batch fetch (admin) ---- */
+  function batchFetch(btn) {
+    var rows = Array.prototype.filter.call(
+      list().querySelectorAll('.pub-row'),
+      function (r) { return r.getAttribute('href') && !r.getAttribute('data-toc'); }
+    );
+    if (!rows.length) { alert('가져올 항목이 없습니다.\n(링크가 있고 아직 이미지가 없는 논문 대상)'); return; }
+    if (!confirm(rows.length + '개 논문의 대표 이미지를 자동으로 가져옵니다.\n무료 조회 한도(하루 약 50회) 때문에 하루 한 번만 실행하는 걸 권장합니다.\n계속할까요?')) return;
+    var i = 0, ok = 0, fail = 0;
+    btn.disabled = true;
+    (function next() {
+      if (i >= rows.length) {
+        btn.disabled = false;
+        btn.textContent = '🖼 TOC 자동 가져오기';
+        alert('완료: 성공 ' + ok + ' · 실패 ' + fail + '\n\n결과 확인 후 "🚀 Publish content"로 발행하세요.');
+        return;
+      }
+      var row = rows[i++];
+      btn.textContent = '… ' + i + '/' + rows.length;
+      fetchToc(row)
+        .then(function () { ok++; })
+        .catch(function () { fail++; })
+        .then(function () { setTimeout(next, 900); });
+    })();
+  }
+
+  /* ---- thumbnail popover menu (admin) ---- */
+  var menu = null;
+  function closeMenu() { if (menu) { menu.remove(); menu = null; } }
+  function openMenu(th) {
+    closeMenu();
+    var row = th.closest('.pub-row, .pub-row-nolink');
+    if (!row) return;
+    menu = document.createElement('div');
+    menu.id = 'pub-toc-menu';
+
+    function mkBtn(label, fn) {
+      var b = document.createElement('button');
+      b.type = 'button'; b.textContent = label;
+      b.addEventListener('click', function (e) { e.stopPropagation(); fn(b); });
+      menu.appendChild(b);
+      return b;
+    }
+    mkBtn('🔄 자동 가져오기 (논문 페이지 대표 이미지)', function (b) {
+      b.textContent = '… 가져오는 중';
+      fetchToc(row)
+        .then(function () { closeMenu(); })
+        .catch(function (e) { b.textContent = '❌ ' + e.message + ' — 다시 시도'; });
+    });
+    mkBtn('📁 이미지 업로드', function () { closeMenu(); uploadToc(row); });
+    if (row.getAttribute('data-toc')) {
+      mkBtn('🗑 이미지 제거 (저널 배지로 복귀)', function () {
+        row.removeAttribute('data-toc'); refresh(row); closeMenu();
+      });
+    }
+    var note = document.createElement('div');
+    note.className = 'ptm-note';
+    note.textContent = '변경 후 🚀 Publish content로 발행해야 사이트에 반영됩니다.';
+    menu.appendChild(note);
+
+    document.body.appendChild(menu);
+    var r = th.getBoundingClientRect();
+    var mw = 250;
+    menu.style.left = Math.max(8, Math.min(r.left, window.innerWidth - mw - 8)) + 'px';
+    menu.style.top = Math.min(r.bottom + 6, window.innerHeight - 180) + 'px';
+  }
+
+  /* capture-phase so we beat the admin row-edit delegation */
+  document.addEventListener('click', function (e) {
+    if (menu && !e.target.closest('#pub-toc-menu')) closeMenu();
+    var th = e.target.closest('.pub-thumb');
+    if (!th || !isAdmin()) return;
+    e.preventDefault();
+    e.stopPropagation();
+    openMenu(th);
+  }, true);
+  window.addEventListener('scroll', closeMenu, { passive: true });
+
+  /* re-render thumbs when admin adds/edits pubs */
+  var l = list();
+  if (l) {
+    new MutationObserver(function () { initAll(); }).observe(l, { childList: true });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initAll);
+  } else {
+    initAll();
+  }
+})();
 </script>
 </body>
 </html>
