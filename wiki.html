@@ -1,0 +1,917 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- 검색엔진 차단 (내부 전용) -->
+<meta name="robots" content="noindex,nofollow">
+<meta name="googlebot" content="noindex,nofollow">
+<meta name="referrer" content="no-referrer">
+<title>QS Lab · Lab Wiki</title>
+<link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,600;0,900;1,300;1,600&family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<!-- PDF.js (report 인-페이지 뷰어, §4 옵션 b — 복호화된 바이트만 메모리에서 렌더) -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+<style>
+/* ===== QS Lab Design Tokens (qslab index.html 와 동일) ===== */
+:root{
+  --navy:#0f1320; --blue:#2347d6; --blue2:#4068e6; --blue3:#cdd9fa;
+  --member:#0e8f63; --qa:#b45309;
+  --bg:#ffffff; --bg2:#f7f8fc; --bg3:#eef2f8; --border:#e5e9f0; --border2:#c8d3e1;
+  --ink:#0d1b2a; --ink2:#4a5568; --ink3:#6a7686; --ink4:#97a3b4;
+  --serif:'Fraunces',Georgia,serif; --sans:'Inter',system-ui,-apple-system,sans-serif;
+  --mono:'JetBrains Mono','Fira Code',monospace;
+  --s1:.5rem; --s2:1rem; --s3:1.5rem; --s4:2rem; --s5:3rem; --s6:4rem;
+  --r1:6px; --r2:10px; --r3:16px;
+  --shadow:0 1px 2px rgba(13,27,42,.04),0 8px 24px rgba(13,27,42,.06);
+  /* 운영 타입 색 */
+  --ob:#7c3aed;  --ob-bg:#f3e8ff;  --ob-bd:#e3ccfb;
+  --sop:#0e7490; --sop-bg:#e0f2fe; --sop-bd:#bae6fd;
+  --ts:#b91c1c;  --ts-bg:#fee2e2;  --ts-bd:#fecaca;
+  --proj:#3730a3;--proj-bg:#e0e7ff;--proj-bd:#c7d2fe;
+  --rep:#475569; --rep-bg:#f1f5f9; --rep-bd:#dbe2ea;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--sans);color:var(--ink);background:var(--bg2);line-height:1.6;
+  -webkit-font-smoothing:antialiased;font-size:15px}
+a{color:inherit;text-decoration:none}
+code,kbd{font-family:var(--mono)}
+
+/* ===== 비번 게이트 ===== */
+.gate{position:fixed;inset:0;z-index:100;display:flex;align-items:center;justify-content:center;
+  background:radial-gradient(120% 100% at 50% -10%,#16203a 0%,var(--navy) 60%);padding:var(--s3)}
+.gate-box{width:100%;max-width:380px;background:var(--bg);border-radius:var(--r3);
+  box-shadow:0 30px 80px rgba(0,0,0,.5);padding:var(--s5) var(--s4);text-align:center}
+.gate-mark{width:48px;height:48px;border-radius:12px;background:var(--blue);color:#fff;
+  font-family:var(--serif);font-weight:900;font-size:1.3rem;display:flex;align-items:center;
+  justify-content:center;margin:0 auto var(--s3)}
+.gate-box h1{font-family:var(--serif);font-weight:600;font-size:1.5rem;margin-bottom:.25rem}
+.gate-lbl{font-family:var(--mono);font-size:.62rem;font-weight:600;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--qa);margin-bottom:var(--s4)}
+.gate input{width:100%;font-family:var(--mono);font-size:.95rem;padding:.8rem 1rem;
+  border:1.5px solid var(--border2);border-radius:var(--r2);background:var(--bg2);color:var(--ink);
+  outline:none;transition:border-color .15s}
+.gate input:focus{border-color:var(--blue)}
+.gate button{width:100%;margin-top:var(--s2);padding:.8rem;background:var(--blue);color:#fff;
+  border:none;border-radius:var(--r2);font-family:var(--sans);font-weight:700;font-size:.95rem;
+  cursor:pointer;transition:background .15s}
+.gate button:hover{background:var(--blue2)}
+.gate button:disabled{opacity:.6;cursor:default}
+.gate-err{color:#c0392b;font-size:.82rem;margin-top:var(--s2);min-height:1.2em;font-weight:500}
+.gate-note{color:var(--ink4);font-size:.72rem;margin-top:var(--s3);line-height:1.5}
+
+/* ===== 앱 셸 ===== */
+#app{display:none}
+header.wk{position:sticky;top:0;z-index:40;background:rgba(255,255,255,.92);
+  backdrop-filter:blur(10px);border-bottom:1px solid var(--border)}
+.wk-inner{max-width:1180px;margin:0 auto;padding:.7rem var(--s3);display:flex;align-items:center;gap:var(--s3)}
+.brand{display:flex;align-items:center;gap:.6rem;flex-shrink:0}
+.brand-mark{width:30px;height:30px;border-radius:8px;background:var(--navy);color:#fff;
+  font-family:var(--serif);font-weight:900;font-size:.85rem;display:flex;align-items:center;justify-content:center}
+.brand-txt{font-family:var(--serif);font-weight:600;font-size:1.05rem}
+.brand-sep{color:var(--ink4)}
+.badge-int{font-family:var(--mono);font-size:.58rem;font-weight:600;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--qa);background:#fdf2e6;border:1px solid #f3d9b8;
+  padding:.2rem .5rem;border-radius:20px}
+.home-link{font-family:var(--mono);font-size:.62rem;font-weight:600;letter-spacing:.08em;
+  text-transform:uppercase;color:var(--ink3);border:1px solid var(--border2);border-radius:20px;
+  padding:.3rem .7rem;transition:.15s}
+.home-link:hover{border-color:var(--blue);color:var(--blue)}
+.search{margin-left:auto;position:relative;flex:0 1 280px}
+.search input{width:100%;font-family:var(--sans);font-size:.85rem;padding:.5rem .8rem .5rem 2rem;
+  border:1px solid var(--border2);border-radius:20px;background:var(--bg2);outline:none;transition:.15s}
+.search input:focus{border-color:var(--blue);background:#fff}
+.search svg{position:absolute;left:.65rem;top:50%;transform:translateY(-50%);color:var(--ink4)}
+
+/* 히어로 검색 (카드 200장 초과 시 자동 전환) */
+.hero{display:none;background:linear-gradient(180deg,#fff,var(--bg2));border-bottom:1px solid var(--border);
+  padding:var(--s5) var(--s3)}
+.hero-in{max-width:680px;margin:0 auto;text-align:center}
+.hero h2{font-family:var(--serif);font-weight:600;font-size:1.6rem;margin-bottom:var(--s3)}
+.hero .search{margin:0;flex:none;width:100%}
+.hero .search input{font-size:1.05rem;padding:.9rem 1rem .9rem 2.6rem;border-radius:var(--r2)}
+.hero .search svg{left:1rem;width:18px;height:18px}
+body.heromode header.wk .search{display:none}
+body.heromode .hero{display:block}
+
+/* 필터 탭 */
+.tabs{max-width:1180px;margin:0 auto;padding:0 var(--s3);display:flex;gap:.2rem;overflow-x:auto;
+  border-bottom:1px solid var(--border);background:var(--bg2);align-items:center}
+.tab{font-family:var(--mono);font-size:.68rem;font-weight:600;letter-spacing:.05em;text-transform:uppercase;
+  padding:.7rem .75rem;border:none;border-bottom:2px solid transparent;background:transparent;
+  color:var(--ink3);cursor:pointer;white-space:nowrap;display:flex;gap:.35rem;align-items:center}
+.tab:hover{color:var(--ink)}
+.tab.active{color:var(--ink);border-bottom-color:var(--blue)}
+.tab .cnt{font-size:.62rem;color:var(--ink4);background:var(--bg3);border-radius:10px;padding:.05rem .4rem}
+.tab.active .cnt{background:var(--blue3);color:var(--blue)}
+.tab-div{flex:0 0 1px;align-self:stretch;background:var(--border);margin:.45rem .35rem}
+
+/* 본문 (단일 컬럼 그리드) */
+.layout{max-width:1180px;margin:0 auto;padding:var(--s3)}
+.group-h{font-family:var(--mono);font-size:.62rem;font-weight:600;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--ink3);margin:var(--s3) 0 var(--s1);padding-bottom:.4rem;
+  border-bottom:1.5px solid var(--border2)}
+.group-h:first-child{margin-top:0}
+.section-h{font-family:var(--mono);font-size:.66rem;font-weight:600;letter-spacing:.08em;
+  text-transform:uppercase;color:var(--ink2);margin:var(--s3) 0 .7rem;display:flex;align-items:center;gap:.5rem}
+.section-h .em{font-size:.95rem}
+.section-h::after{content:"";flex:1;height:1px;background:var(--border)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:.8rem;margin-bottom:var(--s3)}
+.card{background:#fff;border:1px solid var(--border);border-radius:var(--r2);padding:.9rem 1rem;
+  cursor:pointer;transition:.13s;display:flex;flex-direction:column;gap:.45rem;border-top:3px solid var(--border2)}
+.card:hover{border-color:var(--border2);box-shadow:var(--shadow);transform:translateY(-1px)}
+.card.t-paper{border-top-color:var(--blue)} .card.t-term{border-top-color:var(--member)}
+.card.t-qa{border-top-color:var(--qa)} .card.t-sop{border-top-color:var(--sop)}
+.card.t-troubleshooting{border-top-color:var(--ts)} .card.t-onboarding{border-top-color:var(--ob)}
+.card.t-project{border-top-color:var(--proj)} .card.t-report{border-top-color:var(--rep)}
+.ctype{font-family:var(--mono);font-size:.56rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;
+  align-self:flex-start;padding:.12rem .45rem;border-radius:4px;display:flex;gap:.25rem;align-items:center}
+.ctitle{font-weight:600;font-size:.92rem;line-height:1.35;color:var(--ink)}
+.cdesc{font-size:.78rem;color:var(--ink3);line-height:1.45}
+.ctags{display:flex;flex-wrap:wrap;gap:.3rem;margin-top:auto}
+.ctag{font-family:var(--mono);font-size:.6rem;color:var(--ink3);background:var(--bg2);
+  border:1px solid var(--border);border-radius:4px;padding:.06rem .35rem}
+.empty{color:var(--ink4);text-align:center;padding:var(--s5);font-size:.9rem}
+
+/* 타입 색 (칩/라벨 공통) */
+.k-paper{color:var(--blue);background:#eef2fd} .k-term{color:var(--member);background:#e7f5ef}
+.k-qa{color:var(--qa);background:#fdf2e6} .k-sop{color:var(--sop);background:var(--sop-bg)}
+.k-troubleshooting{color:var(--ts);background:var(--ts-bg)} .k-onboarding{color:var(--ob);background:var(--ob-bg)}
+.k-project{color:var(--proj);background:var(--proj-bg)} .k-report{color:var(--rep);background:var(--rep-bg)}
+
+/* ===== 읽기 모드 (넓은 모달 오버레이) ===== */
+.reader{position:fixed;inset:0;z-index:80;display:none;overflow-y:auto;
+  background:rgba(15,19,32,.5);backdrop-filter:blur(4px);padding:var(--s4) var(--s3)}
+body.reading .reader{display:block}
+body.reading{overflow:hidden}
+/* 기본(텍스트 카드: qa·term·sop·troubleshooting·뷰어없는 paper) —
+   콘텐츠에 맞춘 좁은 폭으로 오른쪽 빈 공간 제거 */
+.reader-card{width:min(96vw,920px);margin:0 auto;background:#fff;border-radius:var(--r3);
+  box-shadow:0 30px 90px rgba(13,27,42,.4);min-height:60vh}
+/* 뷰어(PDF·HTML) 카드(report) — 넓게 유지, 헤더·뷰어 모두 모달 폭 가득 */
+.reader-card.wide{width:min(96vw,1480px)}
+.reader-top{position:sticky;top:0;z-index:2;display:flex;align-items:center;gap:.6rem;
+  padding:.8rem var(--s4);background:rgba(255,255,255,.95);backdrop-filter:blur(8px);
+  border-bottom:1px solid var(--border);border-radius:var(--r3) var(--r3) 0 0}
+.reader-x{margin-left:auto;font-family:var(--mono);font-size:.78rem;border:1px solid var(--border2);
+  background:var(--bg2);border-radius:20px;padding:.4rem .9rem;cursor:pointer;color:var(--ink2)}
+.reader-x:hover{border-color:var(--ts);color:var(--ts)}
+.rd{padding:var(--s3) var(--s4) var(--s5)}
+.dtype{font-family:var(--mono);font-size:.62rem;font-weight:600;letter-spacing:.06em;
+  text-transform:uppercase;padding:.18rem .55rem;border-radius:5px;display:inline-flex;gap:.3rem;align-items:center}
+.rd h1.dt{font-family:var(--serif);font-weight:600;font-size:2rem;line-height:1.25;margin:.8rem 0 .5rem}
+.dmeta{font-size:.8rem;color:var(--ink3);font-family:var(--mono);margin-bottom:var(--s3);
+  padding-bottom:var(--s2);border-bottom:1px solid var(--border);display:flex;flex-wrap:wrap;gap:.4rem .9rem;align-items:center}
+.dmeta a,.metabtn{color:var(--blue)}
+.metabtn{display:inline-flex;align-items:center;gap:.3rem;border:1px solid var(--blue3);background:#eef2fd;
+  border-radius:20px;padding:.2rem .65rem;font-size:.74rem;font-weight:600}
+.metabtn:hover{background:var(--blue3)}
+.statusdot{font-size:.7rem;padding:.1rem .5rem;border-radius:20px;background:var(--bg3);color:var(--ink3)}
+
+/* 강조 박스 (우리 랩 관점) */
+.labbox{border-radius:var(--r2);padding:var(--s2) var(--s3);margin:var(--s2) 0}
+.labbox .lh{font-family:var(--mono);font-size:.66rem;font-weight:600;letter-spacing:.07em;
+  text-transform:uppercase;margin-bottom:.4rem;display:flex;gap:.4rem;align-items:center}
+.box-take{background:#e7f5ef;border:1px solid #b7e4ce;border-left:4px solid var(--member)}
+.box-take .lh{color:var(--member)}
+.box-lim{background:#fff8e6;border:1px solid #f3e2b0;border-left:4px solid #c98a00}
+.box-lim .lh{color:#a86a00}
+.box-who{background:var(--bg2);border:1px solid var(--border);border-left:4px solid var(--ink3)}
+.box-who .lh{color:var(--ink2)}
+.rule{border:none;border-top:1px solid var(--border);margin:var(--s4) 0 var(--s3)}
+.obj-lbl{font-family:var(--mono);font-size:.6rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--ink4);margin-bottom:var(--s2)}
+
+/* 읽기 본문 (큰 폰트·넉넉한 줄간격) */
+.dbody{font-size:16px;color:var(--ink2);line-height:1.75}
+.dbody h3{font-family:var(--mono);font-size:.7rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;
+  color:var(--ink);margin:var(--s4) 0 .6rem}
+.dbody h4{font-size:.95rem;font-weight:700;color:var(--ink);margin:var(--s3) 0 .3rem}
+.dbody p{margin:.5rem 0}
+.dbody ul{margin:.4rem 0 .8rem 1.2rem}
+.dbody li{margin:.3rem 0}
+.dbody code{background:var(--bg3);padding:.08rem .35rem;border-radius:4px;font-size:.85em;color:var(--navy)}
+.dbody pre{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r1);padding:.8rem;
+  overflow:auto;margin:.6rem 0;font-size:.82rem;white-space:pre-wrap;line-height:1.5}
+.dbody blockquote{border-left:3px solid var(--blue3);padding:.3rem .9rem;color:var(--ink2);margin:.6rem 0;background:var(--bg2)}
+.dbody a{color:var(--blue);text-decoration:underline;text-underline-offset:2px}
+.cardref{font-family:var(--mono);font-size:.86em;color:var(--blue);background:#eef2fd;border:1px solid var(--blue3);
+  border-radius:4px;padding:.02rem .3rem;cursor:pointer}
+.wikilink{color:var(--member);font-weight:600;cursor:pointer;border-bottom:1px dotted var(--member)}
+
+/* 트러블슈팅 요약 배너 */
+.tsbanner{display:grid;grid-template-columns:auto 1fr;gap:.4rem 1rem;background:var(--ts-bg);
+  border:1px solid var(--ts-bd);border-radius:var(--r2);padding:var(--s2) var(--s3);margin:var(--s2) 0 var(--s3);font-size:.88rem}
+.tsbanner .tl{font-family:var(--mono);font-size:.64rem;font-weight:600;text-transform:uppercase;color:var(--ts);letter-spacing:.05em;align-self:center}
+
+/* 프로젝트 허브 그룹 */
+.hubgrp{margin-top:var(--s3)}
+.hubgrp-h{font-family:var(--mono);font-size:.66rem;font-weight:600;letter-spacing:.07em;text-transform:uppercase;
+  color:var(--ink2);margin-bottom:.6rem}
+.hublist{display:flex;flex-wrap:wrap;gap:.4rem}
+
+/* 연결 카드 칩 */
+.dlinks{margin-top:var(--s4);padding-top:var(--s3);border-top:1px solid var(--border)}
+.dlinks-h{font-family:var(--mono);font-size:.64rem;font-weight:600;letter-spacing:.07em;text-transform:uppercase;
+  color:var(--ink3);margin-bottom:.6rem}
+.chip{display:inline-flex;align-items:center;gap:.4rem;font-size:.8rem;padding:.4rem .8rem;margin:.2rem .35rem .2rem 0;
+  background:var(--bg2);border:1px solid var(--border2);border-radius:20px;cursor:pointer;transition:.13s;color:var(--ink)}
+.chip:hover{border-color:var(--blue);background:#eef2fd;color:var(--blue)}
+.chip .cdot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
+.cdot.paper{background:var(--blue)} .cdot.term{background:var(--member)} .cdot.qa{background:var(--qa)}
+.cdot.sop{background:var(--sop)} .cdot.troubleshooting{background:var(--ts)} .cdot.onboarding{background:var(--ob)}
+.cdot.project{background:var(--proj)} .cdot.report{background:var(--rep)}
+
+/* PDF 인-페이지 뷰어 (report) */
+.pdfmount{margin:var(--s3) 0}
+.pdfload{font-family:var(--sans);font-weight:600;font-size:.88rem;border:1px solid var(--blue3);
+  background:#eef2fd;color:var(--blue);border-radius:var(--r2);padding:.65rem 1.1rem;cursor:pointer}
+.pdfload:hover{background:var(--blue3)}
+.pdfbar{display:flex;align-items:center;gap:.5rem;flex-wrap:wrap;background:var(--bg2);
+  border:1px solid var(--border);border-radius:var(--r1) var(--r1) 0 0;padding:.5rem .7rem;font-size:.8rem}
+.pdfbar button{font-family:var(--mono);border:1px solid var(--border2);background:#fff;
+  border-radius:6px;padding:.25rem .6rem;cursor:pointer;color:var(--ink)}
+.pdfbar button:hover{border-color:var(--blue);color:var(--blue)}
+.pdfbar .pdfpg{font-family:var(--mono);min-width:5em;text-align:center}
+.pdfbar .pdfsp{flex:1}
+.pdfcanvas-wrap{border:1px solid var(--border);border-top:none;border-radius:0 0 var(--r1) var(--r1);
+  background:#525659;overflow:auto;max-height:78vh;text-align:center;padding:var(--s2)}
+.pdfcanvas{background:#fff;box-shadow:0 2px 12px rgba(0,0,0,.4);max-width:100%}
+.pdferr{color:var(--ts);font-size:.85rem;padding:var(--s2);background:var(--ts-bg);
+  border:1px solid var(--ts-bd);border-radius:var(--r1)}
+.assetbar{display:flex;gap:.5rem;flex-wrap:wrap;margin:var(--s3) 0 .6rem}
+.assetbar .pdfload.on{background:var(--blue);color:#fff;border-color:var(--blue)}
+.assetmount{margin-bottom:var(--s2)}
+.htmlframe{width:100%;height:80vh;border:1px solid var(--border);border-top:none;
+  border-radius:0 0 var(--r1) var(--r1);background:#fff;display:block}
+/* 뷰어 전체화면(Fullscreen API): 브라우저 전체를 채움, Esc 로 복귀 */
+.assetmount:fullscreen{background:#fff;overflow:auto;padding:0;width:100vw;height:100vh}
+.assetmount:fullscreen .pdfbar{position:sticky;top:0;z-index:3;border-radius:0}
+.assetmount:fullscreen .pdfcanvas-wrap{max-height:calc(100vh - 44px);border:none;border-radius:0}
+.assetmount:fullscreen .htmlframe{height:calc(100vh - 44px);border:none;border-radius:0}
+
+/* 모바일 */
+@media(max-width:860px){
+  .wk-inner{flex-wrap:wrap}
+  .search{flex:1 1 100%;margin-left:0;order:3}
+  .reader{padding:0}
+  .reader-card{max-width:none;border-radius:0;min-height:100vh}
+  .reader-top{border-radius:0}
+  .rd{padding:var(--s3) var(--s3) var(--s5)}
+  .rd h1.dt{font-size:1.6rem}
+}
+</style>
+</head>
+<body>
+
+<!-- ===== 비밀번호 게이트 ===== -->
+<div class="gate" id="gate">
+  <div class="gate-box">
+    <div class="gate-mark">QS</div>
+    <h1>Lab Wiki</h1>
+    <div class="gate-lbl">🔒 내부 전용 · 비밀번호 필요</div>
+    <form id="gate-form" autocomplete="off">
+      <input id="pw" type="password" placeholder="비밀번호" autocomplete="off"
+             autocapitalize="off" spellcheck="false" aria-label="비밀번호">
+      <button id="unlock" type="submit">잠금 해제</button>
+    </form>
+    <div class="gate-err" id="gate-err"></div>
+    <div class="gate-note">비밀번호는 슬랙 공지를 참고하세요. 새로고침하면 다시 입력해야 합니다.
+      이 페이지는 검색엔진에 노출되지 않습니다.</div>
+  </div>
+</div>
+
+<!-- ===== 앱 ===== -->
+<div id="app">
+  <header class="wk">
+    <div class="wk-inner">
+      <div class="brand">
+        <div class="brand-mark">QS</div>
+        <span class="brand-txt">Lab Wiki</span>
+        <span class="brand-sep">·</span>
+        <span class="badge-int">🔒 내부</span>
+      </div>
+      <a class="home-link" href="index.html">← Lab 홈</a>
+      <div class="search" id="search-top">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4-4"/></svg>
+        <input id="q-top" type="search" placeholder="제목·태그·본문 검색…" aria-label="검색">
+      </div>
+    </div>
+  </header>
+
+  <div class="hero" id="hero">
+    <div class="hero-in">
+      <h2>Lab Wiki 검색</h2>
+      <div class="search">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4-4"/></svg>
+        <input id="q-hero" type="search" placeholder="제목·태그·본문 검색…" aria-label="검색">
+      </div>
+    </div>
+  </div>
+
+  <div class="tabs" id="tabs"></div>
+
+  <div class="layout">
+    <div id="grid-wrap"></div>
+  </div>
+
+  <!-- 읽기 모드 오버레이 -->
+  <div class="reader" id="reader">
+    <div class="reader-card">
+      <div class="reader-top">
+        <span id="reader-chip"></span>
+        <button class="reader-x" id="reader-x">✕ 닫기 (Esc)</button>
+      </div>
+      <div class="rd" id="reader-body"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+"use strict";
+/* ===== 상태 (세션 메모리만 — localStorage 미사용) ===== */
+var WIKI = null;          // 복호화된 데이터 (메모리)
+var BYID = {};            // id -> card
+var FILTER = 'all';       // boot()에서 onboarding 카드 있으면 'onboarding'으로 (§6 사용자 결정)
+var QUERY = '';
+var SEL = null;           // 선택 카드 id
+var HERO = false;         // 200장 초과 히어로 모드
+var KEY = null;           // unlock 시 1회 유도한 AES 키(비번 폐기 후 PDF 지연복호용)
+var PDFV = null;          // 현재 PDF 뷰어 상태 {pdf,page,scale,mount,data}
+var PDF_DIR = 'wiki-pdf/';
+var HTML_DIR = 'wiki-html/';
+var PDF_WORKER = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+
+/* 타입 메타 — 운영(ops) 그룹 먼저, 지식베이스(kb) 그룹 다음 (§2.1) */
+var TYPES = {
+  onboarding:      {label:'신입생 가이드', short:'신입생', emoji:'🎉', group:'ops'},
+  sop:             {label:'장비 SOP',     short:'SOP',    emoji:'🔧', group:'ops'},
+  troubleshooting: {label:'트러블슈팅',    short:'트러블', emoji:'⚠️', group:'ops'},
+  project:         {label:'프로젝트',      short:'프로젝트',emoji:'📁', group:'ops'},
+  paper:           {label:'논문·발표',     short:'논문',   emoji:'📄', group:'kb'},
+  term:            {label:'용어',          short:'용어',   emoji:'📖', group:'kb'},
+  qa:              {label:'Q&A',           short:'Q&A',    emoji:'💬', group:'kb'},
+  report:          {label:'보고서',        short:'보고서', emoji:'📑', group:'kb'}
+};
+var GROUPS = [
+  {key:'ops', label:'자주 찾는 것 (운영)', types:['onboarding','sop','troubleshooting','project']},
+  {key:'kb',  label:'지식 베이스',         types:['paper','term','qa','report']}
+];
+var TYPE_ORDER = ['onboarding','sop','troubleshooting','project','paper','term','qa','report'];
+
+/* ===== Web Crypto 복호화 (PBKDF2-SHA256 + AES-256-GCM) ===== */
+function b64ToBytes(s){ return Uint8Array.from(atob(s), function(c){return c.charCodeAt(0);}); }
+async function deriveKey(password, salt, iterations){
+  var base = await crypto.subtle.importKey('raw', new TextEncoder().encode(password),
+    'PBKDF2', false, ['deriveKey']);
+  return crypto.subtle.deriveKey(
+    { name:'PBKDF2', salt:salt, iterations:iterations, hash:'SHA-256' },
+    base, { name:'AES-GCM', length:256 }, false, ['decrypt']);
+}
+async function decryptEnvelope(env, password){
+  var key = await deriveKey(password, b64ToBytes(env.salt), env.iterations);
+  var pt  = await crypto.subtle.decrypt({ name:'AES-GCM', iv:b64ToBytes(env.iv) },
+              key, b64ToBytes(env.ct));
+  KEY = key;   // 세션 동안 보관 — 메인 payload·PDF 가 같은 salt/키 → 지연 복호에 재사용
+  return JSON.parse(new TextDecoder().decode(pt));
+}
+/* 암호문(wiki-pdf|wiki-html/<id>.enc.json) 을 보관된 KEY 로 복호화 → ArrayBuffer */
+async function decryptAsset(dir, cardId){
+  var env = await fetch(dir + encodeURIComponent(cardId) + '.enc.json', {cache:'no-store'})
+              .then(function(r){ if(!r.ok) throw new Error('not found'); return r.json(); });
+  return crypto.subtle.decrypt({ name:'AES-GCM', iv:b64ToBytes(env.iv) }, KEY, b64ToBytes(env.ct));
+}
+function decryptPdfBytes(cardId){ return decryptAsset(PDF_DIR, cardId); }
+
+/* ===== 게이트 ===== */
+var ENC = null;
+fetch('wiki.enc.json?t=' + Date.now(), { cache:'no-store' })
+  .then(function(r){ return r.ok ? r.json() : null; })
+  .then(function(j){ ENC = j; })
+  .catch(function(){ ENC = null; });
+
+document.getElementById('gate-form').addEventListener('submit', function(e){
+  e.preventDefault(); doUnlock();
+});
+async function doUnlock(){
+  var pw  = document.getElementById('pw').value;
+  var err = document.getElementById('gate-err');
+  var btn = document.getElementById('unlock');
+  err.textContent = '';
+  if(!window.isSecureContext || !(window.crypto && window.crypto.subtle)){
+    err.innerHTML = '⚠️ 복호화는 <b>HTTPS</b> 또는 <b>localhost</b>에서만 가능합니다.<br>'+
+      '지금은 비보안(HTTP) 환경이라 브라우저가 Web Crypto 를 차단했습니다.<br>'+
+      '<span style="font-size:.72rem;color:var(--ink4)">현재 주소: '+esc(location.origin)+'</span>';
+    return;
+  }
+  if(!pw){ err.textContent = '비밀번호를 입력하세요.'; return; }
+  if(!ENC){ err.textContent = '데이터를 불러오지 못했습니다. 새로고침 해주세요.'; return; }
+  btn.disabled = true; btn.textContent = '복호화 중…';
+  try{
+    var data = await decryptEnvelope(ENC, pw);
+    pw = null; document.getElementById('pw').value = '';
+    boot(data);
+  }catch(ex){
+    err.textContent = '비밀번호가 올바르지 않습니다.';
+    btn.disabled = false; btn.textContent = '잠금 해제';
+  }
+}
+
+/* ===== 부팅 ===== */
+function boot(data){
+  WIKI = data;
+  (WIKI.cards||[]).forEach(function(c){ BYID[c.id] = c; });
+  HERO = (WIKI.cards||[]).length > 200;
+  if(HERO) document.body.classList.add('heromode');
+  /* 첫 진입 기본 탭: onboarding 카드가 있으면 신입생 가이드, 없으면 전체 (§6 결정) */
+  if((WIKI.cards||[]).some(function(c){return c.type==='onboarding';})) FILTER='onboarding';
+  document.getElementById('gate').style.display = 'none';
+  document.getElementById('app').style.display = 'block';
+  renderTabs();
+  renderGrid();
+  bindUI();
+}
+
+function bindUI(){
+  ['q-top','q-hero'].forEach(function(id){
+    var el = document.getElementById(id);
+    if(el) el.addEventListener('input', function(){
+      QUERY = this.value.trim().toLowerCase();
+      var other = document.getElementById(id==='q-top'?'q-hero':'q-top');
+      if(other && other.value !== this.value) other.value = this.value;
+      renderGrid();
+    });
+  });
+  document.getElementById('reader-x').addEventListener('click', closeReader);
+  document.getElementById('reader').addEventListener('click', function(e){
+    if(e.target === this) closeReader();         // 배경 클릭 시 닫기
+  });
+  /* Esc: 전체화면 중이면 브라우저가 먼저 처리 → 그땐 모달 닫지 않음 */
+  document.addEventListener('keydown', function(e){
+    if(e.key==='Escape' && !document.fullscreenElement) closeReader();
+  });
+  /* 창 크기·전체화면 변경 시 열린 PDF 를 컨테이너 폭에 맞춰 다시 렌더 */
+  var _rt;
+  window.addEventListener('resize', function(){
+    if(!PDFV) return; clearTimeout(_rt); _rt = setTimeout(renderPdfPage, 150);
+  });
+  document.addEventListener('fullscreenchange', function(){ if(PDFV) renderPdfPage(); });
+}
+
+/* ===== 탭 ===== */
+function counts(){
+  var c = {all:0};
+  TYPE_ORDER.forEach(function(t){ c[t]=0; });
+  (WIKI.cards||[]).forEach(function(x){ c.all++; if(c[x.type]!=null) c[x.type]++; });
+  return c;
+}
+function renderTabs(){
+  var c = counts(), wrap = document.getElementById('tabs');
+  var html = '<button class="tab'+('all'===FILTER?' active':'')+'" data-f="all">전체 '+
+             '<span class="cnt">'+c.all+'</span></button>';
+  GROUPS.forEach(function(g){
+    html += '<span class="tab-div"></span>';
+    g.types.forEach(function(t){
+      if(!c[t]) return;     // 카드 없는 타입 탭은 숨김
+      html += '<button class="tab'+(t===FILTER?' active':'')+'" data-f="'+t+'">'+
+        TYPES[t].emoji+' '+TYPES[t].short+' <span class="cnt">'+c[t]+'</span></button>';
+    });
+  });
+  wrap.innerHTML = html;
+  wrap.querySelectorAll('.tab').forEach(function(b){
+    b.addEventListener('click', function(){ FILTER=this.getAttribute('data-f');
+      renderTabs(); renderGrid(); });
+  });
+}
+
+/* ===== 검색 필터 ===== */
+function matchQuery(card){
+  if(!QUERY) return true;
+  var hay = (card.title||'') + ' ' + ((card.tags||[]).join(' ')) + ' ' + (card.body||'') +
+            ' ' + (card.one_liner||'');
+  return hay.toLowerCase().indexOf(QUERY) !== -1;
+}
+function visibleCards(){
+  return (WIKI.cards||[]).filter(function(c){
+    if(FILTER!=='all' && c.type!==FILTER) return false;
+    return matchQuery(c);
+  });
+}
+/* onboarding 은 order 로, 그 외는 title 로 정렬 */
+function sortCards(arr){
+  return arr.slice().sort(function(a,b){
+    if(a.type==='onboarding' && b.type==='onboarding')
+      return (a.order||999) - (b.order||999);
+    return (a.title||'').localeCompare(b.title||'', 'ko');
+  });
+}
+
+/* ===== 카드 그리드 ===== */
+function esc(s){ return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+function cardDesc(c){
+  if(c.type==='report') return c.one_liner ? esc(c.one_liner) : '';
+  if(c.type==='troubleshooting' && c.symptom) return '증상: '+esc(String(c.symptom));
+  if(c.type==='project' && c.project_status)
+    return '상태: '+esc(String(c.project_status));
+  return '';
+}
+function cardEl(c){
+  var tags = (c.tags||[]).slice(0,4).map(function(t){return '<span class="ctag">'+esc(t)+'</span>';}).join('');
+  var d = cardDesc(c);
+  return '<div class="card t-'+c.type+(c.id===SEL?' sel':'')+'" data-id="'+c.id+'">'+
+    '<span class="ctype k-'+c.type+'">'+TYPES[c.type].emoji+' '+TYPES[c.type].short+'</span>'+
+    '<div class="ctitle">'+esc(c.title)+'</div>'+
+    (d?'<div class="cdesc">'+d+'</div>':'')+
+    '<div class="ctags">'+tags+'</div></div>';
+}
+function typeSection(t, cards){
+  var group = sortCards(cards.filter(function(c){return c.type===t;}));
+  if(!group.length) return '';
+  return '<div class="section-h"><span class="em">'+TYPES[t].emoji+'</span>'+TYPES[t].label+
+         ' · '+group.length+'</div><div class="grid">'+group.map(cardEl).join('')+'</div>';
+}
+function renderGrid(){
+  var cards = visibleCards(), wrap = document.getElementById('grid-wrap'), html = '';
+  if(!cards.length){ wrap.innerHTML = '<div class="empty">검색 결과가 없습니다.</div>'; return; }
+  if(FILTER==='all'){
+    GROUPS.forEach(function(g){
+      var any = g.types.some(function(t){ return cards.some(function(c){return c.type===t;}); });
+      if(!any) return;
+      html += '<div class="group-h">'+g.label+'</div>';
+      g.types.forEach(function(t){ html += typeSection(t, cards); });
+    });
+  } else {
+    html = '<div class="grid">'+sortCards(cards).map(cardEl).join('')+'</div>';
+  }
+  wrap.innerHTML = html;
+  wrap.querySelectorAll('.card').forEach(function(el){
+    el.addEventListener('click', function(){ openReader(this.getAttribute('data-id')); });
+  });
+}
+
+/* ===== 마크다운 (경량) ===== */
+function inline(s){
+  s = esc(s);
+  s = s.replace(/`([^`]+)`/g, '<code>$1</code>');
+  s = s.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
+  s = s.replace(/\[([^\]]+)\]\((https?:[^)]+)\)/g, '<a href="$2" target="_blank" rel="noreferrer">$1</a>');
+  s = s.replace(/QSKB-\d{4}-\d{4}/g, function(m){
+    return BYID[m] ? '<span class="cardref" data-go="'+m+'">'+m+'</span>' : m;
+  });
+  s = s.replace(/\[\[([^\]]+)\]\]/g, function(m,name){
+    var id = findByTitle(name);
+    return id ? '<span class="wikilink" data-go="'+id+'">'+esc(name)+'</span>'
+              : '<span class="wikilink">'+esc(name)+'</span>';
+  });
+  return s;
+}
+/* 마크다운 → HTML. h2(##)는 옵션으로 h3 출력. */
+function renderMd(md, withH2){
+  var lines = (md||'').split('\n'), out = [], inList = false;
+  function closeList(){ if(inList){ out.push('</ul>'); inList=false; } }
+  for(var i=0;i<lines.length;i++){
+    var ln = lines[i];
+    var h2 = ln.match(/^##\s+(.*)/), h3 = ln.match(/^###\s+(.*)/);
+    if(h2){ closeList(); if(withH2) out.push('<h3>'+inline(h2[1])+'</h3>'); continue; }
+    if(h3){ closeList(); out.push('<h4>'+inline(h3[1])+'</h4>'); continue; }
+    if(/^\s*-\s+/.test(ln)){ if(!inList){out.push('<ul>');inList=true;} out.push('<li>'+inline(ln.replace(/^\s*-\s+/,''))+'</li>'); continue; }
+    if(/^\s*>\s?/.test(ln)){ closeList(); out.push('<blockquote>'+inline(ln.replace(/^\s*>\s?/,''))+'</blockquote>'); continue; }
+    if(/^```/.test(ln)){ closeList(); var buf=[]; i++; while(i<lines.length && !/^```/.test(lines[i])){buf.push(lines[i]);i++;} out.push('<pre>'+esc(buf.join('\n'))+'</pre>'); continue; }
+    if(ln.trim()===''){ closeList(); continue; }
+    closeList(); out.push('<p>'+inline(ln)+'</p>');
+  }
+  closeList();
+  return out.join('');
+}
+/* 본문을 ## 섹션 단위로 분해 → [{title, body}], 첫 ## 이전은 title:'' */
+function parseSections(md){
+  var lines = (md||'').split('\n'), secs = [], cur = {title:'', lines:[]};
+  for(var i=0;i<lines.length;i++){
+    var m = lines[i].match(/^##\s+(.*)/);
+    if(m){ secs.push(cur); cur = {title:m[1].trim(), lines:[]}; }
+    else cur.lines.push(lines[i]);
+  }
+  secs.push(cur);
+  return secs.map(function(s){ return {title:s.title, body:s.lines.join('\n').trim()}; })
+             .filter(function(s){ return s.title || s.body; });
+}
+function findSection(secs, re){
+  for(var i=0;i<secs.length;i++) if(re.test(secs[i].title)) return secs[i];
+  return null;
+}
+function findByTitle(name){
+  var n = name.toLowerCase().replace(/\s+/g,'');
+  for(var i=0;i<WIKI.cards.length;i++){
+    var t = (WIKI.cards[i].title||'').toLowerCase().replace(/\s*\(.*?\)\s*/g,'').replace(/\s+/g,'');
+    if(t.indexOf(n)===0 || n.indexOf(t)===0) return WIKI.cards[i].id;
+  }
+  return null;
+}
+/* 첨부 섹션에서 링크를 추출하되 파일명은 숨김(S4) — 이모지로 종류만 라벨링 */
+function extractLinks(secs){
+  var sec = findSection(secs, /첨부/), links = [];
+  if(!sec) return links;
+  sec.body.split('\n').forEach(function(ln){
+    var m = ln.match(/\[[^\]]*\]\((https?:[^)]+)\)/);
+    if(!m) return;
+    var label = /📊|슬라이드|pptx|ppt/i.test(ln) ? '발표 슬라이드'
+              : /📄|pdf/i.test(ln) ? '원문 PDF' : '첨부 링크';
+    links.push({url:m[1], label:label});
+  });
+  return links;
+}
+
+/* ===== 읽기 모드 ===== */
+/* wiki 에 절대 노출 않는 섹션 (발표자·내부 첨부 등 — S4) */
+var HIDE_RE = /^(발표\s*정보|첨부)\b/;
+/* 우리 랩 연결(저널클럽 구포맷)도 시사점 박스로 승격 */
+var TAKE_RE = /시사점|takeaway|우리\s*랩\s*연결/i;
+var LIM_RE  = /비판적|재현성|limitation/i;
+var WHO_RE  = /추천\s*대상|who should/i;
+
+function chipHtml(c){
+  return '<span class="dtype k-'+c.type+'">'+TYPES[c.type].emoji+' '+TYPES[c.type].label+'</span>';
+}
+function labBox(cls, lh, body){
+  return '<div class="labbox '+cls+'"><div class="lh">'+lh+'</div><div class="dbody">'+
+    renderMd(body, false)+'</div></div>';
+}
+function metaBtns(links){
+  return links.map(function(l){
+    return '<a class="metabtn" href="'+esc(l.url)+'" target="_blank" rel="noreferrer">'+l.label+' ↗</a>';
+  }).join('');
+}
+
+/* paper / report 공통: 우리 랩 관점이 주인공 */
+function renderPaper(c, secs){
+  var meta = [];
+  if(c.type==='paper'){
+    if(c.journal && c.journal!=='(저널 미상)')
+      meta.push(esc(c.journal)+(c.year&&c.year!=0?(' · '+c.year):''));
+    if(c.doi) meta.push('<a href="https://doi.org/'+esc(c.doi)+'" target="_blank" rel="noreferrer">DOI ↗</a>');
+    extractLinks(secs).forEach(function(l){ meta.push(metaBtns([l])); });
+  }
+  if(c.type==='report'){
+    if(c.pdf_path && /^https?:/.test(c.pdf_path))
+      meta.push('<a class="metabtn" href="'+esc(c.pdf_path)+'" target="_blank" rel="noreferrer">원문 PDF ↗</a>');
+    else if(c.pdf_path) meta.push('<span class="statusdot">PDF: 내부 경로</span>');
+  }
+  var take = findSection(secs, TAKE_RE), lim = findSection(secs, LIM_RE), who = findSection(secs, WHO_RE);
+  var html = '<h1 class="dt">'+esc(c.title)+'</h1>';
+  if(meta.length) html += '<div class="dmeta">'+meta.join('')+'</div>';
+  if(c.type==='report' && c.one_liner)
+    html += labBox('box-who', '한 줄 소개', c.one_liner);
+  if(c.type==='report' && (c.has_pdf || c.has_html)){
+    function _mb(n){ return n ? ' ('+(n/1024/1024).toFixed(1)+' MB)' : ''; }
+    var btns = [];
+    if(c.has_html) btns.push('<button class="pdfload" data-html="'+esc(c.id)+'">🖥️ 인터랙티브 HTML'+_mb(c.html_size)+'</button>');
+    if(c.has_pdf)  btns.push('<button class="pdfload" data-pdf="'+esc(c.id)+'">📑 PDF 보기'+_mb(c.pdf_size)+'</button>');
+    html += '<div class="assetbar">'+btns.join('')+'</div><div class="assetmount" id="assetmount"></div>';
+  }
+  if(take) html += labBox('box-take', '🌱 우리 랩에 주는 시사점', take.body);
+  if(lim)  html += labBox('box-lim', '🔍 비판적 시각 / 재현성', lim.body);
+  if(who)  html += labBox('box-who', '👥 추천 대상', who.body);
+  /* 객관 요약 (아래로) */
+  var rest = secs.filter(function(s){
+    return s.title && !HIDE_RE.test(s.title) &&
+      !TAKE_RE.test(s.title) && !LIM_RE.test(s.title) && !WHO_RE.test(s.title);
+  });
+  if(rest.length || take || lim || who) html += '<hr class="rule"><div class="obj-lbl">객관적 요약</div>';
+  var objMd = rest.map(function(s){ return '## '+s.title+'\n'+s.body; }).join('\n\n');
+  html += '<div class="dbody">'+renderMd(objMd, true)+'</div>';
+  return html;
+}
+
+/* sop: 절차·체크리스트 중심 */
+function renderSop(c, secs){
+  var meta = [];
+  if(c.equipment) meta.push('장비: '+esc(String(c.equipment)));
+  if(c.owner) meta.push('담당: '+esc(String(c.owner)));
+  if(c.review_due) meta.push('점검 예정: '+esc(String(c.review_due)));
+  var html = '<h1 class="dt">'+esc(c.title)+'</h1>';
+  if(meta.length) html += '<div class="dmeta">'+meta.join('  ·  ')+'</div>';
+  html += '<div class="dbody">'+renderMd(c.body, true)+'</div>';
+  return html;
+}
+
+/* troubleshooting: 증상→원인→해결→재발방지 */
+function renderTrouble(c){
+  var html = '<h1 class="dt">'+esc(c.title)+'</h1>';
+  var meta = [];
+  if(c.equipment) meta.push('장비: '+esc(String(c.equipment)));
+  if(c.downtime_h) meta.push('다운타임: '+esc(String(c.downtime_h))+'h');
+  if(meta.length) html += '<div class="dmeta">'+meta.join('  ·  ')+'</div>';
+  if(c.symptom || c.resolution){
+    html += '<div class="tsbanner">';
+    if(c.symptom){ html += '<div class="tl">증상</div><div>'+esc(String(c.symptom))+'</div>'; }
+    if(c.resolution){ html += '<div class="tl">해결</div><div>'+esc(String(c.resolution))+'</div>'; }
+    html += '</div>';
+  }
+  html += '<div class="dbody">'+renderMd(c.body, true)+'</div>';
+  return html;
+}
+
+/* project: 허브 — 개요 + 연결 카드 종류별 그룹 */
+function renderProject(c){
+  var st = c.project_status ? String(c.project_status) : '';
+  var members = (c.members||[]).filter(Boolean);
+  var html = '<h1 class="dt">'+esc(c.title)+'</h1><div class="dmeta">';
+  if(st) html += '<span class="statusdot">상태: '+esc(st)+'</span>';
+  if(members.length) html += '구성원: '+esc(members.join(', '));
+  html += '</div>';
+  html += '<div class="dbody">'+renderMd(c.body, true)+'</div>';
+  /* 연결 카드 종류별 그룹핑 */
+  var linked = (c.links||[]).map(function(l){return BYID[l];}).filter(Boolean);
+  var buckets = [
+    {label:'관련 논문·발표', types:['paper']},
+    {label:'우리 레시피 (SOP)', types:['sop']},
+    {label:'관련 보고서', types:['report']},
+    {label:'트러블슈팅·기타', types:['troubleshooting','term','qa','onboarding','project']}
+  ];
+  buckets.forEach(function(b){
+    var items = linked.filter(function(x){ return b.types.indexOf(x.type)!==-1; });
+    if(!items.length) return;
+    html += '<div class="hubgrp"><div class="hubgrp-h">'+b.label+' · '+items.length+
+            '</div><div class="hublist">'+items.map(chip).join('')+'</div></div>';
+  });
+  return html;
+}
+
+/* 단순 타입 (term/qa/onboarding) */
+function renderSimple(c){
+  var meta = [];
+  if(c.type==='term'){ var al=(c.aliases||[]).filter(Boolean); if(al.length) meta.push('별칭: '+esc(al.join(', '))); }
+  if(c.type==='qa' && c.question) meta.push('Q: '+esc(String(c.question)));
+  var html = '<h1 class="dt">'+esc(c.title)+'</h1>';
+  if(meta.length) html += '<div class="dmeta">'+meta.join('  ·  ')+'</div>';
+  html += '<div class="dbody">'+renderMd(c.body, true)+'</div>';
+  return html;
+}
+
+function chip(t){
+  return '<span class="chip" data-go="'+t.id+'"><span class="cdot '+t.type+'"></span>'+esc(t.title)+'</span>';
+}
+
+function openReader(id){
+  var c = BYID[id]; if(!c) return;
+  SEL = id;
+  /* 뷰어(PDF/HTML) 있는 report 만 넓게, 그 외 텍스트 카드는 좁게 */
+  var wide = (c.type==='report' && (c.has_pdf || c.has_html));
+  var rcard = document.querySelector('.reader-card');
+  if(rcard) rcard.classList.toggle('wide', !!wide);
+  var secs = parseSections(c.body);
+  var body = document.getElementById('reader-body'), html;
+  if(c.type==='paper' || c.type==='report') html = renderPaper(c, secs);
+  else if(c.type==='sop') html = renderSop(c, secs);
+  else if(c.type==='troubleshooting') html = renderTrouble(c);
+  else if(c.type==='project') html = renderProject(c);
+  else html = renderSimple(c);
+
+  /* 연결 카드 칩 (project 는 이미 그룹으로 표시하므로 생략) */
+  if(c.type!=='project'){
+    var links = (c.links||[]).map(function(l){return BYID[l];}).filter(Boolean);
+    if(links.length)
+      html += '<div class="dlinks"><div class="dlinks-h">연결된 카드</div>'+links.map(chip).join('')+'</div>';
+  }
+  document.getElementById('reader-chip').innerHTML = chipHtml(c);
+  body.innerHTML = html;
+  body.querySelectorAll('[data-go]').forEach(function(el){
+    el.addEventListener('click', function(){ openReader(this.getAttribute('data-go')); });
+  });
+  body.querySelectorAll('[data-pdf]').forEach(function(el){
+    el.addEventListener('click', function(){ setAssetTab(el);
+      openPdf(this.getAttribute('data-pdf'), document.getElementById('assetmount')); });
+  });
+  body.querySelectorAll('[data-html]').forEach(function(el){
+    el.addEventListener('click', function(){ setAssetTab(el);
+      openHtml(this.getAttribute('data-html'), document.getElementById('assetmount')); });
+  });
+  /* report 자산이 있으면 첫 버튼 자동 로드(HTML 우선 — 인터랙티브가 핵심) */
+  var firstAsset = body.querySelector('.assetbar [data-html], .assetbar [data-pdf]');
+  if(firstAsset) firstAsset.click();
+  document.body.classList.add('reading');
+  document.querySelector('.reader').scrollTop = 0;
+  var rc = document.querySelector('.reader-card'); if(rc) rc.scrollTop = 0;
+}
+function closeReader(){ document.body.classList.remove('reading'); SEL=null; PDFV=null; }
+
+/* ===== PDF 인-페이지 뷰어 (PDF.js, §4 옵션 b) ===== */
+async function openPdf(cardId, mount){
+  if(!mount) return;
+  mount.innerHTML = '<div class="pdfbar">⏳ PDF 복호화·로딩 중…</div>';
+  try{
+    if(!window.pdfjsLib){ mount.innerHTML = '<div class="pdferr">PDF.js 로드 실패 (CDN 차단?)</div>'; return; }
+    pdfjsLib.GlobalWorkerOptions.workerSrc = PDF_WORKER;
+    var data = await decryptPdfBytes(cardId);              // ArrayBuffer (게이트 안에서만 존재)
+    var pdf = await pdfjsLib.getDocument({ data: data.slice(0) }).promise;
+    PDFV = { pdf:pdf, page:1, zoom:1, mount:mount, data:data, id:cardId };  // zoom 1 = 폭 맞춤
+    mount.innerHTML =
+      '<div class="pdfbar">'+
+        '<button data-pdf="prev">◀</button>'+
+        '<span class="pdfpg"></span>'+
+        '<button data-pdf="next">▶</button>'+
+        '<span class="pdfsp"></span>'+
+        '<button data-pdf="zout">－</button>'+
+        '<button data-pdf="zfit">↔ 폭맞춤</button>'+
+        '<button data-pdf="zin">＋</button>'+
+        '<button data-pdf="fs">⛶ 전체화면</button>'+
+        '<button data-pdf="dl">⬇ 저장</button>'+
+      '</div><div class="pdfcanvas-wrap"><canvas class="pdfcanvas"></canvas></div>';
+    mount.querySelectorAll('[data-pdf]').forEach(function(b){ b.addEventListener('click', pdfAction); });
+    renderPdfPage();
+  }catch(e){
+    mount.innerHTML = '<div class="pdferr">PDF 를 열 수 없습니다 (복호화/렌더 실패 또는 파일 없음).</div>';
+  }
+}
+async function renderPdfPage(){
+  if(!PDFV) return;
+  var page = await PDFV.pdf.getPage(PDFV.page);
+  var base = page.getViewport({ scale:1 });
+  var wrap = PDFV.mount.querySelector('.pdfcanvas-wrap');
+  var avail = (wrap ? wrap.clientWidth : 800) - 2*16;       // 컨테이너 폭에 맞춤(패딩 여유)
+  var fit = avail > 0 ? avail / base.width : 1;
+  var vp = page.getViewport({ scale: fit * (PDFV.zoom || 1) });
+  var canvas = PDFV.mount.querySelector('.pdfcanvas'), ctx = canvas.getContext('2d');
+  canvas.width = vp.width; canvas.height = vp.height;
+  await page.render({ canvasContext: ctx, viewport: vp }).promise;
+  var pg = PDFV.mount.querySelector('.pdfpg');
+  if(pg) pg.textContent = PDFV.page + ' / ' + PDFV.pdf.numPages;
+}
+function pdfAction(){
+  if(!PDFV) return;
+  var a = this.getAttribute('data-pdf');
+  if(a==='prev' && PDFV.page>1){ PDFV.page--; renderPdfPage(); }
+  else if(a==='next' && PDFV.page<PDFV.pdf.numPages){ PDFV.page++; renderPdfPage(); }
+  else if(a==='zin'){ PDFV.zoom=Math.min(4, (PDFV.zoom||1)+0.2); renderPdfPage(); }
+  else if(a==='zout'){ PDFV.zoom=Math.max(0.3, (PDFV.zoom||1)-0.2); renderPdfPage(); }
+  else if(a==='zfit'){ PDFV.zoom=1; renderPdfPage(); }
+  else if(a==='fs'){ toggleAssetFullscreen(); }
+  else if(a==='dl'){
+    var blob = new Blob([PDFV.data], { type:'application/pdf' });
+    var url = URL.createObjectURL(blob), el = document.createElement('a');
+    el.href = url; el.download = (PDFV.id||'report')+'.pdf'; el.click();
+    setTimeout(function(){ URL.revokeObjectURL(url); }, 1000);
+  }
+}
+
+/* 자산 뷰어 전체화면 토글 (Fullscreen API; Esc 로 복귀) */
+function toggleAssetFullscreen(){
+  var m = document.getElementById('assetmount');
+  if(!m) return;
+  if(document.fullscreenElement) { if(document.exitFullscreen) document.exitFullscreen(); }
+  else if(m.requestFullscreen) m.requestFullscreen();
+}
+
+/* 자산 탭(HTML/PDF) 활성 표시 */
+function setAssetTab(btn){
+  var bar = btn.parentNode;
+  if(bar) bar.querySelectorAll('button').forEach(function(b){ b.classList.toggle('on', b===btn); });
+}
+
+/* 보고서 HTML 의 외부 네트워크·부모접근 차단용 CSP 주입.
+   - default-src 'none' + connect-src 'none' → fetch/XHR/WebSocket·외부 리소스 차단
+   - script/style 'unsafe-inline'·'unsafe-eval' → 내부 위젯(JS·슬라이더) 동작 허용
+   - img/font/media data: blob: → 내장 리소스만 */
+var HTML_CSP = "default-src 'none'; script-src 'unsafe-inline' 'unsafe-eval' blob:; "+
+  "style-src 'unsafe-inline'; img-src data: blob:; font-src data:; media-src data: blob:; "+
+  "connect-src 'none'; frame-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'";
+function injectCSP(html){
+  var meta = '<meta http-equiv="Content-Security-Policy" content="'+HTML_CSP+'">';
+  if(/<head[^>]*>/i.test(html)) return html.replace(/<head[^>]*>/i, function(m){ return m + meta; });
+  if(/<html[^>]*>/i.test(html)) return html.replace(/<html[^>]*>/i, function(m){ return m + '<head>'+meta+'</head>'; });
+  return meta + html;
+}
+/* 인터랙티브 HTML 을 sandbox iframe(allow-scripts only) 에 srcdoc 으로 렌더.
+   allow-same-origin 없음 → 부모 페이지·동일출처 저장소 접근 불가(불투명 출처). */
+async function openHtml(cardId, mount){
+  if(!mount) return;
+  PDFV = null;
+  mount.innerHTML = '<div class="pdfbar">⏳ HTML 복호화·로딩 중…</div>';
+  try{
+    var buf = await decryptAsset(HTML_DIR, cardId);
+    var html = new TextDecoder('utf-8').decode(buf);
+    var iframe = document.createElement('iframe');
+    iframe.className = 'htmlframe';
+    iframe.setAttribute('sandbox', 'allow-scripts allow-popups');
+    iframe.setAttribute('referrerpolicy', 'no-referrer');
+    iframe.srcdoc = injectCSP(html);
+    mount.innerHTML = '<div class="pdfbar">🖥️ 인터랙티브 HTML · 외부 네트워크 차단(sandbox)'+
+      '<span class="pdfsp"></span><button data-htmlfs="1">⛶ 전체화면</button>'+
+      '<button data-htmldl="'+esc(cardId)+'">⬇ 저장</button></div>';
+    mount.appendChild(iframe);
+    mount.querySelector('[data-htmlfs]').addEventListener('click', toggleAssetFullscreen);
+    mount.querySelector('[data-htmldl]').addEventListener('click', function(){
+      var blob = new Blob([html], { type:'text/html' });
+      var url = URL.createObjectURL(blob), el = document.createElement('a');
+      el.href = url; el.download = cardId+'.html'; el.click();
+      setTimeout(function(){ URL.revokeObjectURL(url); }, 1000);
+    });
+  }catch(e){
+    mount.innerHTML = '<div class="pdferr">HTML 을 열 수 없습니다 (복호화 실패 또는 파일 없음).</div>';
+  }
+}
+</script>
+</body>
+</html>

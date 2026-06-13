@@ -1,0 +1,6 @@
+User-agent: *
+# Lab Wiki(내부 전용) — 검색엔진 색인 차단
+Disallow: /wiki.html
+Disallow: /wiki.enc.json
+Disallow: /wiki-pdf/
+Disallow: /wiki-html/

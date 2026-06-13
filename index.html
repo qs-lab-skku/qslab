@@ -361,6 +361,16 @@ nav.scrolled { box-shadow: var(--sh2); }
 }
 .nav-links a:hover { color: var(--ink); }
 .nav-links a.active { color: var(--navy); border-bottom-color: var(--amber); }
+/* Lab Wiki — 내부 도구 느낌: nav 우측 끝(로고 반대편)에 배치, sans 소문자, 차분한 연회색 */
+.nav-wiki {
+  font-family: var(--sans); font-size: .8rem; font-weight: 400; letter-spacing: 0;
+  color: var(--ink4); text-decoration: none; cursor: pointer;
+  display: inline-flex; align-items: center; gap: .35rem;
+  transition: color var(--t1);
+}
+.nav-wiki:hover { color: var(--ink2); }
+.nav-wiki .wlock { opacity: .4; filter: grayscale(1); font-size: .9em; }   /* 자물쇠 매우 연하게(회색) */
+@media (max-width: 1024px) { .nav-end .nav-wiki { display: none; } }       /* 모바일은 drawer 가 담당 */
 @media (prefers-color-scheme: dark) and (min-width: 99999px) {
   .nav-links a.active { color: var(--amber2); }
 }
@@ -1523,6 +1533,7 @@ body.admin-on .news-edit-btns { display: flex; }
       <li><a data-page="contact">Contact</a></li>
     </ul>
     <div class="nav-end">
+      <a class="nav-wiki" href="wiki.html"><span class="wlock">🔒</span> Lab Wiki</a>
       <button class="hbtn" id="hbtn" aria-label="Menu"><span></span><span></span><span></span></button>
       <button class="admin-pill" id="admin-btn" style="display:none"><span class="dot"></span><span>Admin</span></button>
     </div>
@@ -1539,6 +1550,7 @@ body.admin-on .news-edit-btns { display: flex; }
   <a data-page="teaching">Teaching</a>
   <a data-page="news">News</a>
   <a data-page="contact">Contact</a>
+  <a class="nav-wiki" href="wiki.html"><span class="wlock">🔒</span> Lab Wiki</a>
 </div>
 
 <!-- Modal -->
