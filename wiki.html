@@ -61,6 +61,10 @@ code,kbd{font-family:var(--mono)}
 .gate button:disabled{opacity:.6;cursor:default}
 .gate-err{color:#c0392b;font-size:.82rem;margin-top:var(--s2);min-height:1.2em;font-weight:500}
 .gate-note{color:var(--ink4);font-size:.72rem;margin-top:var(--s3);line-height:1.5}
+.gate-remember{display:flex;align-items:center;gap:.4rem;flex-wrap:wrap;font-size:.78rem;
+  color:var(--ink3);margin:.65rem 0 .2rem;cursor:pointer;text-align:left}
+.gate-remember input{width:auto;margin:0;accent-color:var(--blue);cursor:pointer}
+.gate-remember-note{color:var(--ink4);font-size:.7rem}
 
 /* ===== 앱 셸 ===== */
 #app{display:none}
@@ -285,6 +289,11 @@ body.reading{overflow:hidden}
     <form id="gate-form" autocomplete="off">
       <input id="pw" type="password" placeholder="비밀번호" autocomplete="off"
              autocapitalize="off" spellcheck="false" aria-label="비밀번호">
+      <label class="gate-remember" for="remember">
+        <input type="checkbox" id="remember">
+        <span>이 기기에서 비번 기억하기</span>
+        <span class="gate-remember-note">— 공용 PC에서는 사용하지 마세요</span>
+      </label>
       <button id="unlock" type="submit">잠금 해제</button>
     </form>
     <div class="gate-err" id="gate-err"></div>
@@ -414,12 +423,73 @@ async function decryptAsset(dir, cardId){
 }
 function decryptPdfBytes(cardId){ return decryptAsset(PDF_DIR, cardId); }
 
+/* ===== "이 기기에서 비번 기억하기" — 비번을 비추출(non-extractable) 키로 감싸 저장(평문 미저장).
+   빌드마다 salt 가 바뀌므로 파생키가 아닌 *비번*을 저장해 매 방문 시 현재 salt 로 재유도한다. ===== */
+var LS_PW = 'qskb-wiki-pw', LS_PREF = 'qskb-wiki-remember';
+function bytesToB64(buf){ var a=new Uint8Array(buf), s=''; for(var i=0;i<a.length;i++) s+=String.fromCharCode(a[i]); return btoa(s); }
+function _idb(){ return new Promise(function(res,rej){
+  var r = indexedDB.open('qskb-wiki', 1);
+  r.onupgradeneeded = function(){ r.result.createObjectStore('kv'); };
+  r.onsuccess = function(){ res(r.result); };
+  r.onerror = function(){ rej(r.error); };
+}); }
+function _idbPut(k,v){ return _idb().then(function(db){ return new Promise(function(res,rej){
+  var tx=db.transaction('kv','readwrite'); tx.objectStore('kv').put(v,k);
+  tx.oncomplete=function(){ db.close(); res(); }; tx.onerror=function(){ rej(tx.error); }; }); }); }
+function _idbGet(k){ return _idb().then(function(db){ return new Promise(function(res,rej){
+  var tx=db.transaction('kv','readonly'), rq=tx.objectStore('kv').get(k);
+  rq.onsuccess=function(){ db.close(); res(rq.result); }; rq.onerror=function(){ rej(rq.error); }; }); }); }
+function _idbDel(k){ return _idb().then(function(db){ return new Promise(function(res){
+  var tx=db.transaction('kv','readwrite'); tx.objectStore('kv').delete(k);
+  tx.oncomplete=function(){ db.close(); res(); }; tx.onerror=function(){ db.close(); res(); }; }); }); }
+async function rememberPassword(pw){
+  var wrapKey = await crypto.subtle.generateKey({name:'AES-GCM',length:256}, false, ['encrypt','decrypt']);
+  var iv = crypto.getRandomValues(new Uint8Array(12));
+  var ct = await crypto.subtle.encrypt({name:'AES-GCM',iv:iv}, wrapKey, new TextEncoder().encode(pw));
+  await _idbPut('wrap', wrapKey);                 // 비추출 키 — JS 가 원본 바이트를 읽을 수 없음
+  localStorage.setItem(LS_PW, JSON.stringify({iv:bytesToB64(iv), ct:bytesToB64(ct)}));
+  localStorage.setItem(LS_PREF, '1');
+}
+async function recallPassword(){
+  var raw = localStorage.getItem(LS_PW); if(!raw) return null;
+  var wrapKey = await _idbGet('wrap'); if(!wrapKey) return null;
+  var o = JSON.parse(raw);
+  var pt = await crypto.subtle.decrypt({name:'AES-GCM',iv:b64ToBytes(o.iv)}, wrapKey, b64ToBytes(o.ct));
+  return new TextDecoder().decode(pt);
+}
+function clearStoredPw(){ try{ localStorage.removeItem(LS_PW); }catch(e){} _idbDel('wrap').catch(function(){}); }
+function clearRemember(){ clearStoredPw(); try{ localStorage.removeItem(LS_PREF); }catch(e){} }
+
+/* 저장된 비번으로 자동 잠금해제 시도. 실패(=비번 변경 가능성) 시 안내 + 저장본 삭제 후 재입력 유도. */
+async function tryAutoUnlock(){
+  if(!ENC || !window.isSecureContext || !(window.crypto && window.crypto.subtle)) return;
+  var pw = null;
+  try { pw = await recallPassword(); } catch(e){ clearStoredPw(); return; }
+  if(!pw) return;
+  var btn = document.getElementById('unlock');
+  btn.disabled = true; btn.textContent = '저장된 비번으로 여는 중…';
+  try {
+    var data = await decryptEnvelope(ENC, pw);
+    pw = null;
+    boot(data);
+  } catch(ex){
+    clearStoredPw();
+    btn.disabled = false; btn.textContent = '잠금 해제';
+    document.getElementById('gate-err').innerHTML =
+      '🔑 저장된 비밀번호로 열 수 없어요 — <b>비밀번호가 변경됐을 수 있어요.</b><br>'+
+      '슬랙에서 <b>QS-KB 봇에게 DM</b> 으로 «위키 비번» 을 물어보거나 <b>#general</b> 공지를 확인한 뒤 다시 입력해 주세요.';
+  }
+}
+
 /* ===== 게이트 ===== */
 var ENC = null;
 fetch('wiki.enc.json?t=' + Date.now(), { cache:'no-store' })
   .then(function(r){ return r.ok ? r.json() : null; })
-  .then(function(j){ ENC = j; })
+  .then(function(j){ ENC = j; tryAutoUnlock(); })
   .catch(function(){ ENC = null; });
+/* '기억하기' 선호를 체크박스에 복원(비번 변경돼도 의도는 유지) */
+(function(){ try { var cb=document.getElementById('remember');
+  if(cb) cb.checked = (localStorage.getItem(LS_PREF) === '1'); } catch(e){} })();
 
 document.getElementById('gate-form').addEventListener('submit', function(e){
   e.preventDefault(); doUnlock();
@@ -440,6 +510,10 @@ async function doUnlock(){
   btn.disabled = true; btn.textContent = '복호화 중…';
   try{
     var data = await decryptEnvelope(ENC, pw);
+    try {                                   // 체크 시 비번 기억(평문 미저장), 해제 시 저장본 삭제
+      if(document.getElementById('remember').checked){ await rememberPassword(pw); }
+      else { clearRemember(); }
+    } catch(e){ /* 저장 실패해도 잠금해제는 진행 */ }
     pw = null; document.getElementById('pw').value = '';
     boot(data);
   }catch(ex){
