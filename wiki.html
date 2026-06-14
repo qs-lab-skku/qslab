@@ -396,6 +396,18 @@ var GROUPS = [
 ];
 var SECTION_ORDER = ['safety','sop','troubleshooting','project','research','paper','term','qa','report','policy'];
 var RESEARCH_HOME = 'https://qs-lab-skku.github.io/qslab/';   // 연구 개요 탭 상단 홈페이지 Research 링크
+var VIEW_COUNTER = '';   // 자체호스팅 익명 조회수 카운터 URL(예: https://<tailnet-name>/px). 빈값=비활성.
+/* unlock 시 익명 핑 — 총 조회수·순방문만. 식별자/IP 안 보냄(u 플래그=이번 주 첫 방문 여부). */
+function pingView(){
+  if(!VIEW_COUNTER) return;
+  try{
+    var d=new Date(), key='qskb-wiki-vweek';
+    var wk=d.getUTCFullYear()+'-W'+Math.ceil((((d-new Date(Date.UTC(d.getUTCFullYear(),0,1)))/86400000)+1)/7);
+    var u=(localStorage.getItem(key)===wk)?0:1;
+    if(u){ try{ localStorage.setItem(key,wk); }catch(e){} }
+    new Image().src = VIEW_COUNTER + (VIEW_COUNTER.indexOf('?')<0?'?':'&') + 'u=' + u + '&t=' + Date.now();
+  }catch(e){}
+}
 function secOf(c){ return c.section || c.type; }              // 카드 → 탭 섹션
 function tmeta(c){ return TYPES[c.type] || {emoji:'',short:c.type,label:c.type}; }
 
@@ -534,6 +546,7 @@ function boot(data){
   if(_h && SECTIONS[_h]) FILTER = _h;
   document.getElementById('gate').style.display = 'none';
   document.getElementById('app').style.display = 'block';
+  pingView();                 // 익명 조회수 핑(VIEW_COUNTER 설정 시에만)
   renderTabs();
   renderGrid();
   bindUI();
