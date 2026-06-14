@@ -808,7 +808,7 @@ function renderPaper(c, secs){
     if(c.has_pdf || c.has_html){
       function _smb(n){ return n ? ' ('+(n/1024/1024).toFixed(1)+' MB)' : ''; }
       var sb = [];
-      if(c.has_html) sb.push('<button class="pdfload" data-html="'+esc(c.id)+'">🖥️ 인터랙티브 HTML'+_smb(c.html_size)+'</button>');
+      if(c.has_html) sb.push('<button class="pdfload" data-html="'+esc(c.id)+'">'+(c.from_docx?'📝 문서(DOCX) 보기':'🖥️ 인터랙티브 HTML')+_smb(c.html_size)+'</button>');
       if(c.has_pdf)  sb.push('<button class="pdfload" data-pdf="'+esc(c.id)+'">📑 원본 PDF 보기'+_smb(c.pdf_size)+'</button>');
       h += '<hr class="rule"><div class="obj-lbl">원본 문서 (정본 — 취급 전 확인)</div>';
       h += '<div class="assetbar">'+sb.join('')+'</div><div class="assetmount" id="assetmount"></div>';
@@ -835,7 +835,7 @@ function renderPaper(c, secs){
   if(c.type==='report' && (c.has_pdf || c.has_html)){
     function _mb(n){ return n ? ' ('+(n/1024/1024).toFixed(1)+' MB)' : ''; }
     var btns = [];
-    if(c.has_html) btns.push('<button class="pdfload" data-html="'+esc(c.id)+'">🖥️ 인터랙티브 HTML'+_mb(c.html_size)+'</button>');
+    if(c.has_html) btns.push('<button class="pdfload" data-html="'+esc(c.id)+'">'+(c.from_docx?'📝 문서(DOCX) 보기':'🖥️ 인터랙티브 HTML')+_mb(c.html_size)+'</button>');
     if(c.has_pdf)  btns.push('<button class="pdfload" data-pdf="'+esc(c.id)+'">📑 PDF 보기'+_mb(c.pdf_size)+'</button>');
     html += '<div class="assetbar">'+btns.join('')+'</div><div class="assetmount" id="assetmount"></div>';
   }
