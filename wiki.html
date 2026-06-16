@@ -680,11 +680,9 @@ function cardDesc(c){
   return '';
 }
 function badges(c){
-  /* status(초안/승인)·needs_review(⚠확인) 뱃지는 표시하지 않음(frontmatter 필드는 보존).
-     서브그룹 색 점만 유지. */
-  var b='';
-  (c.subgroup||[]).forEach(function(s){ var m=SUBGROUP_META[s]; if(m) b+='<span class="sgdot" style="background:'+m.color+'" title="'+m.label+'"></span>'; });
-  return b;
+  /* 카드 위 뱃지/색 점 표시 안 함 — status(초안/승인)·needs_review·서브그룹 색 점 모두 미표시.
+     frontmatter(subgroup 등) 필드와 SUBGROUP_META(섹션 그룹핑·필터·관계도)는 그대로 유지. */
+  return '';
 }
 function cardEl(c){
   var T=tmeta(c), tags=(c.tags||[]).slice(0,4).map(function(t){return '<span class="ctag">'+esc(t)+'</span>';}).join('');
