@@ -665,10 +665,9 @@ function cardDesc(c){
   return '';
 }
 function badges(c){
+  /* status(초안/승인)·needs_review(⚠확인) 뱃지는 표시하지 않음(frontmatter 필드는 보존).
+     서브그룹 색 점만 유지. */
   var b='';
-  if(c.status==='draft') b+='<span class="bdg dr">초안</span>';
-  else if(c.status==='approved') b+='<span class="bdg ap">승인</span>';
-  if(c.needs_review) b+='<span class="bdg rv">⚠ 확인</span>';
   (c.subgroup||[]).forEach(function(s){ var m=SUBGROUP_META[s]; if(m) b+='<span class="sgdot" style="background:'+m.color+'" title="'+m.label+'"></span>'; });
   return b;
 }
