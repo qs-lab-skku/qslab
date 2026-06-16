@@ -303,6 +303,21 @@ body.reading{overflow:hidden}
 .relcluster{border:1px solid;border-radius:10px;padding:.6rem .7rem}
 .relcl-h{font-weight:700;font-size:.8rem;margin-bottom:.4rem}
 .relcluster .relnode{margin:.15rem .15rem 0 0;display:inline-block}
+/* 위키 요청 버튼·모달 */
+.wreq{margin-top:var(--s4);padding-top:var(--s3);border-top:1px dashed var(--border)}
+.wreq-h{font-family:var(--mono);font-size:.62rem;font-weight:600;color:var(--ink4);text-transform:uppercase;margin-bottom:.4rem}
+.wreq-btn{font-size:.72rem;font-weight:600;border:1px solid var(--border2);background:var(--bg2);color:var(--ink2);border-radius:8px;padding:.3rem .7rem;margin-right:.4rem;cursor:pointer}
+.wreq-btn:hover{border-color:var(--blue);color:var(--blue)}
+.wreq-btn.del:hover{border-color:#dc2626;color:#dc2626}
+.wreq-ov{position:fixed;inset:0;z-index:50;background:rgba(0,0,0,.45);display:flex;align-items:center;justify-content:center;padding:1rem}
+.wreq-box{background:#fff;border-radius:14px;max-width:460px;width:100%;padding:1.2rem 1.3rem;box-shadow:0 10px 40px rgba(0,0,0,.25)}
+.wreq-tt{font-weight:700;font-size:1rem;margin-bottom:.5rem}
+.wreq-p{font-size:.82rem;color:var(--ink2);line-height:1.5;margin:.3rem 0 .7rem}
+.wreq-cmd{display:flex;gap:.4rem;margin-bottom:.6rem}
+.wreq-cmd input{flex:1;font-family:var(--mono);font-size:.78rem;padding:.45rem .6rem;border:1px solid var(--border2);border-radius:8px;background:var(--bg2)}
+.wreq-cmd button{font-weight:600;border:1px solid var(--blue3);background:#eef2fd;color:var(--blue);border-radius:8px;padding:0 .8rem;cursor:pointer}
+.wreq-note{font-size:.72rem;color:var(--ink4);margin:.6rem 0 .8rem;line-height:1.5}
+.wreq-close{font-size:.78rem;border:1px solid var(--border2);background:var(--bg2);border-radius:8px;padding:.4rem .9rem;cursor:pointer;float:right}
 </style>
 </head>
 <body>
@@ -1055,8 +1070,17 @@ function openReader(id){
     if(links.length)
       html += '<div class="dlinks"><div class="dlinks-h">연결된 카드</div>'+links.map(chip).join('')+'</div>';
   }
+  /* 위키발 요청 — 내부 전환 / 삭제 (PI 승인 필요). 공개 카드에만 노출. */
+  if(c.visibility!=='internal_only'){
+    html += '<div class="wreq"><div class="wreq-h">이 카드 관리 요청 (PI 승인 후 반영)</div>'+
+      '<button class="wreq-btn" data-wreq="internal" data-wid="'+c.id+'">🔒 내부 전환 요청</button>'+
+      '<button class="wreq-btn del" data-wreq="delete" data-wid="'+c.id+'">🗑️ 삭제 요청</button></div>';
+  }
   document.getElementById('reader-chip').innerHTML = chipHtml(c);
   body.innerHTML = html;
+  body.querySelectorAll('[data-wreq]').forEach(function(el){
+    el.addEventListener('click', function(){ showWikiRequest(this.getAttribute('data-wid'), this.getAttribute('data-wreq')); });
+  });
   body.querySelectorAll('[data-go]').forEach(function(el){
     el.addEventListener('click', function(){ openReader(this.getAttribute('data-go')); });
   });
@@ -1076,6 +1100,30 @@ function openReader(id){
   var rc = document.querySelector('.reader-card'); if(rc) rc.scrollTop = 0;
 }
 function closeReader(){ document.body.classList.remove('reading'); SEL=null; PDFV=null; }
+
+/* ===== 위키발 요청 모달 — 복사용 /wiki-request 명령 안내 (봇 Socket Mode 수신) ===== */
+var WORKSPACE_URL = '';   // (선택) 봇 DM 딥링크용 — 예: 'https://app.slack.com/client/T.../D...'. 빈값=링크 숨김
+function showWikiRequest(cid, action){
+  var label = action==='internal' ? '🔒 내부 전환(공개 해제)' : '🗑️ 삭제';
+  var cmd = '/wiki-request '+action+' '+cid;
+  var ov = document.createElement('div'); ov.className='wreq-ov';
+  ov.innerHTML = '<div class="wreq-box">'+
+    '<div class="wreq-tt">'+label+' 요청 — `'+esc(cid)+'`</div>'+
+    '<p class="wreq-p">Slack 에서 <b>QS-KB 봇에게 DM</b> 으로 아래 명령을 붙여넣으면, PI 에게 승인 요청이 전달돼요. 승인되면 즉시 반영됩니다.</p>'+
+    '<div class="wreq-cmd"><input id="wreq-input" readonly value="'+esc(cmd)+'"><button id="wreq-copy">복사</button></div>'+
+    (WORKSPACE_URL?'<a class="metabtn" href="'+esc(WORKSPACE_URL)+'" target="_blank" rel="noreferrer">💬 Slack 봇 DM 열기 ↗</a>':'')+
+    '<div class="wreq-note">학생은 *요청*만 할 수 있어요 — 실제 변경/삭제는 PI 승인 시에만. (삭제는 git 으로 복구 가능)</div>'+
+    '<button class="wreq-close" id="wreq-x">닫기</button></div>';
+  document.body.appendChild(ov);
+  var inp=ov.querySelector('#wreq-input');
+  ov.querySelector('#wreq-copy').addEventListener('click', function(){
+    inp.select(); try{ navigator.clipboard.writeText(inp.value); this.textContent='복사됨 ✓'; }
+    catch(e){ document.execCommand('copy'); this.textContent='복사됨 ✓'; }
+  });
+  function close(){ ov.remove(); }
+  ov.querySelector('#wreq-x').addEventListener('click', close);
+  ov.addEventListener('click', function(e){ if(e.target===ov) close(); });
+}
 
 /* ===== PDF 인-페이지 뷰어 (PDF.js, §4 옵션 b) ===== */
 async function openPdf(cardId, mount){
