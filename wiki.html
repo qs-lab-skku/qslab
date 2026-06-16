@@ -276,6 +276,33 @@ body.reading{overflow:hidden}
   .rd{padding:var(--s3) var(--s3) var(--s5)}
   .rd h1.dt{font-size:1.6rem}
 }
+/* ===== IA v2 추가 스타일 ===== */
+.chips{display:flex;flex-wrap:wrap;gap:.35rem;max-width:1180px;margin:0 auto var(--s2);padding:0 var(--s3)}
+.chip{font-family:var(--mono);font-size:.66rem;font-weight:600;padding:.25rem .6rem;border-radius:14px;
+  border:1px solid var(--border);background:var(--bg2);color:var(--ink3);cursor:pointer}
+.chip.on{background:var(--blue3);color:var(--blue);border-color:var(--blue3)}
+.bdg{font-family:var(--mono);font-size:.56rem;font-weight:700;padding:.05rem .35rem;border-radius:8px;margin-left:.3rem;vertical-align:middle}
+.bdg.dr{background:#fef3c7;color:#92400e}.bdg.ap{background:#dcfce7;color:#166534}.bdg.rv{background:#fee2e2;color:#991b1b}
+.sgdot{display:inline-block;width:.5rem;height:.5rem;border-radius:50%;margin-left:.25rem;vertical-align:middle}
+.found{background:#f0fdf4;border:1px dashed #86efac;border-radius:10px;padding:.6rem .8rem;margin-bottom:var(--s3)}
+.sgsec{border-left:4px solid;border-radius:6px;padding-left:.7rem;margin-bottom:var(--s3)}
+.hub{border:1px solid var(--border);border-radius:10px;padding:.7rem .9rem;margin-bottom:var(--s2);background:var(--bg2)}
+.hub-h{font-weight:700;font-size:.95rem;cursor:pointer;color:var(--ink)}
+.hub-h:hover{color:var(--blue)}
+.hub-sub{font-family:var(--mono);font-size:.62rem;font-weight:600;color:var(--ink4);margin:.5rem 0 .3rem;text-transform:uppercase}
+.hub-empty{color:var(--ink4);font-size:.78rem;font-style:italic}
+.subsec-h{font-family:var(--mono);font-size:.64rem;font-weight:600;color:var(--ink3);margin:.5rem 0 .3rem}
+.rel-note{max-width:1180px;margin:0 auto var(--s2);padding:0 var(--s3);color:var(--ink3);font-size:.8rem}
+.relwrap{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:.6rem;margin-bottom:var(--s4)}
+.relhub{border:1px solid var(--border);border-radius:10px;padding:.6rem .7rem;background:var(--bg2)}
+.relhub-c{font-weight:700;background:var(--blue3);color:var(--blue);border-radius:8px;padding:.25rem .5rem;cursor:pointer;display:inline-block;margin-bottom:.4rem}
+.relspokes{display:flex;flex-wrap:wrap;gap:.3rem}
+.relnode{font-size:.66rem;border:1px solid var(--border);border-radius:10px;padding:.15rem .45rem;cursor:pointer;background:var(--bg)}
+.relnode:hover{border-color:var(--blue);color:var(--blue)}
+.relclusters{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:.6rem}
+.relcluster{border:1px solid;border-radius:10px;padding:.6rem .7rem}
+.relcl-h{font-weight:700;font-size:.8rem;margin-bottom:.4rem}
+.relcluster .relnode{margin:.15rem .15rem 0 0;display:inline-block}
 </style>
 </head>
 <body>
@@ -376,27 +403,26 @@ var TYPES = {
   research:        {label:'연구 개요',     short:'연구',   emoji:'🧭'},
   inventory:       {label:'인벤토리',      short:'재고',   emoji:'📦'}
 };
-/* 탭 섹션 메타 — 탭/그룹 배치(카드의 section 으로 키; section = wiki_section || type).
-   3 구획: 운영(ops) → 지식(kb) → 규정·문서(docs). */
-var SECTIONS = {
-  safety:          {label:'안전',       short:'안전',   emoji:'🧪', group:'ops'},
-  sop:             {label:'장비 SOP',   short:'SOP',    emoji:'🔧', group:'ops'},
-  troubleshooting: {label:'트러블슈팅',  short:'트러블', emoji:'⚠️', group:'ops'},
-  project:         {label:'프로젝트',    short:'프로젝트',emoji:'📁', group:'ops'},
-  inventory:       {label:'인벤토리',    short:'재고',   emoji:'📦', group:'ops'},
-  research:        {label:'연구 개요',   short:'연구',   emoji:'🧭', group:'kb'},
-  paper:           {label:'논문·발표',   short:'논문',   emoji:'📄', group:'kb'},
-  term:            {label:'용어',        short:'용어',   emoji:'📖', group:'kb'},
-  qa:              {label:'Q&A',         short:'Q&A',    emoji:'💬', group:'kb'},
-  report:          {label:'보고서',      short:'보고서', emoji:'📑', group:'kb'},
-  policy:          {label:'규정·정책',   short:'규정',   emoji:'📋', group:'docs'}
-};
-var GROUPS = [
-  {key:'kb',   label:'지식 · 배우고 참고',   sections:['research','paper','term','qa','report']},
-  {key:'ops',  label:'운영 · 자주 찾는 것', sections:['safety','sop','troubleshooting','project','inventory']},
-  {key:'docs', label:'규정 · 문서',          sections:['policy']}
+/* ===== IA v2 — 6탭 (태그 기반 렌더) ===== */
+var TABS = [
+  {key:'research',  emoji:'🔬', label:'연구',     short:'연구'},
+  {key:'equipment', emoji:'🔧', label:'장비',     short:'장비'},
+  {key:'inventory', emoji:'📦', label:'인벤토리', short:'재고'},
+  {key:'glossary',  emoji:'📖', label:'용어집',   short:'용어'},
+  {key:'admin',     emoji:'📋', label:'행정',     short:'행정'},
+  {key:'relation',  emoji:'🕸️', label:'관계도',   short:'관계도'}
 ];
-var SECTION_ORDER = ['safety','sop','troubleshooting','project','inventory','research','paper','term','qa','report','policy'];
+var SUBGROUP_META = {
+  emerging_nanoelectronics:        {label:'나노전자', emoji:'⚡', color:'#2563eb'},
+  superconducting_nanoelectronics: {label:'초전도',   emoji:'🧲', color:'#7c3aed'},
+  quantum_optics:                  {label:'양자광원', emoji:'💡', color:'#0891b2'}
+};
+var AXIS_META = {
+  device:{label:'소자'}, growth:{label:'성장'}, quantum_topo:{label:'양자·위상'}, spe_quantum:{label:'단일광자'}
+};
+var FILTER = 'research';   // 기본 탭
+var AXIS_FILTER = '';      // 연구 탭 axis 칩 필터
+var SG_FILTER = '';        // 용어집 탭 서브그룹 필터
 var RESEARCH_HOME = 'https://qs-lab-skku.github.io/qslab/';   // 연구 개요 탭 상단 홈페이지 Research 링크
 var VIEW_COUNTER = '';   // 자체호스팅 익명 조회수 카운터 URL(예: https://<tailnet-name>/px). 빈값=비활성.
 /* unlock 시 익명 핑 — 총 조회수·순방문만. 식별자/IP 안 보냄(u 플래그=이번 주 첫 방문 여부). */
@@ -545,7 +571,7 @@ function boot(data){
   /* 첫 진입 기본 탭: 전체(재학생은 전부 / 신입생은 온보딩 DM 딥링크로 유도).
      #policy·#research·#safety 등 해시가 있으면 그 탭으로(온보딩 DM 딥링크). */
   var _h = (location.hash||'').replace('#','');
-  if(_h && SECTIONS[_h]) FILTER = _h;
+  if(_h && TABS.some(function(t){return t.key===_h;})) FILTER = _h;
   document.getElementById('gate').style.display = 'none';
   document.getElementById('app').style.display = 'block';
   pingView();                 // 익명 조회수 핑(VIEW_COUNTER 설정 시에만)
@@ -581,120 +607,202 @@ function bindUI(){
   /* 해시 딥링크(#policy·#research 등) — 온보딩 DM 링크로 진입 시 탭 전환 */
   window.addEventListener('hashchange', function(){
     var h=(location.hash||'').replace('#','');
-    if(SECTIONS[h]){ FILTER=h; renderTabs(); renderGrid(); }
+    if(TABS.some(function(t){return t.key===h;})){ FILTER=h; renderTabs(); renderGrid(); }
   });
 }
 
-/* ===== 탭 ===== */
+/* ===== 6탭: 카드 → 탭 매핑(복수 허용) ===== */
+function tabsOf(c){
+  var t=c.type, out=[];
+  if(t==='paper'||t==='research') out.push('research');
+  if(t==='report'){ (c.doc_class==='msds') ? out.push('inventory') : out.push('research'); }
+  if(t==='qa'){ (c.qa_kind==='concept') ? out.push('research') : out.push('admin'); }
+  if(t==='term') out.push('glossary');
+  if(t==='inventory'){ out.push('inventory'); if(c.inventory_kind==='equipment') out.push('equipment'); }
+  if(t==='sop'||t==='troubleshooting') out.push('equipment');
+  if(t==='deadline'||t==='onboarding'||t==='project') out.push('admin');
+  if(c.wiki_section==='policy' && out.indexOf('admin')<0) out.push('admin');
+  return out.length?out:['research'];
+}
 function counts(){
-  var c = {all:0};
-  SECTION_ORDER.forEach(function(s){ c[s]=0; });
-  (WIKI.cards||[]).forEach(function(x){ c.all++; var s=secOf(x); if(c[s]!=null) c[s]++; });
+  var c={}; TABS.forEach(function(t){c[t.key]=0;});
+  (WIKI.cards||[]).forEach(function(x){ tabsOf(x).forEach(function(k){ if(c[k]!=null)c[k]++; }); });
   return c;
 }
 function renderTabs(){
-  var c = counts(), wrap = document.getElementById('tabs');
-  var html = '<button class="tab'+('all'===FILTER?' active':'')+'" data-f="all">전체 '+
-             '<span class="cnt">'+c.all+'</span></button>';
-  GROUPS.forEach(function(g){
-    var shown = g.sections.filter(function(s){ return c[s]; });   // 카드 없는 섹션 탭은 숨김
-    if(!shown.length) return;
-    html += '<span class="tab-div"></span>';
-    shown.forEach(function(s){
-      html += '<button class="tab'+(s===FILTER?' active':'')+'" data-f="'+s+'">'+
-        SECTIONS[s].emoji+' '+SECTIONS[s].short+' <span class="cnt">'+c[s]+'</span></button>';
-    });
+  var c=counts(), wrap=document.getElementById('tabs'), html='';
+  TABS.forEach(function(t){
+    html += '<button class="tab'+(t.key===FILTER?' active':'')+'" data-f="'+t.key+'">'+
+      t.emoji+' '+t.short+' <span class="cnt">'+(c[t.key]||0)+'</span></button>';
   });
-  wrap.innerHTML = html;
+  wrap.innerHTML=html;
   wrap.querySelectorAll('.tab').forEach(function(b){
-    b.addEventListener('click', function(){ FILTER=this.getAttribute('data-f');
+    b.addEventListener('click', function(){ FILTER=this.getAttribute('data-f'); AXIS_FILTER=''; SG_FILTER='';
       renderTabs(); renderGrid(); });
   });
 }
-
-/* ===== 검색 필터 ===== */
+/* ===== 검색·정렬·카드 ===== */
 function matchQuery(card){
   if(!QUERY) return true;
-  var hay = (card.title||'') + ' ' + ((card.tags||[]).join(' ')) + ' ' + (card.body||'') +
-            ' ' + (card.one_liner||'');
-  return hay.toLowerCase().indexOf(QUERY) !== -1;
+  var hay=(card.title||'')+' '+((card.tags||[]).join(' '))+' '+(card.body||'')+' '+(card.one_liner||'');
+  return hay.toLowerCase().indexOf(QUERY)!==-1;
 }
-function visibleCards(){
-  return (WIKI.cards||[]).filter(function(c){
-    if(FILTER!=='all' && secOf(c)!==FILTER) return false;
-    return matchQuery(c);
-  });
+function tabCards(tab){
+  return (WIKI.cards||[]).filter(function(c){ return tabsOf(c).indexOf(tab)>=0 && matchQuery(c); });
 }
-/* order 가 있으면 우선(연구 개요·온보딩 등), 그 외는 제목순 */
 function sortCards(arr){
   return arr.slice().sort(function(a,b){
     var ao=(a.order!=null?a.order:999), bo=(b.order!=null?b.order:999);
     if(ao!==bo) return ao-bo;
-    return (a.title||'').localeCompare(b.title||'', 'ko');
+    return (a.title||'').localeCompare(b.title||'','ko');
   });
 }
-
-/* ===== 카드 그리드 ===== */
 function esc(s){ return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
 function cardDesc(c){
-  if(c.type==='report') return c.one_liner ? esc(c.one_liner) : '';
-  if(c.type==='troubleshooting' && c.symptom) return '증상: '+esc(String(c.symptom));
-  if(c.type==='project' && c.project_status)
-    return '상태: '+esc(String(c.project_status));
+  if(c.type==='report') return c.one_liner?esc(c.one_liner):'';
+  if(c.type==='troubleshooting'&&c.symptom) return '증상: '+esc(String(c.symptom));
+  if(c.type==='inventory'&&c.stock_status) return '재고: '+esc(String(c.stock_status));
   return '';
 }
+function badges(c){
+  var b='';
+  if(c.status==='draft') b+='<span class="bdg dr">초안</span>';
+  else if(c.status==='approved') b+='<span class="bdg ap">승인</span>';
+  if(c.needs_review) b+='<span class="bdg rv">⚠ 확인</span>';
+  (c.subgroup||[]).forEach(function(s){ var m=SUBGROUP_META[s]; if(m) b+='<span class="sgdot" style="background:'+m.color+'" title="'+m.label+'"></span>'; });
+  return b;
+}
 function cardEl(c){
-  var T = tmeta(c);
-  var tags = (c.tags||[]).slice(0,4).map(function(t){return '<span class="ctag">'+esc(t)+'</span>';}).join('');
-  var d = cardDesc(c);
+  var T=tmeta(c), tags=(c.tags||[]).slice(0,4).map(function(t){return '<span class="ctag">'+esc(t)+'</span>';}).join('');
+  var d=cardDesc(c);
   return '<div class="card t-'+c.type+(c.id===SEL?' sel':'')+'" data-id="'+c.id+'">'+
-    '<span class="ctype k-'+c.type+'">'+T.emoji+' '+T.short+'</span>'+
-    '<div class="ctitle">'+esc(c.title)+'</div>'+
-    (d?'<div class="cdesc">'+d+'</div>':'')+
+    '<span class="ctype k-'+c.type+'">'+T.emoji+' '+T.short+'</span>'+badges(c)+
+    '<div class="ctitle">'+esc(c.title)+'</div>'+(d?'<div class="cdesc">'+d+'</div>':'')+
     '<div class="ctags">'+tags+'</div></div>';
 }
-/* 한 섹션 블록. 안전은 MSDS/장비 안전가이드 두 묶음으로 서브분할,
-   연구 개요는 상단에 홈페이지 Research 링크를 고정. */
-function sectionBlock(sec, cards){
-  var group = sortCards(cards.filter(function(c){return secOf(c)===sec;}));
-  if(!group.length) return '';
-  var m = SECTIONS[sec] || {emoji:'',label:sec};
-  var html = '<div class="section-h"><span class="em">'+m.emoji+'</span>'+m.label+
-             ' · '+group.length+'</div>';
-  if(sec==='research')
-    html += '<div class="sec-link"><a class="metabtn" href="'+esc(RESEARCH_HOME)+
-            '" target="_blank" rel="noreferrer">🔗 연구실 홈페이지 Research ↗</a></div>';
-  if(sec==='safety'){
-    [{t:'report',label:'🧫 MSDS (시약 안전데이터)'},{t:'sop',label:'🔧 장비 안전 가이드'}]
-      .forEach(function(s){
-        var items = group.filter(function(c){return c.type===s.t;});
-        if(!items.length) return;
-        html += '<div class="subsec-h">'+s.label+' · '+items.length+'</div>'+
-                '<div class="grid">'+items.map(cardEl).join('')+'</div>';
-      });
-    var rest = group.filter(function(c){return c.type!=='report'&&c.type!=='sop';});
-    if(rest.length) html += '<div class="grid">'+rest.map(cardEl).join('')+'</div>';
-    return html;
-  }
-  return html + '<div class="grid">'+group.map(cardEl).join('')+'</div>';
+function grid(arr){ return '<div class="grid">'+sortCards(arr).map(cardEl).join('')+'</div>'; }
+function secH(emoji,label,n){ return '<div class="section-h"><span class="em">'+emoji+'</span>'+label+' · '+n+'</div>'; }
+function byId(id){ return BYID[id]; }
+function resolve(ids){ return (ids||[]).map(byId).filter(Boolean); }
+
+/* ===== 탭별 렌더 ===== */
+function renderResearch(cards){
+  var html='<div class="sec-link"><a class="metabtn" href="'+esc(RESEARCH_HOME)+'" target="_blank" rel="noreferrer">🔗 연구실 홈페이지 Research ↗</a></div>';
+  // axis 칩 필터
+  html+='<div class="chips">'+['','device','growth','quantum_topo','spe_quantum'].map(function(a){
+    var lab=a?(AXIS_META[a]?AXIS_META[a].label:a):'전체 축';
+    return '<button class="chip'+(a===AXIS_FILTER?' on':'')+'" data-axis="'+a+'">'+lab+'</button>';
+  }).join('')+'</div>';
+  var pool=cards.filter(function(c){ return !AXIS_FILTER || c.axis===AXIS_FILTER; });
+  // 토대 띠(합성·성장): subgroup 없음
+  var found=pool.filter(function(c){ return !(c.subgroup&&c.subgroup.length); });
+  if(found.length) html+='<div class="found">'+secH('🌱','합성·성장 (토대)',found.length)+grid(found)+'</div>';
+  // 서브그룹 3섹션
+  ['emerging_nanoelectronics','superconducting_nanoelectronics','quantum_optics'].forEach(function(sg){
+    var m=SUBGROUP_META[sg], items=pool.filter(function(c){ return (c.subgroup||[]).indexOf(sg)>=0; });
+    if(!items.length) return;
+    html+='<div class="sgsec" style="border-color:'+m.color+'">'+secH(m.emoji,m.label,items.length)+grid(items)+'</div>';
+  });
+  return html;
+}
+function renderEquipment(cards){
+  var anchors=sortCards(cards.filter(function(c){ return c.type==='inventory'&&c.inventory_kind==='equipment'; }));
+  var html=secH('🔧','장비 허브 (앵커)',anchors.length);
+  anchors.forEach(function(a){
+    var safety=resolve(a.linked_safety), sop=resolve(a.linked_sop), tr=resolve(a.linked_troubleshooting);
+    html+='<div class="hub"><div class="hub-h" data-id="'+a.id+'">📦 '+esc(a.title)+'</div>';
+    if(safety.length) html+='<div class="hub-sub">🧪 안전 SOP</div>'+grid(safety);
+    if(sop.length) html+='<div class="hub-sub">🔧 절차 SOP</div>'+grid(sop);
+    if(tr.length){ html+='<div class="hub-sub">⚠️ 이력 (이슈/조치/다운타임)</div>'+grid(tr); }
+    if(!safety.length&&!sop.length&&!tr.length) html+='<div class="hub-empty">연결된 카드 없음</div>';
+    html+='</div>';
+  });
+  // 앵커에 안 묶인 standalone sop/troubleshooting
+  var linked={}; anchors.forEach(function(a){ (a.linked_safety||[]).concat(a.linked_sop||[],a.linked_troubleshooting||[]).forEach(function(i){linked[i]=1;}); });
+  var rest=cards.filter(function(c){ return (c.type==='sop'||c.type==='troubleshooting')&&!linked[c.id]; });
+  if(rest.length) html+=secH('🗂️','기타 SOP·트러블슈팅',rest.length)+grid(rest);
+  return html;
+}
+function renderInventory(cards){
+  var html='', kinds=[['chemical','🧫 시약 (+MSDS·위험성)'],['consumable','🔩 소모품'],['equipment','🛠️ 장비'],['sample','🧬 수령 샘플']];
+  kinds.forEach(function(k){
+    var items=cards.filter(function(c){ return c.type==='inventory'&&c.inventory_kind===k[0]; });
+    if(k[0]==='chemical'){ // MSDS 리포트도 시약 안전데이터로 합류
+      var msds=cards.filter(function(c){ return c.type==='report'&&c.doc_class==='msds'; });
+      html+=secH('🧫',k[1],items.length+msds.length);
+      if(items.length) html+=grid(items);
+      if(msds.length) html+='<div class="subsec-h">🧪 MSDS (시약 안전데이터) · '+msds.length+'</div>'+grid(msds);
+      return;
+    }
+    if(k[0]==='sample' && !items.length){ html+=secH('🧬',k[1],0)+'<div class="hub-empty">아직 등록된 수령 샘플이 없어요 — DM 사진 또는 Slack List 동기화로 채워집니다.</div>'; return; }
+    if(items.length) html+=secH(k[1].split(' ')[0],k[1].substr(k[1].indexOf(' ')+1),items.length)+grid(items);
+  });
+  return html;
+}
+function renderGlossary(cards){
+  var terms=cards.filter(function(c){ return c.type==='term'; });
+  var html='<div class="chips">'+['','emerging_nanoelectronics','superconducting_nanoelectronics','quantum_optics'].map(function(s){
+    var lab=s?(SUBGROUP_META[s].emoji+SUBGROUP_META[s].label):'전체';
+    return '<button class="chip'+(s===SG_FILTER?' on':'')+'" data-sg="'+s+'">'+lab+'</button>';
+  }).join('')+'</div>';
+  var pool=terms.filter(function(c){ return !SG_FILTER || (c.subgroup||[]).indexOf(SG_FILTER)>=0; });
+  pool=pool.slice().sort(function(a,b){ return (a.title||'').localeCompare(b.title||'','en'); });
+  html+=secH('📖','용어집 (가나다/ABC)',pool.length)+grid(pool);
+  return html;
+}
+function renderAdmin(cards){
+  var html='';
+  var groups=[['policy','📋 정책·규정',function(c){return c.qa_kind==='policy'||c.wiki_section==='policy';}],
+              ['onboard','🎓 온보딩·안전교육',function(c){return c.qa_kind==='onboarding'||c.type==='onboarding';}],
+              ['deadline','⏰ 마감',function(c){return c.type==='deadline';}]];
+  groups.forEach(function(g){
+    var items=cards.filter(g[2]);
+    if(items.length) html+=secH(g[1].split(' ')[0],g[1].substr(g[1].indexOf(' ')+1),items.length)+grid(items);
+  });
+  return html;
+}
+function renderRelation(){
+  // 장비 앵커 허브 + 서브그룹 군집 (구조 맵)
+  var anchors=sortCards((WIKI.cards||[]).filter(function(c){return c.type==='inventory'&&c.inventory_kind==='equipment';}));
+  var html='<div class="rel-note">장비 앵커가 안전·이슈·절차 카드를 묶는 허브이고, 논문은 서브그룹으로 군집됩니다. 노드를 클릭하면 카드가 열립니다.</div>';
+  html+=secH('🔧','장비 허브',anchors.length)+'<div class="relwrap">';
+  anchors.forEach(function(a){
+    var ln=resolve((a.linked_safety||[]).concat(a.linked_sop||[],a.linked_troubleshooting||[]));
+    html+='<div class="relhub"><div class="relhub-c" data-id="'+a.id+'">'+esc(a.title.replace('장비: ',''))+'</div>'+
+      '<div class="relspokes">'+ln.map(function(c){return '<span class="relnode" data-id="'+c.id+'">'+esc(c.title.slice(0,22))+'</span>';}).join('')+
+      (ln.length?'':'<span class="hub-empty">—</span>')+'</div></div>';
+  });
+  html+='</div>';
+  // 서브그룹 군집
+  html+=secH('🔬','서브그룹 군집 (논문)',0).replace(' · 0','');
+  html+='<div class="relclusters">';
+  ['emerging_nanoelectronics','superconducting_nanoelectronics','quantum_optics'].forEach(function(sg){
+    var m=SUBGROUP_META[sg], items=(WIKI.cards||[]).filter(function(c){return c.type==='paper'&&(c.subgroup||[]).indexOf(sg)>=0;});
+    html+='<div class="relcluster" style="border-color:'+m.color+'"><div class="relcl-h" style="color:'+m.color+'">'+m.emoji+' '+m.label+' · '+items.length+'</div>'+
+      items.map(function(c){return '<span class="relnode" data-id="'+c.id+'">'+esc(c.title.slice(0,26))+'</span>';}).join('')+'</div>';
+  });
+  html+='</div>';
+  return html;
 }
 function renderGrid(){
-  var cards = visibleCards(), wrap = document.getElementById('grid-wrap'), html = '';
-  if(!cards.length){ wrap.innerHTML = '<div class="empty">검색 결과가 없습니다.</div>'; return; }
-  if(FILTER==='all'){
-    GROUPS.forEach(function(g){
-      var any = g.sections.some(function(s){ return cards.some(function(c){return secOf(c)===s;}); });
-      if(!any) return;
-      html += '<div class="group-h">'+g.label+'</div>';
-      g.sections.forEach(function(s){ html += sectionBlock(s, cards); });
-    });
-  } else {
-    html = sectionBlock(FILTER, cards);   // 단일 탭도 섹션 블록(안전 서브분할·연구 링크 유지)
+  var wrap=document.getElementById('grid-wrap'), html='';
+  if(FILTER==='relation'){ html=renderRelation(); }
+  else {
+    var cards=tabCards(FILTER);
+    if(!cards.length){ wrap.innerHTML='<div class="empty">결과가 없습니다.</div>'; return; }
+    if(FILTER==='research') html=renderResearch(cards);
+    else if(FILTER==='equipment') html=renderEquipment(cards);
+    else if(FILTER==='inventory') html=renderInventory(cards);
+    else if(FILTER==='glossary') html=renderGlossary(cards);
+    else if(FILTER==='admin') html=renderAdmin(cards);
+    else html=grid(cards);
   }
-  wrap.innerHTML = html;
-  wrap.querySelectorAll('.card').forEach(function(el){
-    el.addEventListener('click', function(){ openReader(this.getAttribute('data-id')); });
+  wrap.innerHTML=html;
+  wrap.querySelectorAll('.card,[data-id]').forEach(function(el){
+    if(el.getAttribute('data-id')) el.addEventListener('click', function(){ openReader(this.getAttribute('data-id')); });
   });
+  wrap.querySelectorAll('.chip[data-axis]').forEach(function(b){ b.addEventListener('click', function(){ AXIS_FILTER=this.getAttribute('data-axis'); renderGrid(); }); });
+  wrap.querySelectorAll('.chip[data-sg]').forEach(function(b){ b.addEventListener('click', function(){ SG_FILTER=this.getAttribute('data-sg'); renderGrid(); }); });
 }
 
 /* ===== 마크다운 (경량) ===== */
