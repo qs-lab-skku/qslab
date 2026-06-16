@@ -373,7 +373,8 @@ var TYPES = {
   term:            {label:'용어',          short:'용어',   emoji:'📖'},
   qa:              {label:'Q&A',           short:'Q&A',    emoji:'💬'},
   report:          {label:'보고서',        short:'보고서', emoji:'📑'},
-  research:        {label:'연구 개요',     short:'연구',   emoji:'🧭'}
+  research:        {label:'연구 개요',     short:'연구',   emoji:'🧭'},
+  inventory:       {label:'인벤토리',      short:'재고',   emoji:'📦'}
 };
 /* 탭 섹션 메타 — 탭/그룹 배치(카드의 section 으로 키; section = wiki_section || type).
    3 구획: 운영(ops) → 지식(kb) → 규정·문서(docs). */
@@ -382,6 +383,7 @@ var SECTIONS = {
   sop:             {label:'장비 SOP',   short:'SOP',    emoji:'🔧', group:'ops'},
   troubleshooting: {label:'트러블슈팅',  short:'트러블', emoji:'⚠️', group:'ops'},
   project:         {label:'프로젝트',    short:'프로젝트',emoji:'📁', group:'ops'},
+  inventory:       {label:'인벤토리',    short:'재고',   emoji:'📦', group:'ops'},
   research:        {label:'연구 개요',   short:'연구',   emoji:'🧭', group:'kb'},
   paper:           {label:'논문·발표',   short:'논문',   emoji:'📄', group:'kb'},
   term:            {label:'용어',        short:'용어',   emoji:'📖', group:'kb'},
@@ -391,10 +393,10 @@ var SECTIONS = {
 };
 var GROUPS = [
   {key:'kb',   label:'지식 · 배우고 참고',   sections:['research','paper','term','qa','report']},
-  {key:'ops',  label:'운영 · 자주 찾는 것', sections:['safety','sop','troubleshooting','project']},
+  {key:'ops',  label:'운영 · 자주 찾는 것', sections:['safety','sop','troubleshooting','project','inventory']},
   {key:'docs', label:'규정 · 문서',          sections:['policy']}
 ];
-var SECTION_ORDER = ['safety','sop','troubleshooting','project','research','paper','term','qa','report','policy'];
+var SECTION_ORDER = ['safety','sop','troubleshooting','project','inventory','research','paper','term','qa','report','policy'];
 var RESEARCH_HOME = 'https://qs-lab-skku.github.io/qslab/';   // 연구 개요 탭 상단 홈페이지 Research 링크
 var VIEW_COUNTER = '';   // 자체호스팅 익명 조회수 카운터 URL(예: https://<tailnet-name>/px). 빈값=비활성.
 /* unlock 시 익명 핑 — 총 조회수·순방문만. 식별자/IP 안 보냄(u 플래그=이번 주 첫 방문 여부). */
