@@ -3246,7 +3246,10 @@ var Publisher = (function () {
     var stamp = new Date().toISOString();
     putFile(PATH_CONTENT, json, 'Update content via admin · ' + stamp)
       .then(function(){
-        /* AUTO area: also persist News to data/news.json (shared with Slack). */
+        /* AUTO area: also persist News to data/news.json (shared with Slack).
+           GUARD: only write when auto-render succeeded, so a failed news.json
+           fetch (DOM showing the static fallback) can't clobber good data. */
+        if (!document.querySelector('#news-list-wrap[data-auto-rendered="1"]')) return;
         return putFile(PATH_NEWS, JSON.stringify(serializeNews(), null, 2),
                        'Update news (auto area) via admin · ' + stamp)
           .catch(function(){ /* news.json optional — content already published */ });
