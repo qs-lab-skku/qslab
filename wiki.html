@@ -318,6 +318,10 @@ body.reading{overflow:hidden}
 .wreq-cmd button{font-weight:600;border:1px solid var(--blue3);background:#eef2fd;color:var(--blue);border-radius:8px;padding:0 .8rem;cursor:pointer}
 .wreq-note{font-size:.72rem;color:var(--ink4);margin:.6rem 0 .8rem;line-height:1.5}
 .wreq-close{font-size:.78rem;border:1px solid var(--border2);background:var(--bg2);border-radius:8px;padding:.4rem .9rem;cursor:pointer;float:right}
+.wreq-toast{position:fixed;left:50%;bottom:2rem;z-index:60;background:#111827;color:#fff;
+  font-size:.82rem;padding:.7rem 1.1rem;border-radius:10px;box-shadow:0 8px 30px rgba(0,0,0,.3);opacity:0;
+  transition:opacity .25s,transform .25s;max-width:90vw;transform:translateX(-50%) translateY(1rem)}
+.wreq-toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
 </style>
 </head>
 <body>
@@ -1077,7 +1081,7 @@ function openReader(id){
   document.getElementById('reader-chip').innerHTML = chipHtml(c);
   body.innerHTML = html;
   body.querySelectorAll('[data-wreq]').forEach(function(el){
-    el.addEventListener('click', function(){ showWikiRequest(this.getAttribute('data-wid'), this.getAttribute('data-wreq')); });
+    el.addEventListener('click', function(){ postWikiRequest(this.getAttribute('data-wid'), this.getAttribute('data-wreq')); });
   });
   body.querySelectorAll('[data-go]').forEach(function(el){
     el.addEventListener('click', function(){ openReader(this.getAttribute('data-go')); });
@@ -1099,28 +1103,44 @@ function openReader(id){
 }
 function closeReader(){ document.body.classList.remove('reading'); SEL=null; PDFV=null; }
 
-/* ===== 위키발 요청 모달 — 복사용 /wiki-request 명령 안내 (봇 Socket Mode 수신) ===== */
-var WORKSPACE_URL = '';   // (선택) 봇 DM 딥링크용 — 예: 'https://app.slack.com/client/T.../D...'. 빈값=링크 숨김
-function showWikiRequest(cid, action){
-  var label = action==='internal' ? '🔒 내부 전환(공개 해제)' : '🗑️ 삭제';
-  var cmd = '/wiki-request '+action+' '+cid;
-  var ov = document.createElement('div'); ov.className='wreq-ov';
-  ov.innerHTML = '<div class="wreq-box">'+
-    '<div class="wreq-tt">'+label+' 요청 — `'+esc(cid)+'`</div>'+
-    '<p class="wreq-p">Slack 에서 <b>QS-KB 봇에게 DM</b> 으로 아래 명령을 붙여넣으면, PI 에게 승인 요청이 전달돼요. 승인되면 즉시 반영됩니다.</p>'+
-    '<div class="wreq-cmd"><input id="wreq-input" readonly value="'+esc(cmd)+'"><button id="wreq-copy">복사</button></div>'+
-    (WORKSPACE_URL?'<a class="metabtn" href="'+esc(WORKSPACE_URL)+'" target="_blank" rel="noreferrer">💬 Slack 봇 DM 열기 ↗</a>':'')+
-    '<div class="wreq-note">학생은 *요청*만 할 수 있어요 — 실제 변경/삭제는 PI 승인 시에만. (삭제는 git 으로 복구 가능)</div>'+
-    '<button class="wreq-close" id="wreq-x">닫기</button></div>';
-  document.body.appendChild(ov);
-  var inp=ov.querySelector('#wreq-input');
-  ov.querySelector('#wreq-copy').addEventListener('click', function(){
-    inp.select(); try{ navigator.clipboard.writeText(inp.value); this.textContent='복사됨 ✓'; }
-    catch(e){ document.execCommand('copy'); this.textContent='복사됨 ✓'; }
-  });
-  function close(){ ov.remove(); }
-  ov.querySelector('#wreq-x').addEventListener('click', close);
-  ov.addEventListener('click', function(e){ if(e.target===ov) close(); });
+/* ===== 위키발 요청 — 클릭 시 Incoming Webhook 으로 바로 전송(익명, fire-and-forget) =====
+   webhook URL 은 복호화된 payload(WIKI.wiki_request_webhook)에만 있음(평문 wiki.html 엔 없음).
+   봇의 기존 wreq_approve/wreq_reject 핸들러가 #wiki-requests 채널 클릭을 그대로 처리(PI 게이트). */
+function wreqBlocks(cid, action){
+  var label = action==='internal' ? '🔒 내부 전환(internal_only)' : '🗑️ 삭제';
+  var val = JSON.stringify({a:action, cid:cid});
+  var approve = {type:'button', style:'primary', action_id:'wreq_approve', value:val,
+                 text:{type:'plain_text', text:'✅ 승인'}};
+  if(action==='delete'){
+    approve.confirm = {title:{type:'plain_text', text:'카드 삭제 승인'},
+      text:{type:'mrkdwn', text:'`'+cid+'` 를 공개본에서 삭제할까요? (git 복구 가능)'},
+      confirm:{type:'plain_text', text:'삭제 승인'}, deny:{type:'plain_text', text:'취소'}};
+  }
+  return [
+    {type:'section', text:{type:'mrkdwn',
+      text:'🗂️ *위키 카드 '+label+' 요청* (위키 버튼 · 익명)\n*카드* `'+cid+'`\n승인하면 즉시 반영(재빌드·푸시)됩니다.'+
+           (action==='delete' ? '\n⚠️ 삭제는 git 으로 복구 가능하지만 공개본에서 사라집니다.' : '')}},
+    {type:'actions', block_id:'wreq:'+action+':'+cid, elements:[approve,
+      {type:'button', style:'danger', action_id:'wreq_reject', value:val,
+       text:{type:'plain_text', text:'⏭️ 거절'}}]},
+    {type:'context', elements:[{type:'mrkdwn', text:'위키 요청(익명) · PI 만 승인/거절 가능'}]}
+  ];
+}
+function postWikiRequest(cid, action){
+  var label = action==='internal' ? '🔒 내부 전환' : '🗑️ 삭제';
+  var url = (typeof WIKI!=='undefined' && WIKI && WIKI.wiki_request_webhook) || '';
+  if(!url){ wreqToast('요청 채널이 설정되지 않았어요(webhook 없음). 관리자에게 알려주세요.'); return; }
+  /* no-cors 단순요청(Content-Type 미지정=text/plain → 프리플라이트 없음). Slack 이 본문을 JSON 으로 파싱.
+     응답은 opaque(성공여부 확인 불가) → 낙관적 안내. */
+  try { fetch(url, {method:'POST', mode:'no-cors', body: JSON.stringify({blocks: wreqBlocks(cid, action)})}).catch(function(){}); }
+  catch(e){}
+  wreqToast('📨 '+label+' 요청을 보냈어요 — PI 승인 대기 중. 승인되면 위키에 반영돼요.');
+}
+function wreqToast(msg){
+  var t=document.createElement('div'); t.className='wreq-toast'; t.textContent=msg;
+  document.body.appendChild(t);
+  setTimeout(function(){ t.classList.add('show'); }, 10);
+  setTimeout(function(){ t.classList.remove('show'); setTimeout(function(){ t.remove(); }, 300); }, 3800);
 }
 
 /* ===== PDF 인-페이지 뷰어 (PDF.js, §4 옵션 b) ===== */
