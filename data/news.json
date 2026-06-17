@@ -1,12 +1,7 @@
 {
   "_comment": "Auto area (I3). Source of truth for News & Highlights. Edited by qs-kb Slack /home-news (PI publishes; students submit for PI approval) and the in-page admin publish. Rendered by js/auto-sections.js.",
-  "updated": "2026-06-17T09:46:10.592318+00:00",
+  "updated": "2026-06-17T09:51:14.292441+00:00",
   "items": [
-    {
-      "date": "2026-06-17",
-      "title": "테스트 뉴스",
-      "body": "연동 확인용"
-    },
     {
       "date": "2026-04-17",
       "title": "[Global Network] Expanding Frontiers in 2D Materials at MRS Spring 2026",
