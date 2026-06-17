@@ -2098,7 +2098,7 @@ body.admin-on .news-edit-btns { display: flex; }
     <div class="sl-desc">Publications, awards, grants &amp; events from the lab.</div>
     <div class="sl-right"><div class="sl-st"><div class="n" id="news-latest">Mar 2026</div><div class="l">Latest update</div></div></div>
   </div>
-  <div class="news-wrap" id="news-list-wrap">
+  <div class="news-wrap" id="news-list-wrap" data-auto="news">
   <div class="news-item" data-adm-card data-adm-type="news">
     <div class="news-date">2026-03-20</div>
     <div class="news-content">
@@ -3149,6 +3149,43 @@ var Publisher = (function () {
   var BRANCH = 'main';
   var PATH   = 'index.html';
   var PATH_CONTENT = 'content.json';  /* content lives here, separate from code */
+  var PATH_NEWS = 'data/news.json';   /* AUTO area (I3): shared with Slack /home-news */
+
+  /* Serialize the live News list (#news-list-wrap) into the data/news.json
+     model. Lets the in-page admin write to the SAME source the Slack bot
+     uses, so both edit paths converge (INTERCONNECT §4). */
+  function serializeNews() {
+    var wrap = document.getElementById('news-list-wrap');
+    var items = [];
+    if (wrap) {
+      wrap.querySelectorAll('.news-item').forEach(function (it) {
+        var dE = it.querySelector('.news-date');
+        var hE = it.querySelector('h3');
+        var pE = it.querySelector('p');
+        var iE = it.querySelector('img');
+        var rec = {
+          date:  dE ? dE.textContent.trim() : '',
+          title: hE ? hE.textContent.trim() : '',
+          body:  ''
+        };
+        if (pE) {
+          var aE = pE.querySelector('a[href]');
+          if (aE && aE.getAttribute('href')) rec.url = aE.getAttribute('href');
+          var clone = pE.cloneNode(true);
+          clone.querySelectorAll('a').forEach(function (a) { a.remove(); });
+          rec.body = clone.textContent.trim();
+        }
+        if (iE && iE.getAttribute('src')) {
+          rec.image = iE.getAttribute('src');
+          var st = (iE.getAttribute('style') || '') + (iE.style && iE.style.objectFit ? ' contain' : '');
+          if (/contain/.test(st)) rec.image_contain = true;
+        }
+        if (rec.title) items.push(rec);
+      });
+    }
+    return { _comment: 'Auto area (I3). Shared by Slack /home-news and in-page admin publish. Rendered by js/auto-sections.js.',
+             updated: new Date().toISOString(), items: items };
+  }
   var TKEY   = 'qslab_gh_token';
 
   function getToken()  { try { return localStorage.getItem(TKEY) || ''; } catch(e){ return ''; } }
@@ -3206,7 +3243,14 @@ var Publisher = (function () {
     var json = JSON.stringify(data);
 
     status('GitHub에 업로드 중…', 'work');
-    putFile(PATH_CONTENT, json, 'Update content via admin · ' + new Date().toISOString())
+    var stamp = new Date().toISOString();
+    putFile(PATH_CONTENT, json, 'Update content via admin · ' + stamp)
+      .then(function(){
+        /* AUTO area: also persist News to data/news.json (shared with Slack). */
+        return putFile(PATH_NEWS, JSON.stringify(serializeNews(), null, 2),
+                       'Update news (auto area) via admin · ' + stamp)
+          .catch(function(){ /* news.json optional — content already published */ });
+      })
       .then(function(){
         Persist.markPublished(data.savedAt);
         status('✓ 발행 완료! 약 1분 후 사이트에 반영됩니다.', 'ok');
@@ -5315,6 +5359,8 @@ var Persist = (function () {
       if (window.highlightLabAuthors) window.highlightLabAuthors();
       if (window.syncHomeNews) window.syncHomeNews();
       if (window.refreshNewsMeta) window.refreshNewsMeta();
+      /* AUTO area: re-apply Slack/bot-authored news over any content.json snapshot */
+      if (window.renderAutoNews) window.renderAutoNews();
       if (window.refreshPubThumbs) window.refreshPubThumbs();
       /* migrate renamed labels that may arrive via an older content.json */
       document.querySelectorAll('.mg-label').forEach(function(el){
@@ -6550,5 +6596,8 @@ body.admin-on #pub-toc-batch { display: inline-flex; }
   }
 })();
 </script>
+<!-- AUTO area (I3): renders data/*.json into [data-auto] regions only.
+     Bot/Slack writes the data files; this never touches the manual content. -->
+<script src="js/auto-sections.js" defer></script>
 </body>
 </html>

@@ -1,0 +1,186 @@
+{
+  "_comment": "Auto area (I3). Source of truth for News & Highlights. Edited by qs-kb Slack bot (/home-news) and the in-page admin publish. Rendered by js/auto-sections.js. Do not hand-edit index.html news; edit here.",
+  "updated": "2026-06-11T12:46:10.595Z",
+  "items": [
+    {
+      "date": "2026-04-17",
+      "title": "[Global Network] Expanding Frontiers in 2D Materials at MRS Spring 2026",
+      "body": "Prof. Seunguk Song attended the 2026 MRS Spring Meeting in Hawaii, engaging with leading scientists in the 2D materials and quantum heterostructures fields. QS Lab continuously pushes the boundaries of quantum devices by staying at the forefront of global materials research."
+    },
+    {
+      "date": "2026-03-20",
+      "title": "Sooyoung Choi joins as Research Associate",
+      "body": "Sooyoung Choi has officially joined our group as a Research Associate (effective March 19, 2026). She earned her M.S. in Electrical Engineering from the University of Pennsylvania, bringing expertise in next-generation quantum materials."
+    },
+    {
+      "date": "2026-03-19",
+      "title": "Prof. Song selected as Nanoscale 2026 Emerging Investigator",
+      "body": "Prof. Seunguk Song has been selected as a Nanoscale 2026 Emerging Investigator by the Royal Society of Chemistry (RSC). Our MOCVD review is featured in the themed collection.",
+      "image": "assets/news/nanoscale-ei.png",
+      "image_contain": true
+    },
+    {
+      "date": "2026-03-02",
+      "title": "New undergraduate interns join QS Lab",
+      "body": "Taeyoung Jeon, Minseok Kim, Seonwoo Youn, Juhyung Lee, Dahyeon Oh, Hyeonsu Kim, Seoyoung Lim, Sangmin Joo, Siwon Yang, and Jaeho Kang have joined QS Lab as undergraduate interns. Welcome, all!"
+    },
+    {
+      "date": "2026-01-28",
+      "title": "33rd Korean Conference on Semiconductors",
+      "body": "All QS Lab members participated in the 33rd Korean Conference on Semiconductors (반도체학술대회). Three graduate students presented research posters and engaged in active discussions.",
+      "image": "assets/news/kcs-2026.jpg"
+    },
+    {
+      "date": "2026-01-26",
+      "title": "International Joint Workshop with NUS IFIM (Singapore)",
+      "body": "We organized an international joint workshop with the Institute for Functional Intelligent Materials (IFIM) at the National University of Singapore, with talks, open discussions, and a lab tour.",
+      "image": "assets/news/nus-ifim.jpg"
+    },
+    {
+      "date": "2026-01-06",
+      "title": "Nature Reviews Electrical Engineering — Indium selenides review published",
+      "body": "Our Perspective “Indium selenides for next-generation low-power computing devices” is published in Nature Reviews Electrical Engineering.",
+      "image": "assets/news/nree-inse.png",
+      "image_contain": true
+    },
+    {
+      "date": "2026-01-05",
+      "title": "Gunmo Koo joins as undergraduate intern",
+      "body": "Gunmo Koo has joined QS Lab as an undergraduate intern. Welcome, Gunmo!"
+    },
+    {
+      "date": "2025-12-12",
+      "title": "Joint Workshop with IBS & University of Cambridge at ICAMD, Busan",
+      "body": "Our lab, the IBS Center for 2D Quantum Heterostructures, and the University of Cambridge held a joint workshop at ICAMD in Busan — with talks by Profs. Mete Atatüre, Andrea Ferrari, and Manish Chhowalla.",
+      "image": "assets/news/icamd-cambridge.jpg"
+    },
+    {
+      "date": "2025-11-21",
+      "title": "Device (Cell Press) — Low-voltage ferroelectric FET paper published",
+      "body": "Our collaborative work “Low-voltage ferroelectric field-effect transistors with ultrathin aluminum scandium nitride and 2D channels” is published in Device, 4, 100989 (2025).",
+      "image": "assets/news/device-fefet.png",
+      "image_contain": true
+    },
+    {
+      "date": "2025-10-31",
+      "title": "Small Science — Edge-contacted nanosheet transistor paper published",
+      "body": "Our work demonstrating wafer-scale fabrication of edge-contacted MoTe₂ nanosheet transistors via alloying-mediated phase engineering is published in Small Science.",
+      "image": "assets/news/small-science.png",
+      "image_contain": true
+    },
+    {
+      "date": "2025-10-28",
+      "title": "Sangwon Yun joins as undergraduate intern",
+      "body": "Sangwon Yun has joined QS Lab as an undergraduate intern. Welcome, Sangwon!"
+    },
+    {
+      "date": "2025-10-14",
+      "title": "Joint Workshop with Active Soft Materials & Robots Lab",
+      "body": "Our Quantum Semiconductors Lab held a joint workshop with the Active Soft Materials & Robots Lab (Mechanical Engineering, SKKU), planning a collaborative project on ionic-gel–based damage-free transfer of 2D materials.",
+      "image": "assets/news/robots-lab-workshop.jpg"
+    },
+    {
+      "date": "2025-09-24",
+      "title": "Nanoscale review — MOCVD of 2D chalcogenides published",
+      "body": "Our review “Metal-organic chemical vapour deposition of van der Waals 2D chalcogenides and heterostructures” is published in Nanoscale.",
+      "image": "assets/news/nanoscale-review.png",
+      "image_contain": true
+    },
+    {
+      "date": "2025-09-08",
+      "title": "Seohee Park joins as undergraduate intern",
+      "body": "Seohee Park has joined QS Lab as an undergraduate intern. Welcome, Seohee!"
+    },
+    {
+      "date": "2025-09-06",
+      "title": "Advanced Functional Materials — Interfacial control in 2D heterostructures",
+      "body": "Our collaborative study “Interfacial Control of Degradation Pathways in 2D Heterostructures” is published in Advanced Functional Materials.",
+      "image": "assets/news/afm-degradation.png",
+      "image_contain": true
+    },
+    {
+      "date": "2025-08-17",
+      "title": "Nature Communications — Reconfigurable carbon-nanotube ferroelectric FET published",
+      "body": "Our collaborative work “Reconfigurable single-walled carbon nanotube ferroelectric field-effect transistors” is published in Nature Communications, 16, 7655 (2025).",
+      "image": "assets/news/natcomm-cnt.png",
+      "image_contain": true
+    },
+    {
+      "date": "2025-08-11",
+      "title": "Chaehui Lim joins as graduate student",
+      "body": "Chaehui Lim has joined QS Lab as a graduate student. Welcome, Chaehui!"
+    },
+    {
+      "date": "2025-08-04",
+      "title": "Yerin So joins as undergraduate intern",
+      "body": "Yerin So has joined QS Lab as an undergraduate intern. Welcome, Yerin!"
+    },
+    {
+      "date": "2025-08-01",
+      "title": "Dr. Nasir Ali joins as postdoctoral researcher",
+      "body": "Dr. Nasir Ali has joined QS Lab as a postdoctoral researcher, focusing on quantum-phase metal–insulator transitions, metallic transport, and critical phenomena in 2D materials. Welcome, Nasir!"
+    },
+    {
+      "date": "2025-07-31",
+      "title": "IBS Global Partner Lab with University of Cambridge (2025–2031)",
+      "body": "As a participating group of the IBS Center for 2D Quantum Heterostructures (2DQH), our lab began collaboration with the University of Cambridge’s Cavendish Laboratory through the IBS Global Partner Lab.",
+      "image": "assets/news/cambridge-partner.jpg"
+    },
+    {
+      "date": "2025-07-15",
+      "title": "IBS 2DQH 2025 Summer Workshop, Vivaldi Park",
+      "body": "From July 15–17, 2025 we joined the IBS 2DQH Summer Workshop at Vivaldi Park, Hongcheon — sharing current research and discussing future plans across the 2DQH center.",
+      "image": "assets/news/ibs2dqh-workshop.jpg"
+    },
+    {
+      "date": "2025-07-01",
+      "title": "Ceramist — Review on electrical measurement of 2D transistors published",
+      "body": "Kyungwu Kwon published a first-author review “Methodologies for Electrical Measurement and Parameter Analysis of 2D Semiconductor Transistors” in Ceramist.",
+      "image": "assets/news/ceramist.png",
+      "image_contain": true
+    },
+    {
+      "date": "2025-03-04",
+      "title": "New graduate students join QS Lab",
+      "body": "Wonchan Lee, Yunjung Cho, Inbae Song, and Kangpyo Cho have joined QS Lab as graduate students."
+    },
+    {
+      "date": "2025-03-01",
+      "title": "National research project awarded — vdW ferroelectric transistors",
+      "body": "Awarded a national research project, “Development of Quantum Phase Transition Non-Volatile Control Technology via Large-Area van der Waals Ferroelectric Transistors,” funded by MSIT and the NRF of Korea (2025.03–2030.02)."
+    },
+    {
+      "date": "2025-03-01",
+      "title": "National research infrastructure awarded — Cold-Wall MOCVD",
+      "body": "Selected for a national research-infrastructure project to establish a Cold-Wall MOCVD system for quantum-semimetal synthesis, funded by MSIT and the Korea Basic Science Institute (2025.03–2026.02)."
+    },
+    {
+      "date": "2025-02-26",
+      "title": "ACS Nano — High-performance MoS₂/AlScN FeFET paper published",
+      "body": "Our paper “High Current and Carrier Densities in 2D MoS₂/AlScN Field-Effect Transistors via Ferroelectric Gating and Ohmic Contacts” is published in ACS Nano.",
+      "image": "assets/news/acsnano-fefet.png",
+      "image_contain": true
+    },
+    {
+      "date": "2024-09-02",
+      "title": "Participation in the BK21 FOUR program",
+      "body": "QS Lab is participating in the BK21 FOUR Educational and Research Group for Fostering Innovative Talents in Integrated Renewable Energy Systems, funded by MOE and MSIT (through 2027)."
+    },
+    {
+      "date": "2024-08-01",
+      "title": "QS Lab at SKKU officially started!",
+      "body": "The Quantum Semiconductor Laboratory at Sungkyunkwan University has officially started. We are located at N Center 3F #86383, SKKU.",
+      "image": "assets/news/qslab-launch.jpg"
+    },
+    {
+      "date": "2024-08-01",
+      "title": "SKKU 2024 Start-up Fund awarded",
+      "body": "Received funding through the 2024 Start-up Fund Support Program by Sungkyunkwan University (2024.08–2026.07)."
+    },
+    {
+      "date": "2024-08-01",
+      "title": "IBS collaborative project joined",
+      "body": "Participating in the IBS collaborative project “Correlation between Structure and Properties of Quantum Heterostructures at the Atomic Scale,” funded by MSIT (from 2024, for eight years)."
+    }
+  ]
+}
