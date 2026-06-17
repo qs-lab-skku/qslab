@@ -3197,7 +3197,7 @@ var Publisher = (function () {
     Object.keys(GRID).forEach(function (cat) {
       var g = document.getElementById(GRID[cat]);
       if (!g) return;
-      g.querySelectorAll('.mcard[data-adm-type="member"]').forEach(function (card) {
+      g.querySelectorAll('.mcard:not(.mcard-hiring)').forEach(function (card) {
         var nE = card.querySelector('.mcard-name');
         var rE = card.querySelector('.mcard-role');
         var dE = card.querySelector('.mcard-desc');

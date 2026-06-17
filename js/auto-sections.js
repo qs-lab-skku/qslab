@@ -172,12 +172,10 @@
     var members = (data && Array.isArray(data.members)) ? data.members
                 : (Array.isArray(data) ? data : null);
     if (!members || !members.length) return;
-    var anyGrid = false;
-    Object.keys(GRID).forEach(function (c) {
-      var g = document.getElementById(GRID[c]);
-      if (g && g.getAttribute('data-auto') === 'members') anyGrid = true;
-    });
-    if (!anyGrid) return;
+    /* need at least one target grid in the DOM (gate by id, NOT by data-auto:
+       content.json may re-render the grids without the data-auto attribute). */
+    var present = Object.keys(GRID).some(function (c) { return document.getElementById(GRID[c]); });
+    if (!present) return;
 
     var sig = JSON.stringify(members);
     var grad = document.getElementById('grid-grad');
@@ -192,8 +190,10 @@
 
     Object.keys(GRID).forEach(function (c) {
       var g = document.getElementById(GRID[c]);
-      if (!g || g.getAttribute('data-auto') !== 'members') return;
-      g.querySelectorAll('.mcard[data-adm-type="member"]').forEach(function (el) { el.remove(); });
+      if (!g) return;
+      /* remove existing member cards (keep "We Are Hiring"); match by structure,
+         not data-adm-type — content.json strips admin attrs on publish. */
+      g.querySelectorAll('.mcard:not(.mcard-hiring)').forEach(function (el) { el.remove(); });
       var frag = document.createDocumentFragment();
       byCat[c].forEach(function (m) { frag.appendChild(buildMember(m)); });
       g.appendChild(frag);
