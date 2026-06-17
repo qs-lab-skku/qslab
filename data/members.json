@@ -1,0 +1,166 @@
+{
+  "_comment": "Auto area (I3). Source of truth for People member cards (grids: ra/grad/intern/postdoc/alumni). Edited by qs-kb Slack /home-member (PI only) and the in-page admin publish. Rendered by js/auto-sections.js. I4: only PI-approved member info is published here.",
+  "updated": "2026-06-11T12:46:10.595Z",
+  "members": [
+    {
+      "category": "ra",
+      "name": "Sooyoung Choi",
+      "role": "Research Associate (Mar 2026)",
+      "desc": "Received M.S. in Electrical Engineering from the University of Pennsylvania. Joined the lab as Research Associate in March 2026. Research interests include 2D superconductors and twist angle-dependent electronic properties in 2D heterostructures.",
+      "image": "assets/people/sooyoung-choi.jpg"
+    },
+    {
+      "category": "grad",
+      "name": "Wonchan Lee",
+      "role": "Integrated M.S.-Ph.D. (Mar 2025)",
+      "desc": "Joined as research assistant in October 2024, transitioned to Integrated M.S.-Ph.D. program in March 2025. Research focuses on quantum phase transitions in 2D transistors and low-power computing technologies leveraging novel quantum phenomena.",
+      "image": "assets/people/wonchan-lee.jpg"
+    },
+    {
+      "category": "grad",
+      "name": "Yunjung Cho",
+      "role": "Integrated M.S.-Ph.D. (Mar 2025)",
+      "desc": "Joined as research assistant in November 2024, transitioned to Integrated M.S.-Ph.D. program in March 2025. Research: (1) Large-area epitaxy of 2D semiconductors; (2) 0D quantum dot–TMD heterostructure fabrication.",
+      "image": "assets/people/yunjung-cho.jpg"
+    },
+    {
+      "category": "grad",
+      "name": "Inbae Song",
+      "role": "Integrated M.S.-Ph.D. (Mar 2025)",
+      "desc": "Integrated M.S.-Ph.D. student since March 2025, started as undergraduate intern in January 2025. Research: growth of 2D transition metal tellurides via thermal CVD.",
+      "image": "assets/people/inbae-song.jpg"
+    },
+    {
+      "category": "grad",
+      "name": "Kangpyo Cho",
+      "role": "Integrated M.S.-Ph.D. (Mar 2025)",
+      "desc": "Integrated M.S.-Ph.D. student since March 2025, research assistant since February 2025. Focuses on growth of 2D ferroelectric materials for quantum-engineered logic and memory applications.",
+      "image": "assets/people/kangpyo-cho.jpg"
+    },
+    {
+      "category": "grad",
+      "name": "Jihwan Jeon",
+      "role": "Integrated M.S.-Ph.D. (Sep 2025)",
+      "desc": "Integrated M.S.-Ph.D. student since September 2025, research assistant since April 2025. Focuses on wafer-scale synthesis of 2D III-VI compound semiconductors for single-photon emitters and ferroelectric memory applications.",
+      "image": "assets/people/jihwan-jeon.jpg"
+    },
+    {
+      "category": "grad",
+      "name": "Chaehui Lim",
+      "role": "Integrated M.S.-Ph.D. (Sep 2025)",
+      "desc": "Master-PhD Combined Program student since September 2025. Research focuses on MOCVD-based synthesis of lateral in-plane 2D heterostructures for quantum information science applications.",
+      "image": "assets/people/chaehui-lim.jpg"
+    },
+    {
+      "category": "grad",
+      "name": "Kyungwu Kwon",
+      "role": "Graduate Student (Mar 2026)",
+      "desc": "Undergraduate intern since March 2025, transitioning to graduate student in March 2026. Research on synthesis of 2D topological semimetals and semiconductors for nanoelectronics.",
+      "image": "assets/people/kyungwu-kwon.jpg"
+    },
+    {
+      "category": "grad",
+      "name": "Yerin So",
+      "role": "Graduate Student (Mar 2026)",
+      "desc": "Physics undergraduate at Sookmyung Women's University, research intern since August 2025, graduate studies starting March 2026. Research: 2D superconductors and fundamental physical properties for superconducting qubit applications.",
+      "image": "assets/people/yerin-so.jpg"
+    },
+    {
+      "category": "intern",
+      "name": "Seohee Park",
+      "role": "Intern (Sep 2025)",
+      "desc": "Undergraduate intern since September 2025. Research: synthesizing 2D ferroelectric materials and fabricating devices for next-generation semiconductor applications.",
+      "image": "assets/people/seohee-park.jpg"
+    },
+    {
+      "category": "intern",
+      "name": "Taeyoung Jeon",
+      "role": "Undergrad Intern",
+      "desc": "Chemical Engineering undergraduate. Research: MOCVD-based synthesis of 2D heterostructures and their applicability.",
+      "image": "assets/people/taeyoung-jeon.jpg"
+    },
+    {
+      "category": "intern",
+      "name": "Sungwoo Yoon",
+      "role": "Undergrad Intern",
+      "desc": "Chemical Engineering undergraduate. Research: wafer-scale synthesis of PtTe₂ via TCVD for next-generation semiconductor interconnects and spintronics.",
+      "image": "assets/people/sungwoo-yoon.jpg"
+    },
+    {
+      "category": "intern",
+      "name": "Minseok Kim",
+      "role": "Intern (Mar 2026)",
+      "desc": "Undergraduate intern since March 2026. Research: quantum transport in 2D ferroelectric devices and low-power circuit design.",
+      "image": "assets/people/minseok-kim.jpg"
+    },
+    {
+      "category": "intern",
+      "name": "Minseo Kim",
+      "role": "Intern (Apr 2026)",
+      "desc": "Energy undergraduate, intern since April 2026. Research: CVD synthesis of 2D heterostructures for low-power, high-performance computing.",
+      "image": "assets/people/minseo-kim.jpg"
+    },
+    {
+      "category": "intern",
+      "name": "Minseong Choi",
+      "role": "Undergrad Intern (Mar 2026)",
+      "desc": "Undergraduate intern since March 2026. Research: growth and characterization of 2D layered materials for energy and electronic applications.",
+      "image": "assets/people/minseong-choi.jpg"
+    },
+    {
+      "category": "alumni",
+      "name": "Dr. Nasir Ali",
+      "role": "Alumni (ex-Postdoc) · 2025–2026",
+      "desc": "Currently at NTT, Japan",
+      "image": "assets/people/nasir-ali.png"
+    },
+    {
+      "category": "alumni",
+      "name": "Dr. Chengyun Hong",
+      "role": "2024-2025",
+      "nameonly": true
+    },
+    {
+      "category": "alumni",
+      "name": "Juhyung Lee",
+      "role": "Alumni (ex-URP)",
+      "nameonly": true
+    },
+    {
+      "category": "alumni",
+      "name": "Dahyeon Oh",
+      "role": "Alumni (ex-URP)",
+      "nameonly": true
+    },
+    {
+      "category": "alumni",
+      "name": "Hyeonsu Kim",
+      "role": "Alumni (ex-URP)",
+      "nameonly": true
+    },
+    {
+      "category": "alumni",
+      "name": "Seoyoung Lim",
+      "role": "Alumni (ex-URP)",
+      "nameonly": true
+    },
+    {
+      "category": "alumni",
+      "name": "Sangmin Joo",
+      "role": "Alumni (ex-URP)",
+      "nameonly": true
+    },
+    {
+      "category": "alumni",
+      "name": "Siwon Yang",
+      "role": "Alumni (ex-URP)",
+      "nameonly": true
+    },
+    {
+      "category": "alumni",
+      "name": "Jaeho Kang",
+      "role": "Alumni (ex-URP)",
+      "nameonly": true
+    }
+  ]
+}

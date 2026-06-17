@@ -4,27 +4,26 @@
  * 자동영역 ↔ 수동영역 물리 분리:
  *   - 이 스크립트는 data/*.json (봇/Slack 이 쓰는 자동영역) 만 읽어
  *     index.html 안의 <... data-auto="..."> 로 명시된 구역에만 주입한다.
- *   - 수동영역(소개·PI·People·연구 본문 등)은 절대 건드리지 않는다.
+ *   - 수동영역(소개·PI·연구 본문·채용 카드·기관 공동연구자 등)은 안 건드린다.
  *
- * News & Highlights:
- *   소스    = data/news.json  (Slack 봇 /home-news + 홈페이지 admin 발행이 함께 씀)
- *   대상    = #news-list-wrap[data-auto="news"]  (News 페이지 목록)
- *   파생    = 기존 window.syncHomeNews() 가 이 목록에서 홈 하이라이트 그리드를,
- *            window.refreshNewsMeta() 가 정렬·"Latest update" 배지를 만든다(재사용).
+ * News & Highlights:  data/news.json   → #news-list-wrap[data-auto="news"]
+ *   파생: window.syncHomeNews()(홈 그리드) · window.refreshNewsMeta()(정렬·배지).
+ * People (members):   data/members.json → .mgrid[data-auto="members"] (ra/grad/intern/postdoc/alumni)
+ *   파생: window.refreshPeopleCounts()(인원수 칩) · window.highlightLabAuthors()(저자 강조).
+ *   채용("We Are Hiring") 카드는 보존하고 멤버 카드만 교체한다.
  *
- * 안전장치: fetch 실패/빈 배열이면 아무것도 안 한다 → index.html 의 정적
- *   뉴스(폴백)가 그대로 보인다(사이트가 비지 않음).
- * 멱등: 여러 번 호출해도(특히 content.json 적용 후 rerunHooks) 같은 결과.
+ * 안전장치: fetch 실패/빈 데이터면 아무것도 안 한다 → index.html 정적 폴백 유지.
+ * 멱등: content.json 적용 후 rerunHooks 에서 다시 호출돼도 같은 결과.
+ * 가드: 자동 렌더 성공 구역엔 data-auto-rendered="1" 표식 → admin 발행이 폴백을
+ *      직렬화해 좋은 데이터를 덮어쓰는 사고를 막는다(index.html publish 가 확인).
  * ==========================================================================*/
 (function () {
   'use strict';
 
   function esc(s) { return (s == null ? '' : String(s)); }
 
-  /* Build one .news-item node matching the in-page admin markup, so the
-     admin edit/delete buttons and syncHomeNews()/refreshNewsMeta() all work
-     on auto-rendered items exactly as on hand-authored ones. */
-  function buildItem(it) {
+  /* ── News ───────────────────────────────────────────────────────────── */
+  function buildNewsItem(it) {
     var item = document.createElement('div');
     item.className = 'news-item';
     item.setAttribute('data-adm-card', '');
@@ -64,7 +63,6 @@
       cont.appendChild(img);
     }
 
-    /* admin edit/delete buttons (CSS hides them unless body.admin-on) */
     var btns = document.createElement('div');
     btns.className = 'news-edit-btns';
     var be = document.createElement('button');
@@ -81,7 +79,7 @@
     return item;
   }
 
-  var _lastSig = null;
+  var _newsSig = null;
 
   function applyNews(data) {
     var wrap = document.querySelector('#news-list-wrap[data-auto="news"]')
@@ -89,41 +87,160 @@
     if (!wrap) return;
     var items = (data && Array.isArray(data.items)) ? data.items
               : (Array.isArray(data) ? data : null);
-    if (!items || !items.length) return;   /* keep static fallback */
-
+    if (!items || !items.length) return;
     var sig = JSON.stringify(items);
-    /* Skip rebuild only if the DOM already reflects this exact data AND the
-       wrap currently holds auto items (content.json may have replaced it). */
-    if (sig === _lastSig && wrap.getAttribute('data-auto-rendered') === '1') return;
+    if (sig === _newsSig && wrap.getAttribute('data-auto-rendered') === '1') return;
 
     var frag = document.createDocumentFragment();
-    items.forEach(function (it) { frag.appendChild(buildItem(it)); });
+    items.forEach(function (it) { frag.appendChild(buildNewsItem(it)); });
     wrap.innerHTML = '';
     wrap.appendChild(frag);
     wrap.setAttribute('data-auto-rendered', '1');
-    _lastSig = sig;
+    _newsSig = sig;
 
     if (window.refreshNewsMeta) window.refreshNewsMeta();
     if (window.syncHomeNews) window.syncHomeNews();
   }
 
-  var _cache = null;
+  /* ── People (members) ───────────────────────────────────────────────── */
+  var GRID = { ra: 'grid-ra', grad: 'grid-grad', intern: 'grid-intern',
+               postdoc: 'grid-postdoc', alumni: 'grid-alumni' };
 
-  /* Render from cache (fast, used by rerunHooks after content.json applies)
-     and (re)fetch in the background to pick up new pushes. */
-  function renderAutoNews() {
-    if (_cache) applyNews(_cache);
-    fetch('data/news.json?t=' + Date.now(), { cache: 'no-store' })
-      .then(function (r) { return r.ok ? r.json() : null; })
-      .then(function (d) { if (d) { _cache = d; applyNews(d); } })
-      .catch(function () { /* offline → keep fallback/cache */ });
+  function initialsOf(name) {
+    return String(name || '').split(/\s+/).map(function (w) { return w[0] || ''; })
+      .join('').slice(0, 2).toUpperCase();
   }
 
+  function buildMember(m) {
+    var alumni = m.category === 'alumni' || m.alumni;
+    var card = document.createElement('div');
+    card.className = 'mcard' + (m.nameonly ? ' mcard-nameonly' : '');
+    card.setAttribute('data-adm-card', '');
+    card.setAttribute('data-adm-type', 'member');
+    if (alumni) card.setAttribute('data-alumni', '1');
+
+    var row = document.createElement('div');
+    row.className = 'mcard-btns';
+    var eb = document.createElement('button');
+    eb.className = 'mc-btn mc-edit'; eb.textContent = '✎ Edit';
+    eb.setAttribute('data-action', 'edit');
+    var db = document.createElement('button');
+    db.className = 'mc-btn mc-del'; db.textContent = '✕ Delete';
+    db.setAttribute('data-action', 'delete');
+    row.appendChild(eb); row.appendChild(db);
+    if (!m.nameonly) {
+      var hb = document.createElement('button');
+      hb.className = 'mc-btn mc-hire'; hb.textContent = '→ Hiring';
+      hb.setAttribute('data-action', 'hiring');
+      row.appendChild(hb);
+    }
+    card.appendChild(row);
+
+    if (!m.nameonly) {
+      var wrap = document.createElement('div');
+      wrap.className = 'mcard-img-wrap';
+      if (m.image) {
+        var img = document.createElement('img');
+        img.src = m.image; img.alt = esc(m.name); img.loading = 'lazy';
+        wrap.appendChild(img);
+      } else {
+        var ph = document.createElement('div');
+        ph.className = 'mcard-ph';
+        ph.textContent = esc(m.initials || initialsOf(m.name));
+        wrap.appendChild(ph);
+      }
+      card.appendChild(wrap);
+    }
+
+    var nm = document.createElement('div');
+    nm.className = 'mcard-name'; nm.textContent = esc(m.name);
+    card.appendChild(nm);
+    var ro = document.createElement('div');
+    ro.className = 'mcard-role'; ro.textContent = esc(m.role);
+    card.appendChild(ro);
+    if (!m.nameonly && m.desc) {
+      var ds = document.createElement('div');
+      ds.className = 'mcard-desc'; ds.textContent = esc(m.desc);
+      card.appendChild(ds);
+    }
+    return card;
+  }
+
+  var _memSig = null;
+
+  function applyMembers(data) {
+    var members = (data && Array.isArray(data.members)) ? data.members
+                : (Array.isArray(data) ? data : null);
+    if (!members || !members.length) return;
+    var anyGrid = false;
+    Object.keys(GRID).forEach(function (c) {
+      var g = document.getElementById(GRID[c]);
+      if (g && g.getAttribute('data-auto') === 'members') anyGrid = true;
+    });
+    if (!anyGrid) return;
+
+    var sig = JSON.stringify(members);
+    var grad = document.getElementById('grid-grad');
+    if (sig === _memSig && grad && grad.getAttribute('data-auto-rendered') === '1') return;
+
+    var byCat = {};
+    Object.keys(GRID).forEach(function (c) { byCat[c] = []; });
+    members.forEach(function (m) {
+      var c = (m.category && byCat[m.category]) ? m.category : 'grad';
+      byCat[c].push(m);
+    });
+
+    Object.keys(GRID).forEach(function (c) {
+      var g = document.getElementById(GRID[c]);
+      if (!g || g.getAttribute('data-auto') !== 'members') return;
+      g.querySelectorAll('.mcard[data-adm-type="member"]').forEach(function (el) { el.remove(); });
+      var frag = document.createDocumentFragment();
+      byCat[c].forEach(function (m) { frag.appendChild(buildMember(m)); });
+      g.appendChild(frag);
+      g.setAttribute('data-auto-rendered', '1');
+    });
+    _memSig = sig;
+
+    var aLabel = document.getElementById('alumni-card-label');
+    if (aLabel) aLabel.style.display = byCat.alumni.length ? '' : 'none';
+
+    if (window.refreshPeopleCounts) window.refreshPeopleCounts();
+    if (window.highlightLabAuthors) window.highlightLabAuthors();
+    try {
+      if (window.Admin && Admin.isActive && Admin.isActive() && Admin.injectAllButtons) {
+        Admin.injectAllButtons();
+      }
+    } catch (e) { /* admin module optional */ }
+  }
+
+  /* ── fetch + render ─────────────────────────────────────────────────── */
+  var _newsCache = null, _memCache = null;
+
+  function renderAutoNews() {
+    if (_newsCache) applyNews(_newsCache);
+    fetch('data/news.json?t=' + Date.now(), { cache: 'no-store' })
+      .then(function (r) { return r.ok ? r.json() : null; })
+      .then(function (d) { if (d) { _newsCache = d; applyNews(d); } })
+      .catch(function () {});
+  }
+
+  function renderAutoMembers() {
+    if (_memCache) applyMembers(_memCache);
+    fetch('data/members.json?t=' + Date.now(), { cache: 'no-store' })
+      .then(function (r) { return r.ok ? r.json() : null; })
+      .then(function (d) { if (d) { _memCache = d; applyMembers(d); } })
+      .catch(function () {});
+  }
+
+  function renderAll() { renderAutoNews(); renderAutoMembers(); }
+
   window.renderAutoNews = renderAutoNews;
+  window.renderAutoMembers = renderAutoMembers;
+  window.renderAutoSections = renderAll;
 
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', renderAutoNews);
+    document.addEventListener('DOMContentLoaded', renderAll);
   } else {
-    renderAutoNews();
+    renderAll();
   }
 })();
