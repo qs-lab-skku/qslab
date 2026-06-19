@@ -1260,17 +1260,27 @@ async function openHtml(cardId, mount){
 }
 </script>
 <script>
-/* PI 전용 숨김 진입점: 헤더 'QS' 로고를 *더블클릭* 하면 로컬 PI 대시보드를 연다.
-   대시보드는 PI PC 의 localhost(기본 8765)에서만 떠 있으므로, 다른 사람이 눌러도
-   연결되지 않아 아무 일도 일어나지 않는다(I8 — 공개 노출 아님). 원격이면 SSH 터널
-   (ssh -L 8765:localhost:8765) 후 사용. 포트 변경: localStorage 'pi_dash_port'. */
+/* PI 전용 숨김 진입점: 헤더 'QS' 로고를 *더블클릭* 하면 PI 대시보드를 연다.
+   주소는 *기기마다* localStorage('pi_dash_url')에 한 번 저장한다 — 폰/다른 PC에서도
+   각자 자기 주소를 넣으면 그걸 연다.
+     · 봇 PC 본체:  http://localhost:8765
+     · 폰/원격(Tailscale): http://<봇PC-Tailscale-IP>:8765/?token=<.env의 QS_PI_DASH_TOKEN>
+   주소가 없으면 처음 더블클릭 때 묻는다. *Shift+더블클릭* 으로 주소를 다시 설정.
+   (대시보드는 사설망+토큰으로 보호 — 공개 인터넷 노출 아님, I8.) */
 (function(){
   var m=document.getElementById('pi-dash'); if(!m) return;
   m.title='';                                   // 툴팁 없이 숨김
   m.addEventListener('dblclick', function(e){
     e.preventDefault();
-    var port=8765; try{ var p=localStorage.getItem('pi_dash_port'); if(p){port=parseInt(p,10)||8765;} }catch(_){}
-    window.open('http://localhost:'+port+'/', '_blank', 'noopener');
+    var url=''; try{ url=localStorage.getItem('pi_dash_url')||''; }catch(_){}
+    if(e.shiftKey){ url=''; }                    // Shift+더블클릭 = 주소 재설정
+    if(!url){
+      url=prompt('PI 대시보드 주소를 입력하세요\n· 이 PC: http://localhost:8765\n· 폰/원격: http://<Tailscale-IP>:8765/?token=<토큰>',
+                 'http://localhost:8765');
+      if(!url) return;
+      try{ localStorage.setItem('pi_dash_url', url); }catch(_){}
+    }
+    window.open(url, '_blank', 'noopener');
   });
 })();
 </script>
