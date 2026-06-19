@@ -1270,17 +1270,26 @@ async function openHtml(cardId, mount){
 (function(){
   var m=document.getElementById('pi-dash'); if(!m) return;
   m.title='';                                   // 툴팁 없이 숨김
+  function saved(){ try{ return localStorage.getItem('pi_dash_url')||''; }catch(_){ return ''; } }
+  function ask(cur){
+    var url=prompt('PI 대시보드 주소 (잘못됐으면 여기서 고치세요)\n· 이 PC: http://localhost:8765\n· 폰/원격: http://<Tailscale-IP>:8765/?token=<토큰>',
+                   cur || 'http://localhost:8765');
+    if(url===null) return null;                 // 취소
+    url=url.trim();
+    try{ if(url) localStorage.setItem('pi_dash_url', url); else localStorage.removeItem('pi_dash_url'); }catch(_){}
+    return url;
+  }
   m.addEventListener('dblclick', function(e){
     e.preventDefault();
-    var url=''; try{ url=localStorage.getItem('pi_dash_url')||''; }catch(_){}
-    if(e.shiftKey){ url=''; }                    // Shift+더블클릭 = 주소 재설정
-    if(!url){
-      url=prompt('PI 대시보드 주소를 입력하세요\n· 이 PC: http://localhost:8765\n· 폰/원격: http://<Tailscale-IP>:8765/?token=<토큰>',
-                 'http://localhost:8765');
-      if(!url) return;
-      try{ localStorage.setItem('pi_dash_url', url); }catch(_){}
-    }
-    window.open(url, '_blank', 'noopener');
+    var url=saved();
+    if(e.shiftKey || !url){ url=ask(url); }      // Shift+더블클릭 또는 미설정 → 입력/수정
+    if(url) window.open(url, '_blank', 'noopener');
+  });
+  /* 폰: Shift 가 없으니 *길게 누르기*(롱프레스=contextmenu), PC: 우클릭 → 주소 재설정 */
+  m.addEventListener('contextmenu', function(e){
+    e.preventDefault();
+    var url=ask(saved());
+    if(url) window.open(url, '_blank', 'noopener');
   });
 })();
 </script>
