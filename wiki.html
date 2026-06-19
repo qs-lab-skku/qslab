@@ -353,7 +353,7 @@ body.reading{overflow:hidden}
   <header class="wk">
     <div class="wk-inner">
       <div class="brand">
-        <div class="brand-mark">QS</div>
+        <div class="brand-mark" id="pi-dash">QS</div>
         <span class="brand-txt">Lab Wiki</span>
         <span class="brand-sep">·</span>
         <span class="badge-int">🔒 내부</span>
@@ -1258,6 +1258,21 @@ async function openHtml(cardId, mount){
     mount.innerHTML = '<div class="pdferr">HTML 을 열 수 없습니다 (복호화 실패 또는 파일 없음).</div>';
   }
 }
+</script>
+<script>
+/* PI 전용 숨김 진입점: 헤더 'QS' 로고를 *더블클릭* 하면 로컬 PI 대시보드를 연다.
+   대시보드는 PI PC 의 localhost(기본 8765)에서만 떠 있으므로, 다른 사람이 눌러도
+   연결되지 않아 아무 일도 일어나지 않는다(I8 — 공개 노출 아님). 원격이면 SSH 터널
+   (ssh -L 8765:localhost:8765) 후 사용. 포트 변경: localStorage 'pi_dash_port'. */
+(function(){
+  var m=document.getElementById('pi-dash'); if(!m) return;
+  m.title='';                                   // 툴팁 없이 숨김
+  m.addEventListener('dblclick', function(e){
+    e.preventDefault();
+    var port=8765; try{ var p=localStorage.getItem('pi_dash_port'); if(p){port=parseInt(p,10)||8765;} }catch(_){}
+    window.open('http://localhost:'+port+'/', '_blank', 'noopener');
+  });
+})();
 </script>
 </body>
 </html>
