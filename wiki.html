@@ -9,22 +9,27 @@
 <meta name="referrer" content="no-referrer">
 <title>QS Lab · Lab Wiki</title>
 <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,600;0,900;1,300;1,600&family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<!-- 폰트 셀프호스트(2026-07-05 디자인 개편): IBM Plex Sans KR + Mono 분할 미러 — 외부 폰트 요청 0 -->
+<link rel="stylesheet" href="assets/fonts/fonts.css">
 <!-- PDF.js (report 인-페이지 뷰어, §4 옵션 b — 복호화된 바이트만 메모리에서 렌더) -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
 <style>
-/* ===== QS Lab Design Tokens (qslab index.html 와 동일) ===== */
+/* ===== QS Lab Design Tokens — 라이트 그라파이트 glassmorphism (2026-07-05 개편 1차) =====
+   IBM Plex Sans KR 정본. persona 제약: 한국어에 IBM Plex Mono 금지 → --mono 스택이
+   한글 글리프를 Sans KR 로 폴백. 기능/레이아웃 불변 — 토큰+표피(GRAPHITE SKIN)만. */
 :root{
-  --navy:#0f1320; --blue:#2347d6; --blue2:#4068e6; --blue3:#cdd9fa;
-  --member:#0e8f63; --qa:#b45309;
-  --bg:#ffffff; --bg2:#f7f8fc; --bg3:#eef2f8; --border:#e5e9f0; --border2:#c8d3e1;
-  --ink:#0d1b2a; --ink2:#4a5568; --ink3:#6a7686; --ink4:#97a3b4;
-  --serif:'Fraunces',Georgia,serif; --sans:'Inter',system-ui,-apple-system,sans-serif;
-  --mono:'JetBrains Mono','Fira Code',monospace;
+  --navy:#22262c; --blue:#3d6adf; --blue2:#5c83e8; --blue3:rgba(61,106,223,.10);
+  --member:#0e8f63; --qa:#8a6d2a;
+  --bg:#f6f7f8; --bg2:#f2f3f5; --bg3:#e9ecef; --border:rgba(25,28,32,.10); --border2:rgba(25,28,32,.18);
+  --ink:#191c20; --ink2:#3c434b; --ink3:#6b7280; --ink4:#9aa1a9;
+  --graphite:#41474f;
+  --glass:rgba(255,255,255,.62); --glass-border:rgba(255,255,255,.75);
+  --blur:blur(14px) saturate(1.25);
+  --serif:'IBM Plex Sans KR',Georgia,serif; --sans:'IBM Plex Sans KR',system-ui,-apple-system,'Malgun Gothic',sans-serif;
+  --mono:'IBM Plex Mono','IBM Plex Sans KR',monospace;
   --s1:.5rem; --s2:1rem; --s3:1.5rem; --s4:2rem; --s5:3rem; --s6:4rem;
-  --r1:6px; --r2:10px; --r3:16px;
-  --shadow:0 1px 2px rgba(13,27,42,.04),0 8px 24px rgba(13,27,42,.06);
+  --r1:6px; --r2:10px; --r3:14px;
+  --shadow:0 8px 28px rgba(23,26,31,.10),0 1.5px 4px rgba(23,26,31,.06);
   /* 운영 타입 색 */
   --ob:#7c3aed;  --ob-bg:#f3e8ff;  --ob-bd:#e3ccfb;
   --sop:#0e7490; --sop-bg:#e0f2fe; --sop-bd:#bae6fd;
@@ -148,6 +153,25 @@ body.heromode .hero{display:block}
 .gedge1{stroke:var(--ink4);stroke-width:1.6;opacity:.55}
 .gedge2{stroke:var(--ink4);stroke-width:1.1;stroke-dasharray:4 4;opacity:.4}
 .gedge1.gdim,.gedge2.gdim{opacity:.08}
+/* ===== GRAPHITE SKIN (2026-07-05 개편 1차) — 표피 오버라이드만, 구조·JS 불변 ===== */
+body{background:var(--bg2);background-image:linear-gradient(160deg,#f6f7f8 0%,#e9ebee 55%,#e2e5e9 100%);
+  background-attachment:fixed}
+.card,.reader-card,.hub,.gwrap{
+  background:var(--glass);border:1px solid var(--glass-border);
+  -webkit-backdrop-filter:var(--blur);backdrop-filter:var(--blur);
+  box-shadow:var(--shadow)}
+.card{border-radius:var(--r3);transition:transform .15s,box-shadow .15s}
+.card:hover{transform:translateY(-2px)}
+.tabs{background:var(--glass);border:1px solid var(--glass-border);border-radius:var(--r3);
+  -webkit-backdrop-filter:var(--blur);backdrop-filter:var(--blur);box-shadow:var(--shadow);
+  padding:.3rem .4rem;margin:.4rem 0}
+.tab{border-bottom:none;border-radius:10px}
+.tab.active{background:var(--blue3);border-bottom:none}
+.gbtn,.gchip{background:var(--glass);-webkit-backdrop-filter:var(--blur);backdrop-filter:var(--blur)}
+.qsum{border-left-color:var(--graphite)}
+@supports not (backdrop-filter:blur(1px)){
+  .card,.reader-card,.hub,.gwrap,.tabs,.gbtn,.gchip{background:rgba(255,255,255,.92)}
+}
 .hookko{font-size:1.02rem;font-weight:600;color:var(--ink);line-height:1.55;
   padding:.65rem .9rem;background:var(--blue3);border-left:3px solid var(--blue);
   border-radius:8px;margin:0 0 .5rem}
