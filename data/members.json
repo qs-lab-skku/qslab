@@ -1,6 +1,6 @@
 {
   "_comment": "Auto area (I3). Shared by Slack /home-member (PI only) and in-page admin publish. Rendered by js/auto-sections.js. I4: only PI-approved member info.",
-  "updated": "2026-06-22T00:52:06.039Z",
+  "updated": "2026-07-05T00:49:01.420Z",
   "members": [
     {
       "category": "ra",
@@ -71,13 +71,6 @@
       "role": "Graduate Student (Mar 2026)",
       "desc": "Physics undergraduate at Sookmyung Women's University, research intern since August 2025, graduate studies starting March 2026. Research: 2D superconductors and fundamental physical properties for superconducting qubit applications.",
       "image": "assets/people/yerin-so.jpg"
-    },
-    {
-      "category": "intern",
-      "name": "Seohee Park",
-      "role": "Intern (Sep 2025)",
-      "desc": "Undergraduate intern since September 2025. Research: synthesizing 2D ferroelectric materials and fabricating devices for next-generation semiconductor applications.",
-      "image": "assets/people/seohee-park.jpg"
     },
     {
       "category": "intern",
@@ -175,6 +168,13 @@
       "name": "Jaeho Kang",
       "role": "Alumni (ex-URP)",
       "nameonly": true
+    },
+    {
+      "category": "alumni",
+      "name": "Seohee Park",
+      "role": "Alumni (ex-Intern)",
+      "desc": "Undergraduate intern since September 2025. Research: synthesizing 2D ferroelectric materials and fabricating devices for next-generation semiconductor applications.",
+      "image": "assets/people/seohee-park.jpg"
     }
   ]
 }
