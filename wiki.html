@@ -111,6 +111,17 @@ body.heromode .hero{display:block}
 .tab .cnt{font-size:.62rem;color:var(--ink4);background:var(--bg3);border-radius:10px;padding:.05rem .4rem}
 .tab.active .cnt{background:var(--blue3);color:var(--blue)}
 .tab-div{flex:0 0 1px;align-self:stretch;background:var(--border);margin:.45rem .35rem}
+/* 큐레이션 배지·접기·출처 (2026-07-05) */
+.cbadge{font-family:var(--mono);font-size:.58rem;font-weight:600;border-radius:8px;
+  padding:.08rem .4rem;margin-left:.35rem;vertical-align:middle;display:inline-block}
+.b-draft{background:#fef3c7;color:#92400e;border:1px solid #fde68a}
+.b-rev{background:var(--bg3);color:var(--ink3);border:1px solid var(--border)}
+.ctag.csrc{background:var(--bg3);color:var(--ink4);border-style:dashed;opacity:.85}
+.hub-fold{margin:.6rem 0}
+.hub-fold>summary{font-family:var(--mono);font-size:.68rem;color:var(--ink3);cursor:pointer;
+  padding:.5rem .2rem;user-select:none}
+.hub-fold>summary:hover{color:var(--ink)}
+.hub-dim{opacity:.75}
 
 /* 본문 (단일 컬럼 그리드) */
 .layout{max-width:1180px;margin:0 auto;padding:var(--s3)}
@@ -443,7 +454,15 @@ var FILTER = 'research';   // 기본 탭
 var AXIS_FILTER = '';      // 연구 탭 axis 칩 필터
 var SG_FILTER = '';        // 용어집 탭 서브그룹 필터
 var RESEARCH_HOME = 'https://qs-lab-skku.github.io/qslab/';   // 연구 개요 탭 상단 홈페이지 Research 링크
-var VIEW_COUNTER = '';   // 자체호스팅 익명 조회수 카운터 URL(예: https://<tailnet-name>/px). 빈값=비활성.
+var VIEW_COUNTER = 'https://qs-lab-bot.tailc52502.ts.net/px';   // 익명 조회수/검색갭(D-3.2)/카드열람(D-3.1) 핑. 빈값=비활성.
+var SLACK_APP = 'A0BA2V3B2FP';   // QS-KB 슬랙 앱 ID(딥링크용). D-3.3: 카드→슬랙 봇 질문하기.
+var ASK_URL = SLACK_APP ? 'https://slack.com/app_redirect?app=' + SLACK_APP : '';
+/* D-3.1: 카드 열람 익명 핑(카드별 인기 집계용). VIEW_COUNTER 설정 시에만, id 만 보냄(식별자 X). */
+function pingCard(id){
+  if(!VIEW_COUNTER || !id) return;
+  try{ new Image().src = VIEW_COUNTER + (VIEW_COUNTER.indexOf('?')<0?'?':'&') +
+       'card=' + encodeURIComponent(id) + '&t=' + Date.now(); }catch(e){}
+}
 /* unlock 시 익명 핑 — 총 조회수·순방문만. 식별자/IP 안 보냄(u 플래그=이번 주 첫 방문 여부). */
 function pingView(){
   if(!VIEW_COUNTER) return;
@@ -599,6 +618,24 @@ function boot(data){
   bindUI();
 }
 
+/* D-3.2: 위키 검색 무응답어 → 미답변 큐 비콘 (VIEW_COUNTER 설정 시에만, 익명·검색어만) */
+var MISS_T=null, MISS_SENT={};
+function scheduleMissCheck(){
+  if(!VIEW_COUNTER) return;
+  clearTimeout(MISS_T);
+  MISS_T = setTimeout(checkSearchMiss, 1300);   // 타이핑 멈춘 뒤에만
+}
+function checkSearchMiss(){
+  if(!VIEW_COUNTER) return;
+  var q = QUERY;                                 // 디바운스 후 확정된 검색어(=matchQuery 기준)
+  if(!q || q.length < 2 || MISS_SENT[q]) return;
+  var hit = (WIKI.cards||[]).some(function(c){ return matchQuery(c); });
+  if(hit) return;                                // 어디든 결과 있으면 무응답 아님
+  MISS_SENT[q] = 1;
+  try{ new Image().src = VIEW_COUNTER + (VIEW_COUNTER.indexOf('?')<0?'?':'&') +
+       'miss=' + encodeURIComponent(q) + '&t=' + Date.now(); }catch(e){}
+}
+
 function bindUI(){
   ['q-top','q-hero'].forEach(function(id){
     var el = document.getElementById(id);
@@ -607,6 +644,7 @@ function bindUI(){
       var other = document.getElementById(id==='q-top'?'q-hero':'q-top');
       if(other && other.value !== this.value) other.value = this.value;
       renderGrid();
+      scheduleMissCheck();                       // D-3.2: 무응답 검색어 비콘
     });
   });
   document.getElementById('reader-x').addEventListener('click', closeReader);
@@ -646,6 +684,9 @@ function tabsOf(c){
 function counts(){
   var c={}; TABS.forEach(function(t){c[t.key]=0;});
   (WIKI.cards||[]).forEach(function(x){ tabsOf(x).forEach(function(k){ if(c[k]!=null)c[k]++; }); });
+  /* 관계도는 합성 탭(tabsOf 미배정) → 항상 0으로 보이던 버그. 실제 노드 수(앵커+서브그룹 논문)로 표시. */
+  c.relation = (WIKI.cards||[]).filter(function(x){return x.type==='inventory'&&x.inventory_kind==='equipment';}).length
+             + (WIKI.cards||[]).filter(function(x){return x.type==='paper'&&(x.subgroup||[]).length;}).length;
   return c;
 }
 function renderTabs(){
@@ -684,12 +725,25 @@ function cardDesc(c){
   return '';
 }
 function badges(c){
-  /* 카드 위 뱃지/색 점 표시 안 함 — status(초안/승인)·needs_review·서브그룹 색 점 모두 미표시.
-     frontmatter(subgroup 등) 필드와 SUBGROUP_META(섹션 그룹핑·필터·관계도)는 그대로 유지. */
-  return '';
+  /* 큐레이션(2026-07-05): ① status=draft → 'PI 검토 전'(봇 초안 라벨과 동일 철학)
+     ② sop → 최종검토일(review_due 우선, 없으면 updated). 서브그룹 색 점은 계속 미표시. */
+  var b='';
+  if(c.status==='draft') b+='<span class="cbadge b-draft">PI 검토 전</span>';
+  if(c.type==='sop'){
+    var d=c.review_due||c.updated||'';
+    if(d) b+='<span class="cbadge b-rev">검토 '+esc(String(d))+'</span>';
+  }
+  return b;
 }
+var SRC_LABELS={'from-digest':'다이제스트','from-pin':'📌핀','from-equipments':'장비채널',
+                'from-equipment-list':'장비목록','from-canvas':'캔버스'};
 function cardEl(c){
-  var T=tmeta(c), tags=(c.tags||[]).slice(0,4).map(function(t){return '<span class="ctag">'+esc(t)+'</span>';}).join('');
+  var T=tmeta(c);
+  /* from-* 내부 출처 태그는 일반 태그칩과 분리 — 별도 출처 배지로 1개만, 나머지 태그만 칩으로 */
+  var all=(c.tags||[]).map(String), src=all.filter(function(t){return t.indexOf('from-')===0;})[0];
+  var tags=all.filter(function(t){return t.indexOf('from-')!==0;}).slice(0,4)
+      .map(function(t){return '<span class="ctag">'+esc(t)+'</span>';}).join('');
+  if(src) tags+='<span class="ctag csrc">'+esc(SRC_LABELS[src]||src.replace('from-',''))+'</span>';
   var d=cardDesc(c);
   return '<div class="card t-'+c.type+(c.id===SEL?' sel':'')+'" data-id="'+c.id+'">'+
     '<span class="ctype k-'+c.type+'">'+T.emoji+' '+T.short+'</span>'+badges(c)+
@@ -723,16 +777,29 @@ function renderResearch(cards){
 }
 function renderEquipment(cards){
   var anchors=sortCards(cards.filter(function(c){ return c.type==='inventory'&&c.inventory_kind==='equipment'; }));
-  var html=secH('🔧','장비 허브 (앵커)',anchors.length);
+  /* 빈 앵커(연결 0)는 목록을 어지럽히지 않게 하단 접기(details)로 분리 */
+  var live=[], empty=[];
   anchors.forEach(function(a){
+    var n=(a.linked_safety||[]).length+(a.linked_sop||[]).length+(a.linked_troubleshooting||[]).length;
+    (n?live:empty).push(a);
+  });
+  var html=secH('🔧','장비 허브 (앵커)',anchors.length);
+  live.forEach(function(a){
     var safety=resolve(a.linked_safety), sop=resolve(a.linked_sop), tr=resolve(a.linked_troubleshooting);
     html+='<div class="hub"><div class="hub-h" data-id="'+a.id+'">📦 '+esc(a.title)+'</div>';
     if(safety.length) html+='<div class="hub-sub">🧪 안전 SOP</div>'+grid(safety);
     if(sop.length) html+='<div class="hub-sub">🔧 절차 SOP</div>'+grid(sop);
     if(tr.length){ html+='<div class="hub-sub">⚠️ 이력 (이슈/조치/다운타임)</div>'+grid(tr); }
-    if(!safety.length&&!sop.length&&!tr.length) html+='<div class="hub-empty">연결된 카드 없음</div>';
     html+='</div>';
   });
+  if(empty.length){
+    html+='<details class="hub-fold"><summary>연결 카드 없는 장비 '+empty.length+'개 — 펼치기</summary>';
+    empty.forEach(function(a){
+      html+='<div class="hub hub-dim"><div class="hub-h" data-id="'+a.id+'">📦 '+esc(a.title)+'</div>'+
+            '<div class="hub-empty">연결된 카드 없음</div></div>';
+    });
+    html+='</details>';
+  }
   // 앵커에 안 묶인 standalone sop/troubleshooting
   var linked={}; anchors.forEach(function(a){ (a.linked_safety||[]).concat(a.linked_sop||[],a.linked_troubleshooting||[]).forEach(function(i){linked[i]=1;}); });
   var rest=cards.filter(function(c){ return (c.type==='sop'||c.type==='troubleshooting')&&!linked[c.id]; });
@@ -1052,6 +1119,7 @@ function chip(t){
 function openReader(id){
   var c = BYID[id]; if(!c) return;
   SEL = id;
+  pingCard(id);                 // D-3.1: 카드 열람 익명 핑(인기 카드 집계)
   /* 뷰어(PDF/HTML) 있는 report 만 넓게, 그 외 텍스트 카드는 좁게 */
   var wide = (c.type==='report' && (c.has_pdf || c.has_html));
   var rcard = document.querySelector('.reader-card');
@@ -1078,6 +1146,10 @@ function openReader(id){
       '<button class="wreq-btn" data-wreq="internal" data-wid="'+c.id+'">🔒 내부 전환 요청</button>'+
       '<button class="wreq-btn del" data-wreq="delete" data-wid="'+c.id+'">🗑️ 삭제 요청</button></div>';
   }
+  /* D-3.3: 이 주제를 슬랙 QS-KB 봇에게 질문(내부 위키 → 슬랙. 공개 노출 아님). */
+  if(ASK_URL)
+    html += '<div class="askslack"><a class="ask-btn" href="'+ASK_URL+'" target="_blank" rel="noopener">'+
+            '💬 이 주제, 슬랙 QS-KB 봇에게 질문하기 ↗</a></div>';
   document.getElementById('reader-chip').innerHTML = chipHtml(c);
   body.innerHTML = html;
   body.querySelectorAll('[data-wreq]').forEach(function(el){
