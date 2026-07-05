@@ -1,6 +1,6 @@
 {
   "_comment": "Auto area (I3). Shared by Slack /home-member (PI only) and in-page admin publish. Rendered by js/auto-sections.js. I4: only PI-approved member info.",
-  "updated": "2026-07-05T00:49:01.420Z",
+  "updated": "2026-07-05T00:50:22.341Z",
   "members": [
     {
       "category": "ra",
@@ -173,7 +173,6 @@
       "category": "alumni",
       "name": "Seohee Park",
       "role": "Alumni (ex-Intern)",
-      "desc": "Undergraduate intern since September 2025. Research: synthesizing 2D ferroelectric materials and fabricating devices for next-generation semiconductor applications.",
       "image": "assets/people/seohee-park.jpg"
     }
   ]
