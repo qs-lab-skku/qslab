@@ -1,6 +1,6 @@
 {
-  "_comment": "Auto area (I3). Shared by Slack /home-member (PI only) and in-page admin publish. Rendered by js/auto-sections.js. I4: only PI-approved member info.",
-  "updated": "2026-07-05T00:50:22.341Z",
+  "_comment": "Auto area (I3). Source of truth for People member cards (grids: ra/grad/intern/postdoc/alumni). Edited by qs-kb Slack /home-member (PI publishes; students submit for PI approval) and the in-page admin publish. Rendered by js/auto-sections.js. I4: only PI-approved member info is published.",
+  "updated": "2026-07-05T03:36:53.536361+00:00",
   "members": [
     {
       "category": "ra",
@@ -174,6 +174,62 @@
       "name": "Seohee Park",
       "role": "Alumni (ex-Intern)",
       "image": "assets/people/seohee-park.jpg"
+    },
+    {
+      "category": "intern",
+      "name": "Gyoseon Hwang",
+      "role": "Undergrad Intern (Summer 2026)",
+      "desc": "His research interests focus on MOCVD/CVD-based synthesis and process optimization of wafer-scale 2D semiconductor thin films. He is particularly interested in understanding how growth parameters affect film uniformity, crystallinity, phase, and interfacial quality for semiconductor integration.",
+      "image": "assets/people/gyoseon-hwang.png"
+    },
+    {
+      "category": "intern",
+      "name": "Gihyun Choi",
+      "role": "Undergrad Intern (Summer 2026)",
+      "desc": "Thermal chemical vapor deposition (TCVD) growth of two-dimensional MoTe2, with a focus on controlling its growth characteristics and material properties for nanoelectronic applications.",
+      "image": "assets/people/gihyun-choi.jpg"
+    },
+    {
+      "category": "intern",
+      "name": "Yuri Nam",
+      "role": "URP (Summer 2026)",
+      "desc": "Chemical Engineering undergraduate intern in the Undergraduate Research Program (URP). Research: TCVD-based wafer-scale synthesis of 2D MoTe₂ for next-generation semiconductor devices.",
+      "image": "assets/people/yuri-nam.jpg"
+    },
+    {
+      "category": "intern",
+      "name": "Youngchan Lee",
+      "role": "URP (Summer 2026)",
+      "desc": "Research: MOCVD growth and characterization of 2D WS₂ layered materials for electronic applications.",
+      "image": "assets/people/youngchan-lee.jpg"
+    },
+    {
+      "category": "intern",
+      "name": "Yunseo Yang",
+      "role": "Undergrad Intern (Summer 2026)",
+      "desc": "Undergraduate intern, joined June 2026.",
+      "image": "assets/people/yunseo-yang.jpg"
+    },
+    {
+      "category": "intern",
+      "name": "Hakseung Lee",
+      "role": "URP (Summer 2026)",
+      "desc": "Undergraduate intern since June 2026. Research: MOCVD-Based Synthesis of FeSe for 2D Superconductors and Superconducting Qubit Applications",
+      "image": "assets/people/hakseung-lee.jpg"
+    },
+    {
+      "category": "intern",
+      "name": "Jihyun Kim",
+      "role": "URP (Summer 2026)",
+      "desc": "Chemical Engineering undergraduate, joined the URP program in June 2026. Research: CVD synthesis of 2D heterostructures and measurement data structuring for the self-driving laboratory",
+      "image": "assets/people/jihyun-kim.jpg"
+    },
+    {
+      "category": "intern",
+      "name": "Tae Hyun Kim",
+      "role": "URP (Summer 2026)",
+      "desc": "Chemical Engineering undergraduate. Research focuses on the CVD-based synthesis of CuCrS2 thin films and the exploration of their structural and electrical characteristics for next-generation device applications.",
+      "image": "assets/people/tae-hyun-kim.jpg"
     }
   ]
 }
