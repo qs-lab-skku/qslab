@@ -5229,6 +5229,15 @@ var Persist = (function () {
   function cleanInner(el) {
     var c = el.cloneNode(true);
     c.querySelectorAll('.adm-edit-btn').forEach(function(b){ b.remove(); });
+    /* AUTO area (I3): members.json is the SOLE source of truth for member cards.
+       content.json owns only the manual People content (hero, PI, section labels,
+       hiring cards). Never serialize auto-rendered member cards into the snapshot —
+       strip them and the data-auto-rendered flag so a fresh members.json render always
+       repopulates the grids. (Keeps grid containers + "We Are Hiring" cards.) */
+    c.querySelectorAll('[data-auto="members"], #grid-ra, #grid-grad, #grid-intern, #grid-postdoc, #grid-alumni').forEach(function(g){
+      g.querySelectorAll('.mcard:not(.mcard-hiring)').forEach(function(m){ m.remove(); });
+      g.removeAttribute('data-auto-rendered');
+    });
     /* TOC thumbnails are runtime-rendered from data-toc — never bake the
        injected DOM (it would double the stored size). The data-toc attr on
        each row is what persists. */
@@ -5324,6 +5333,18 @@ var Persist = (function () {
     });
     return data;
   }
+  /* Legacy compat / invariant guard: strip any member cards a content.json snapshot
+     baked into the People grids (older snapshots did) and clear the data-auto-rendered
+     flag, so auto-sections re-renders the current roster from members.json. Manual
+     People content (hero, PI, hiring) carried by the snapshot is preserved. */
+  function stripBakedMembers() {
+    try {
+      document.querySelectorAll('#grid-ra, #grid-grad, #grid-intern, #grid-postdoc, #grid-alumni').forEach(function(g){
+        g.querySelectorAll('.mcard:not(.mcard-hiring)').forEach(function(m){ m.remove(); });
+        g.removeAttribute('data-auto-rendered');
+      });
+    } catch (e) {}
+  }
   /* Apply a content object's page innerHTML onto the live DOM. */
   function applyContent(data) {
     if (!data || !data.pages) return false;
@@ -5336,6 +5357,7 @@ var Persist = (function () {
         }
       });
     } catch (err) {}
+    stripBakedMembers();          /* members owned by members.json only */
     restoring = false;
     return true;
   }
@@ -5357,6 +5379,7 @@ var Persist = (function () {
         if (el) el.innerHTML = data.pages[id];
       });
     } catch (err) {}
+    stripBakedMembers();          /* members owned by members.json only (legacy snapshot defense) */
     restoring = false;
     return skipped;
   }
