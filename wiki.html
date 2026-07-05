@@ -1140,7 +1140,9 @@ function renderSimple(c){
 }
 
 function chip(t){
-  return '<span class="chip" data-go="'+t.id+'"><span class="cdot '+t.type+'"></span>'+esc(t.title)+'</span>';
+  var T=tmeta(t);
+  return '<span class="chip" data-go="'+t.id+'"><span class="cdot '+t.type+'"></span>'+
+         (T.emoji?T.emoji+' ':'')+esc(t.title)+'</span>';
 }
 
 function openReader(id){
@@ -1161,11 +1163,12 @@ function openReader(id){
   /* 제목 바로 아래 '한 줄 요약' 박스(있을 때). 안전/정책 카드엔 summary 필드가 없어 자동 제외 */
   if(c.summary) html = html.replace('</h1>', '</h1>'+quickSummaryHtml(c));
 
-  /* 연결 카드 칩 (project 는 이미 그룹으로 표시하므로 생략) */
+  /* 연결된 카드(그래프 1탄) — 빌드 타임 간선(connected: 직접>역링크>동일프로젝트>동일장비, 최대 5).
+     구 payload 호환: connected 없으면 links 폴백. 연결 0 이면 섹션 생략(빈 껍데기 금지). */
   if(c.type!=='project'){
-    var links = (c.links||[]).map(function(l){return BYID[l];}).filter(Boolean);
-    if(links.length)
-      html += '<div class="dlinks"><div class="dlinks-h">연결된 카드</div>'+links.map(chip).join('')+'</div>';
+    var conn = (c.connected||c.links||[]).map(function(l){return BYID[l];}).filter(Boolean).slice(0,5);
+    if(conn.length)
+      html += '<div class="dlinks"><div class="dlinks-h">연결된 카드</div>'+conn.map(chip).join('')+'</div>';
   }
   /* 위키발 요청 — 내부 전환 / 삭제 (PI 승인 필요) + 수정 요청(익명 핑). 공개 카드에만 노출. */
   if(c.visibility!=='internal_only'){
