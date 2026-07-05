@@ -116,6 +116,13 @@ body.heromode .hero{display:block}
   padding:.08rem .4rem;margin-left:.35rem;vertical-align:middle;display:inline-block}
 .b-draft{background:#fef3c7;color:#92400e;border:1px solid #fde68a}
 .b-rev{background:var(--bg3);color:var(--ink3);border:1px solid var(--border)}
+.b-auto{background:var(--bg3);color:var(--ink4);border:1px solid var(--border)}
+.b-safe{background:#dcfce7;color:#166534;border:1px solid #bbf7d0}
+.b-req{background:#dbeafe;color:#1e40af;border:1px solid #bfdbfe}
+.hookko{font-size:1.02rem;font-weight:600;color:var(--ink);line-height:1.55;
+  padding:.65rem .9rem;background:var(--blue3);border-left:3px solid var(--blue);
+  border-radius:8px;margin:0 0 .5rem}
+.hooklink{font-family:var(--mono);font-size:.68rem;color:var(--ink3);margin:0 0 .9rem;padding-left:.2rem}
 .ctag.csrc{background:var(--bg3);color:var(--ink4);border-style:dashed;opacity:.85}
 .hub-fold{margin:.6rem 0}
 .hub-fold>summary{font-family:var(--mono);font-size:.68rem;color:var(--ink3);cursor:pointer;
@@ -719,19 +726,31 @@ function sortCards(arr){
 }
 function esc(s){ return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
 function cardDesc(c){
+  if(c.type==='paper'&&c.hook_ko) return esc(c.hook_ko);   // 그리드에도 한국어 훅 한 줄
   if(c.type==='report') return c.one_liner?esc(c.one_liner):'';
   if(c.type==='troubleshooting'&&c.symptom) return '증상: '+esc(String(c.symptom));
   if(c.type==='inventory'&&c.stock_status) return '재고: '+esc(String(c.stock_status));
   return '';
 }
 function badges(c){
-  /* 큐레이션(2026-07-05): ① status=draft → 'PI 검토 전'(봇 초안 라벨과 동일 철학)
-     ② sop → 최종검토일(review_due 우선, 없으면 updated). 서브그룹 색 점은 계속 미표시. */
+  /* 배지 의미론 (2026-07-05 개편, cards/SCHEMA.md):
+     paper draft=회색 '자동 요약'(원문 검증 존재) · term/inventory=무배지 ·
+     qa/troubleshooting/growth-log/report draft=노랑 'PI 검토 전' ·
+     sop approved=초록 '안전 담당 승인'(승인 전은 빌드에서 비노출) ·
+     review_requested=파랑 '검토 요청됨'(수정 요청 접수). */
   var b='';
-  if(c.status==='draft') b+='<span class="cbadge b-draft">PI 검토 전</span>';
+  if(c.review_requested) b+='<span class="cbadge b-req">검토 요청됨</span>';
   if(c.type==='sop'){
-    var d=c.review_due||c.updated||'';
-    if(d) b+='<span class="cbadge b-rev">검토 '+esc(String(d))+'</span>';
+    if(c.status==='approved'){
+      var sd=c.safety_approved_at||c.review_due||c.updated||'';
+      b+='<span class="cbadge b-safe">안전 담당 승인'+(sd?' · '+esc(String(sd)):'')+'</span>';
+    }
+    return b;
+  }
+  if(c.status==='draft'){
+    if(c.type==='paper') b+='<span class="cbadge b-auto">자동 요약</span>';
+    else if(c.type!=='term'&&c.type!=='inventory')
+      b+='<span class="cbadge b-draft">PI 검토 전</span>';
   }
   return b;
 }
@@ -988,6 +1007,14 @@ function metaBtns(links){
 }
 
 /* paper / report 공통: 우리 랩 관점이 주인공 */
+function hookHtml(c){
+  /* 논문 한국어 훅(2026-07-05): 영문 제목 *위에* 학생 언어 한 줄 + 연결 한 줄(있을 때만).
+     related(구조화 배열)는 저장만 — 표시 안 함. */
+  if(!c.hook_ko) return '';
+  var h='<div class="hookko">'+esc(c.hook_ko)+'</div>';
+  if(c.hook_link) h+='<div class="hooklink">'+esc(c.hook_link)+'</div>';
+  return h;
+}
 function renderPaper(c, secs){
   /* 안전(MSDS 등) report: ⚠️경고 + 한글 요약을 먼저, 원본 PDF 뷰어는 그 아래에.
      (요약은 카드 본문 그대로 — 새로 만들지 않고 배치만) */
@@ -1021,7 +1048,7 @@ function renderPaper(c, secs){
     else if(c.pdf_path) meta.push('<span class="statusdot">PDF: 내부 경로</span>');
   }
   var take = findSection(secs, TAKE_RE), lim = findSection(secs, LIM_RE), who = findSection(secs, WHO_RE);
-  var html = '<h1 class="dt">'+esc(c.title)+'</h1>';
+  var html = hookHtml(c) + '<h1 class="dt">'+esc(c.title)+'</h1>';   // 한국어 훅 — 영문 제목 위
   if(meta.length) html += '<div class="dmeta">'+meta.join('')+'</div>';
   if(c.type==='report' && c.one_liner)
     html += labBox('box-who', '한 줄 소개', c.one_liner);
@@ -1140,11 +1167,12 @@ function openReader(id){
     if(links.length)
       html += '<div class="dlinks"><div class="dlinks-h">연결된 카드</div>'+links.map(chip).join('')+'</div>';
   }
-  /* 위키발 요청 — 내부 전환 / 삭제 (PI 승인 필요). 공개 카드에만 노출. */
+  /* 위키발 요청 — 내부 전환 / 삭제 (PI 승인 필요) + 수정 요청(익명 핑). 공개 카드에만 노출. */
   if(c.visibility!=='internal_only'){
     html += '<div class="wreq"><div class="wreq-h">이 카드 관리 요청 (PI 승인 후 반영)</div>'+
       '<button class="wreq-btn" data-wreq="internal" data-wid="'+c.id+'">🔒 내부 전환 요청</button>'+
-      '<button class="wreq-btn del" data-wreq="delete" data-wid="'+c.id+'">🗑️ 삭제 요청</button></div>';
+      '<button class="wreq-btn del" data-wreq="delete" data-wid="'+c.id+'">🗑️ 삭제 요청</button>'+
+      '<button class="wreq-btn" data-fixreq="'+c.id+'">✏️ 수정 요청</button></div>';
   }
   /* D-3.3: 이 주제를 슬랙 QS-KB 봇에게 질문(내부 위키 → 슬랙. 공개 노출 아님). */
   if(ASK_URL)
@@ -1152,6 +1180,17 @@ function openReader(id){
             '💬 이 주제, 슬랙 QS-KB 봇에게 질문하기 ↗</a></div>';
   document.getElementById('reader-chip').innerHTML = chipHtml(c);
   body.innerHTML = html;
+  body.querySelectorAll('[data-fixreq]').forEach(function(el){
+    el.addEventListener('click', function(){
+      /* 수정 요청(2026-07-05) — 익명 GET 핑(기존 /px 인프라·CORS 무설정). 사유 선택, 200자. */
+      if(!VIEW_COUNTER) return;
+      var reason = prompt('무엇을 고치면 좋을까요? (선택, 200자 이내 — 빈칸도 접수됩니다)') || '';
+      try{ new Image().src = VIEW_COUNTER + (VIEW_COUNTER.indexOf('?')<0?'?':'&') +
+           'review=' + encodeURIComponent(this.getAttribute('data-fixreq')) +
+           '&reason=' + encodeURIComponent(reason.slice(0,200)) + '&t=' + Date.now(); }catch(e){}
+      this.textContent = '✏️ 요청 접수됨 ✓'; this.disabled = true;
+    });
+  });
   body.querySelectorAll('[data-wreq]').forEach(function(el){
     el.addEventListener('click', function(){ postWikiRequest(this.getAttribute('data-wid'), this.getAttribute('data-wreq')); });
   });
