@@ -183,6 +183,19 @@ body{background:var(--bg2);background-image:linear-gradient(160deg,#f6f7f8 0%,#e
 .hub-fold>summary:hover{color:var(--ink)}
 .hub-dim{opacity:.75}
 
+/* ===== 레이아웃 응급 정렬 (2026-07-05, CSS만·구조/JS 불변) ===== */
+/* ① 탭바: 콘텐츠 폭에 맞춰 중앙 정렬(좌측 치우침·우측 빈 공간 제거).
+      graphite 스킨의 margin:.4rem 0 이 기존 margin:0 auto 센터링을 덮었던 것을 복원 + fit-content. */
+.tabs{width:-moz-fit-content;width:fit-content;max-width:calc(100% - var(--s3));
+  margin:.4rem auto;justify-content:center}
+/* ② 헤더-검색-탭 수직 여백 축소(히어로 검색 위아래가 과도하게 휑함 → s5→s3). */
+.hero{padding:var(--s3) var(--s3)}
+.hero h2{margin-bottom:var(--s2)}
+/* ③ 카드 그리드: 같은 행 카드 높이 균일(stretch) + 카드 내부 태그줄 하단 고정(들쭉날쭉 제거). */
+.grid{align-items:stretch}
+.grid>.card{height:100%}
+.card>.ctags{margin-top:auto}
+
 /* 본문 (단일 컬럼 그리드) */
 .layout{max-width:1180px;margin:0 auto;padding:var(--s3)}
 .group-h{font-family:var(--mono);font-size:.62rem;font-weight:600;letter-spacing:.12em;
