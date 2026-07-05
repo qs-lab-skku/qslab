@@ -123,6 +123,31 @@ body.heromode .hero{display:block}
 .cbrow .cbadge{margin-left:0}
 .cmeta-auto{font-family:var(--mono);font-size:.55rem;color:var(--ink4);border:1px dashed var(--border);
   border-radius:8px;padding:.05rem .35rem;margin-left:.25rem;vertical-align:middle}
+/* 관계도 인터랙티브 그래프 (2탄) */
+.gwrap{background:var(--bg);border:1px solid var(--border);border-radius:12px;margin:.4rem 0 1rem;overflow:hidden}
+.gwrap svg{width:100%;height:auto;display:block;touch-action:manipulation}
+.gtoolbar{display:flex;align-items:center;gap:.5rem;margin:.5rem 0 .2rem;flex-wrap:wrap}
+.gtitle{font-weight:700;font-size:.95rem;color:var(--ink)}
+.gbtn{font-family:var(--mono);font-size:.68rem;border:1px solid var(--border);background:var(--bg);
+  border-radius:8px;padding:.3rem .6rem;cursor:pointer;color:var(--ink2)}
+.gbtn:hover{color:var(--ink);border-color:var(--ink4)}
+.gbtn-s{font-size:.62rem;padding:.1rem .4rem;margin-left:.35rem;display:inline-block;vertical-align:middle}
+.gchips{display:flex;gap:.35rem;flex-wrap:wrap;margin:.3rem 0 .4rem}
+.gchip{font-family:var(--mono);font-size:.62rem;border:1.5px solid var(--border);border-radius:10px;
+  padding:.15rem .5rem;cursor:pointer;user-select:none;color:var(--ink2);background:var(--bg)}
+.gchip.off{opacity:.35;text-decoration:line-through}
+.gnode{cursor:pointer}
+.gnode .ghit{fill:transparent}
+.gnode .gc{fill:var(--bg);stroke-width:2.5}
+.gnode:hover .gc{stroke-width:4}
+.gnode.gcenter .gc{fill:var(--blue3);stroke-width:3.5}
+.gnode.gprev .gc{stroke-dasharray:5 4;stroke-width:3}   /* 방금 온 길 — 점선 링 */
+.gnode.gdimn{opacity:.15;pointer-events:none}
+.glabel{font-family:var(--mono);font-size:11px;fill:var(--ink2);text-anchor:middle}
+.gopen{font-size:15px;fill:var(--blue);text-anchor:middle;font-weight:700}
+.gedge1{stroke:var(--ink4);stroke-width:1.6;opacity:.55}
+.gedge2{stroke:var(--ink4);stroke-width:1.1;stroke-dasharray:4 4;opacity:.4}
+.gedge1.gdim,.gedge2.gdim{opacity:.08}
 .hookko{font-size:1.02rem;font-weight:600;color:var(--ink);line-height:1.55;
   padding:.65rem .9rem;background:var(--blue3);border-left:3px solid var(--blue);
   border-radius:8px;margin:0 0 .5rem}
@@ -874,7 +899,8 @@ function renderRelation(){
   html+=secH('🔧','장비 허브',anchors.length)+'<div class="relwrap">';
   anchors.forEach(function(a){
     var ln=resolve((a.linked_safety||[]).concat(a.linked_sop||[],a.linked_troubleshooting||[]));
-    html+='<div class="relhub"><div class="relhub-c" data-id="'+a.id+'">'+esc(a.title.replace('장비: ',''))+'</div>'+
+    html+='<div class="relhub"><div class="relhub-c" data-id="'+a.id+'">'+esc(a.title.replace('장비: ',''))+
+      (ln.length?' <span class="gbtn gbtn-s" data-graph="'+a.id+'">🕸</span>':'')+'</div>'+
       '<div class="relspokes">'+ln.map(function(c){return '<span class="relnode" data-id="'+c.id+'">'+esc(c.title.slice(0,22))+'</span>';}).join('')+
       (ln.length?'':'<span class="hub-empty">—</span>')+'</div></div>';
   });
@@ -890,9 +916,129 @@ function renderRelation(){
   html+='</div>';
   return html;
 }
+/* ===== 관계도 인터랙티브 그래프 (2탄, 2026-07-05) — vanilla SVG 국소 뷰 =====
+   전역 털뭉치 금지: 기본은 요약(renderRelation), 노드 진입 시 중심 카드의 2촌 이웃만.
+   1촌=connected+역링크(실선), 2촌=1촌의 connected(점선). 탭=재중심, 중심 탭=카드 상세.
+   이전 중심은 점선 링으로 '방금 온 길' 표시. 타입·서브그룹 필터는 dim 처리. */
+var GRAPH_CENTER=null, GRAPH_HIST=[], GRAPH_HIDE_T={}, GRAPH_HIDE_SG={}, _GREV=null;
+var GCOLOR={paper:'#2563eb',sop:'#0891b2',troubleshooting:'#d97706',qa:'#7c3aed',
+            term:'#64748b',inventory:'#059669',report:'#db2777',research:'#2563eb',
+            'growth-log':'#65a30d',meeting:'#9ca3af',deadline:'#9ca3af',onboarding:'#9ca3af'};
+function _grev(){
+  if(_GREV) return _GREV;
+  _GREV={};
+  (WIKI.cards||[]).forEach(function(c){
+    (c.connected||[]).forEach(function(t){ (_GREV[t]=_GREV[t]||[]).push(c.id); });
+  });
+  return _GREV;
+}
+function _g1hop(id){
+  var out=[], seen={}; seen[id]=1;
+  ((BYID[id]||{}).connected||[]).concat(_grev()[id]||[]).forEach(function(t){
+    if(!seen[t]&&BYID[t]){ seen[t]=1; out.push(t); }
+  });
+  return out.slice(0,10);
+}
+function enterGraph(id){
+  if(GRAPH_CENTER&&GRAPH_CENTER!==id) GRAPH_HIST.push(GRAPH_CENTER);
+  GRAPH_CENTER=id;
+  if(FILTER!=='relation'){ FILTER='relation'; AXIS_FILTER=''; SG_FILTER=''; renderTabs(); }
+  renderGrid();
+  var gw=document.getElementById('grid-wrap'); if(gw) gw.scrollIntoView({behavior:'smooth',block:'start'});
+}
+function _gnodeSvg(c,x,y,r,cls){
+  var col=GCOLOR[c.type]||'#64748b';
+  var label=esc((c.title||'').slice(0,14))+((c.title||'').length>14?'…':'');
+  return '<g class="gnode '+(cls||'')+'" data-gnode="'+c.id+'" transform="translate('+x+','+y+')">'+
+    '<circle class="ghit" r="'+(r+10)+'"/>'+
+    '<circle class="gc" r="'+r+'" stroke="'+col+'"/>'+
+    (cls==='gcenter'?'<text class="gopen" y="5">↗</text>':'')+
+    '<text class="glabel" y="'+(r+15)+'">'+label+'</text>'+
+    '<title>'+esc(c.title||'')+' ['+esc(c.type||'')+']</title></g>';
+}
+function _gdim(c){
+  if(GRAPH_HIDE_T[c.type]) return true;
+  if(c.type==='paper'){
+    var sgs=c.subgroup||[]; if(typeof sgs==='string') sgs=[sgs];
+    for(var i=0;i<sgs.length;i++) if(GRAPH_HIDE_SG[sgs[i]]) return true;
+  }
+  return false;
+}
+function renderGraphView(){
+  var c0=BYID[GRAPH_CENTER];
+  if(!c0){ GRAPH_CENTER=null; return renderRelation(); }
+  var W=900,H=640,CX=W/2,CY=H/2,R1=165,R2=290;
+  var ring1=_g1hop(GRAPH_CENTER), used={}; used[GRAPH_CENTER]=1;
+  ring1.forEach(function(i){ used[i]=1; });
+  var kids={};                                   /* 1촌별 2촌(≤3, 중복 제외) */
+  ring1.forEach(function(i){
+    kids[i]=(((BYID[i]||{}).connected)||[]).filter(function(t){ return !used[t]&&BYID[t]; }).slice(0,3);
+    kids[i].forEach(function(t){ used[t]=1; });
+  });
+  var prev=GRAPH_HIST.length?GRAPH_HIST[GRAPH_HIST.length-1]:null;
+  var edges='', nodes='', n1=ring1.length;
+  ring1.forEach(function(i,idx){
+    var a=-Math.PI/2+idx*2*Math.PI/Math.max(n1,1);
+    var x=CX+R1*Math.cos(a), y=CY+R1*Math.sin(a), c=BYID[i], dim=_gdim(c);
+    edges+='<line class="gedge1'+(dim?' gdim':'')+'" x1="'+CX+'" y1="'+CY+'" x2="'+x+'" y2="'+y+'"/>';
+    var kk=kids[i], spread=0.42;
+    kk.forEach(function(t,j){
+      var a2=a+(j-(kk.length-1)/2)*spread;
+      var x2=CX+R2*Math.cos(a2), y2=CY+R2*Math.sin(a2), c2=BYID[t], dim2=dim||_gdim(c2);
+      edges+='<line class="gedge2'+(dim2?' gdim':'')+'" x1="'+x+'" y1="'+y+'" x2="'+x2+'" y2="'+y2+'"/>';
+      nodes+=_gnodeSvg(c2,x2,y2,17,(t===prev?'gprev':'')+(dim2?' gdimn':''));
+    });
+    nodes+=_gnodeSvg(c,x,y,22,(i===prev?'gprev':'')+(dim?' gdimn':''));
+  });
+  nodes+=_gnodeSvg(c0,CX,CY,32,'gcenter');
+  /* 필터 칩: 현재 화면의 타입 + 논문 서브그룹 */
+  var types={}; Object.keys(used).forEach(function(i){ var t=(BYID[i]||{}).type; if(t&&i!==GRAPH_CENTER) types[t]=1; });
+  var chips=Object.keys(types).sort().map(function(t){
+    var T=TYPES[t]||{short:t,emoji:''};
+    return '<span class="gchip'+(GRAPH_HIDE_T[t]?' off':'')+'" data-gtype="'+t+'">'+T.emoji+' '+T.short+'</span>';
+  }).join('');
+  var hasPaper=Object.keys(used).some(function(i){ return (BYID[i]||{}).type==='paper'; });
+  if(hasPaper) chips+=Object.keys(SUBGROUP_META).map(function(sg){
+    var m=SUBGROUP_META[sg];
+    return '<span class="gchip'+(GRAPH_HIDE_SG[sg]?' off':'')+'" data-gsg="'+sg+'" style="border-color:'+m.color+'">'+m.emoji+' '+m.label+'</span>';
+  }).join('');
+  return '<div class="gtoolbar">'+
+    (GRAPH_HIST.length?'<button class="gbtn" data-gback="1">← 뒤로</button>':'')+
+    '<button class="gbtn" data-gsummary="1">요약으로</button>'+
+    '<span class="gtitle">🕸 '+esc(c0.title)+'</span></div>'+
+    '<div class="gchips">'+chips+'</div>'+
+    '<div class="rel-note">노드를 누르면 그 카드로 이동해 이웃을 다시 펼칩니다. 가운데 노드를 누르면 카드 상세가 열립니다. 실선=직접 이웃(1촌) · 점선=이웃의 이웃(2촌) · 점선 테두리=방금 온 노드.</div>'+
+    '<div class="gwrap"><svg viewBox="0 0 '+W+' '+H+'" xmlns="http://www.w3.org/2000/svg">'+edges+nodes+'</svg></div>';
+}
+function bindGraph(wrap){
+  wrap.querySelectorAll('[data-gnode]').forEach(function(el){
+    el.addEventListener('click', function(e){
+      e.stopPropagation();
+      var id=this.getAttribute('data-gnode');
+      if(id===GRAPH_CENTER) openReader(id); else enterGraph(id);
+    });
+  });
+  wrap.querySelectorAll('[data-gback]').forEach(function(el){
+    el.addEventListener('click', function(){ GRAPH_CENTER=GRAPH_HIST.pop()||null; renderGrid(); });
+  });
+  wrap.querySelectorAll('[data-gsummary]').forEach(function(el){
+    el.addEventListener('click', function(){ GRAPH_CENTER=null; GRAPH_HIST=[]; renderGrid(); });
+  });
+  wrap.querySelectorAll('[data-gtype]').forEach(function(el){
+    el.addEventListener('click', function(){ var t=this.getAttribute('data-gtype');
+      GRAPH_HIDE_T[t]=!GRAPH_HIDE_T[t]; renderGrid(); });
+  });
+  wrap.querySelectorAll('[data-gsg]').forEach(function(el){
+    el.addEventListener('click', function(){ var s=this.getAttribute('data-gsg');
+      GRAPH_HIDE_SG[s]=!GRAPH_HIDE_SG[s]; renderGrid(); });
+  });
+  wrap.querySelectorAll('[data-graph]').forEach(function(el){
+    el.addEventListener('click', function(e){ e.stopPropagation(); enterGraph(this.getAttribute('data-graph')); });
+  });
+}
 function renderGrid(){
   var wrap=document.getElementById('grid-wrap'), html='';
-  if(FILTER==='relation'){ html=renderRelation(); }
+  if(FILTER==='relation'){ html=(GRAPH_CENTER?renderGraphView():renderRelation()); }
   else {
     var cards=tabCards(FILTER);
     if(!cards.length){ wrap.innerHTML='<div class="empty">결과가 없습니다.</div>'; return; }
@@ -909,6 +1055,7 @@ function renderGrid(){
   });
   wrap.querySelectorAll('.chip[data-axis]').forEach(function(b){ b.addEventListener('click', function(){ AXIS_FILTER=this.getAttribute('data-axis'); renderGrid(); }); });
   wrap.querySelectorAll('.chip[data-sg]').forEach(function(b){ b.addEventListener('click', function(){ SG_FILTER=this.getAttribute('data-sg'); renderGrid(); }); });
+  bindGraph(wrap);                     /* 관계도 그래프(2탄) 인터랙션 */
 }
 
 /* ===== 마크다운 (경량) ===== */
@@ -1172,7 +1319,9 @@ function openReader(id){
   if(c.type!=='project'){
     var conn = (c.connected||c.links||[]).map(function(l){return BYID[l];}).filter(Boolean).slice(0,5);
     if(conn.length)
-      html += '<div class="dlinks"><div class="dlinks-h">연결된 카드</div>'+conn.map(chip).join('')+'</div>';
+      html += '<div class="dlinks"><div class="dlinks-h">연결된 카드'+
+              ' <span class="gbtn gbtn-s" data-graph="'+c.id+'">🕸 그래프로 보기</span></div>'+
+              conn.map(chip).join('')+'</div>';
   }
   /* 위키발 요청 — 내부 전환 / 삭제 (PI 승인 필요) + 수정 요청(익명 핑). 공개 카드에만 노출. */
   if(c.visibility!=='internal_only'){
@@ -1187,6 +1336,12 @@ function openReader(id){
             '💬 이 주제, 슬랙 QS-KB 봇에게 질문하기 ↗</a></div>';
   document.getElementById('reader-chip').innerHTML = chipHtml(c);
   body.innerHTML = html;
+  body.querySelectorAll('[data-graph]').forEach(function(el){
+    el.addEventListener('click', function(e){
+      e.stopPropagation(); var gid=this.getAttribute('data-graph');
+      closeReader(); enterGraph(gid);           /* 상세 → 관계도 국소 그래프 */
+    });
+  });
   body.querySelectorAll('[data-fixreq]').forEach(function(el){
     el.addEventListener('click', function(){
       /* 수정 요청(2026-07-05) — 익명 GET 핑(기존 /px 인프라·CORS 무설정). 사유 선택, 200자. */
