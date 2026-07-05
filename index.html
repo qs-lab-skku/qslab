@@ -5238,6 +5238,12 @@ var Persist = (function () {
       g.querySelectorAll('.mcard:not(.mcard-hiring)').forEach(function(m){ m.remove(); });
       g.removeAttribute('data-auto-rendered');
     });
+    /* News is an AUTO area too (data/news.json is canonical) — never serialize news cards
+       into content.json; strip them + the flag so a fresh news.json render repopulates. */
+    c.querySelectorAll('#news-list-wrap').forEach(function(w){
+      w.querySelectorAll('.news-item').forEach(function(n){ n.remove(); });
+      w.removeAttribute('data-auto-rendered');
+    });
     /* TOC thumbnails are runtime-rendered from data-toc — never bake the
        injected DOM (it would double the stored size). The data-toc attr on
        each row is what persists. */
@@ -5337,11 +5343,17 @@ var Persist = (function () {
      baked into the People grids (older snapshots did) and clear the data-auto-rendered
      flag, so auto-sections re-renders the current roster from members.json. Manual
      People content (hero, PI, hiring) carried by the snapshot is preserved. */
-  function stripBakedMembers() {
+  function stripBakedAuto() {
     try {
+      /* members: members.json is the sole source of truth */
       document.querySelectorAll('#grid-ra, #grid-grad, #grid-intern, #grid-postdoc, #grid-alumni').forEach(function(g){
         g.querySelectorAll('.mcard:not(.mcard-hiring)').forEach(function(m){ m.remove(); });
         g.removeAttribute('data-auto-rendered');
+      });
+      /* news: news.json is the sole source of truth */
+      document.querySelectorAll('#news-list-wrap').forEach(function(w){
+        w.querySelectorAll('.news-item').forEach(function(n){ n.remove(); });
+        w.removeAttribute('data-auto-rendered');
       });
     } catch (e) {}
   }
@@ -5357,7 +5369,7 @@ var Persist = (function () {
         }
       });
     } catch (err) {}
-    stripBakedMembers();          /* members owned by members.json only */
+    stripBakedAuto();             /* members+news owned by data/*.json only */
     restoring = false;
     return true;
   }
@@ -5379,7 +5391,7 @@ var Persist = (function () {
         if (el) el.innerHTML = data.pages[id];
       });
     } catch (err) {}
-    stripBakedMembers();          /* members owned by members.json only (legacy snapshot defense) */
+    stripBakedAuto();             /* members+news owned by data/*.json only (legacy snapshot defense) */
     restoring = false;
     return skipped;
   }

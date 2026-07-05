@@ -1,7 +1,20 @@
 {
-  "_comment": "Auto area (I3). Shared by Slack /home-news and in-page admin publish. Rendered by js/auto-sections.js.",
-  "updated": "2026-07-05T00:50:21.094Z",
+  "_comment": "Auto area (I3). Source of truth for News & Highlights. Edited by qs-kb Slack /home-news (PI publishes; students submit for PI approval) and the in-page admin publish. Rendered by js/auto-sections.js.",
+  "updated": "2026-07-05T05:06:03.557358+00:00",
   "items": [
+    {
+      "date": "2026-07-05",
+      "title": "Welcoming our 2026 summer undergraduate interns and URP students",
+      "body": "Eight undergraduate interns and URP (Undergraduate Research Program) students joined QS Lab for Summer 2026 — welcome aboard! Meet them on our People page.",
+      "tag": "People"
+    },
+    {
+      "date": "2026-07-02",
+      "title": "Invited lecture at 2D-TMDs 2026 (NUS); visits to A*STAR Q.InC and NTU",
+      "body": "Prof. Seunguk Song delivered an invited lecture at 2D-TMDs 2026 held at the National University of Singapore (NUS), and visited A*STAR's Quantum Innovation Centre (Q.InC) and Nanyang Technological University (NTU) to strengthen research collaborations.",
+      "image": "assets/news/singapore-qinc-2026.jpg",
+      "tag": "Conference"
+    },
     {
       "date": "2026-04-17",
       "title": "[Global Network] Expanding Frontiers in 2D Materials at MRS Spring 2026",
