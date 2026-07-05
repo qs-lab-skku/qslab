@@ -324,8 +324,10 @@ body{background:var(--bg2);background-image:linear-gradient(160deg,#f6f7f8 0%,#e
 body.reading .reader{display:block}
 body.reading{overflow:hidden}
 /* 기본(텍스트 카드: qa·term·sop·troubleshooting·뷰어없는 paper) —
-   콘텐츠에 맞춘 좁은 폭으로 오른쪽 빈 공간 제거 */
-.reader-card{width:min(96vw,920px);margin:0 auto;background:#fff;border-radius:var(--r3);
+   콘텐츠에 맞춘 좁은 폭으로 오른쪽 빈 공간 제거.
+   리더 폴리싱 ⑦(2026-07-05): 920→824px — 내부 패딩 제외 본문 ≈760px(한글 장문 가독 범위).
+   뷰어(.wide)·모바일(전폭)은 불변. */
+.reader-card{width:min(96vw,824px);margin:0 auto;background:#fff;border-radius:var(--r3);
   box-shadow:0 30px 90px rgba(13,27,42,.4);min-height:60vh}
 /* 뷰어(PDF·HTML) 카드(report) — 넓게 유지, 헤더·뷰어 모두 모달 폭 가득 */
 .reader-card.wide{width:min(96vw,1480px)}
@@ -333,8 +335,12 @@ body.reading{overflow:hidden}
   padding:.8rem var(--s4);background:rgba(255,255,255,.95);backdrop-filter:blur(8px);
   border-bottom:1px solid var(--border);border-radius:var(--r3) var(--r3) 0 0}
 .reader-x{margin-left:auto;font-family:var(--mono);font-size:.78rem;border:1px solid var(--border2);
-  background:var(--bg2);border-radius:20px;padding:.4rem .9rem;cursor:pointer;color:var(--ink2)}
+  background:var(--bg2);border-radius:20px;padding:.4rem .9rem;cursor:pointer;color:var(--ink2);flex-shrink:0}
 .reader-x:hover{border-color:var(--ts);color:var(--ts)}
+/* 리더 헤더 메타 한 줄(⑧): updated·승인일 — 닫기 버튼 왼쪽, 넘치면 말줄임 */
+.rd-meta{margin-left:auto;font-family:var(--mono);font-size:.62rem;color:var(--ink4);
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}
+.rd-meta+.reader-x{margin-left:.6rem}
 .rd{padding:var(--s3) var(--s4) var(--s5)}
 .dtype{font-family:var(--mono);font-size:.62rem;font-weight:600;letter-spacing:.06em;
   text-transform:uppercase;padding:.18rem .55rem;border-radius:5px;display:inline-flex;gap:.3rem;align-items:center}
@@ -378,10 +384,21 @@ body.reading{overflow:hidden}
   border-radius:4px;padding:.02rem .3rem;cursor:pointer}
 .wikilink{color:var(--member);font-weight:600;cursor:pointer;border-bottom:1px dotted var(--member)}
 
-/* 트러블슈팅 요약 배너 */
+/* 트러블슈팅 요약 배너 — ⑥ 상태 연동: 빨강은 미해결 전용, 해결됨=초록·조치 중=호박 */
 .tsbanner{display:grid;grid-template-columns:auto 1fr;gap:.4rem 1rem;background:var(--ts-bg);
   border:1px solid var(--ts-bd);border-radius:var(--r2);padding:var(--s2) var(--s3);margin:var(--s2) 0 var(--s3);font-size:.88rem}
 .tsbanner .tl{font-family:var(--mono);font-size:.64rem;font-weight:600;text-transform:uppercase;color:var(--ts);letter-spacing:.05em;align-self:center}
+.tsbanner.ok{background:#edf6f0;border-color:#d5e8db}
+.tsbanner.ok .tl{color:#3d6b4f}
+.tsbanner.prog{background:#fff8e6;border-color:#f3e2b0}
+.tsbanner.prog .tl{color:#a86a00}
+/* 트러블 상태 배지(⑥) — 리더 메타 줄 */
+.cbadge.ts-done{background:#edf6f0;color:#3d6b4f;border:1px solid #d5e8db}
+.cbadge.ts-prog{background:#faf6e8;color:#8a6d2a;border:1px solid #eee3c4}
+.cbadge.ts-open{background:var(--ts-bg);color:var(--ts);border:1px solid var(--ts-bd)}
+/* 추천 대상 메타 한 줄(⑤) — 박스 강등 */
+.dwho{font-size:.8rem;color:var(--ink3);margin:.2rem 0 var(--s2);padding-left:.15rem}
+.dwho b{font-weight:600;color:var(--ink2)}
 
 /* 프로젝트 허브 그룹 */
 .hubgrp{margin-top:var(--s3)}
@@ -550,6 +567,7 @@ body.reading{overflow:hidden}
     <div class="reader-card">
       <div class="reader-top">
         <span id="reader-chip"></span>
+        <span class="rd-meta" id="reader-meta"></span>
         <button class="reader-x" id="reader-x">✕ 닫기 (Esc)</button>
       </div>
       <div class="rd" id="reader-body"></div>
@@ -881,6 +899,11 @@ function sortCards(arr){
   });
 }
 function esc(s){ return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+/* 리더 폴리싱(2026-07-05): 제목·본문의 <sub>/<sup> 만 화이트리스트 복원(화학식 첨자).
+   esc 를 먼저 통과하므로 그 외 모든 태그는 계속 이스케이프(새니타이즈 유지). */
+function subsup(s){ return esc(s).replace(/&lt;(\/?)su([bp])&gt;/gi, '<$1su$2>'); }
+/* 잘리는 컨텍스트(그래프 라벨·관계도 노드 등 slice 표시)용 — 태그 자체를 제거한 평문 제목 */
+function plainT(s){ return String(s||'').replace(/<\/?su[bp]>/gi,''); }
 function cardDesc(c){
   if(c.type==='paper'&&c.hook_ko) return esc(c.hook_ko);   // 그리드에도 한국어 훅 한 줄
   if(c.type==='report') return c.one_liner?esc(c.one_liner):'';
@@ -920,7 +943,7 @@ function cardEl(c, feat){
   var d=cardDesc(c);
   /* 시각 위계(2026-07-05): 제목 최상단·최대 → (훅=첫 텍스트) → 타입·신뢰배지 소형 줄 → 태그(+자동요약 메타) */
   return '<div class="card t-'+c.type+(feat?' feat':'')+(c.id===SEL?' sel':'')+'" data-id="'+c.id+'">'+
-    '<div class="ctitle">'+esc(c.title)+'</div>'+
+    '<div class="ctitle">'+subsup(c.title)+'</div>'+
     (d?'<div class="cdesc">'+d+'</div>':'')+
     '<div class="cbrow"><span class="ctype k-'+c.type+'">'+T.emoji+' '+T.short+'</span>'+statusBadges(c)+'</div>'+
     '<div class="ctags">'+tags+autoMeta(c)+'</div></div>';
@@ -969,7 +992,7 @@ function renderHome(){
     html+='<div class="strip">'+fresh.map(function(x){
       var T=tmeta(x), d=cardDesc(x);
       return '<div class="ncard t-'+x.type+'" data-id="'+x.id+'">'+
-        '<div class="nt">'+esc(x.title)+'</div>'+
+        '<div class="nt">'+subsup(x.title)+'</div>'+
         (d?'<div class="nh">'+d+'</div>':'')+
         '<div class="nm"><span class="ctype k-'+x.type+'">'+T.emoji+' '+T.short+'</span></div></div>';
     }).join('')+'</div>';
@@ -982,13 +1005,13 @@ function renderHome(){
   anchors.sort(function(a,b){ return _ln(b)-_ln(a); });
   var eqHtml=anchors.slice(0,7).map(function(a){
     var s=(a.linked_safety||[]).length,p=(a.linked_sop||[]).length,t=(a.linked_troubleshooting||[]).length;
-    return '<div class="eqrow" data-id="'+a.id+'"><span class="nm">'+esc(String(a.title||'').replace('장비: ',''))+'</span>'+
+    return '<div class="eqrow" data-id="'+a.id+'"><span class="nm">'+subsup(String(a.title||'').replace('장비: ',''))+'</span>'+
       '<span class="ct">'+(s?'<span>🧪'+s+'</span>':'')+(p?'<span>🔧'+p+'</span>':'')+(t?'<span class="tsn">⚠️'+t+'</span>':'')+'</span></div>';
   }).join('');
   var trs=(WIKI.cards||[]).filter(function(x){ return x.type==='troubleshooting'; });
   trs.sort(function(a,b){ return String(b.updated||b.created||'').localeCompare(String(a.updated||a.created||'')); });
   var tsHtml=trs.slice(0,6).map(function(x){
-    return '<div class="tsrow" data-id="'+x.id+'"><span class="tt">'+esc(x.title)+'</span>'+
+    return '<div class="tsrow" data-id="'+x.id+'"><span class="tt">'+subsup(x.title)+'</span>'+
       '<span class="tm">'+esc(String(x.updated||x.created||''))+
       (x.symptom?' · '+esc(String(x.symptom).slice(0,34))+'…':'')+'</span></div>';
   }).join('');
@@ -997,7 +1020,7 @@ function renderHome(){
     .filter(function(x){ return x.c; }).sort(function(a,b){ return b.n-a.n; }).slice(0,7);
   var popHtml=pop.map(function(x,i){
     return '<div class="poprow" data-id="'+x.id+'"><span class="rk">'+(i+1)+'</span>'+
-      '<span class="tt">'+esc(x.c.title)+'</span><span class="vn">'+x.n+'회</span></div>';
+      '<span class="tt">'+subsup(x.c.title)+'</span><span class="vn">'+x.n+'회</span></div>';
   }).join('');
   html+='<div class="band">'+
     '<div class="panel"><div class="panel-h"><span class="em">🔧</span>장비 허브<button class="panel-more" data-go="equipment">장비 탭 →</button></div>'+
@@ -1047,7 +1070,7 @@ function renderEquipment(cards){
   var html=secH('🔧','장비 허브 (앵커)',anchors.length);
   live.forEach(function(a){
     var safety=resolve(a.linked_safety), sop=resolve(a.linked_sop), tr=resolve(a.linked_troubleshooting);
-    html+='<div class="hub"><div class="hub-h" data-id="'+a.id+'">📦 '+esc(a.title)+'</div>';
+    html+='<div class="hub"><div class="hub-h" data-id="'+a.id+'">📦 '+subsup(a.title)+'</div>';
     if(safety.length) html+='<div class="hub-sub">🧪 안전 SOP</div>'+grid(safety);
     if(sop.length) html+='<div class="hub-sub">🔧 절차 SOP</div>'+grid(sop);
     if(tr.length){ html+='<div class="hub-sub">⚠️ 이력 (이슈/조치/다운타임)</div>'+grid(tr); }
@@ -1056,7 +1079,7 @@ function renderEquipment(cards){
   if(empty.length){
     html+='<details class="hub-fold"><summary>연결 카드 없는 장비 '+empty.length+'개 — 펼치기</summary>';
     empty.forEach(function(a){
-      html+='<div class="hub hub-dim"><div class="hub-h" data-id="'+a.id+'">📦 '+esc(a.title)+'</div>'+
+      html+='<div class="hub hub-dim"><div class="hub-h" data-id="'+a.id+'">📦 '+subsup(a.title)+'</div>'+
             '<div class="hub-empty">연결된 카드 없음</div></div>';
     });
     html+='</details>';
@@ -1112,9 +1135,9 @@ function renderRelation(){
   html+=secH('🔧','장비 허브',anchors.length)+'<div class="relwrap">';
   anchors.forEach(function(a){
     var ln=resolve((a.linked_safety||[]).concat(a.linked_sop||[],a.linked_troubleshooting||[]));
-    html+='<div class="relhub"><div class="relhub-c" data-id="'+a.id+'">'+esc(a.title.replace('장비: ',''))+
+    html+='<div class="relhub"><div class="relhub-c" data-id="'+a.id+'">'+subsup(a.title.replace('장비: ',''))+
       (ln.length?' <span class="gbtn gbtn-s" data-graph="'+a.id+'">🕸</span>':'')+'</div>'+
-      '<div class="relspokes">'+ln.map(function(c){return '<span class="relnode" data-id="'+c.id+'">'+esc(c.title.slice(0,22))+'</span>';}).join('')+
+      '<div class="relspokes">'+ln.map(function(c){return '<span class="relnode" data-id="'+c.id+'">'+esc(plainT(c.title).slice(0,22))+'</span>';}).join('')+
       (ln.length?'':'<span class="hub-empty">—</span>')+'</div></div>';
   });
   html+='</div>';
@@ -1124,7 +1147,7 @@ function renderRelation(){
   ['emerging_nanoelectronics','superconducting_nanoelectronics','quantum_optics'].forEach(function(sg){
     var m=SUBGROUP_META[sg], items=(WIKI.cards||[]).filter(function(c){return c.type==='paper'&&(c.subgroup||[]).indexOf(sg)>=0;});
     html+='<div class="relcluster" style="border-color:'+m.color+'"><div class="relcl-h" style="color:'+m.color+'">'+m.emoji+' '+m.label+' · '+items.length+'</div>'+
-      items.map(function(c){return '<span class="relnode" data-id="'+c.id+'">'+esc(c.title.slice(0,26))+'</span>';}).join('')+'</div>';
+      items.map(function(c){return '<span class="relnode" data-id="'+c.id+'">'+esc(plainT(c.title).slice(0,26))+'</span>';}).join('')+'</div>';
   });
   html+='</div>';
   return html;
@@ -1161,13 +1184,14 @@ function enterGraph(id){
 }
 function _gnodeSvg(c,x,y,r,cls){
   var col=GCOLOR[c.type]||'#64748b';
-  var label=esc((c.title||'').slice(0,14))+((c.title||'').length>14?'…':'');
+  var pt=plainT(c.title);                          /* SVG 텍스트 — 태그 제거 후 자르기 */
+  var label=esc(pt.slice(0,14))+(pt.length>14?'…':'');
   return '<g class="gnode '+(cls||'')+'" data-gnode="'+c.id+'" transform="translate('+x+','+y+')">'+
     '<circle class="ghit" r="'+(r+10)+'"/>'+
     '<circle class="gc" r="'+r+'" stroke="'+col+'"/>'+
     (cls==='gcenter'?'<text class="gopen" y="5">↗</text>':'')+
     '<text class="glabel" y="'+(r+15)+'">'+label+'</text>'+
-    '<title>'+esc(c.title||'')+' ['+esc(c.type||'')+']</title></g>';
+    '<title>'+esc(pt)+' ['+esc(c.type||'')+']</title></g>';
 }
 function _gdim(c){
   if(GRAPH_HIDE_T[c.type]) return true;
@@ -1218,7 +1242,7 @@ function renderGraphView(){
   return '<div class="gtoolbar">'+
     (GRAPH_HIST.length?'<button class="gbtn" data-gback="1">← 뒤로</button>':'')+
     '<button class="gbtn" data-gsummary="1">요약으로</button>'+
-    '<span class="gtitle">🕸 '+esc(c0.title)+'</span></div>'+
+    '<span class="gtitle">🕸 '+subsup(c0.title)+'</span></div>'+
     '<div class="gchips">'+chips+'</div>'+
     '<div class="rel-note">노드를 누르면 그 카드로 이동해 이웃을 다시 펼칩니다. 가운데 노드를 누르면 카드 상세가 열립니다. 실선=직접 이웃(1촌) · 점선=이웃의 이웃(2촌) · 점선 테두리=방금 온 노드.</div>'+
     '<div class="gwrap"><svg viewBox="0 0 '+W+' '+H+'" xmlns="http://www.w3.org/2000/svg">'+edges+nodes+'</svg></div>';
@@ -1289,19 +1313,27 @@ function renderGrid(){
   bindGraph(wrap);                     /* 관계도 그래프(2탄) 인터랙션 */
 }
 
-/* ===== 마크다운 (경량) ===== */
+/* ===== 마크다운 (경량) =====
+   리더 폴리싱(2026-07-05): 토큰화 파서 — 코드스팬·마크다운 링크·베어 URL 을 자리표시자로
+   먼저 격리한 뒤 이탤릭(_…_)을 적용해, URL 내부 언더스코어 오파싱을 원천 차단. */
 function inline(s){
   s = esc(s);
-  s = s.replace(/`([^`]+)`/g, '<code>$1</code>');
-  s = s.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
-  s = s.replace(/\[([^\]]+)\]\((https?:[^)]+)\)/g, '<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>');
-  /* 베어 URL 자동 링크화(2026-07-05) — http/https 만, 새 탭. 슬랙 permalink 포함.
-     가드 [^">] : 이미 만든 <a href="…"> 내부(따옴표 뒤)나 앵커 텍스트(> 뒤) 재매칭 방지. */
-  s = s.replace(/(^|[^">])(https?:\/\/[^\s<>"']+)/g, function(m,pre,url){
-    var tail='', mm=url.match(/[.,;)\]]+$/);          // 문장부호 꼬리는 링크에서 제외
-    if(mm){ tail=mm[0]; url=url.slice(0,url.length-tail.length); }
-    return pre+'<a href="'+url+'" target="_blank" rel="noopener noreferrer">'+url+'</a>'+tail;
+  s = s.replace(/&lt;(\/?)su([bp])&gt;/gi, '<$1su$2>');   // <sub>/<sup> 복원(본문 화학식)
+  var toks = [];
+  function stash(html){ toks.push(html); return '\x00'+(toks.length-1)+'\x00'; }
+  s = s.replace(/`([^`]+)`/g, function(m, code){ return stash('<code>'+code+'</code>'); });
+  s = s.replace(/\[([^\]]+)\]\((https?:[^)]+)\)/g, function(m, txt, url){
+    return stash('<a href="'+url+'" target="_blank" rel="noopener noreferrer">'+txt+'</a>');
   });
+  /* 베어 URL 자동 링크화 — http/https 만, 새 탭. 문장부호 꼬리(+이탤릭 닫는 _)는 링크에서 제외. */
+  s = s.replace(/(^|[^">])(https?:\/\/[^\s<>"']+)/g, function(m,pre,url){
+    var tail='', mm=url.match(/[.,;)\]_]+$/);
+    if(mm){ tail=mm[0]; url=url.slice(0,url.length-tail.length); }
+    return pre+stash('<a href="'+url+'" target="_blank" rel="noopener noreferrer">'+url+'</a>')+tail;
+  });
+  s = s.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
+  /* 이탤릭: 단어 경계의 _…_ 만. URL·코드는 이미 토큰(\x00N\x00)이라 내부 _ 안전. */
+  s = s.replace(/(^|[\s(>\x00])_([^_\n]+?)_(?=[\s).,;:!?]|$|\x00)/g, '$1<em>$2</em>');
   s = s.replace(/QSKB-\d{4}-\d{4}/g, function(m){
     return BYID[m] ? '<span class="cardref" data-go="'+m+'">'+m+'</span>' : m;
   });
@@ -1310,7 +1342,26 @@ function inline(s){
     return id ? '<span class="wikilink" data-go="'+id+'">'+esc(name)+'</span>'
               : '<span class="wikilink">'+esc(name)+'</span>';
   });
+  s = s.replace(/\x00(\d+)\x00/g, function(m,i){ return toks[+i]; });
   return s;
+}
+/* 실내용 없는 섹션 판정(버그③): 링크 라벨·본문 텍스트가 남지 않으면(bare URL·장식·
+   플레이스홀더 라벨뿐) 헤더째 생략 대상. 안전 카드는 호출부에서 제외(S2 — 정본 링크 보호). */
+function sectionIsEmpty(sec){
+  var t = String(sec.body||'')
+    .replace(/\[([^\]]*)\]\((https?:[^)]+)\)/g, '$1')     // 링크는 라벨만 남김
+    .replace(/https?:\/\/[^\s<>"')]+/g, '')               // bare URL 제거
+    .replace(/[`_*>#\-\s|:;.·…()\[\]]+/g, ' ')            // 마크다운 장식 제거
+    .trim();
+  var words = t.split(/\s+/).filter(function(w){
+    return w && !/^(원문|출처|링크|참고|근거|source|tbd|todo|없음|해당없음|n\/a)$/i.test(w);
+  });
+  return words.join('').length < 2;
+}
+/* 본문 md 에서 실내용 없는 섹션 제거(전문(前文)은 유지) */
+function mdSansEmpty(md){
+  return parseSections(md).filter(function(s){ return !s.title || !sectionIsEmpty(s); })
+    .map(function(s){ return (s.title ? '## '+s.title+'\n' : '')+s.body; }).join('\n\n');
 }
 /* 마크다운 → HTML. h2(##)는 옵션으로 h3 출력. */
 function renderMd(md, withH2){
@@ -1408,7 +1459,7 @@ function renderPaper(c, secs){
   /* 안전(MSDS 등) report: ⚠️경고 + 한글 요약을 먼저, 원본 PDF 뷰어는 그 아래에.
      (요약은 카드 본문 그대로 — 새로 만들지 않고 배치만) */
   if(c.type==='report' && secOf(c)==='safety'){
-    var h = '<h1 class="dt">'+esc(c.title)+'</h1>';
+    var h = '<h1 class="dt">'+subsup(c.title)+'</h1>';
     if(c.pdf_path && /^https?:/.test(c.pdf_path))
       h += '<div class="dmeta"><a class="metabtn" href="'+esc(c.pdf_path)+
            '" target="_blank" rel="noreferrer">원문 PDF ↗</a></div>';
@@ -1437,7 +1488,7 @@ function renderPaper(c, secs){
     else if(c.pdf_path) meta.push('<span class="statusdot">PDF: 내부 경로</span>');
   }
   var take = findSection(secs, TAKE_RE), lim = findSection(secs, LIM_RE), who = findSection(secs, WHO_RE);
-  var html = '<h1 class="dt">'+esc(c.title)+'</h1>' + hookHtml(c);   // 위계: 제목 최상단 → 훅=첫 텍스트
+  var html = '<h1 class="dt">'+subsup(c.title)+'</h1>' + hookHtml(c);   // 위계: 제목 최상단 → 훅=첫 텍스트
   if(meta.length) html += '<div class="dmeta">'+meta.join('')+'</div>';
   if(c.type==='report' && c.one_liner)
     html += labBox('box-who', '한 줄 소개', c.one_liner);
@@ -1450,15 +1501,18 @@ function renderPaper(c, secs){
   }
   if(take) html += labBox('box-take', '🌱 우리 랩에 주는 시사점', take.body);
   if(lim)  html += labBox('box-lim', '🔍 비판적 시각 / 재현성', lim.body);
-  if(who)  html += labBox('box-who', '👥 추천 대상', who.body);
-  /* 객관 요약 (아래로) */
+  /* 위계 완화(2026-07-05 ⑤): '추천 대상'은 박스가 아니라 메타 한 줄로 강등 */
+  if(who && !sectionIsEmpty(who))
+    html += '<div class="dwho">👥 <b>추천 대상</b> · '+inline(who.body.replace(/\s*\n+\s*/g,' ').trim())+'</div>';
+  /* 객관 요약 (아래로) — 실내용 없는 섹션(링크·플레이스홀더뿐)은 헤더째 생략(③) */
   var rest = secs.filter(function(s){
     return s.title && !HIDE_RE.test(s.title) &&
-      !TAKE_RE.test(s.title) && !LIM_RE.test(s.title) && !WHO_RE.test(s.title);
+      !TAKE_RE.test(s.title) && !LIM_RE.test(s.title) && !WHO_RE.test(s.title) &&
+      !sectionIsEmpty(s);
   });
-  if(rest.length || take || lim || who) html += '<hr class="rule"><div class="obj-lbl">객관적 요약</div>';
+  if(rest.length && (take || lim || who)) html += '<hr class="rule"><div class="obj-lbl">객관적 요약</div>';
   var objMd = rest.map(function(s){ return '## '+s.title+'\n'+s.body; }).join('\n\n');
-  html += '<div class="dbody">'+renderMd(objMd, true)+'</div>';
+  if(rest.length) html += '<div class="dbody">'+renderMd(objMd, true)+'</div>';
   return html;
 }
 
@@ -1468,26 +1522,44 @@ function renderSop(c, secs){
   if(c.equipment) meta.push('장비: '+esc(String(c.equipment)));
   if(c.owner) meta.push('담당: '+esc(String(c.owner)));
   if(c.review_due) meta.push('점검 예정: '+esc(String(c.review_due)));
-  var html = '<h1 class="dt">'+esc(c.title)+'</h1>';
+  var html = '<h1 class="dt">'+subsup(c.title)+'</h1>';
   if(meta.length) html += '<div class="dmeta">'+meta.join('  ·  ')+'</div>';
-  html += '<div class="dbody">'+renderMd(c.body, true)+'</div>';
+  /* 안전 카드(wiki_section=safety)는 섹션 생략 없이 원문 그대로(S2 — 정본 링크 보호) */
+  html += '<div class="dbody">'+renderMd(secOf(c)==='safety' ? c.body : mdSansEmpty(c.body), true)+'</div>';
   return html;
 }
 
 /* troubleshooting: 증상→원인→해결→재발방지 */
+/* 상태 추출(⑥, 데이터 수정 없음 — resolution 필드 텍스트 해석):
+   미해결 명시/필드 없음 → open(빨강), 요청·견적·대기·진행 중(해결 표현 없이) → prog(호박),
+   해결·완료 → done(초록, resolution 안 날짜 우선·없으면 updated). */
+function troubleStatus(c){
+  var r = String(c.resolution||'').trim();
+  if(!r || /미해결/.test(r)) return {k:'open', label:'🔴 미해결'};
+  if(/(요청|견적|대기|진행|확인)\s*중/.test(r) && !/해결|resolved/i.test(r))
+    return {k:'prog', label:'🟡 조치 중'};
+  if(/해결|완료|resolved/i.test(r)){
+    var m = r.match(/\d{4}[-.년]\s?\d{1,2}(?:[-.월]\s?\d{1,2})?/);
+    var d = m ? m[0] : String(c.updated||'');
+    return {k:'done', label:'🟢 해결됨'+(d?' · '+d:'')};
+  }
+  return {k:'prog', label:'🟡 조치 중'};
+}
 function renderTrouble(c){
-  var html = '<h1 class="dt">'+esc(c.title)+'</h1>';
-  var meta = [];
+  var st = troubleStatus(c);
+  var html = '<h1 class="dt">'+subsup(c.title)+'</h1>';
+  var meta = ['<span class="cbadge ts-'+st.k+'">'+st.label+'</span>'];
   if(c.equipment) meta.push('장비: '+esc(String(c.equipment)));
   if(c.downtime_h) meta.push('다운타임: '+esc(String(c.downtime_h))+'h');
-  if(meta.length) html += '<div class="dmeta">'+meta.join('  ·  ')+'</div>';
+  html += '<div class="dmeta">'+meta.join('  ·  ')+'</div>';
   if(c.symptom || c.resolution){
-    html += '<div class="tsbanner">';
+    /* 배너 톤 상태 연동(⑥): 빨강은 미해결 전용 — 해결됨=초록, 조치 중=호박 */
+    html += '<div class="tsbanner'+(st.k==='done'?' ok':st.k==='prog'?' prog':'')+'">';
     if(c.symptom){ html += '<div class="tl">증상</div><div>'+esc(String(c.symptom))+'</div>'; }
     if(c.resolution){ html += '<div class="tl">해결</div><div>'+esc(String(c.resolution))+'</div>'; }
     html += '</div>';
   }
-  html += '<div class="dbody">'+renderMd(c.body, true)+'</div>';
+  html += '<div class="dbody">'+renderMd(mdSansEmpty(c.body), true)+'</div>';
   return html;
 }
 
@@ -1495,11 +1567,11 @@ function renderTrouble(c){
 function renderProject(c){
   var st = c.project_status ? String(c.project_status) : '';
   var members = (c.members||[]).filter(Boolean);
-  var html = '<h1 class="dt">'+esc(c.title)+'</h1><div class="dmeta">';
+  var html = '<h1 class="dt">'+subsup(c.title)+'</h1><div class="dmeta">';
   if(st) html += '<span class="statusdot">상태: '+esc(st)+'</span>';
   if(members.length) html += '구성원: '+esc(members.join(', '));
   html += '</div>';
-  html += '<div class="dbody">'+renderMd(c.body, true)+'</div>';
+  html += '<div class="dbody">'+renderMd(mdSansEmpty(c.body), true)+'</div>';
   /* 연결 카드 종류별 그룹핑 */
   var linked = (c.links||[]).map(function(l){return BYID[l];}).filter(Boolean);
   var buckets = [
@@ -1517,21 +1589,41 @@ function renderProject(c){
   return html;
 }
 
-/* 단순 타입 (term/qa/onboarding) */
+/* 단순 타입 (term/qa/onboarding/inventory) */
 function renderSimple(c){
   var meta = [];
   if(c.type==='term'){ var al=(c.aliases||[]).filter(Boolean); if(al.length) meta.push('별칭: '+esc(al.join(', '))); }
   if(c.type==='qa' && c.question) meta.push('Q: '+esc(String(c.question)));
-  var html = '<h1 class="dt">'+esc(c.title)+'</h1>';
+  var html = '<h1 class="dt">'+subsup(c.title)+'</h1>';
   if(meta.length) html += '<div class="dmeta">'+meta.join('  ·  ')+'</div>';
-  html += '<div class="dbody">'+renderMd(c.body, true)+'</div>';
+  var md = c.body;
+  /* 장비 앵커(④): 본문 '연결된 카드' bare ID 불릿 섹션은 제거하고,
+     아래에서 linked_* 기반 제목 칩 그룹으로 일원화(하단 일반 connected 칩 대체). */
+  var isEquip = (c.type==='inventory' && c.inventory_kind==='equipment');
+  if(isEquip){
+    md = parseSections(md).filter(function(s){ return !/^연결된\s*카드/.test(s.title); })
+      .map(function(s){ return (s.title ? '## '+s.title+'\n' : '')+s.body; }).join('\n\n');
+  }
+  if(secOf(c)!=='safety') md = mdSansEmpty(md);   // 실내용 없는 섹션 생략(③, 안전 카드 제외)
+  html += '<div class="dbody">'+renderMd(md, true)+'</div>';
+  if(isEquip){
+    var gh='';
+    [['🧪 안전', c.linked_safety], ['🔧 절차 (SOP)', c.linked_sop],
+     ['⚠️ 이슈 이력', c.linked_troubleshooting]].forEach(function(g){
+      var items = resolve(g[1]);
+      if(items.length) gh += '<div class="subsec-h">'+g[0]+' · '+items.length+'</div>'+
+                             '<div>'+items.map(chip).join('')+'</div>';
+    });
+    if(gh) html += '<div class="dlinks"><div class="dlinks-h">연결된 카드'+
+      ' <span class="gbtn gbtn-s" data-graph="'+c.id+'">🕸 그래프로 보기</span></div>'+gh+'</div>';
+  }
   return html;
 }
 
 function chip(t){
   var T=tmeta(t);
   return '<span class="chip" data-go="'+t.id+'"><span class="cdot '+t.type+'"></span>'+
-         (T.emoji?T.emoji+' ':'')+esc(t.title)+'</span>';
+         (T.emoji?T.emoji+' ':'')+subsup(t.title)+'</span>';
 }
 
 function openReader(id){
@@ -1553,8 +1645,9 @@ function openReader(id){
   if(c.summary) html = html.replace('</h1>', '</h1>'+quickSummaryHtml(c));
 
   /* 연결된 카드(그래프 1탄) — 빌드 타임 간선(connected: 직접>역링크>동일프로젝트>동일장비, 최대 5).
-     구 payload 호환: connected 없으면 links 폴백. 연결 0 이면 섹션 생략(빈 껍데기 금지). */
-  if(c.type!=='project'){
+     구 payload 호환: connected 없으면 links 폴백. 연결 0 이면 섹션 생략(빈 껍데기 금지).
+     장비 앵커는 renderSimple 의 linked_* 그룹 칩으로 일원화(④) → 여기선 스킵(중복 방지). */
+  if(c.type!=='project' && !(c.type==='inventory' && c.inventory_kind==='equipment')){
     var conn = (c.connected||c.links||[]).map(function(l){return BYID[l];}).filter(Boolean).slice(0,5);
     if(conn.length)
       html += '<div class="dlinks"><div class="dlinks-h">연결된 카드'+
@@ -1573,6 +1666,17 @@ function openReader(id){
     html += '<div class="askslack"><a class="ask-btn" href="'+ASK_URL+'" target="_blank" rel="noopener">'+
             '💬 이 주제, 슬랙 QS-KB 봇에게 질문하기 ↗</a></div>';
   document.getElementById('reader-chip').innerHTML = chipHtml(c);
+  /* 리더 헤더 메타(⑧): updated(없으면 created) + SOP 승인 표시 */
+  var rmeta = document.getElementById('reader-meta');
+  if(rmeta){
+    var parts = [];
+    var up = String(c.updated||c.created||''); if(up) parts.push('업데이트 '+up);
+    if(c.type==='sop' && c.status==='approved'){
+      var sd = String(c.safety_approved_at||c.review_due||'');
+      parts.push('안전 승인'+(sd?' '+sd:' ✓'));
+    }
+    rmeta.textContent = parts.join(' · ');
+  }
   body.innerHTML = html;
   body.querySelectorAll('[data-graph]').forEach(function(el){
     el.addEventListener('click', function(e){
