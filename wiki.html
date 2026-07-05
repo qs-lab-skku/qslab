@@ -196,6 +196,85 @@ body{background:var(--bg2);background-image:linear-gradient(160deg,#f6f7f8 0%,#e
 .grid>.card{height:100%}
 .card>.ctags{margin-top:auto}
 
+/* ===== 2차 개편 (2026-07-05, A안+B요소): 홈 허브 탭 + 밀도·리듬 그리드 ===== */
+/* 그리드 밀도(B): 230→215px·간격 축소. 리듬: 훅 논문·증상 트러블을 섹션당 최대 2장 2칸 강조.
+   .layout .grid 특이도 — 뒤쪽 base .grid(230px/.8rem) 정의를 이기기 위함(모든 그리드는 .layout 안). */
+.layout .grid{grid-template-columns:repeat(auto-fill,minmax(215px,1fr));gap:.65rem}
+.grid{grid-auto-flow:dense}
+.card.feat{grid-column:span 2;padding:.9rem 1.05rem;border-top-width:4px}
+.card.feat .ctitle{font-size:1rem}
+.card.feat .cdesc{font-size:.86rem;font-weight:600;color:var(--ink2);line-height:1.5;
+  padding:.5rem .7rem;background:var(--blue3);border-left:3px solid var(--blue);border-radius:8px}
+.card.feat.t-troubleshooting .cdesc{background:rgba(254,226,226,.55);border-left-color:var(--ts)}
+/* 인기 태그 칩(B) — 탭 그리드·검색 결과 상단. 기존 .chips/.chip 스타일 재사용. */
+.chips .pt-n{opacity:.55;font-weight:400}
+/* 홈: 이번 주 새 카드 스트립 */
+.strip-h{display:flex;align-items:baseline;gap:.6rem;margin:.9rem 0 .55rem}
+.strip-h .t{font-family:var(--serif);font-weight:600;font-size:1.12rem}
+.strip-h .n{font-family:var(--mono);font-size:.72rem;color:var(--blue);font-weight:700;
+  background:var(--blue3);border-radius:10px;padding:.1rem .5rem}
+.strip-h .sub{font-family:var(--mono);font-size:.62rem;color:var(--ink4)}
+.strip{display:flex;gap:.6rem;overflow-x:auto;padding:.2rem .2rem .7rem;scroll-snap-type:x proximity}
+.strip::-webkit-scrollbar{height:8px}
+.strip::-webkit-scrollbar-thumb{background:var(--border2);border-radius:4px}
+.ncard{flex:0 0 240px;scroll-snap-align:start;cursor:pointer;border-radius:var(--r3);
+  padding:.75rem .85rem;display:flex;flex-direction:column;gap:.35rem;
+  background:var(--glass);border:1px solid var(--glass-border);border-top:3px solid var(--border2);
+  -webkit-backdrop-filter:var(--blur);backdrop-filter:var(--blur);box-shadow:var(--shadow);
+  transition:transform .15s}
+.ncard:hover{transform:translateY(-2px)}
+.ncard .nt{font-weight:600;font-size:.84rem;line-height:1.35;display:-webkit-box;
+  -webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.ncard .nh{font-size:.72rem;color:var(--ink3);line-height:1.45;display:-webkit-box;
+  -webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.ncard .nm{margin-top:auto;display:flex;gap:.35rem;align-items:center}
+.ncard.t-paper{border-top-color:var(--blue)} .ncard.t-term{border-top-color:var(--member)}
+.ncard.t-qa{border-top-color:var(--qa)} .ncard.t-sop{border-top-color:var(--sop)}
+.ncard.t-troubleshooting{border-top-color:var(--ts)} .ncard.t-onboarding{border-top-color:var(--ob)}
+.ncard.t-project{border-top-color:var(--proj)} .ncard.t-report{border-top-color:var(--rep)}
+.ncard.t-inventory{border-top-color:var(--member)}
+/* 홈: 3패널 밴드(장비 허브·최근 트러블·이번 주 인기) */
+.band{display:grid;grid-template-columns:1.15fr 1fr 1fr;gap:.8rem;margin:.4rem 0 var(--s3)}
+.panel{background:var(--glass);border:1px solid var(--glass-border);border-radius:var(--r3);
+  -webkit-backdrop-filter:var(--blur);backdrop-filter:var(--blur);box-shadow:var(--shadow);
+  padding:.9rem 1rem;display:flex;flex-direction:column;min-width:0}
+.panel-h{font-family:var(--mono);font-size:.66rem;font-weight:600;letter-spacing:.08em;
+  text-transform:uppercase;color:var(--ink2);display:flex;align-items:center;gap:.45rem;margin-bottom:.6rem}
+.panel-h .em{font-size:.95rem}
+.panel-h::after{content:"";flex:1;height:1px;background:var(--border)}
+.panel-more{font-family:var(--mono);font-size:.62rem;color:var(--blue);cursor:pointer;
+  border:none;background:none;padding:0;white-space:nowrap}
+.panel-more:hover{text-decoration:underline}
+.eqrow{display:flex;align-items:center;gap:.55rem;padding:.42rem .3rem;border-radius:8px;cursor:pointer}
+.eqrow:hover{background:var(--blue3)}
+.eqrow .nm{font-weight:600;font-size:.84rem;flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.eqrow .ct{font-family:var(--mono);font-size:.6rem;color:var(--ink3);display:flex;gap:.3rem;flex-shrink:0}
+.eqrow .ct span{background:var(--bg3);border-radius:8px;padding:.05rem .4rem}
+.eqrow .ct .tsn{background:var(--ts-bg);color:var(--ts)}
+.tsrow{display:flex;flex-direction:column;gap:.1rem;padding:.42rem .3rem;border-radius:8px;cursor:pointer}
+.tsrow:hover{background:var(--ts-bg)}
+.tsrow .tt{font-weight:600;font-size:.8rem;line-height:1.35;display:-webkit-box;
+  -webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.tsrow .tm{font-family:var(--mono);font-size:.6rem;color:var(--ink4)}
+.poprow{display:flex;align-items:baseline;gap:.5rem;padding:.42rem .3rem;border-radius:8px;cursor:pointer}
+.poprow:hover{background:var(--blue3)}
+.poprow .rk{font-family:var(--mono);font-size:.68rem;font-weight:700;color:var(--ink4);width:1.1em;flex-shrink:0}
+.poprow .tt{font-weight:600;font-size:.8rem;line-height:1.35;flex:1;min-width:0;display:-webkit-box;
+  -webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.poprow .vn{font-family:var(--mono);font-size:.6rem;color:var(--ink4);flex-shrink:0}
+/* 홈: 하단 바로가기 */
+.golinks{display:flex;gap:.5rem;flex-wrap:wrap;margin-top:.2rem}
+.golink{font-family:var(--mono);font-size:.68rem;font-weight:600;color:var(--ink2);cursor:pointer;
+  background:var(--glass);border:1px solid var(--glass-border);border-radius:20px;padding:.4rem .85rem;
+  -webkit-backdrop-filter:var(--blur);backdrop-filter:var(--blur);box-shadow:var(--shadow)}
+.golink:hover{color:var(--blue)}
+@media(max-width:860px){
+  .band{grid-template-columns:1fr}
+  .ncard{flex-basis:210px}
+  .card.feat{grid-column:span 1}
+  .layout .grid{grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:.55rem}
+}
+
 /* 본문 (단일 컬럼 그리드) */
 .layout{max-width:1180px;margin:0 auto;padding:var(--s3)}
 .group-h{font-family:var(--mono);font-size:.62rem;font-weight:600;letter-spacing:.12em;
@@ -506,8 +585,9 @@ var TYPES = {
   research:        {label:'연구 개요',     short:'연구',   emoji:'🧭'},
   inventory:       {label:'인벤토리',      short:'재고',   emoji:'📦'}
 };
-/* ===== IA v2 — 6탭 (태그 기반 렌더) ===== */
+/* ===== IA v2 — 6탭 (태그 기반 렌더) + 홈 허브(2차 개편 2026-07-05) ===== */
 var TABS = [
+  {key:'home',      emoji:'🏠', label:'홈',       short:'홈'},
   {key:'research',  emoji:'🔬', label:'연구',     short:'연구'},
   {key:'equipment', emoji:'🔧', label:'장비',     short:'장비'},
   {key:'inventory', emoji:'📦', label:'인벤토리', short:'재고'},
@@ -523,7 +603,7 @@ var SUBGROUP_META = {
 var AXIS_META = {
   device:{label:'소자'}, growth:{label:'성장'}, quantum_topo:{label:'양자·위상'}, spe_quantum:{label:'단일광자'}
 };
-var FILTER = 'research';   // 기본 탭
+var FILTER = 'home';       // 기본 탭 — 홈 허브(2차 개편: 첫 화면 볼거리)
 var AXIS_FILTER = '';      // 연구 탭 axis 칩 필터
 var SG_FILTER = '';        // 용어집 탭 서브그룹 필터
 var RESEARCH_HOME = 'https://qs-lab-skku.github.io/qslab/';   // 연구 개요 탭 상단 홈페이지 Research 링크
@@ -677,7 +757,8 @@ async function doUnlock(){
 function boot(data){
   WIKI = data;
   (WIKI.cards||[]).forEach(function(c){ BYID[c.id] = c; });
-  HERO = (WIKI.cards||[]).length > 200;
+  /* 2차 개편: 홈 허브 탭이 첫 화면 볼거리 담당 → 히어로 검색 모드 비활성(마크업·CSS 는 유지) */
+  HERO = false;
   if(HERO) document.body.classList.add('heromode');
   /* 첫 진입 기본 탭: 전체(재학생은 전부 / 신입생은 온보딩 DM 딥링크로 유도).
      #policy·#research·#safety 등 해시가 있으면 그 탭으로(온보딩 DM 딥링크). */
@@ -760,13 +841,22 @@ function counts(){
   /* 관계도는 합성 탭(tabsOf 미배정) → 항상 0으로 보이던 버그. 실제 노드 수(앵커+서브그룹 논문)로 표시. */
   c.relation = (WIKI.cards||[]).filter(function(x){return x.type==='inventory'&&x.inventory_kind==='equipment';}).length
              + (WIKI.cards||[]).filter(function(x){return x.type==='paper'&&(x.subgroup||[]).length;}).length;
+  /* 홈 탭 카운트 = 이번 주(월요일 이후) 새 카드 수 — 탭에 +N 으로 표시 */
+  c.home = (WIKI.cards||[]).filter(function(x){ return String(x.created||'') >= weekStartStr(); }).length;
   return c;
+}
+/* 이번 주 월요일(로컬) YYYY-MM-DD — 홈 스트립·탭 카운트 공용 */
+function weekStartStr(){
+  var d = new Date(); var day = (d.getDay()+6)%7;   // 월=0…일=6
+  d.setDate(d.getDate()-day);
+  return d.getFullYear()+'-'+('0'+(d.getMonth()+1)).slice(-2)+'-'+('0'+d.getDate()).slice(-2);
 }
 function renderTabs(){
   var c=counts(), wrap=document.getElementById('tabs'), html='';
   TABS.forEach(function(t){
+    var cnt = (t.key==='home') ? ('+'+(c.home||0)) : (c[t.key]||0);   // 홈=이번 주 새 카드
     html += '<button class="tab'+(t.key===FILTER?' active':'')+'" data-f="'+t.key+'">'+
-      t.emoji+' '+t.short+' <span class="cnt">'+(c[t.key]||0)+'</span></button>';
+      t.emoji+' '+t.short+' <span class="cnt">'+cnt+'</span></button>';
   });
   wrap.innerHTML=html;
   wrap.querySelectorAll('.tab').forEach(function(b){
@@ -820,25 +910,111 @@ function autoMeta(c){
 }
 var SRC_LABELS={'from-digest':'다이제스트','from-pin':'📌핀','from-equipments':'장비채널',
                 'from-equipment-list':'장비목록','from-canvas':'캔버스'};
-function cardEl(c){
+function cardEl(c, feat){
   var T=tmeta(c);
   /* from-* 내부 출처 태그는 일반 태그칩과 분리 — 별도 출처 배지로 1개만, 나머지 태그만 칩으로 */
   var all=(c.tags||[]).map(String), src=all.filter(function(t){return t.indexOf('from-')===0;})[0];
-  var tags=all.filter(function(t){return t.indexOf('from-')!==0;}).slice(0,4)
+  var tags=all.filter(function(t){return t.indexOf('from-')!==0;}).slice(0,feat?6:4)
       .map(function(t){return '<span class="ctag">'+esc(t)+'</span>';}).join('');
   if(src) tags+='<span class="ctag csrc">'+esc(SRC_LABELS[src]||src.replace('from-',''))+'</span>';
   var d=cardDesc(c);
   /* 시각 위계(2026-07-05): 제목 최상단·최대 → (훅=첫 텍스트) → 타입·신뢰배지 소형 줄 → 태그(+자동요약 메타) */
-  return '<div class="card t-'+c.type+(c.id===SEL?' sel':'')+'" data-id="'+c.id+'">'+
+  return '<div class="card t-'+c.type+(feat?' feat':'')+(c.id===SEL?' sel':'')+'" data-id="'+c.id+'">'+
     '<div class="ctitle">'+esc(c.title)+'</div>'+
     (d?'<div class="cdesc">'+d+'</div>':'')+
     '<div class="cbrow"><span class="ctype k-'+c.type+'">'+T.emoji+' '+T.short+'</span>'+statusBadges(c)+'</div>'+
     '<div class="ctags">'+tags+autoMeta(c)+'</div></div>';
 }
-function grid(arr){ return '<div class="grid">'+sortCards(arr).map(cardEl).join('')+'</div>'; }
+/* 리듬 그리드(2차 개편, B요소): 훅 있는 논문·증상 있는 트러블을 섹션 앞쪽(8장 내)에서
+   최대 2장만 2칸 피처로 강조. 모바일에서는 CSS 가 1칸으로 복귀시킴. */
+function grid(arr){
+  var sorted=sortCards(arr), nf=0;
+  return '<div class="grid">'+sorted.map(function(c,i){
+    var hookish=(c.type==='paper'&&c.hook_ko)||(c.type==='troubleshooting'&&c.symptom);
+    var feat=hookish&&nf<2&&i<8;
+    if(feat)nf++;
+    return cardEl(c,feat);
+  }).join('')+'</div>';
+}
 function secH(emoji,label,n){ return '<div class="section-h"><span class="em">'+emoji+'</span>'+label+' · '+n+'</div>'; }
 function byId(id){ return BYID[id]; }
 function resolve(ids){ return (ids||[]).map(byId).filter(Boolean); }
+
+/* ===== 홈 허브 (2차 개편, A안) — 새 카드 스트립 + 3패널 밴드 + 바로가기 ===== */
+function popTagChips(pool){
+  /* 인기 태그 칩(B요소): 풀 안 태그 빈도 상위 8개. 클릭=검색어 설정(재클릭=해제). */
+  var freq={};
+  (pool||[]).forEach(function(c){ (c.tags||[]).forEach(function(t){
+    t=String(t); if(t.indexOf('from-')===0) return; freq[t]=(freq[t]||0)+1; }); });
+  var top=Object.keys(freq).sort(function(a,b){ return freq[b]-freq[a]; }).slice(0,8);
+  if(!top.length) return '';
+  return '<div class="chips">'+top.map(function(t){
+    return '<button class="chip'+(QUERY===t.toLowerCase()?' on':'')+'" data-ptag="'+esc(t)+'">#'+esc(t)+
+      ' <span class="pt-n">'+freq[t]+'</span></button>'; }).join('')+'</div>';
+}
+function renderHome(){
+  /* 검색 중엔 홈도 전역 결과 그리드로 전환(모든 탭 가로질러 검색) */
+  if(QUERY){
+    var hits=(WIKI.cards||[]).filter(matchQuery);
+    return popTagChips(WIKI.cards||[])+secH('🔎','검색 결과',hits.length)+
+      (hits.length?grid(hits):'<div class="empty">결과가 없습니다.</div>');
+  }
+  var html='', c=counts(), ws=weekStartStr();
+  /* ① 이번 주 새 카드 스트립 */
+  var fresh=(WIKI.cards||[]).filter(function(x){ return String(x.created||'')>=ws; });
+  fresh.sort(function(a,b){ return String(b.created||'').localeCompare(String(a.created||'')); });
+  html+='<div class="strip-h"><span class="t">이번 주 새 카드</span><span class="n">'+fresh.length+'장</span>'+
+    '<span class="sub">'+esc(ws.slice(5).replace('-','/'))+' 이후 등록</span></div>';
+  if(fresh.length){
+    html+='<div class="strip">'+fresh.map(function(x){
+      var T=tmeta(x), d=cardDesc(x);
+      return '<div class="ncard t-'+x.type+'" data-id="'+x.id+'">'+
+        '<div class="nt">'+esc(x.title)+'</div>'+
+        (d?'<div class="nh">'+d+'</div>':'')+
+        '<div class="nm"><span class="ctype k-'+x.type+'">'+T.emoji+' '+T.short+'</span></div></div>';
+    }).join('')+'</div>';
+  } else {
+    html+='<div class="hub-empty" style="margin:.2rem 0 .8rem">이번 주 등록된 새 카드가 아직 없어요.</div>';
+  }
+  /* ② 3패널: 장비 허브 · 최근 트러블 · 이번 주 인기 */
+  var anchors=(WIKI.cards||[]).filter(function(x){ return x.type==='inventory'&&x.inventory_kind==='equipment'; });
+  function _ln(x){ return (x.linked_safety||[]).length+(x.linked_sop||[]).length+(x.linked_troubleshooting||[]).length; }
+  anchors.sort(function(a,b){ return _ln(b)-_ln(a); });
+  var eqHtml=anchors.slice(0,7).map(function(a){
+    var s=(a.linked_safety||[]).length,p=(a.linked_sop||[]).length,t=(a.linked_troubleshooting||[]).length;
+    return '<div class="eqrow" data-id="'+a.id+'"><span class="nm">'+esc(String(a.title||'').replace('장비: ',''))+'</span>'+
+      '<span class="ct">'+(s?'<span>🧪'+s+'</span>':'')+(p?'<span>🔧'+p+'</span>':'')+(t?'<span class="tsn">⚠️'+t+'</span>':'')+'</span></div>';
+  }).join('');
+  var trs=(WIKI.cards||[]).filter(function(x){ return x.type==='troubleshooting'; });
+  trs.sort(function(a,b){ return String(b.updated||b.created||'').localeCompare(String(a.updated||a.created||'')); });
+  var tsHtml=trs.slice(0,6).map(function(x){
+    return '<div class="tsrow" data-id="'+x.id+'"><span class="tt">'+esc(x.title)+'</span>'+
+      '<span class="tm">'+esc(String(x.updated||x.created||''))+
+      (x.symptom?' · '+esc(String(x.symptom).slice(0,34))+'…':'')+'</span></div>';
+  }).join('');
+  var vw=WIKI.views_week||{};                    // 빌드 시 주입(공개 카드만) — 없으면 패널 비움
+  var pop=Object.keys(vw).map(function(id){ return {id:id,n:vw[id],c:BYID[id]}; })
+    .filter(function(x){ return x.c; }).sort(function(a,b){ return b.n-a.n; }).slice(0,7);
+  var popHtml=pop.map(function(x,i){
+    return '<div class="poprow" data-id="'+x.id+'"><span class="rk">'+(i+1)+'</span>'+
+      '<span class="tt">'+esc(x.c.title)+'</span><span class="vn">'+x.n+'회</span></div>';
+  }).join('');
+  html+='<div class="band">'+
+    '<div class="panel"><div class="panel-h"><span class="em">🔧</span>장비 허브<button class="panel-more" data-go="equipment">장비 탭 →</button></div>'+
+      (eqHtml||'<div class="hub-empty">등록된 장비 앵커가 없어요.</div>')+'</div>'+
+    '<div class="panel"><div class="panel-h"><span class="em">⚠️</span>최근 트러블<button class="panel-more" data-go="equipment">전체 →</button></div>'+
+      (tsHtml||'<div class="hub-empty">트러블슈팅 카드가 없어요.</div>')+'</div>'+
+    '<div class="panel"><div class="panel-h"><span class="em">🔥</span>이번 주 인기<button class="panel-more" data-go="research">연구 탭 →</button></div>'+
+      (popHtml||'<div class="hub-empty">이번 주 집계가 아직 없어요.</div>')+'</div>'+
+    '</div>';
+  /* ③ 바로가기 */
+  html+='<div class="golinks">'+
+    '<button class="golink" data-go="glossary">📖 용어집 '+(c.glossary||0)+'</button>'+
+    '<button class="golink" data-go="inventory">📦 재고·MSDS '+(c.inventory||0)+'</button>'+
+    '<button class="golink" data-go="admin">📋 정책·행정 '+(c.admin||0)+'</button>'+
+    '<button class="golink" data-go="relation">🕸️ 관계도</button></div>';
+  return html;
+}
 
 /* ===== 탭별 렌더 ===== */
 function renderResearch(cards){
@@ -1075,20 +1251,38 @@ function bindGraph(wrap){
 }
 function renderGrid(){
   var wrap=document.getElementById('grid-wrap'), html='';
-  if(FILTER==='relation'){ html=(GRAPH_CENTER?renderGraphView():renderRelation()); }
+  if(FILTER==='home'){ html=renderHome(); }
+  else if(FILTER==='relation'){ html=(GRAPH_CENTER?renderGraphView():renderRelation()); }
   else {
+    /* 인기 태그 칩(B요소)은 검색어와 무관한 탭 전체 풀 기준(입력 중에도 칩이 안 흔들리게) */
+    var pool=(WIKI.cards||[]).filter(function(c){ return tabsOf(c).indexOf(FILTER)>=0; });
+    var ptags=popTagChips(pool);
     var cards=tabCards(FILTER);
-    if(!cards.length){ wrap.innerHTML='<div class="empty">결과가 없습니다.</div>'; return; }
-    if(FILTER==='research') html=renderResearch(cards);
-    else if(FILTER==='equipment') html=renderEquipment(cards);
-    else if(FILTER==='inventory') html=renderInventory(cards);
-    else if(FILTER==='glossary') html=renderGlossary(cards);
-    else if(FILTER==='admin') html=renderAdmin(cards);
-    else html=grid(cards);
+    if(!cards.length) html=ptags+'<div class="empty">결과가 없습니다.</div>';
+    else if(FILTER==='research') html=ptags+renderResearch(cards);
+    else if(FILTER==='equipment') html=ptags+renderEquipment(cards);
+    else if(FILTER==='inventory') html=ptags+renderInventory(cards);
+    else if(FILTER==='glossary') html=ptags+renderGlossary(cards);
+    else if(FILTER==='admin') html=ptags+renderAdmin(cards);
+    else html=ptags+grid(cards);
   }
   wrap.innerHTML=html;
   wrap.querySelectorAll('.card,[data-id]').forEach(function(el){
     if(el.getAttribute('data-id')) el.addEventListener('click', function(){ openReader(this.getAttribute('data-id')); });
+  });
+  /* 홈 바로가기·패널 더보기(2차 개편): 탭 전환 */
+  wrap.querySelectorAll('[data-go]').forEach(function(el){
+    el.addEventListener('click', function(e){ e.stopPropagation();
+      FILTER=this.getAttribute('data-go'); AXIS_FILTER=''; SG_FILTER='';
+      renderTabs(); renderGrid(); window.scrollTo({top:0,behavior:'smooth'}); });
+  });
+  /* 인기 태그 칩(2차 개편): 클릭=검색어 설정, 재클릭=해제. 검색창과 동기화. */
+  wrap.querySelectorAll('[data-ptag]').forEach(function(b){
+    b.addEventListener('click', function(e){ e.stopPropagation();
+      var t=this.getAttribute('data-ptag').toLowerCase();
+      QUERY=(QUERY===t)?'':t;
+      ['q-top','q-hero'].forEach(function(id){ var el=document.getElementById(id); if(el) el.value=QUERY; });
+      renderGrid(); });
   });
   wrap.querySelectorAll('.chip[data-axis]').forEach(function(b){ b.addEventListener('click', function(){ AXIS_FILTER=this.getAttribute('data-axis'); renderGrid(); }); });
   wrap.querySelectorAll('.chip[data-sg]').forEach(function(b){ b.addEventListener('click', function(){ SG_FILTER=this.getAttribute('data-sg'); renderGrid(); }); });
