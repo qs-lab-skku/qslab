@@ -1063,7 +1063,14 @@ function inline(s){
   s = esc(s);
   s = s.replace(/`([^`]+)`/g, '<code>$1</code>');
   s = s.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
-  s = s.replace(/\[([^\]]+)\]\((https?:[^)]+)\)/g, '<a href="$2" target="_blank" rel="noreferrer">$1</a>');
+  s = s.replace(/\[([^\]]+)\]\((https?:[^)]+)\)/g, '<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>');
+  /* 베어 URL 자동 링크화(2026-07-05) — http/https 만, 새 탭. 슬랙 permalink 포함.
+     가드 [^">] : 이미 만든 <a href="…"> 내부(따옴표 뒤)나 앵커 텍스트(> 뒤) 재매칭 방지. */
+  s = s.replace(/(^|[^">])(https?:\/\/[^\s<>"']+)/g, function(m,pre,url){
+    var tail='', mm=url.match(/[.,;)\]]+$/);          // 문장부호 꼬리는 링크에서 제외
+    if(mm){ tail=mm[0]; url=url.slice(0,url.length-tail.length); }
+    return pre+'<a href="'+url+'" target="_blank" rel="noopener noreferrer">'+url+'</a>'+tail;
+  });
   s = s.replace(/QSKB-\d{4}-\d{4}/g, function(m){
     return BYID[m] ? '<span class="cardref" data-go="'+m+'">'+m+'</span>' : m;
   });
