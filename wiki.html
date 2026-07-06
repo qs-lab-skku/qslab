@@ -341,6 +341,14 @@ body.reading{overflow:hidden}
 .rd-meta{margin-left:auto;font-family:var(--mono);font-size:.62rem;color:var(--ink4);
   white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}
 .rd-meta+.reader-x{margin-left:.6rem}
+/* 카드 인용 액션(2026-07-07): 딥링크·슬랙 인용 복사 — 닫기 버튼 왼쪽 */
+.rd-act{font-family:var(--mono);font-size:.72rem;border:1px solid var(--border2);
+  background:var(--bg2);border-radius:20px;padding:.4rem .8rem;cursor:pointer;color:var(--ink2);flex-shrink:0}
+.rd-act:hover{border-color:var(--ts);color:var(--ts)}
+.rd-act+.rd-act{margin-left:.4rem}
+#rd-copylink{margin-left:auto}   /* 메타가 없을 때도 액션 그룹을 우측으로 */
+.rd-meta{margin-left:auto}
+.rd-meta ~ #rd-copylink{margin-left:.6rem}
 .rd{padding:var(--s3) var(--s4) var(--s5)}
 .dtype{font-family:var(--mono);font-size:.62rem;font-weight:600;letter-spacing:.06em;
   text-transform:uppercase;padding:.18rem .55rem;border-radius:5px;display:inline-flex;gap:.3rem;align-items:center}
@@ -568,6 +576,8 @@ body.reading{overflow:hidden}
       <div class="reader-top">
         <span id="reader-chip"></span>
         <span class="rd-meta" id="reader-meta"></span>
+        <button class="rd-act" id="rd-copylink" title="이 카드 딥링크를 클립보드로">🔗 링크 복사</button>
+        <button class="rd-act" id="rd-copyslack" title="제목·훅·링크를 슬랙 붙여넣기 형식으로">📋 슬랙 인용</button>
         <button class="reader-x" id="reader-x">✕ 닫기 (Esc)</button>
       </div>
       <div class="rd" id="reader-body"></div>
@@ -781,13 +791,15 @@ function boot(data){
   /* 첫 진입 기본 탭: 전체(재학생은 전부 / 신입생은 온보딩 DM 딥링크로 유도).
      #policy·#research·#safety 등 해시가 있으면 그 탭으로(온보딩 DM 딥링크). */
   var _h = (location.hash||'').replace('#','');
-  if(_h && TABS.some(function(t){return t.key===_h;})) FILTER = _h;
+  if(_h && !isCardHash(_h) && TABS.some(function(t){return t.key===_h;})) FILTER = _h;
   document.getElementById('gate').style.display = 'none';
   document.getElementById('app').style.display = 'block';
   pingView();                 // 익명 조회수 핑(VIEW_COUNTER 설정 시에만)
   renderTabs();
   renderGrid();
   bindUI();
+  /* 카드 딥링크(#QSKB-...)로 진입 시 해당 카드 상세를 바로 오픈(비번 언락 후) */
+  if(isCardHash(_h) && BYID[_h]) openReader(_h);
 }
 
 /* D-3.2: 위키 검색 무응답어 → 미답변 큐 비콘 (VIEW_COUNTER 설정 시에만, 익명·검색어만) */
@@ -820,6 +832,8 @@ function bindUI(){
     });
   });
   document.getElementById('reader-x').addEventListener('click', closeReader);
+  var _cl=document.getElementById('rd-copylink'); if(_cl) _cl.addEventListener('click', function(){ if(SEL) copyCardLink(SEL); });
+  var _cs=document.getElementById('rd-copyslack'); if(_cs) _cs.addEventListener('click', function(){ if(SEL) copySlackCite(SEL); });
   document.getElementById('reader').addEventListener('click', function(e){
     if(e.target === this) closeReader();         // 배경 클릭 시 닫기
   });
@@ -836,6 +850,8 @@ function bindUI(){
   /* 해시 딥링크(#policy·#research 등) — 온보딩 DM 링크로 진입 시 탭 전환 */
   window.addEventListener('hashchange', function(){
     var h=(location.hash||'').replace('#','');
+    if(isCardHash(h)){ if(BYID[h]) openReader(h); return; }   /* 카드 딥링크 */
+    if(!h && document.body.classList.contains('reading')){ closeReader(); return; }
     if(TABS.some(function(t){return t.key===h;})){ FILTER=h; renderTabs(); renderGrid(); }
   });
 }
@@ -1460,9 +1476,9 @@ function renderPaper(c, secs){
      (요약은 카드 본문 그대로 — 새로 만들지 않고 배치만) */
   if(c.type==='report' && secOf(c)==='safety'){
     var h = '<h1 class="dt">'+subsup(c.title)+'</h1>';
-    if(c.pdf_path && /^https?:/.test(c.pdf_path))
+    if(c.pdf_path && /^https?:/.test(c.pdf_path) && !c.has_pdf)   /* 인앱 PDF 있으면 채널 벽 슬랙 링크 숨김(학생 접근) */
       h += '<div class="dmeta"><a class="metabtn" href="'+esc(c.pdf_path)+
-           '" target="_blank" rel="noreferrer">원문 PDF ↗</a></div>';
+           '" target="_blank" rel="noreferrer">원문 PDF(작성 채널) ↗</a></div>';
     if(c.one_liner) h += labBox('box-who', '한 줄 소개', c.one_liner);
     h += '<div class="dbody">'+renderMd(c.body, true)+'</div>';   // 경고 + 한글 요약(원문 순서)
     if(c.has_pdf || c.has_html){
@@ -1483,9 +1499,8 @@ function renderPaper(c, secs){
     extractLinks(secs).forEach(function(l){ meta.push(metaBtns([l])); });
   }
   if(c.type==='report'){
-    if(c.pdf_path && /^https?:/.test(c.pdf_path))
-      meta.push('<a class="metabtn" href="'+esc(c.pdf_path)+'" target="_blank" rel="noreferrer">원문 PDF ↗</a>');
-    else if(c.pdf_path) meta.push('<span class="statusdot">PDF: 내부 경로</span>');
+    if(c.pdf_path && /^https?:/.test(c.pdf_path) && !c.has_pdf)   /* 인앱 PDF 있으면 슬랙 링크 숨김 */
+      meta.push('<a class="metabtn" href="'+esc(c.pdf_path)+'" target="_blank" rel="noreferrer">원문 PDF(작성 채널) ↗</a>');
   }
   var take = findSection(secs, TAKE_RE), lim = findSection(secs, LIM_RE), who = findSection(secs, WHO_RE);
   var html = '<h1 class="dt">'+subsup(c.title)+'</h1>' + hookHtml(c);   // 위계: 제목 최상단 → 훅=첫 텍스트
@@ -1626,9 +1641,33 @@ function chip(t){
          (T.emoji?T.emoji+' ':'')+subsup(t.title)+'</span>';
 }
 
+/* ===== 카드 딥링크 + 슬랙 인용(2026-07-07) ===== */
+function isCardHash(h){ return /^QSKB-\d{4}-\d{4}$/.test(h||''); }
+function cardHook(c){ return String(c.hook_ko||c.one_liner||(c.summary?String(c.summary).split('\n')[0]:'')||'').trim(); }
+function cardDeepLink(id){ return location.origin + location.pathname + '#' + id; }
+function _legacyCopy(txt){ var ta=document.createElement('textarea'); ta.value=txt;
+  ta.style.position='fixed'; ta.style.opacity='0'; document.body.appendChild(ta); ta.focus(); ta.select();
+  try{ document.execCommand('copy'); }catch(e){} document.body.removeChild(ta); }
+function _flash(btn,msg){ if(!btn)return; var o=btn.textContent; btn.textContent=msg; btn.disabled=true;
+  setTimeout(function(){ btn.textContent=o; btn.disabled=false; },1500); }
+function _copy(txt,btn,ok){
+  var done=function(){ _flash(btn,ok); };
+  try{
+    if(navigator.clipboard && navigator.clipboard.writeText)
+      navigator.clipboard.writeText(txt).then(done, function(){ _legacyCopy(txt); done(); });
+    else { _legacyCopy(txt); done(); }
+  }catch(e){ _legacyCopy(txt); done(); }
+}
+function copyCardLink(id){ _copy(cardDeepLink(id), document.getElementById('rd-copylink'), '🔗 복사됨 ✓'); }
+function copySlackCite(id){ var c=BYID[id]; if(!c)return;
+  var h=cardHook(c), lines=['*'+String(c.title||id)+'*'];   /* *제목* → 슬랙에서 굵게 */
+  if(h) lines.push(h);
+  lines.push(cardDeepLink(id));
+  _copy(lines.join('\n'), document.getElementById('rd-copyslack'), '📋 복사됨 ✓'); }
 function openReader(id){
   var c = BYID[id]; if(!c) return;
   SEL = id;
+  try{ history.replaceState(null,'','#'+id); }catch(e){ try{ location.hash=id; }catch(_){} }  /* URL=딥링크 */
   pingCard(id);                 // D-3.1: 카드 열람 익명 핑(인기 카드 집계)
   /* 뷰어(PDF/HTML) 있는 report 만 넓게, 그 외 텍스트 카드는 좁게 */
   var wide = (c.type==='report' && (c.has_pdf || c.has_html));
@@ -1716,7 +1755,10 @@ function openReader(id){
   document.querySelector('.reader').scrollTop = 0;
   var rc = document.querySelector('.reader-card'); if(rc) rc.scrollTop = 0;
 }
-function closeReader(){ document.body.classList.remove('reading'); SEL=null; PDFV=null; }
+function closeReader(){ document.body.classList.remove('reading'); SEL=null; PDFV=null;
+  try{ if(isCardHash((location.hash||'').replace('#','')))
+    history.replaceState(null,'',location.pathname+location.search); }catch(e){}  /* 딥링크 해제 */
+}
 
 /* ===== 위키발 요청 — 클릭 시 Incoming Webhook 으로 바로 전송(익명, fire-and-forget) =====
    webhook URL 은 복호화된 payload(WIKI.wiki_request_webhook)에만 있음(평문 wiki.html 엔 없음).
