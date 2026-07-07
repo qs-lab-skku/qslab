@@ -1563,19 +1563,31 @@ function renderSop(c, secs){
 }
 
 /* troubleshooting: 증상→원인→해결→재발방지 */
-/* 상태 추출(⑥, 데이터 수정 없음 — resolution 필드 텍스트 해석):
-   미해결 명시/필드 없음 → open(빨강), 요청·견적·대기·진행 중(해결 표현 없이) → prog(호박),
-   해결·완료 → done(초록, resolution 안 날짜 우선·없으면 updated). */
+/* 상태 추출(2026-07-07 개편 — 본문 기반, 데이터 수정 없음): harvest 가 라이브 상황을 시점별로
+   긁으며 resolution 필드가 첫값에 고정되고 본문만 갱신되던 불일치를 해소한다. 배지를 메타 고정값이
+   아니라 증상+resolution+본문 전체에서 재판정하므로, 본문이 갱신되면 배지도 자동으로 따라간다(자가 치유).
+   규칙: 완결 신호(정상화·공급 재개·교체 완료·해결됨 등)=done, 진행/대기(미확인·조사 중·예정)=prog,
+   명시적 미해결=open, 완결·미완 공존(애매)=조치 중 유지, 무신호=resolution 필드 폴백(구 로직). */
+var TB_DONE=/정상 작동|정상 가동|정상화|정상 복구|해소|공급 재개|복구 완료|조치 완료|해결 완료|해결됨|해결되었|선제 해결|알람 해결|문제 해결|이슈 해결|교체 완료|bake ?-?out 완료|안정화(?!\s*필요)|재가동(?!.{0,18}(안|못|불|되지))/;
+var TB_OPEN=/미해결|해결되지 않|해결 안 됨|미확인|파악.{0,5}(안|되지 않|필요)|되고 ?있지 않|조사 중|점검 요청 중|진행 예정|수리.{0,8}예정|추가 정보 필요|업데이트 필요|검토 중|요청 중/;
+var TB_EXPL=/미해결|해결되지 않|해결 안 됨/;
+function _tbDate(s, c){
+  var m = String(s).match(/\d{4}[-.년]\s?\d{1,2}(?:[-.월]\s?\d{1,2})?/);
+  return m ? m[0] : String(c.updated||c.created||'');
+}
 function troubleStatus(c){
-  var r = String(c.resolution||'').trim();
+  var resol = String(c.resolution||''), body = String(c.body||''), symp = String(c.symptom||'');
+  var hay = symp+'\n'+resol+'\n'+body;
+  var d = TB_DONE.test(hay), o = TB_OPEN.test(hay);
+  if(TB_EXPL.test(hay) && !d) return {k:'open', label:'🔴 미해결'};
+  if(d && o) return {k:'prog', label:'🟡 조치 중'};              // 완결·미완 공존(애매) → 조치 중 유지
+  if(d) return {k:'done', label:'🟢 해결됨'+((_tbDate(resol+' '+body,c))?' · '+_tbDate(resol+' '+body,c):'')};
+  if(o) return {k:'prog', label:'🟡 조치 중'};
+  /* 무신호 → resolution 필드 폴백(구 로직 — 필드가 유일 근거일 때만) */
+  var r=resol.trim();
   if(!r || /미해결/.test(r)) return {k:'open', label:'🔴 미해결'};
-  if(/(요청|견적|대기|진행|확인)\s*중/.test(r) && !/해결|resolved/i.test(r))
-    return {k:'prog', label:'🟡 조치 중'};
-  if(/해결|완료|resolved/i.test(r)){
-    var m = r.match(/\d{4}[-.년]\s?\d{1,2}(?:[-.월]\s?\d{1,2})?/);
-    var d = m ? m[0] : String(c.updated||'');
-    return {k:'done', label:'🟢 해결됨'+(d?' · '+d:'')};
-  }
+  if(/(요청|견적|대기|진행|확인)\s*중/.test(r) && !/해결|resolved/i.test(r)) return {k:'prog', label:'🟡 조치 중'};
+  if(/해결|완료|resolved/i.test(r)) return {k:'done', label:'🟢 해결됨'+((_tbDate(r,c))?' · '+_tbDate(r,c):'')};
   return {k:'prog', label:'🟡 조치 중'};
 }
 function renderTrouble(c){
