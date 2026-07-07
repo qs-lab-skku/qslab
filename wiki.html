@@ -273,6 +273,12 @@ body{background:var(--bg2);background-image:linear-gradient(160deg,#f6f7f8 0%,#e
   .ncard{flex-basis:210px}
   .card.feat{grid-column:span 1}
   .layout .grid{grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:.55rem}
+  /* 첨부 뷰어 모바일(2026-07-07): 컨트롤바 겹침 방지(줄바꿈·간격 축소·sticky), 스크롤 영역 확대 */
+  .pdfbar{gap:.3rem;padding:.45rem .5rem;font-size:.74rem;position:sticky;top:0;z-index:2}
+  .pdfbar button{padding:.3rem .5rem}
+  .pdfjump{gap:.15rem}
+  .pdfscroll{max-height:82vh;padding:.4rem 0}
+  .htmlframe{height:74vh}
 }
 
 /* 본문 (단일 컬럼 그리드) */
@@ -441,6 +447,18 @@ body.reading{overflow:hidden}
 .pdfcanvas-wrap{border:1px solid var(--border);border-top:none;border-radius:0 0 var(--r1) var(--r1);
   background:#525659;overflow:auto;max-height:78vh;text-align:center;padding:var(--s2)}
 .pdfcanvas{background:#fff;box-shadow:0 2px 12px rgba(0,0,0,.4);max-width:100%}
+/* 연속 스크롤 PDF 뷰어(2026-07-07): 세로로 이어 붙여 휠·스와이프로 읽기 + 지연 렌더 */
+.pdfscroll{border:1px solid var(--border);border-top:none;border-radius:0 0 var(--r1) var(--r1);
+  background:#525659;overflow-y:auto;overflow-x:auto;max-height:78vh;padding:var(--s2) 0;
+  -webkit-overflow-scrolling:touch;touch-action:pan-y pinch-zoom;overscroll-behavior:contain}
+.pdfpage{margin:0 auto var(--s2);background:#fff;box-shadow:0 2px 12px rgba(0,0,0,.4);
+  display:flex;align-items:center;justify-content:center;color:#8b93a2;font-size:.7rem;min-height:40px}
+.pdfpage:last-child{margin-bottom:0}
+.pdfpage canvas{display:block;max-width:100%}
+.pdfjump{display:inline-flex;align-items:center;gap:.25rem;font-family:var(--mono);font-size:.78rem}
+.pdfin{width:3.2em;font-family:var(--mono);font-size:.78rem;text-align:center;padding:.2rem .3rem;
+  border:1px solid var(--border2);border-radius:5px}
+.pdfin::-webkit-outer-spin-button,.pdfin::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
 .pdferr{color:var(--ts);font-size:.85rem;padding:var(--s2);background:var(--ts-bg);
   border:1px solid var(--ts-bd);border-radius:var(--r1)}
 .assetbar{display:flex;gap:.5rem;flex-wrap:wrap;margin:var(--s3) 0 .6rem}
@@ -451,7 +469,7 @@ body.reading{overflow:hidden}
 /* 뷰어 전체화면(Fullscreen API): 브라우저 전체를 채움, Esc 로 복귀 */
 .assetmount:fullscreen{background:#fff;overflow:auto;padding:0;width:100vw;height:100vh}
 .assetmount:fullscreen .pdfbar{position:sticky;top:0;z-index:3;border-radius:0}
-.assetmount:fullscreen .pdfcanvas-wrap{max-height:calc(100vh - 44px);border:none;border-radius:0}
+.assetmount:fullscreen .pdfcanvas-wrap,.assetmount:fullscreen .pdfscroll{max-height:calc(100vh - 44px);border:none;border-radius:0}
 .assetmount:fullscreen .htmlframe{height:calc(100vh - 44px);border:none;border-radius:0}
 
 /* 모바일 */
@@ -844,9 +862,9 @@ function bindUI(){
   /* 창 크기·전체화면 변경 시 열린 PDF 를 컨테이너 폭에 맞춰 다시 렌더 */
   var _rt;
   window.addEventListener('resize', function(){
-    if(!PDFV) return; clearTimeout(_rt); _rt = setTimeout(renderPdfPage, 150);
+    if(!PDFV) return; clearTimeout(_rt); _rt = setTimeout(pdfRelayout, 150);
   });
-  document.addEventListener('fullscreenchange', function(){ if(PDFV) renderPdfPage(); });
+  document.addEventListener('fullscreenchange', function(){ if(PDFV) setTimeout(pdfRelayout, 60); });
   /* 해시 딥링크(#policy·#research 등) — 온보딩 DM 링크로 진입 시 탭 전환 */
   window.addEventListener('hashchange', function(){
     var h=(location.hash||'').replace('#','');
@@ -1755,7 +1773,8 @@ function openReader(id){
   document.querySelector('.reader').scrollTop = 0;
   var rc = document.querySelector('.reader-card'); if(rc) rc.scrollTop = 0;
 }
-function closeReader(){ document.body.classList.remove('reading'); SEL=null; PDFV=null;
+function closeReader(){ document.body.classList.remove('reading'); SEL=null;
+  if(PDFV && PDFV.io){ try{ PDFV.io.disconnect(); }catch(_){} } PDFV=null;
   try{ if(isCardHash((location.hash||'').replace('#','')))
     history.replaceState(null,'',location.pathname+location.search); }catch(e){}  /* 딥링크 해제 */
 }
@@ -1801,55 +1820,124 @@ function wreqToast(msg){
 }
 
 /* ===== PDF 인-페이지 뷰어 (PDF.js, §4 옵션 b) ===== */
+/* 연속 스크롤 PDF 뷰어(2026-07-07 개편) — 세로로 이어 붙이고 지연 렌더(보이는 근처만).
+   PC: 휠 스크롤 + Ctrl+휠 줌. 모바일: 터치 스와이프 + 핀치 줌(touch-action). 폭맞춤 기본. */
 async function openPdf(cardId, mount){
   if(!mount) return;
   mount.innerHTML = '<div class="pdfbar">⏳ PDF 복호화·로딩 중…</div>';
   try{
     if(!window.pdfjsLib){ mount.innerHTML = '<div class="pdferr">PDF.js 로드 실패 (CDN 차단?)</div>'; return; }
     pdfjsLib.GlobalWorkerOptions.workerSrc = PDF_WORKER;
-    var data = await decryptPdfBytes(cardId);              // ArrayBuffer (게이트 안에서만 존재)
+    var data = await decryptPdfBytes(cardId);
     var pdf = await pdfjsLib.getDocument({ data: data.slice(0) }).promise;
-    PDFV = { pdf:pdf, page:1, zoom:1, mount:mount, data:data, id:cardId };  // zoom 1 = 폭 맞춤
+    if(PDFV && PDFV.io){ try{ PDFV.io.disconnect(); }catch(_){} }
+    PDFV = { pdf:pdf, zoom:1, scale:1, mount:mount, data:data, id:cardId, N:pdf.numPages,
+             rendered:{}, order:[], baseW:0, baseH:0, io:null, cur:1 };
     mount.innerHTML =
       '<div class="pdfbar">'+
-        '<button data-pdf="prev">◀</button>'+
-        '<span class="pdfpg"></span>'+
-        '<button data-pdf="next">▶</button>'+
+        '<span class="pdfjump"><button data-pdf="pgprev" title="이전 페이지">◀</button>'+
+          '<input class="pdfin" type="number" min="1" value="1" aria-label="페이지"> / <span class="pdftot"></span>'+
+          '<button data-pdf="pgnext" title="다음 페이지">▶</button></span>'+
         '<span class="pdfsp"></span>'+
-        '<button data-pdf="zout">－</button>'+
-        '<button data-pdf="zfit">↔ 폭맞춤</button>'+
-        '<button data-pdf="zin">＋</button>'+
-        '<button data-pdf="fs">⛶ 전체화면</button>'+
-        '<button data-pdf="dl">⬇ 저장</button>'+
-      '</div><div class="pdfcanvas-wrap"><canvas class="pdfcanvas"></canvas></div>';
+        '<button data-pdf="zout" title="축소">－</button>'+
+        '<button data-pdf="zfit" title="폭맞춤">↔</button>'+
+        '<button data-pdf="zin" title="확대">＋</button>'+
+        '<button data-pdf="fs" title="전체화면">⛶</button>'+
+        '<button data-pdf="dl" title="저장">⬇</button>'+
+      '</div><div class="pdfscroll"></div>';
+    var scroll = mount.querySelector('.pdfscroll');
+    var p1 = await pdf.getPage(1); var vp1 = p1.getViewport({ scale:1 });
+    PDFV.baseW = vp1.width; PDFV.baseH = vp1.height;
+    for(var i=1;i<=PDFV.N;i++){
+      var d=document.createElement('div'); d.className='pdfpage'; d.setAttribute('data-pg', i);
+      d.textContent = i+' / '+PDFV.N;        // 렌더 전 자리표시(페이지 번호)
+      scroll.appendChild(d);
+    }
+    mount.querySelector('.pdftot').textContent = PDFV.N;
     mount.querySelectorAll('[data-pdf]').forEach(function(b){ b.addEventListener('click', pdfAction); });
-    renderPdfPage();
+    mount.querySelector('.pdfin').addEventListener('change', function(){ pdfGoto(+this.value); });
+    scroll.addEventListener('scroll', pdfOnScroll, { passive:true });
+    scroll.addEventListener('wheel', pdfWheel, { passive:false });   // Ctrl+휠 줌(PC)
+    pdfRelayout();                            // 폭맞춤 크기 설정 + 보이는 페이지 렌더
   }catch(e){
     mount.innerHTML = '<div class="pdferr">PDF 를 열 수 없습니다 (복호화/렌더 실패 또는 파일 없음).</div>';
   }
 }
-async function renderPdfPage(){
+function pdfFitScale(){
+  var s = PDFV && PDFV.mount.querySelector('.pdfscroll');
+  var avail = (s ? s.clientWidth : 800) - 2*10;
+  return (avail>0 && PDFV.baseW) ? avail/PDFV.baseW : 1;
+}
+/* 스케일(폭맞춤×줌) 재설정 → 전 페이지 placeholder 크기 갱신·캔버스 무효화 → 보이는 것만 재렌더 */
+function pdfRelayout(){
   if(!PDFV) return;
-  var page = await PDFV.pdf.getPage(PDFV.page);
-  var base = page.getViewport({ scale:1 });
-  var wrap = PDFV.mount.querySelector('.pdfcanvas-wrap');
-  var avail = (wrap ? wrap.clientWidth : 800) - 2*16;       // 컨테이너 폭에 맞춤(패딩 여유)
-  var fit = avail > 0 ? avail / base.width : 1;
-  var vp = page.getViewport({ scale: fit * (PDFV.zoom || 1) });
-  var canvas = PDFV.mount.querySelector('.pdfcanvas'), ctx = canvas.getContext('2d');
-  canvas.width = vp.width; canvas.height = vp.height;
-  await page.render({ canvasContext: ctx, viewport: vp }).promise;
-  var pg = PDFV.mount.querySelector('.pdfpg');
-  if(pg) pg.textContent = PDFV.page + ' / ' + PDFV.pdf.numPages;
+  PDFV.scale = pdfFitScale() * (PDFV.zoom||1);
+  var w = PDFV.baseW*PDFV.scale, h = PDFV.baseH*PDFV.scale;
+  PDFV.mount.querySelectorAll('.pdfpage').forEach(function(d){
+    d.style.width=w+'px'; d.style.height=h+'px';
+    if(PDFV.rendered[+d.getAttribute('data-pg')]){ d.innerHTML=d.getAttribute('data-pg')+' / '+PDFV.N; }
+  });
+  PDFV.rendered={}; PDFV.order=[];
+  var scroll = PDFV.mount.querySelector('.pdfscroll');
+  if(PDFV.io) PDFV.io.disconnect();
+  PDFV.io = new IntersectionObserver(function(ents){
+    ents.forEach(function(e){ if(e.isIntersecting) renderPdfOne(+e.target.getAttribute('data-pg')); });
+  }, { root:scroll, rootMargin:'400px 0px' });
+  scroll.querySelectorAll('.pdfpage').forEach(function(d){ PDFV.io.observe(d); });
+}
+async function renderPdfOne(n){
+  if(!PDFV || PDFV.rendered[n]) return;
+  var div = PDFV.mount.querySelector('.pdfpage[data-pg="'+n+'"]'); if(!div) return;
+  PDFV.rendered[n]=true; PDFV.order.push(n);
+  try{
+    var page = await PDFV.pdf.getPage(n);
+    var vp = page.getViewport({ scale: PDFV.scale });
+    div.style.width=vp.width+'px'; div.style.height=vp.height+'px';   // 실제 크기 보정
+    var dpr = window.devicePixelRatio||1;
+    var canvas=document.createElement('canvas');
+    canvas.width=Math.floor(vp.width*dpr); canvas.height=Math.floor(vp.height*dpr);
+    canvas.style.width=vp.width+'px'; canvas.style.height=vp.height+'px';
+    var ctx=canvas.getContext('2d'); ctx.scale(dpr,dpr);
+    div.innerHTML=''; div.appendChild(canvas);
+    await page.render({ canvasContext:ctx, viewport:vp }).promise;
+  }catch(e){ div.textContent='(페이지 '+n+' 렌더 실패)'; delete PDFV.rendered[n]; return; }
+  if(PDFV.order.length>7){                    // 메모리 캡: 현재에서 먼 페이지 캔버스 비움
+    var cur=PDFV.cur;
+    var far=PDFV.order.slice().sort(function(a,b){return Math.abs(b-cur)-Math.abs(a-cur);})[0];
+    if(Math.abs(far-cur)>3){
+      var fd=PDFV.mount.querySelector('.pdfpage[data-pg="'+far+'"]');
+      if(fd){ fd.innerHTML=far+' / '+PDFV.N; }
+      delete PDFV.rendered[far]; PDFV.order=PDFV.order.filter(function(x){return x!==far;});
+    }
+  }
+}
+function pdfOnScroll(){
+  if(!PDFV) return;
+  var s=PDFV.mount.querySelector('.pdfscroll'); var top=s.getBoundingClientRect().top;
+  var pages=s.querySelectorAll('.pdfpage'), cur=1;
+  for(var i=0;i<pages.length;i++){ if(pages[i].getBoundingClientRect().top-top <= s.clientHeight*0.35) cur=i+1; else break; }
+  PDFV.cur=cur;
+  var inp=PDFV.mount.querySelector('.pdfin'); if(inp && document.activeElement!==inp) inp.value=cur;
+}
+function pdfGoto(n){
+  if(!PDFV) return; n=Math.max(1,Math.min(PDFV.N, n||1));
+  var d=PDFV.mount.querySelector('.pdfpage[data-pg="'+n+'"]');
+  if(d) d.scrollIntoView({ behavior:'smooth', block:'start' });
+}
+function pdfWheel(e){
+  if(!e.ctrlKey || !PDFV) return;             // Ctrl+휠 만 줌(그 외는 일반 스크롤)
+  e.preventDefault();
+  PDFV.zoom = Math.max(0.4, Math.min(4, (PDFV.zoom||1) + (e.deltaY<0?0.15:-0.15)));
+  pdfRelayout();
 }
 function pdfAction(){
   if(!PDFV) return;
   var a = this.getAttribute('data-pdf');
-  if(a==='prev' && PDFV.page>1){ PDFV.page--; renderPdfPage(); }
-  else if(a==='next' && PDFV.page<PDFV.pdf.numPages){ PDFV.page++; renderPdfPage(); }
-  else if(a==='zin'){ PDFV.zoom=Math.min(4, (PDFV.zoom||1)+0.2); renderPdfPage(); }
-  else if(a==='zout'){ PDFV.zoom=Math.max(0.3, (PDFV.zoom||1)-0.2); renderPdfPage(); }
-  else if(a==='zfit'){ PDFV.zoom=1; renderPdfPage(); }
+  if(a==='pgprev'){ pdfGoto(PDFV.cur-1); }
+  else if(a==='pgnext'){ pdfGoto(PDFV.cur+1); }
+  else if(a==='zin'){ PDFV.zoom=Math.min(4,(PDFV.zoom||1)+0.2); pdfRelayout(); }
+  else if(a==='zout'){ PDFV.zoom=Math.max(0.4,(PDFV.zoom||1)-0.2); pdfRelayout(); }
+  else if(a==='zfit'){ PDFV.zoom=1; pdfRelayout(); }
   else if(a==='fs'){ toggleAssetFullscreen(); }
   else if(a==='dl'){
     var blob = new Blob([PDFV.data], { type:'application/pdf' });
