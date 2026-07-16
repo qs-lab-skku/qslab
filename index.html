@@ -1131,6 +1131,9 @@ body.admin-on .ccard[data-ccedit]:hover { outline: 2px dashed var(--amber); outl
 .news-date { font-family: var(--mono); font-size: .68rem; font-weight: 500; color: var(--blue); padding-top: 3px; white-space: nowrap; letter-spacing: .04em; }
 .news-content h3 { font-family: var(--serif); font-size: 1rem; font-weight: 600; color: var(--ink); margin-bottom: .4rem; line-height: 1.35; }
 .news-content p { font-size: .88rem; color: var(--ink2); line-height: 1.75; margin-bottom: .7rem; }
+.news-content p.news-clamp { display: -webkit-box; -webkit-line-clamp: 5; -webkit-box-orient: vertical; overflow: hidden; }
+.news-more-btn { background: none; border: none; padding: 0; cursor: pointer; font-family: var(--mono); font-size: .68rem; font-weight: 600; color: var(--blue); letter-spacing: .04em; margin: -.2rem 0 .7rem; display: block; }
+.news-more-btn:hover { text-decoration: underline; }
 .news-content img { width: 100%; max-height: 260px; object-fit: cover; object-position: 50% 30%; border-radius: var(--r2); display: block; } .news-content img[style*='display: none'] { margin: 0; }
 .news-edit-btns { display: none; gap: .3rem; margin-top: .5rem; }
 body.admin-on .news-edit-btns { display: flex; }
@@ -2473,6 +2476,8 @@ var Router = (function () {
     Admin.refreshPanel();
     /* keep People headcount chips in sync whenever the page is shown */
     if (id === 'people' && window.refreshPeopleCounts) window.refreshPeopleCounts();
+    /* long news bodies can only be measured (and clamped) once visible */
+    if (id === 'news' && window.clampNewsBodies) window.clampNewsBodies();
     /* Re-inject edit buttons for newly visible editable elements */
     if (Admin.isActive()) Admin.injectAllButtons();
   }
@@ -6135,6 +6140,36 @@ document.addEventListener('DOMContentLoaded', function () {
 
   /* Keep the News page sorted newest-first and the "Latest update" badge
      in sync with the most recent news date (auto-updates as admin edits). */
+  /* Collapse long news bodies to 5 lines with a Read more toggle so cards
+     in the grid stay a similar height. Measurement needs layout, so hidden
+     items are skipped (and retried when the News page becomes visible). */
+  function clampNewsBodies() {
+    var list = document.getElementById('news-list-wrap');
+    if (!list) return;
+    Array.prototype.forEach.call(list.querySelectorAll('.news-content p'), function (p) {
+      if (p.getAttribute('data-clamp-done') === '1') return;
+      if (!p.offsetParent && !p.clientHeight) return; /* hidden — measure later */
+      p.classList.add('news-clamp');
+      if (p.scrollHeight <= p.clientHeight + 2) {
+        p.classList.remove('news-clamp');
+        p.setAttribute('data-clamp-done', '1');
+        return;
+      }
+      var btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'news-more-btn';
+      btn.textContent = 'Read more ↓';
+      btn.addEventListener('click', function (e) {
+        e.preventDefault(); e.stopPropagation();
+        var collapsed = p.classList.toggle('news-clamp');
+        btn.textContent = collapsed ? 'Read more ↓' : 'Show less ↑';
+      });
+      p.parentNode.insertBefore(btn, p.nextSibling);
+      p.setAttribute('data-clamp-done', '1');
+    });
+  }
+  window.clampNewsBodies = clampNewsBodies;
+
   function refreshNewsMeta() {
     var list = document.getElementById('news-list-wrap');
     if (!list) return;
@@ -6167,6 +6202,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
     items.sort(function(a, b) { return ts(b) - ts(a); });
     items.forEach(function(it) { list.appendChild(it); });  /* reorder newest-first */
+    clampNewsBodies();
     var badge = document.getElementById('news-latest');
     if (!badge) {
       /* content.json may have been published from an older build whose badge
