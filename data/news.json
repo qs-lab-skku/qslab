@@ -1,26 +1,23 @@
 {
-  "_comment": "Auto area (I3). Source of truth for News & Highlights. Edited by qs-kb Slack /home-news (PI publishes; students submit for PI approval) and the in-page admin publish. Rendered by js/auto-sections.js.",
-  "updated": "2026-07-09T00:00:00.000000+00:00",
+  "_comment": "Auto area (I3). Shared by Slack /home-news and in-page admin publish. Rendered by js/auto-sections.js.",
+  "updated": "2026-07-22T00:54:00.600Z",
   "items": [
     {
       "date": "2026-07-08",
       "title": "IBS 2DQH Seminar — Prof. Surendra B. Anantharaman (IIT Madras)",
       "body": "We hosted Prof. Surendra B. Anantharaman (Dept. of Metallurgical and Materials Engineering, IIT Madras) for an invited IBS Center for 2D Quantum Heterostructures (2DQH) seminar at SKKU. In his talk, “Strong light–matter interactions in 2D materials for optoelectronic applications,” he discussed harnessing the large exciton binding energy and strong light–matter coupling of 2D semiconductors for solar cells, low-threshold lasers, and LEDs, including gold/perovskite heterostructures for below-bandgap photon harvesting and chirality- and quantum-confinement effects for the deep-ultraviolet regime.",
-      "image": "assets/news/surendra-iitm-seminar.jpg",
-      "tag": "Seminar"
+      "image": "assets/news/surendra-iitm-seminar.jpg"
     },
     {
       "date": "2026-07-05",
       "title": "Welcoming our 2026 summer undergraduate interns and URP students",
-      "body": "Eight undergraduate interns and URP (Undergraduate Research Program) students joined QS Lab for Summer 2026 — welcome aboard! Meet them on our People page.",
-      "tag": "People"
+      "body": "Eight undergraduate interns and URP (Undergraduate Research Program) students joined QS Lab for Summer 2026 — welcome aboard! Meet them on our People page."
     },
     {
       "date": "2026-07-02",
       "title": "Invited talk at 2D-TMDs 2026 (NUS); visits to A*STAR Q.InC and NTU",
       "body": "Prof. Seunguk Song delivered an invited talk at 2D-TMDs 2026 held at the National University of Singapore (NUS), and visited A*STAR's Quantum Innovation Centre (Q.InC) and Nanyang Technological University (NTU) to strengthen research collaborations.",
-      "image": "assets/news/singapore-qinc-2026.jpg",
-      "tag": "Conference"
+      "image": "assets/news/singapore-qinc-2026.jpg"
     },
     {
       "date": "2026-04-17",
