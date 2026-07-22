@@ -1599,9 +1599,11 @@ body.admin-on .news-edit-btns { display: flex; }
     <span class="ticker-tag">News</span>
     <div class="ticker-viewport">
       <div class="ticker-track" id="ticker-track">
+        <span><b>New ·</b> Grant awarded (2026): Field-free topological superconductivity — MnBi₂Te₄/FeSe by wafer-scale MOCVD</span>
         <span><b>New ·</b> Nat. Rev. Elec. Eng. (2026): Indium selenides for next-gen low-power computing</span>
         <span><b>New ·</b> Nanoscale (2025): MOCVD review of 2D chalcogenides &amp; heterostructures</span>
         <span><b>Open ·</b> Postdoc vacancy — 2D heterostructure QIS · Graduate students welcome</span>
+        <span><b>New ·</b> Grant awarded (2026): Field-free topological superconductivity — MnBi₂Te₄/FeSe by wafer-scale MOCVD</span>
         <span><b>New ·</b> Nat. Rev. Elec. Eng. (2026): Indium selenides for next-gen low-power computing</span>
         <span><b>New ·</b> Nanoscale (2025): MOCVD review of 2D chalcogenides &amp; heterostructures</span>
         <span><b>Open ·</b> Postdoc vacancy — 2D heterostructure QIS · Graduate students welcome</span>
@@ -1642,6 +1644,14 @@ body.admin-on .news-edit-btns { display: flex; }
       </div>
       <div class="news-hl-grid" id="home-news-grid">
         <a class="news-hl-card" href="#" data-goto="news">
+          <div class="news-hl-img"><img src="assets/news/global-young-connect.png" alt=""></div>
+          <div class="news-hl-body">
+            <span class="news-hl-tag">Grant</span>
+            <div class="news-hl-caption">Materials Global Young Connect — Topological superconductivity in MnBi₂Te₄/FeSe</div>
+            <div class="news-hl-date">2026 · 07</div>
+          </div>
+        </a>
+        <a class="news-hl-card" href="#" data-goto="news">
           <div class="news-hl-img"><img src="assets/news/nanoscale-ei.png" alt="" style="object-fit:contain;background:#fff"></div>
           <div class="news-hl-body">
             <span class="news-hl-tag">Award</span>
@@ -1663,14 +1673,6 @@ body.admin-on .news-edit-btns { display: flex; }
             <span class="news-hl-tag">Conference</span>
             <div class="news-hl-caption">33rd Korean Conference on Semiconductors — Three poster presentations</div>
             <div class="news-hl-date">2026 · 01</div>
-          </div>
-        </a>
-        <a class="news-hl-card" href="#" data-goto="news">
-          <div class="news-hl-img"><img src="assets/news/cambridge-partner.jpg" alt=""></div>
-          <div class="news-hl-body">
-            <span class="news-hl-tag">Collaboration</span>
-            <div class="news-hl-caption">IBS Global Partner Lab established with University of Cambridge (2025–2031)</div>
-            <div class="news-hl-date">2025 · 07</div>
           </div>
         </a>
       </div>
@@ -2107,6 +2109,24 @@ body.admin-on .news-edit-btns { display: flex; }
     <div class="sl-right"><div class="sl-st"><div class="n" id="news-latest">Mar 2026</div><div class="l">Latest update</div></div></div>
   </div>
   <div class="news-wrap" id="news-list-wrap" data-auto="news">
+  <div class="news-item" data-adm-card data-adm-type="news">
+    <div class="news-date">2026-07-16</div>
+    <div class="news-content">
+      <h3>National research project awarded — Field-free topological superconductivity</h3>
+      <p>Our group joins a newly selected consortium project on field-free topological superconductivity in MnBi₂Te₄/FeSe van der Waals heterostructures, under the Materials Global Young Connect Program. Building on our wafer-scale MOCVD platform, we aim to realize Majorana physics without external magnetic fields, in collaboration with domestic consortium teams and international synchrotron facilities.</p>
+      <img src="assets/news/global-young-connect.png" alt="National research project awarded — Field-free topological superconductivity">
+    </div>
+  </div>
+
+  <div class="news-item" data-adm-card data-adm-type="news">
+    <div class="news-date">2026-06-01</div>
+    <div class="news-content">
+      <h3>Post-Silicon Core-Facility Center (PS-CFC) launched at SKKU — QS Lab participates</h3>
+      <p>The Post-Silicon Core-Facility Center (PS-CFC), led by Prof. Ki Kang Kim at SKKU, has been selected under the Basic Science Research Capacity Enhancement Program of the Ministry of Education (2026.06–2032.02). Our group participates in quantum material growth and low-power device processing, contributing to an open-access materials–devices–analysis platform that bridges lab-scale exploration and national nanofab lines.</p>
+      <img src="assets/news/ps-cfc.png" alt="Post-Silicon Core-Facility Center (PS-CFC) launched at SKKU — QS Lab participates">
+    </div>
+  </div>
+
   <div class="news-item" data-adm-card data-adm-type="news">
     <div class="news-date">2026-03-20</div>
     <div class="news-content">
@@ -6076,6 +6096,7 @@ document.addEventListener('DOMContentLoaded', function () {
 (function () {
   function classify(title) {
     var t = (title || '').toLowerCase();
+    if (/grant|research project|core-facility|consortium/.test(t)) return 'Grant';
     if (/award|selected|emerging investigator|prize|honor|fellow/.test(t)) return 'Award';
     if (/published|paper|review|nature|device|small science|nanoscale|perspective|journal/.test(t)) return 'Publication';
     if (/workshop|conference|symposium|seminar|talk|poster|presentation/.test(t)) return 'Conference';

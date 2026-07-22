@@ -1,7 +1,13 @@
 {
   "_comment": "Auto area (I3). Shared by Slack /home-news and in-page admin publish. Rendered by js/auto-sections.js.",
-  "updated": "2026-07-22T00:54:00.600Z",
+  "updated": "2026-07-22T09:55:08.483Z",
   "items": [
+    {
+      "date": "2026-07-16",
+      "title": "National research project awarded — Field-free topological superconductivity",
+      "body": "Our group joins a newly selected consortium project on field-free topological superconductivity in MnBi₂Te₄/FeSe van der Waals heterostructures, under the Materials Global Young Connect Program. Building on our wafer-scale MOCVD platform, we aim to realize Majorana physics without external magnetic fields, in collaboration with domestic consortium teams and international synchrotron facilities.",
+      "image": "assets/news/global-young-connect.png"
+    },
     {
       "date": "2026-07-08",
       "title": "IBS 2DQH Seminar — Prof. Surendra B. Anantharaman (IIT Madras)",
@@ -18,6 +24,12 @@
       "title": "Invited talk at 2D-TMDs 2026 (NUS); visits to A*STAR Q.InC and NTU",
       "body": "Prof. Seunguk Song delivered an invited talk at 2D-TMDs 2026 held at the National University of Singapore (NUS), and visited A*STAR's Quantum Innovation Centre (Q.InC) and Nanyang Technological University (NTU) to strengthen research collaborations.",
       "image": "assets/news/singapore-qinc-2026.jpg"
+    },
+    {
+      "date": "2026-06-01",
+      "title": "Post-Silicon Core-Facility Center (PS-CFC) launched at SKKU — QS Lab participates",
+      "body": "The Post-Silicon Core-Facility Center (PS-CFC), led by Prof. Ki Kang Kim at SKKU, has been selected under the Basic Science Research Capacity Enhancement Program of the Ministry of Education (2026.06–2032.02). Our group participates in quantum material growth and low-power device processing, contributing to an open-access materials–devices–analysis platform that bridges lab-scale exploration and national nanofab lines.",
+      "image": "assets/news/ps-cfc.png"
     },
     {
       "date": "2026-04-17",
