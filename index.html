@@ -5849,14 +5849,16 @@ document.addEventListener('DOMContentLoaded', function () {
 
   /* ── QS wordplay: Q and S each hint at our research areas ── */
   (function () {
-    var q = document.getElementById('qs-rot-q');
-    var s = document.getElementById('qs-rot-s');
-    if (!q || !s) return;
     var qWords = ['Quantum-Engineered', 'Quantum functionality', 'Quantum States'];
     var sWords = ['Solid-State Platforms', 'Semiconductors', 'Scalability & Integration'];
     var i = 0;
     setInterval(function () {
       if (document.body.classList.contains('admin-on')) return;
+      /* re-query each tick: applying content.json replaces the hero DOM,
+         so references captured at load go stale (rotation froze; 2026-07). */
+      var q = document.getElementById('qs-rot-q');
+      var s = document.getElementById('qs-rot-s');
+      if (!q || !s) return;
       i = (i + 1) % qWords.length;
       q.style.opacity = '0'; s.style.opacity = '0';
       setTimeout(function () {
