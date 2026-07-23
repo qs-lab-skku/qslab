@@ -1,7 +1,13 @@
 {
   "_comment": "Auto area (I3). Shared by Slack /home-news and in-page admin publish. Rendered by js/auto-sections.js.",
-  "updated": "2026-07-22T09:55:08.483Z",
+  "updated": "2026-07-23T22:27:08.718Z",
   "items": [
+    {
+      "date": "2026-07-21",
+      "title": "ACS Nano — Non-Fermi liquid behavior and quantum criticality in TMDs accepted",
+      "body": "Our paper \"Emergence of Non-Fermi Liquid Behavior with Quantum Criticality in Transition Metal Dichalcogenides,\" led by Dr. Nasir Ali with Prof. Song as co-corresponding author, has been accepted in ACS Nano. Congratulations to graduate student co-authors Wonchan Lee, Yunjung Cho, and Kangpyo Cho!",
+      "image": "assets/news/acsnano-nfl-2026.png"
+    },
     {
       "date": "2026-07-16",
       "title": "National research project awarded — Field-free topological superconductivity",
