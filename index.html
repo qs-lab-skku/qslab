@@ -1873,6 +1873,7 @@ body.admin-on .news-edit-btns { display: flex; }
       <div class="car-dots" role="group" aria-label="Group photos by year">
         <button type="button" class="car-dot" data-car-idx="0" aria-current="true" aria-label="Summer 2026"></button>
         <button type="button" class="car-dot" data-car-idx="1" aria-current="false" aria-label="2025"></button>
+        <button type="button" class="car-dot" data-car-idx="2" aria-current="false" aria-label="April 2025"></button>
       </div>
       <figcaption data-editable data-edit-label="✎ Edit caption" id="group-cap">QS Lab · Sungkyunkwan University · Summer 2026</figcaption>
     </figure>
@@ -6773,7 +6774,8 @@ body.admin-on #pub-toc-batch { display: inline-flex; }
 (function () {
   var PHOTOS = [
     { src: 'assets/people/group-2026.jpg', cap: null /* from DOM */, label: 'Summer 2026' },
-    { src: 'assets/people/group.jpg', cap: 'QS Lab · Sungkyunkwan University · 2025', label: '2025' }
+    { src: 'assets/people/group.jpg', cap: 'QS Lab · Sungkyunkwan University · 2025', label: '2025' },
+    { src: 'assets/people/group-2025-april.jpg', cap: 'QS Lab · Sungkyunkwan University · April 2025', label: 'April 2025' }
   ];
   PHOTOS.forEach(function (p) { var im = new Image(); im.src = p.src; });
 
