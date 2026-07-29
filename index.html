@@ -1376,6 +1376,16 @@ body.admin-on .news-edit-btns { display: flex; }
 .people-hero .ph-photo { margin: 0; max-width: 460px; }
 .people-hero .ph-photo img { width: 100%; height: auto; max-height: 300px; object-fit: contain; border-radius: var(--r3); display: block; box-shadow: var(--sh2); background: var(--bg2); }
 .people-hero .ph-photo figcaption { font-family: var(--mono); font-size: .62rem; letter-spacing: .08em; text-transform: uppercase; color: var(--ink3); margin-top: .6rem; }
+/* group-photo carousel (연도별 단체사진 넘겨보기) */
+.ph-car { position: relative; }
+.ph-car img { transition: opacity .18s ease; }
+.ph-car .car-btn { position: absolute; top: 50%; transform: translateY(-50%); z-index: 2; width: 2rem; height: 2rem; border-radius: 50%; border: none; cursor: pointer; background: rgba(13,27,42,.45); color: #fff; font-size: 1.05rem; line-height: 1; display: flex; align-items: center; justify-content: center; opacity: .85; transition: background .15s ease, opacity .15s ease; }
+.ph-car .car-btn:hover, .ph-car .car-btn:focus-visible { background: var(--blue); opacity: 1; }
+.ph-car .car-prev { left: .55rem; } .ph-car .car-next { right: .55rem; }
+.car-dots { display: flex; gap: .4rem; margin-top: .55rem; }
+.car-dot { width: 7px; height: 7px; border-radius: 50%; border: none; padding: 0; cursor: pointer; background: var(--border); transition: background .15s ease, width .15s ease; }
+.car-dot:hover { background: var(--blue); }
+.car-dot[aria-current="true"] { background: var(--blue); width: 18px; border-radius: 4px; }
 .people-hero .ph-msg h2 { font-family: var(--sans); font-weight: 800; font-size: clamp(1.5rem, 2.4vw, 2rem); letter-spacing: -.025em; line-height: 1.14; margin: 0 0 var(--s3); color: var(--ink); }
 .people-hero .ph-msg h2 .bl { color: var(--blue); }
 .people-hero .ph-msg p { font-size: 1rem; line-height: 1.7; color: var(--ink2); margin: 0; }
@@ -1855,8 +1865,17 @@ body.admin-on .news-edit-btns { display: flex; }
   </div>
   <section class="people-hero">
     <figure class="ph-photo">
-      <img id="group-img" src="assets/people/group.jpg" alt="QS Lab group photo">
-      <figcaption data-editable data-edit-label="✎ Edit caption" id="group-cap">QS Lab · Sungkyunkwan University · 2026</figcaption>
+      <div class="ph-car" id="group-car">
+        <img id="group-img" src="assets/people/group-2026.jpg" alt="QS Lab group photo">
+        <button type="button" class="car-btn car-prev" data-car-step="-1" aria-label="Previous group photo">‹</button>
+        <button type="button" class="car-btn car-next" data-car-step="1" aria-label="Next group photo">›</button>
+      </div>
+      <div class="car-dots" role="group" aria-label="Group photos by year">
+        <button type="button" class="car-dot" data-car-idx="0" aria-current="true" aria-label="Summer 2026"></button>
+        <button type="button" class="car-dot" data-car-idx="1" aria-current="false" aria-label="November 2025"></button>
+        <button type="button" class="car-dot" data-car-idx="2" aria-current="false" aria-label="April 2025"></button>
+      </div>
+      <figcaption data-editable data-edit-label="✎ Edit caption" id="group-cap">QS Lab · Sungkyunkwan University · Summer 2026</figcaption>
     </figure>
     <div class="ph-msg">
       <h2 data-editable data-edit-html data-edit-label="✎ Edit" id="ph-msg-h2">A small group that <span class="bl">grows together</span>.</h2>
@@ -6746,6 +6765,47 @@ body.admin-on #pub-toc-batch { display: inline-flex; }
       });
     });
   }
+})();
+
+/* ── Group-photo carousel (People hero) ──
+   Delegated on document so it keeps working after content.json replaces
+   #page-people's innerHTML (no re-init hook needed). Slide 0's caption is
+   captured from the DOM so admin caption edits are respected. */
+(function () {
+  var PHOTOS = [
+    { src: 'assets/people/group-2026.jpg', cap: null /* from DOM */, label: 'Summer 2026' },
+    { src: 'assets/people/group.jpg', cap: 'QS Lab · Sungkyunkwan University · November 2025', label: 'November 2025' },
+    { src: 'assets/people/group-2025-april.jpg', cap: 'QS Lab · Sungkyunkwan University · April 2025', label: 'April 2025' }
+  ];
+  PHOTOS.forEach(function (p) { var im = new Image(); im.src = p.src; });
+
+  function show(idx) {
+    idx = ((idx % PHOTOS.length) + PHOTOS.length) % PHOTOS.length;
+    var img = document.getElementById('group-img');
+    var cap = document.getElementById('group-cap');
+    var car = document.getElementById('group-car');
+    if (!img || !car) return;
+    if (PHOTOS[0].cap == null && cap) PHOTOS[0].cap = cap.textContent;
+    car.setAttribute('data-idx', idx);
+    img.style.opacity = '0';
+    setTimeout(function () {
+      img.src = PHOTOS[idx].src;
+      img.alt = 'QS Lab group photo · ' + PHOTOS[idx].label;
+      if (cap && PHOTOS[idx].cap) cap.textContent = PHOTOS[idx].cap;
+      img.style.opacity = '1';
+    }, 180);
+    document.querySelectorAll('#page-people .car-dot').forEach(function (d, i) {
+      d.setAttribute('aria-current', i === idx ? 'true' : 'false');
+    });
+  }
+  document.addEventListener('click', function (ev) {
+    var btn = ev.target.closest && ev.target.closest('#page-people .car-btn, #page-people .car-dot');
+    if (!btn) return;
+    var car = document.getElementById('group-car');
+    var cur = car ? parseInt(car.getAttribute('data-idx') || '0', 10) : 0;
+    if (btn.hasAttribute('data-car-idx')) show(parseInt(btn.getAttribute('data-car-idx'), 10));
+    else show(cur + parseInt(btn.getAttribute('data-car-step') || '1', 10));
+  });
 })();
 </script>
 <!-- AUTO area (I3): renders data/*.json into [data-auto] regions only.
