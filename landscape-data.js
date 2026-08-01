@@ -108,7 +108,7 @@ const P=[
  {id:'necryo',kw:'Cryo AlScN polarization',r:'C',material:'FE',j:'In revision',t:'Giant remnant polarization in cryogenic AlScN',st:'rev',role:'First & co-corresponding',
   full:'Observation of giant remnant polarization in ultrathin AlScN at cryogenic temperatures',cite:'Nat. Electron., in revision · arXiv:2503.19491',url:'https://arxiv.org/abs/2503.19491'},
  {id:'nc25cnt',kw:'SWCNT FeFETs',r:'C',material:'FE',j:'Nat. Commun. 2025',t:'Reconfigurable SWCNT ferroelectric FETs',st:'pub',role:'Coauthor',
-  full:'Reconfigurable single-walled carbon nanotube ferroelectric field-effect transistors',cite:'Nat. Commun. 16, 7655 (2025)',url:'https://www.nature.com/articles/s41467-025-60296-7'},
+  full:'Reconfigurable single-walled carbon nanotube ferroelectric field-effect transistors',cite:'Nat. Commun. 16, 7655 (2025)',url:'https://www.nature.com/articles/s41467-025-62827-2'},
  {id:'device26',kw:'Low-voltage FeFETs',r:'C',material:'FE',j:'Device 2026',t:'Low-voltage FETs with ultrathin AlScN and 2D channels',st:'pub',role:'Coauthor',
   full:'Low-voltage ferroelectric field-effect transistors with ultrathin AlScN and 2D channels',cite:'Device 4, 100989 (2026)',url:'https://doi.org/10.1016/j.device.2025.100989'},
  // Ferroelectric × optics (overlap)
@@ -118,7 +118,7 @@ const P=[
  {id:'npj23',kw:'Gap-plasmon excitons',r:'D',material:'TMD',j:'npj 2D Mater. 2023',t:'Exciton dynamics in the gap-plasmon regime',st:'pub',role:'Coauthor',
   full:'Tailoring Exciton Dynamics in TMDC Heterobilayers in the Ultranarrow Gap-Plasmon Regime',cite:'npj 2D Mater. Appl. 7, 66 (2023)',url:'https://doi.org/10.1038/s41699-023-00428-7'},
  {id:'nc24',kw:'Confined excitons',r:'D',material:'TMD',sc:'A',j:'Nat. Commun. 2024',t:'Confined excited states in in-plane quantum heterostructures',st:'pub',role:'Coauthor',
-  full:'Confinement of excited states in two-dimensional, in-plane, quantum heterostructures',cite:'Nat. Commun. 15, 6361 (2024)',url:'https://www.nature.com/articles/s41467-024-50768-5'},
+  full:'Confinement of excited states in two-dimensional, in-plane, quantum heterostructures',cite:'Nat. Commun. 15, 6361 (2024)',url:'https://www.nature.com/articles/s41467-024-50653-x'},
  {id:'mrl23',kw:'Quantum heterostructures',r:'D',material:'TMD',sc:'A',j:'Mater. Res. Lett. 2023',t:'Spatially controlled 2D quantum heterostructures',st:'pub',bd:'R',role:'Co-first author',
   full:'Spatially controlled two-dimensional quantum heterostructures',cite:'Mater. Res. Lett. 11, 327–346 (2023)',url:'https://doi.org/10.1080/21663831.2022.2151852'},
  {id:'acsn24ct',kw:'Charge-transfer excitons',r:'D',material:'TMD',j:'ACS Nano 2024',t:'Localized charge-transfer excitons in 0D/2D structures',st:'pub',role:'Coauthor',
