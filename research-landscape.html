@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#0a1628">
+<meta name="description" content="Publications and active projects of the Quantum Semiconductors Lab at SKKU, mapped by material system and application layer.">
+<title>Research Landscape | QS Lab, SKKU</title>
+<script>
+(function(){var h=document.documentElement;
+  try{if(window.self!==window.top)h.classList.add('embedded');}catch(e){h.classList.add('embedded');}
+  if(/[?&]embed=min\b/.test(location.search))h.classList.add('embedded','embed-min');})();
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,600;8..60,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#1c1f24; --body:#3d434c; --meta:#6b727d; --faint:#9aa1ac;
+    --bgpage:#ffffff; --hair:#e4e7eb; --hair2:#d6dae0;
+    --accent:#14665a;            /* single accent — lab teal, links & active states */
+    --navy:#0a1628;              /* site header, bridges to the main site */
+    --A:#3e7c74; --B:#4a6b9a; --C:#7a5f9e; --D:#a85d7a; --Q:#45788c; --E:#96742f; --F:#6b7280;
+    --pub:#2f7d4f; --acc2:#96742f; --rev:#b0651f; --plan:#14665a;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{background:var(--bgpage);color:var(--body);
+    font-family:'Inter',ui-sans-serif,-apple-system,system-ui,sans-serif;
+    font-size:15px;line-height:1.6;-webkit-font-smoothing:antialiased}
+  a{color:var(--accent)}
+  /* site header — dark, matching the main QS Lab site */
+  .topbar{display:flex;align-items:baseline;gap:12px;padding:15px 24px;background:var(--navy);color:#e9eef7}
+  .topbar .logo{font-weight:700;font-size:14px;text-decoration:none;color:#fff;letter-spacing:.02em}
+  .topbar .logo:hover{text-decoration:underline}
+  .topbar .sep{color:#43597a}
+  .topbar .here{font-size:13px;color:#93a4bf}
+  .topbar .upd{margin-left:auto;font-size:11.5px;color:#5f7796}
+  .intro{padding:34px 24px 6px;max-width:820px}
+  .intro h1{font-family:'Source Serif 4',Georgia,serif;font-size:30px;font-weight:700;
+    color:var(--ink);letter-spacing:-.01em}
+  .intro p{margin-top:12px;font-size:14.5px;color:var(--body)}
+  /* filters as plain text links */
+  .filters{padding:20px 24px 0;font-size:13.5px;color:var(--meta)}
+  .filters .fl{color:var(--meta);text-decoration:none;cursor:pointer;padding-bottom:2px}
+  .filters .fl:hover{color:var(--ink)}
+  .filters .fl.on{color:var(--ink);font-weight:600;border-bottom:2px solid var(--accent)}
+  .filters .dot{margin:0 8px;color:var(--faint)}
+  .filters .zoomset{float:right}
+  .legend{padding:12px 24px 0;font-size:12px;color:var(--meta);display:flex;flex-wrap:wrap;gap:6px 18px}
+  .legend span{display:inline-flex;align-items:center;gap:6px}
+  .box{width:14px;height:10px;display:inline-block;background:#fff;border:1px solid var(--hair2)}
+  .box.dash{border-style:dashed}
+  .box.dot{border-style:dotted;border-color:var(--plan)}
+  .ldot{width:6px;height:6px;border-radius:99px;background:var(--ink);display:inline-block}
+  .hintline{font-size:12px;color:var(--faint);padding:10px 24px 0}
+  /* ── desktop map, framed like a figure ── */
+  .figure{margin:16px 24px 6px;border:1px solid var(--hair);border-radius:4px;background:#fff}
+  .scroll{overflow:auto;-webkit-overflow-scrolling:touch;padding:8px}
+  #zw{position:relative}
+  #canvas{position:relative;transform-origin:0 0}
+  svg#wires{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:3}
+  .band,.strip{position:absolute;left:16px;right:16px;border-radius:3px;z-index:1}
+  .bl{position:absolute;left:12px;top:8px;font-size:12px;font-weight:600;white-space:nowrap;
+    max-width:calc(100% - 140px);overflow:hidden;text-overflow:ellipsis}
+  .bl .bs2{font-weight:400;font-size:11px;color:var(--meta)}
+  .phys{position:absolute;right:12px;top:10px;font-size:9.5px;font-weight:600;letter-spacing:.1em;
+    text-transform:uppercase;color:var(--faint)}
+  .strip .bl{font-size:11px;top:6px}
+  .strip .phys{top:7px}
+  .colhead{position:absolute;top:20px;text-align:center;z-index:2}
+  .colhead .cn{font-size:12.5px;font-weight:600;color:var(--ink)}
+  .colhead .cm{font-size:10.5px;color:var(--meta);margin-top:2px}
+  .colline{position:absolute;top:82px;width:0;border-left:1px solid var(--hair);z-index:0}
+  .node{position:absolute;min-height:62px;padding:8px 10px 20px;border-radius:4px;cursor:pointer;
+    background:#fff;border:1px solid var(--hair2);border-left-width:3px;z-index:4;
+    transition:border-color .12s,opacity .15s}
+  .node:hover{border-color:#aeb6c0;border-left-width:3px}
+  .node:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+  .node .j{font-size:9.5px;font-weight:600;color:var(--meta);display:flex;align-items:center;gap:5px;padding-right:4px}
+  .node .j .lead{width:5px;height:5px;border-radius:99px;background:var(--ink);flex:none}
+  .node .t{margin-top:3px;font-size:11px;line-height:1.35;color:var(--ink);font-weight:500}
+  .node .stat{position:absolute;bottom:5px;left:10px;font-size:9px;font-weight:600}
+  .node .qs{position:absolute;bottom:4px;right:8px;font-size:8.5px;font-weight:600;
+    color:var(--accent);border:1px solid var(--hair2);border-radius:3px;padding:0 4px}
+  .node.rev{border-style:dashed}
+  .node.plan{border-style:dotted;background:#fbfcfc}
+  .node.co{opacity:.62}
+  .node.dim{opacity:.08;pointer-events:none}
+  .fpanel{position:absolute;left:16px;right:16px;border-radius:3px;z-index:1;
+    background:#f7f8f9;border:1px solid var(--hair)}
+  .fwrap{position:absolute;left:28px;right:28px;display:flex;gap:10px;flex-wrap:wrap;z-index:4}
+  .fwrap .node{position:relative;width:172px}
+  .figcap{padding:12px 24px 34px;font-size:12.5px;color:var(--meta);line-height:1.65;max-width:860px}
+  /* ── mobile list ── */
+  #mobile{display:none;padding:6px 16px 12px}
+  .mband{margin:14px 0;border-top:2px solid;padding:12px 2px 4px}
+  .mband .mh{display:flex;align-items:baseline;gap:8px}
+  .mband h3{font-family:'Source Serif 4',Georgia,serif;font-size:16.5px;font-weight:700;color:var(--ink)}
+  .mband .mphys{margin-left:auto;font-size:9.5px;font-weight:600;letter-spacing:.1em;
+    text-transform:uppercase;color:var(--faint)}
+  .mband .msub{font-size:12px;color:var(--meta);margin-top:2px}
+  .mcards{margin-top:8px}
+  .mnode{position:relative;padding:12px 4px 26px;border-bottom:1px solid var(--hair);cursor:pointer}
+  .mnode:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+  .mnode .j{font-size:11px;font-weight:600;color:var(--meta);display:flex;align-items:center;gap:6px;padding-right:64px}
+  .mnode .j .lead{width:6px;height:6px;border-radius:99px;background:var(--ink);flex:none}
+  .mnode .t{margin-top:4px;font-size:14.5px;line-height:1.45;color:var(--ink);font-weight:500}
+  .mnode .mtag{position:absolute;top:12px;right:2px;font-size:10px;color:var(--meta);
+    border:1px solid var(--hair2);border-radius:3px;padding:1px 6px}
+  .mnode .stat{position:absolute;bottom:7px;left:4px;font-size:10.5px;font-weight:600}
+  .mnode .qs{position:absolute;bottom:6px;right:2px;font-size:10px;font-weight:600;
+    color:var(--accent);border:1px solid var(--hair2);border-radius:3px;padding:0 5px}
+  .mnode.rev .t{color:var(--body)}
+  .mnode.plan .j::after{content:'';display:none}
+  .mnode.co{opacity:.62}
+  .mnode.dim{display:none}
+  /* ── mobile schematic ── */
+  .mtoggle{display:none;padding:12px 24px 0;font-size:13px;color:var(--meta)}
+  .mtoggle .mt{color:var(--meta);cursor:pointer;text-decoration:none;padding-bottom:2px}
+  .mtoggle .mt.on{color:var(--ink);font-weight:600;border-bottom:2px solid var(--accent)}
+  #mmapwrap{display:none;padding:10px 12px 4px}
+  #mmap{position:relative;border:1px solid var(--hair);border-radius:4px;padding:10px 8px 8px;background:#fff}
+  .mcols{display:flex;margin-bottom:2px}
+  .mcols div{width:16.6667%;text-align:center;font-size:8.5px;font-weight:600;color:var(--meta);line-height:1.2}
+  .maxis{text-align:center;font-size:9px;color:var(--faint);margin:1px 0 8px}
+  .mbandc{position:relative;margin:7px 0;border:1px solid var(--hair);border-radius:3px}
+  .mbandc .mbl2{display:flex;align-items:baseline;gap:6px;padding:4px 8px 1px;position:relative;z-index:4}
+  .mbandc .mbl2 b{font-size:11.5px;font-weight:600}
+  .mbandc .mbl2 span{margin-left:auto;font-size:8.5px;font-weight:600;letter-spacing:.08em;
+    text-transform:uppercase;color:var(--faint)}
+  .mgrid{position:relative;margin:2px 4px 5px;
+    background-image:repeating-linear-gradient(90deg,transparent 0,transparent calc(16.6667% - 1px),var(--hair) calc(16.6667% - 1px),var(--hair) 16.6667%)}
+  .mk{position:absolute;border-radius:3px;cursor:pointer;border:1px solid;z-index:4;
+    font-size:8.2px;line-height:1.15;font-weight:600;color:var(--ink);
+    padding:3px 4px;overflow:hidden;display:flex;align-items:center;
+    text-align:center;justify-content:center}
+  .mk.co{opacity:.55}
+  .mk.dim{opacity:.05;pointer-events:none}
+  .mfrow{display:flex;flex-wrap:wrap;gap:5px;padding:4px 8px 8px}
+  .mfrow .mk{position:relative;width:calc(50% - 3px);height:26px;font-size:8.5px}
+  @media (max-width:899px){
+    .figure,.zoomset,.hintline{display:none}
+    .mtoggle{display:block}
+    #mmapwrap.show{display:block}
+    #mobile.show{display:block}
+    .figcap{padding-top:4px}
+  }
+  /* ── detail panel ── */
+  #sheet{position:fixed;left:0;right:0;bottom:0;z-index:50;background:#fff;color:var(--body);
+    border-top:1px solid var(--hair2);padding:20px 22px 28px;
+    transform:translateY(110%);transition:transform .2s ease;max-height:66vh;overflow:auto;
+    box-shadow:0 -8px 30px rgba(20,25,35,.12)}
+  #sheet.open{transform:translateY(0)}
+  #sheet .st{font-family:'Source Serif 4',Georgia,serif;font-size:16.5px;font-weight:600;
+    line-height:1.45;color:var(--ink);padding-right:34px}
+  #sheet .sc{margin-top:8px;font-size:13px;color:var(--meta)}
+  #sheet .sr{margin-top:9px;font-size:13px}
+  #sheet .sr b{color:var(--ink);font-weight:600}
+  #sheet a.go{display:inline-block;margin-top:13px;font-size:13.5px;font-weight:600;
+    color:var(--accent);text-decoration:underline;text-underline-offset:3px}
+  #sheet .close{position:absolute;top:14px;right:14px;font-size:15px;color:var(--meta);
+    cursor:pointer;border:none;background:none;padding:4px 8px}
+  #backdrop{position:fixed;inset:0;z-index:40;display:none;background:rgba(20,25,35,.25)}
+  #backdrop.open{display:block}
+  @media (prefers-reduced-motion: reduce){#sheet{transition:none}}
+  /* ── embedded inside index.html (iframe): tighter type so the map leads ── */
+  html.embedded .intro{padding:22px 24px 0}
+  html.embedded .intro h1{font-size:23px}
+  html.embedded .intro p{margin-top:9px;font-size:13.5px;line-height:1.55}
+  html.embedded .filters{padding-top:15px;font-size:13px}
+  html.embedded .legend{font-size:11.5px}
+  html.embedded .hintline{padding-top:8px}
+  html.embedded .figure{margin:14px 24px 6px}
+  /* ?embed=min — hide the duplicate site header and intro copy */
+  html.embed-min .topbar,html.embed-min .intro{display:none}
+  html.embed-min .filters{padding-top:18px}
+</style>
+</head>
+<body>
+<nav class="topbar">
+  <a class="logo" href="https://qs-lab-skku.github.io/qslab/">QS Lab</a>
+  <span class="sep">/</span>
+  <span class="here">Research Landscape</span>
+  <span class="upd" id="upd"></span>
+</nav>
+<section class="intro">
+  <h1>Research Landscape</h1>
+  <p>Columns are the material systems the group works with, ordered from metallic to insulating.
+     Rows are levels of the work, from crystal growth through devices to review articles.
+     Projects still in progress sit alongside the published papers. Select an entry for its
+     full reference and a link to the paper.</p>
+</section>
+<div class="filters" id="chips">
+  <a class="fl on" tabindex="0" data-f="all">All</a><span class="dot">·</span>
+  <a class="fl" tabindex="0" data-f="lead">Lead-authored</a><span class="dot">·</span>
+  <a class="fl" tabindex="0" data-f="lab">Lab-driven</a><span class="dot">·</span>
+  <a class="fl" tabindex="0" data-f="rp">Reviews &amp; perspectives</a><span class="dot">·</span>
+  <a class="fl" tabindex="0" data-f="rev">Under review</a><span class="dot">·</span>
+  <a class="fl" tabindex="0" data-f="plan">Active projects</a>
+  <span class="zoomset">
+    <a class="fl zbtn" tabindex="0" data-z="fit">Fit</a><span class="dot">·</span>
+    <a class="fl zbtn" tabindex="0" data-z="1">100%</a>
+  </span>
+</div>
+<div class="legend">
+  <span><i class="box"></i>Published</span>
+  <span><i class="box dash"></i>Under review</span>
+  <span><i class="box dot"></i>Active project</span>
+  <span><i class="ldot"></i>Lead-authored</span>
+  <span><b style="color:var(--accent);font-size:10px;border:1px solid var(--hair2);border-radius:3px;padding:0 4px">QS</b>&nbsp;Driven by lab members</span>
+</div>
+<div class="hintline">Fit shows the whole map; 100% is easier to read.</div>
+<div class="mtoggle">View: <a class="mt on" tabindex="0" data-m="map">Schematic</a> <span style="color:var(--faint)">·</span> <a class="mt" tabindex="0" data-m="list">List</a></div>
+<div class="figure"><div class="scroll"><div id="zw"><div id="canvas">
+  <svg id="wires">
+    <defs>
+      <marker id="ah" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+        <path d="M0,0 L8,4 L0,8 z" fill="context-stroke"/>
+      </marker>
+    </defs>
+  </svg>
+</div></div></div></div>
+<div id="mmapwrap"><div id="mmap">
+  <svg id="mwires" style="position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:3"></svg>
+</div></div>
+<div id="mobile"></div>
+<p class="figcap">Arrows run from a result to the work that followed from it; dashed arrows link
+areas further apart. Dotted entries are projects and targets rather than papers. Smaller exploratory
+projects are left out.</p>
+<div id="backdrop"></div>
+<div id="sheet" role="dialog" aria-modal="true">
+  <button class="close" id="shx" aria-label="Close">✕</button>
+  <div class="st" id="sht"></div>
+  <div class="sc" id="shc"></div>
+  <div class="sr" id="shr"></div>
+  <a class="go" id="shl" target="_blank" rel="noopener">View paper →</a>
+</div>
+<script src="landscape-data.js"></script>
+<script>
+const CARD=160, SGAP=10, CPAD=12, COLW=354, X0=36, CW=2180;
+const CARDH=64, ROWH=74;
+const colX=c=>X0+c*COLW, slotX=(c,s)=>colX(c)+CPAD+s*(CARD+SGAP);
+const CLR={A:'var(--A)',B:'var(--B)',C:'var(--C)',D:'var(--D)',E:'var(--E)',F:'var(--F)',Q:'var(--Q)'};
+const STC={pub:['Published','var(--faint)'],acc:['In press','var(--acc2)'],rev:['In review','var(--rev)'],plan:['Active','var(--plan)']};
+const BDL={R:'Review',P:'Perspective',RM:'Roadmap'};
+// data (COLS, ORDER, P, EDGES, UPDATED) comes from landscape-data.js
+document.getElementById('upd').textContent=UPDATED;
+// auto placement: each column has 2 card slots per row. Entries are processed in
+// declaration order and dropped into the topmost row of their band whose slots
+// are free; a wide entry (materialTo set) occupies every slot of the columns it
+// spans. Rows are added automatically, so band heights and the canvas height
+// follow from the data.
+const colIdx=k=>{const i=COLS.findIndex(c=>c.key===k);if(i<0)throw new Error('Unknown material key: '+k);return i;};
+const NSLOT=COLS.length*2;
+(function place(){
+  const occ={};
+  for(const p of P){
+    if(p.r==='F') continue;
+    const rows=occ[p.r]||(occ[p.r]=[]);
+    const c0=colIdx(p.material), c1=p.materialTo?colIdx(p.materialTo):c0;
+    const wide=!!p.materialTo, si0=c0*2, se0=c1*2+1;
+    for(let w=0;;w++){
+      if(!rows[w]) rows[w]=new Array(NSLOT).fill(false);
+      if(wide){
+        let free=true;
+        for(let i=si0;i<=se0;i++) if(rows[w][i]){free=false;break;}
+        if(!free) continue;
+        for(let i=si0;i<=se0;i++) rows[w][i]=true;
+        p._w=w; p._si=si0; p._se=se0; break;
+      }
+      const s=!rows[w][si0]?si0:(!rows[w][si0+1]?si0+1:-1);
+      if(s<0) continue;
+      rows[w][s]=true; p._w=w; p._si=s; p._se=s; break;
+    }
+  }
+  for(const o of ORDER) o.rows=(occ[o.k]||[0]).length;
+})();
+const R={}; let yCur=94;
+for(const o of ORDER){
+  const labelH=o.strip?28:36, pad=6, gapAfter=12;
+  o.y=yCur; o.rowsY=[];
+  for(let i=0;i<o.rows;i++) o.rowsY.push(yCur+labelH+i*ROWH);
+  o.h=labelH+o.rows*ROWH-(ROWH-CARDH)+pad;
+  yCur=o.y+o.h+gapAfter;
+  R[o.k]=o;
+}
+const FP={y:yCur+6,h:146};
+const CH=FP.y+FP.h+24;
+// band colour is the default; p.pc overrides it for the few exceptions
+const pcOf=p=>p.pc||(p.r==='F'?'F':(R[p.r].c||R[p.r].strip[0]));
+const cv=document.getElementById('canvas'), svg=document.getElementById('wires'), zw=document.getElementById('zw');
+cv.style.width=CW+'px'; cv.style.height=CH+'px';
+COLS.forEach((c,i)=>{
+  const h=document.createElement('div');h.className='colhead';
+  h.style.left=colX(i)+'px';h.style.width=COLW+'px';
+  h.innerHTML=`<div class="cn">${c.n}</div><div class="cm">${c.m}</div>`;
+  cv.appendChild(h);
+  if(i>0){const l=document.createElement('div');l.className='colline';l.style.left=colX(i)+'px';l.style.height=(CH-96)+'px';cv.appendChild(l);}
+});
+for(const b of ORDER){
+  const d=document.createElement('div');
+  if(b.strip){
+    const [top,bot]=b.strip;
+    d.className='strip';
+    d.style.cssText=`top:${b.y}px;height:${b.h}px;
+      background:linear-gradient(180deg,color-mix(in srgb, ${CLR[top]} 5%, #fff),color-mix(in srgb, ${CLR[bot]} 5%, #fff));
+      border:1px dashed var(--hair2)`;
+    d.innerHTML=`<span class="bl" style="color:color-mix(in srgb, ${CLR[top]} 60%, ${CLR[bot]} 40%)">${b.name}</span><span class="phys">${b.phys}</span>`;
+  }else{
+    d.className='band';
+    d.style.cssText=`top:${b.y}px;height:${b.h}px;
+      background:color-mix(in srgb, ${CLR[b.c]} 4%, #fff);
+      border:1px solid var(--hair);border-top:2px solid ${CLR[b.c]}`;
+    d.innerHTML=`<span class="bl" style="color:${CLR[b.c]}">${b.name}${b.sub?`<span class="bs2"> (${b.sub})</span>`:''}</span><span class="phys">${b.phys}</span>`;
+  }
+  cv.appendChild(d);}
+const fp=document.createElement('div');fp.className='fpanel';
+fp.style.cssText=`top:${FP.y}px;height:${FP.h}px`;
+fp.innerHTML=`<span class="bl" style="color:var(--F)">Energy and functional materials<span class="bs2"> (catalysis, electrolysers, electrodes and photovoltaics)</span></span>`;
+cv.appendChild(fp);
+const fwrap=document.createElement('div');fwrap.className='fwrap';fwrap.style.top=(FP.y+40)+'px';cv.appendChild(fwrap);
+const pos={}, els={};
+const sheet=document.getElementById('sheet'), bk=document.getElementById('backdrop');
+function openSheet(p){
+  document.getElementById('sht').textContent=p.full;
+  document.getElementById('shc').textContent=p.cite;
+  document.getElementById('shr').innerHTML=
+    `<b>Status:</b> ${STC[p.st][0]} &nbsp;·&nbsp; <b>Role:</b> ${p.role}${p.lab?' &nbsp;·&nbsp; <b style="color:var(--accent)">QS Lab</b>':''}`+
+    (p.note?`<br><b>Note:</b> ${p.note}`:'');
+  const a=document.getElementById('shl');
+  if(p.url){a.style.display='inline-block';a.href=p.url;}else{a.style.display='none';}
+  sheet.classList.add('open');bk.classList.add('open');
+}
+document.getElementById('shx').onclick=()=>{sheet.classList.remove('open');bk.classList.remove('open');};
+bk.onclick=document.getElementById('shx').onclick;
+function cardHTML(p,mobile){
+  const lead = p.role!=='Coauthor' && p.st!=='plan' ? '<span class="lead"></span>' : '';
+  const [stTxt,stCol]=STC[p.st];
+  const suffix = p.bd ? ' · '+BDL[p.bd] : '';
+  let tag='';
+  if(mobile && p.r!=='F'){
+    const t1=COLS[p._si>>1].tag, t2=p.materialTo?COLS[p._se>>1].tag:null;
+    tag=`<span class="mtag">${t2&&t2!==t1?t1+' – '+t2:t1}</span>`;
+  }
+  return `<div class="j">${lead}${p.j}${suffix}</div><div class="t">${p.t}</div>`+tag+
+    `<span class="stat" style="color:${stCol}">${stTxt}</span>`+
+    (p.lab?`<span class="qs">QS</span>`:'');
+}
+function wireCard(n,p){
+  n.setAttribute('tabindex','0');
+  const open=()=>openSheet(p);
+  n.onclick=open;
+  n.onkeydown=e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();open();}};
+  (els[p.id]=els[p.id]||[]).push(n);
+}
+for(const p of P){
+  const n=document.createElement('div');
+  n.className='node '+(p.st==='rev'?'rev ':'')+(p.st==='plan'?'plan ':'')+(p.role==='Coauthor'?'co':'');
+  n.innerHTML=cardHTML(p,false);
+  if(p.r==='F'){
+    n.style.borderLeftColor=CLR.F; fwrap.appendChild(n);
+  }else{
+    const b=R[p.r], x=slotX(p._si>>1,p._si&1), y=b.rowsY[p._w];
+    const w=slotX(p._se>>1,p._se&1)+CARD-x;
+    pos[p.id]={x,y,w,h:CARDH};
+    n.style.left=x+'px';n.style.top=y+'px';n.style.width=w+'px';n.style.position='absolute';
+    if(b.strip){const [t2,b2]=b.strip;n.style.borderImage=`linear-gradient(180deg, ${CLR[t2]} 0 48%, ${CLR[b2]} 52% 100%) 1`;}
+    else if(p.sc){n.style.borderImage=`linear-gradient(180deg, ${CLR[p.sc]} 0 45%, ${CLR[pcOf(p)]} 55% 100%) 1`;}
+    else{n.style.borderLeftColor=CLR[pcOf(p)];}
+    cv.appendChild(n);
+  }
+  wireCard(n,p);
+}
+// mobile list
+const mob=document.getElementById('mobile');
+const MOBSECS=[...ORDER,{k:'F',c:'F',name:'Energy and functional materials',sub:'catalysis, electrolysers, electrodes and photovoltaics',phys:''}];
+for(const b of MOBSECS){
+  const sec=document.createElement('section');sec.className='mband';
+  const col=b.strip?`color-mix(in srgb, ${CLR[b.strip[0]]} 60%, ${CLR[b.strip[1]]} 40%)`:CLR[b.c];
+  sec.style.borderTopColor=col;
+  if(b.strip) sec.style.borderTopStyle='dashed';
+  sec.innerHTML=`<div class="mh"><h3>${b.name}</h3><span class="mphys">${b.phys||''}</span></div>`+
+    (b.sub?`<div class="msub">${b.sub[0].toUpperCase()+b.sub.slice(1)}</div>`:'');
+  const wrap=document.createElement('div');wrap.className='mcards';
+  const items=P.filter(p=>p.r===b.k).sort((a,c)=>((a._si??0)>>1)-((c._si??0)>>1)||(a._w??0)-(c._w??0)||((a._si??0)&1)-((c._si??0)&1));
+  for(const p of items){
+    const n=document.createElement('div');
+    n.className='mnode '+(p.st==='rev'?'rev ':'')+(p.st==='plan'?'plan ':'')+(p.role==='Coauthor'?'co':'');
+    n.innerHTML=cardHTML(p,true);
+    wrap.appendChild(n);
+    wireCard(n,p);
+  }
+  sec.appendChild(wrap);mob.appendChild(sec);
+}
+// mobile schematic — compact markers on the same band × material grid
+const mmapw=document.getElementById('mmapwrap'), mmap=document.getElementById('mmap'), msvg=document.getElementById('mwires');
+function mkMarker(p){
+  const m=document.createElement('div');
+  m.className='mk'+(p.role==='Coauthor'?' co':'');
+  const c=CLR[pcOf(p)];
+  if(p.st==='rev'){m.style.background='#fff';m.style.border='1.5px dashed '+c;}
+  else if(p.st==='plan'){m.style.background='#fff';m.style.border='1.5px dotted '+c;}
+  else{m.style.background=`color-mix(in srgb, ${c} ${p.st==='acc'?12:20}%, #fff)`;m.style.borderColor=c;}
+  if(p.role!=='Coauthor'&&p.st!=='plan') m.style.borderColor='var(--ink)';
+  m.textContent=p.kw||p.t;
+  m.title=p.j+', '+p.t;
+  wireCard(m,p);
+  return m;
+}
+(function buildMMap(){
+  const head=document.createElement('div');head.className='mcols';
+  head.innerHTML=COLS.map(c=>`<div>${c.tag}</div>`).join('');
+  mmap.appendChild(head);
+  const ax=document.createElement('div');ax.className='maxis';ax.textContent='metallic → insulating';
+  mmap.appendChild(ax);
+  const MR=40;
+  for(const b of ORDER){
+    const sec=document.createElement('div');sec.className='mbandc';
+    const col=b.strip?`color-mix(in srgb, ${CLR[b.strip[0]]} 60%, ${CLR[b.strip[1]]} 40%)`:CLR[b.c];
+    sec.style.borderTop=(b.strip?'2px dashed ':'2px solid ')+col;
+    if(!b.strip) sec.style.background=`color-mix(in srgb, ${CLR[b.c]} 3%, #fff)`;
+    sec.innerHTML=`<div class="mbl2"><b style="color:${col}">${b.name}</b><span>${b.phys||''}</span></div>`;
+    const g=document.createElement('div');g.className='mgrid';g.style.height=(b.rows*MR)+'px';
+    for(const p of P.filter(q=>q.r===b.k)){
+      const si=p._si, span=p._se-p._si+1;
+      const m=mkMarker(p);
+      m.style.left=`calc(${(si*100/NSLOT).toFixed(4)}% + 2px)`;
+      m.style.width=`calc(${(span*100/NSLOT).toFixed(4)}% - 4px)`;
+      m.style.top=(p._w*MR+3)+'px';
+      m.style.height=(MR-8)+'px';
+      g.appendChild(m);
+    }
+    sec.appendChild(g);mmap.appendChild(sec);
+  }
+  const fsec=document.createElement('div');fsec.className='mbandc';
+  fsec.style.borderTop='2px solid '+CLR.F;
+  fsec.innerHTML=`<div class="mbl2"><b style="color:${CLR.F}">Energy and functional materials</b></div>`;
+  const fr=document.createElement('div');fr.className='mfrow';
+  for(const p of P.filter(q=>q.r==='F')) fr.appendChild(mkMarker(p));
+  fsec.appendChild(fr);mmap.appendChild(fsec);
+})();
+let mpaths=[];
+function drawMWires(){
+  if(!mmap.offsetParent) return;
+  const r0=mmap.getBoundingClientRect();
+  msvg.setAttribute('viewBox',`0 0 ${r0.width} ${r0.height}`);
+  msvg.innerHTML='<defs><marker id="ah2" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0,0 L8,4 L0,8 z" fill="context-stroke"/></marker></defs>';
+  mpaths=[];
+  for(const [s,t,kind] of EDGES){
+    const ea=(els[s]||[]).find(x=>x.classList.contains('mk'));
+    const eb=(els[t]||[]).find(x=>x.classList.contains('mk'));
+    if(!ea||!eb) continue;
+    const ra=ea.getBoundingClientRect(), rb=eb.getBoundingClientRect();
+    const a={x:ra.left-r0.left,y:ra.top-r0.top,w:ra.width,h:ra.height};
+    const b={x:rb.left-r0.left,y:rb.top-r0.top,w:rb.width,h:rb.height};
+    const [[x1,y1],[x2,y2]]=anchorPt(a,b);
+    const mx=(x1+x2)/2,my=(y1+y2)/2;
+    const d=Math.abs(x2-x1)>=Math.abs(y2-y1)
+      ?`M${x1},${y1} C${mx},${y1} ${mx},${y2} ${x2},${y2}`
+      :`M${x1},${y1} C${x1},${my} ${x2},${my} ${x2},${y2}`;
+    const p2=document.createElementNS(NS,'path');
+    p2.setAttribute('d',d);p2.setAttribute('fill','none');p2.setAttribute('marker-end','url(#ah2)');
+    if(kind==='X'){p2.setAttribute('stroke','#c9a25e');p2.setAttribute('stroke-dasharray','4 3');p2.setAttribute('stroke-width','1');}
+    else{p2.setAttribute('stroke','#aab3bd');p2.setAttribute('stroke-width','1');}
+    p2.setAttribute('opacity','.75');
+    msvg.appendChild(p2);mpaths.push({el:p2,s,t});
+  }
+  applyWireVis();
+}
+// arrows
+function anchorPt(a,b){
+  const dx=(b.x+b.w/2)-(a.x+a.w/2), dy=(b.y+b.h/2)-(a.y+a.h/2);
+  if(Math.abs(dx)>=Math.abs(dy))
+    return dx>0?[[a.x+a.w,a.y+a.h/2],[b.x,b.y+b.h/2]]:[[a.x,a.y+a.h/2],[b.x+b.w,b.y+b.h/2]];
+  return dy>0?[[a.x+a.w/2,a.y+a.h],[b.x+b.w/2,b.y]]:[[a.x+a.w/2,a.y],[b.x+b.w/2,b.y+b.h]];
+}
+const NS='http://www.w3.org/2000/svg';
+const wires=[];
+for(const [s,t,kind] of EDGES){
+  const a=pos[s], b=pos[t]; if(!a||!b) continue;
+  const [[x1,y1],[x2,y2]]=anchorPt(a,b);
+  const mx=(x1+x2)/2, my=(y1+y2)/2;
+  const d=Math.abs(x2-x1)>=Math.abs(y2-y1)
+    ?`M${x1},${y1} C${mx},${y1} ${mx},${y2} ${x2},${y2}`
+    :`M${x1},${y1} C${x1},${my} ${x2},${my} ${x2},${y2}`;
+  const pth=document.createElementNS(NS,'path');
+  pth.setAttribute('d',d);pth.setAttribute('fill','none');pth.setAttribute('marker-end','url(#ah)');
+  if(kind==='X'){pth.setAttribute('stroke','#b08a3e');
+    pth.setAttribute('stroke-dasharray','5 4');pth.setAttribute('stroke-width','1.4');pth.setAttribute('opacity','.7');}
+  else{pth.setAttribute('stroke','#9aa4b1');
+    pth.setAttribute('stroke-width','1.5');pth.setAttribute('opacity','.8');}
+  svg.appendChild(pth);wires.push({el:pth,s,t});}
+// filters
+const test={
+  all:p=>true,
+  lead:p=>p.role!=='Coauthor'&&p.st!=='plan',
+  lab:p=>!!p.lab,
+  rp:p=>['R','P','RM'].includes(p.bd),
+  rev:p=>p.st==='rev',
+  plan:p=>p.st==='plan',
+};
+let curF='all';
+function applyWireVis(){
+  const f=test[curF], vis={};
+  for(const p of P) vis[p.id]=f(p);
+  for(const w of wires) w.el.style.opacity=(vis[w.s]&&vis[w.t])?'':'0.05';
+  for(const w of mpaths) w.el.style.opacity=(vis[w.s]&&vis[w.t])?'':'0.04';
+}
+document.getElementById('chips').addEventListener('click',e=>{
+  const c=e.target.closest('.fl');if(!c)return;
+  if(c.dataset.z){setScale(c.dataset.z==='fit'?fitScale():1,c);return;}
+  document.querySelectorAll('.fl[data-f]').forEach(x=>x.classList.remove('on'));
+  c.classList.add('on');
+  curF=c.dataset.f;
+  const f=test[curF];
+  for(const p of P){const ok=f(p);
+    for(const el of els[p.id]) el.classList.toggle('dim',!ok);}
+  applyWireVis();
+});
+// zoom (desktop)
+function fitScale(){return Math.min(1,(document.documentElement.clientWidth-70)/CW);}
+let fitMode=false;
+function setScale(s,btn){
+  cv.style.transform='scale('+s+')';
+  zw.style.width=(CW*s)+'px';zw.style.height=(CH*s)+'px';
+  fitMode=(s!==1);
+  document.querySelectorAll('.zbtn').forEach(x=>x.classList.remove('on'));
+  if(btn)btn.classList.add('on');
+  else{const t=document.querySelector('.zbtn[data-z="'+(fitMode?'fit':'1')+'"]');if(t)t.classList.add('on');}
+}
+// mobile view toggle (schematic is the default)
+const mobList=document.getElementById('mobile');
+mmapw.classList.add('show');
+document.querySelectorAll('.mt').forEach(t=>{
+  const act=()=>{
+    document.querySelectorAll('.mt').forEach(x=>x.classList.remove('on'));
+    t.classList.add('on');
+    const showMap=t.dataset.m==='map';
+    mmapw.classList.toggle('show',showMap);
+    mobList.classList.toggle('show',!showMap);
+    if(showMap) requestAnimationFrame(drawMWires);
+  };
+  t.onclick=act;
+  t.onkeydown=e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();act();}};
+});
+let rzT;
+window.addEventListener('resize',()=>{
+  if(fitMode)setScale(fitScale());
+  clearTimeout(rzT);rzT=setTimeout(drawMWires,150);
+});
+setScale((document.documentElement.classList.contains('embedded')||document.documentElement.clientWidth<1300)?fitScale():1);
+requestAnimationFrame(drawMWires);
+</script>
+</body>
+</html>
