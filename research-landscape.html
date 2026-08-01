@@ -328,7 +328,7 @@ function openSheet(p){
     `<b>Status:</b> ${STC[p.st][0]} &nbsp;·&nbsp; <b>Role:</b> ${p.role}${p.lab?' &nbsp;·&nbsp; <b style="color:var(--accent)">QS Lab</b>':''}`+
     (p.note?`<br><b>Note:</b> ${p.note}`:'');
   const a=document.getElementById('shl');
-  if(p.url){a.style.display='inline-block';a.href=p.url;}else{a.style.display='none';}
+  if(p.url&&p.st!=='acc'){a.style.display='inline-block';a.href=p.url;}else{a.style.display='none';}
   sheet.classList.add('open');bk.classList.add('open');
 }
 document.getElementById('shx').onclick=()=>{sheet.classList.remove('open');bk.classList.remove('open');};

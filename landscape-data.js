@@ -30,8 +30,6 @@ const ORDER=[
  {k:'A', c:'A', name:'Synthesis and epitaxy',                sub:'wafer-scale MOCVD and CVD growth', phys:''},
 ];
 
-const sch=t=>'https://scholar.google.com/scholar?q='+encodeURIComponent('"'+t+'"');
-
 /* Entries. Fields:
    id         unique id (used by EDGES)
    kw         short keyword shown in the mobile schematic
@@ -80,7 +78,7 @@ const P=[
  {id:'nc23',kw:'p-type arrays',r:'B',material:'TE',j:'Nat. Commun. 2023',t:'p-type arrays with semimetal vdW electrodes',st:'pub',role:'Co-first author',
   full:'Fabrication of p-type 2D single-crystalline transistor arrays with Fermi-level-tuned van der Waals semimetal electrodes',cite:'Nat. Commun. 14, 4747 (2023)',url:'https://www.nature.com/articles/s41467-023-40448-x'},
  {id:'nano23',kw:'vdW/Ga₂O₃ diodes',r:'B',material:'TMD',j:'Nanoscale 2023',t:'Vertical vdW diodes of 2D semiconductors on β-Ga₂O₃',st:'pub',role:'Coauthor',
-  full:'Vertical van der Waals Heterojunction Diodes comprising 2D Semiconductors on 3D β-Ga₂O₃',cite:'Nanoscale 15, 9964–9972 (2023)',url:sch('Vertical van der Waals Heterojunction Diodes comprising 2D Semiconductors')},
+  full:'Vertical van der Waals Heterojunction Diodes comprising 2D Semiconductors on 3D β-Ga₂O₃',cite:'Nanoscale 15, 9964–9972 (2023)',url:'https://doi.org/10.1039/D3NR01987J'},
  {id:'ncrev',kw:'Optical contact probe',r:'B',material:'TMD',j:'Under review',t:'Ultrafast optical inspection of 2D contacts',st:'rev',role:'Co-corresponding',lab:1,
   full:'Noninvasive optical inspection of 2D contact interfaces using ultrafast transient reflection spectroscopy',cite:'Nat. Commun., in revision (submitted 2025)',note:'With Wonchan Lee and Yunjung Cho'},
  {id:'ceramist25',kw:'2D FET metrology',r:'B',material:'TE',j:'Ceramist 2025',t:'Electrical measurement & parameter analysis of 2D FETs',st:'pub',bd:'R',role:'Corresponding · student first author',lab:1,
@@ -112,19 +110,19 @@ const P=[
  {id:'nc25cnt',kw:'SWCNT FeFETs',r:'C',material:'FE',j:'Nat. Commun. 2025',t:'Reconfigurable SWCNT ferroelectric FETs',st:'pub',role:'Coauthor',
   full:'Reconfigurable single-walled carbon nanotube ferroelectric field-effect transistors',cite:'Nat. Commun. 16, 7655 (2025)',url:'https://www.nature.com/articles/s41467-025-60296-7'},
  {id:'device26',kw:'Low-voltage FeFETs',r:'C',material:'FE',j:'Device 2026',t:'Low-voltage FETs with ultrathin AlScN and 2D channels',st:'pub',role:'Coauthor',
-  full:'Low-voltage ferroelectric field-effect transistors with ultrathin AlScN and 2D channels',cite:'Device 4, 100989 (2026)',url:'https://www.cell.com/device/fulltext/S2666-9986(25)00302-3'},
+  full:'Low-voltage ferroelectric field-effect transistors with ultrathin AlScN and 2D channels',cite:'Device 4, 100989 (2026)',url:'https://doi.org/10.1016/j.device.2025.100989'},
  // Ferroelectric × optics (overlap)
  {id:'resrev',kw:'ReS₂ optical switching',r:'CD',material:'TMD',materialTo:'FE',j:'Under review',t:'Non-volatile optical anisotropy in ReS₂ via ferroelectric gating',st:'rev',role:'Co-first & corresponding',
   full:'Reconfigurable, non-volatile control of optical anisotropy in ReS₂ via ferroelectric gating',cite:'Nat. Photon., under review · arXiv:2509.11897',url:'https://arxiv.org/abs/2509.11897',note:'With Wonchan Lee'},
  // Quantum light & excitons
  {id:'npj23',kw:'Gap-plasmon excitons',r:'D',material:'TMD',j:'npj 2D Mater. 2023',t:'Exciton dynamics in the gap-plasmon regime',st:'pub',role:'Coauthor',
-  full:'Tailoring Exciton Dynamics in TMDC Heterobilayers in the Ultranarrow Gap-Plasmon Regime',cite:'npj 2D Mater. Appl. 7, 66 (2023)',url:sch('Tailoring Exciton Dynamics in TMDC Heterobilayers')},
+  full:'Tailoring Exciton Dynamics in TMDC Heterobilayers in the Ultranarrow Gap-Plasmon Regime',cite:'npj 2D Mater. Appl. 7, 66 (2023)',url:'https://doi.org/10.1038/s41699-023-00428-7'},
  {id:'nc24',kw:'Confined excitons',r:'D',material:'TMD',sc:'A',j:'Nat. Commun. 2024',t:'Confined excited states in in-plane quantum heterostructures',st:'pub',role:'Coauthor',
   full:'Confinement of excited states in two-dimensional, in-plane, quantum heterostructures',cite:'Nat. Commun. 15, 6361 (2024)',url:'https://www.nature.com/articles/s41467-024-50768-5'},
  {id:'mrl23',kw:'Quantum heterostructures',r:'D',material:'TMD',sc:'A',j:'Mater. Res. Lett. 2023',t:'Spatially controlled 2D quantum heterostructures',st:'pub',bd:'R',role:'Co-first author',
   full:'Spatially controlled two-dimensional quantum heterostructures',cite:'Mater. Res. Lett. 11, 327–346 (2023)',url:'https://doi.org/10.1080/21663831.2022.2151852'},
  {id:'acsn24ct',kw:'Charge-transfer excitons',r:'D',material:'TMD',j:'ACS Nano 2024',t:'Localized charge-transfer excitons in 0D/2D structures',st:'pub',role:'Coauthor',
-  full:'Tunable Localized Charge Transfer Excitons in a Mixed-Dimensional van der Waals Heterostructure',cite:'ACS Nano 18, 15185 (2024)',url:sch('Tunable Localized Charge Transfer Excitons in a Mixed Dimensional')},
+  full:'Tunable Localized Charge Transfer Excitons in a Mixed-Dimensional van der Waals Heterostructure',cite:'ACS Nano 18, 15185 (2024)',url:'https://doi.org/10.1021/acsnano.4c03260'},
  {id:'g3',kw:'Mn:WS₂ emitters',r:'D',material:'TMD',j:'Active project',t:'Mn-doped WS₂ site-defined quantum emitters',st:'plan',role:'Lab project',lab:1,
   full:'Site-defined single-photon emitters in Mn-doped WS₂ with local magnetic moments',cite:'Ongoing work',note:'Led by Yunjung Cho'},
  {id:'g4',kw:'In–Ga–Se photons',r:'D',material:'IIIVI',j:'International project',t:'In–Ga–Se ferroelectric semiconductors for single-photon emission',st:'plan',role:'Principal investigator',lab:1,
@@ -146,16 +144,16 @@ const P=[
  {id:'ext26',kw:'Extreme environments',r:'E',material:'FE',materialTo:'HBN',j:'Submitted 2026',t:'Electronics for extreme environments',st:'rev',bd:'R',role:'Co-corresponding',lab:1,
   full:'Electronics for Extreme Environments: Materials, Devices, and System Integration',cite:'Submitted (2026)',note:'Co-first author Kyungwu Kwon, with Yerin So'},
  {id:'roadmap26',kw:'Electronic-grade 2D',r:'E',material:'TMD',materialTo:'FE',j:'2D Mater. 2026',t:'Advancing electronic-grade 2D materials',st:'acc',bd:'RM',role:'Section corresponding',
-  full:'Advancing Electronic-Grade 2D Materials: Challenges, Opportunities, and Vision ("Toward Advanced Electronics" section)',cite:'2D Materials, Roadmap · in press (2026)',url:sch('Advancing Electronic-Grade 2D Materials')},
+  full:'Advancing Electronic-Grade 2D Materials: Challenges, Opportunities, and Vision ("Toward Advanced Electronics" section)',cite:'2D Materials, Roadmap · in press (2026)'},
  // Energy and functional materials panel
  {id:'ami19',kw:'Graphene electrodes',r:'F',j:'ACS AMI 2019',t:'Graphene-intercalated transparent electrodes',st:'pub',role:'Coauthor',
-  full:'Ultrathin Graphene Intercalation in PEDOT:PSS/Colorless Polyimide-Based Transparent Electrodes',cite:'ACS Appl. Mater. Interfaces 11, 21069 (2019)',url:sch('Ultrathin Graphene Intercalation in PEDOT')},
+  full:'Ultrathin Graphene Intercalation in PEDOT:PSS/Colorless Polyimide-Based Transparent Electrodes',cite:'ACS Appl. Mater. Interfaces 11, 21069 (2019)',url:'https://doi.org/10.1021/acsami.9b04118'},
  {id:'na21',kw:'MXene inks',r:'F',j:'Nanoscale Adv. 2021',t:'High-purity MXene flake inks',st:'pub',role:'Coauthor',
-  full:'Synthesis of high-quality 2D carbide MXene flakes using a highly purified MAX precursor for ink applications',cite:'Nanoscale Adv. 3, 517–527 (2021)',url:sch('Synthesis of high-quality 2D carbide MXene flakes')},
+  full:'Synthesis of high-quality 2D carbide MXene flakes using a highly purified MAX precursor for ink applications',cite:'Nanoscale Adv. 3, 517–527 (2021)',url:'https://doi.org/10.1039/d0na00398k'},
  {id:'afm21',kw:'2D catalysts',r:'F',j:'Adv. Funct. Mater. 2021',t:'2D catalysts via heteroepitaxial conversion',st:'pub',role:'Coauthor',
   full:'Design of two-dimensional layered catalyst by coherent heteroepitaxial conversion for robust hydrogen generation',cite:'Adv. Funct. Mater. 31, 2005449 (2021)',url:'https://doi.org/10.1002/adfm.202005449'},
  {id:'kjmr25',kw:'Slag glass',r:'F',j:'KJMR 2025',t:'Slag-based glass marbles with E-glass powder',st:'pub',role:'Coauthor',
-  full:'Effect of E-Glass Powder Addition on Characteristics of Blast Furnace Slag-Based Glass Marbles',cite:'Korean J. Mater. Res. 35, 505–510 (2025)',url:sch('Effect of E-Glass Powder Addition on Characteristics of Blast Furnace Slag')},
+  full:'Effect of E-Glass Powder Addition on Characteristics of Blast Furnace Slag-Based Glass Marbles',cite:'Korean J. Mater. Res. 35, 505–510 (2025)',url:'https://doi.org/10.3740/mrsk.2025.35.10.505'},
  {id:'jmca26',kw:'CoFe-LDH',r:'F',j:'J. Mater. Chem. A 2026',t:'CoFe-LDH for AEM water electrolyzers',st:'pub',role:'Coauthor',
   full:'Highly dispersible Fe-rich CoFe-LDH for anion exchange membrane water electrolyzer stacks',cite:'J. Mater. Chem. A (2026)',url:'https://doi.org/10.1039/D6TA03330J'},
  {id:'pero26',kw:'Sb:SnO₂ contacts',r:'F',j:'Submitted 2026',t:'Sb-doped SnO₂ contacts for perovskite solar cells',st:'rev',role:'Coauthor',
