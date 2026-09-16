@@ -1,6 +1,6 @@
 {
   "_comment": "Auto area (I3). Source of truth for People member cards (grids: ra/grad/intern/postdoc/alumni). Edited by qs-kb Slack /home-member (PI publishes; students submit for PI approval) and the in-page admin publish. Rendered by js/auto-sections.js. I4: only PI-approved member info is published.",
-  "updated": "2026-09-16T15:16:15.544626+00:00",
+  "updated": "2026-09-16T15:16:19.298298+00:00",
   "members": [
     {
       "category": "ra",
@@ -256,6 +256,13 @@
       "role": "URP (Fall 2026)",
       "desc": "Chemical Engineering undergraduate, joined the URP program in Fall 2026. Research: predicting material properties and optimal CVD synthesis conditions using machine learning to derive the best synthesis processes with a minimum number of experiments by analyzing thin-film data.",
       "image": "assets/people/jung-changseop.webp"
+    },
+    {
+      "category": "intern",
+      "name": "Jongmin Lee",
+      "role": "URP (Fall 2026)",
+      "desc": "Undergraduate, joined the URP program in Fall 2026. Research: high-throughput computational prediction and machine learning modeling of ternary material properties, focusing on thermodynamic stability, bandgaps, and ferroelectricity for next-generation 2D materials.",
+      "image": "assets/people/jongmin-lee.webp"
     }
   ]
 }
