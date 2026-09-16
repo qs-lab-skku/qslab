@@ -1,6 +1,6 @@
 {
   "_comment": "Auto area (I3). Source of truth for People member cards (grids: ra/grad/intern/postdoc/alumni). Edited by qs-kb Slack /home-member (PI publishes; students submit for PI approval) and the in-page admin publish. Rendered by js/auto-sections.js. I4: only PI-approved member info is published.",
-  "updated": "2026-09-16T15:15:58.621884+00:00",
+  "updated": "2026-09-16T15:16:04.946590+00:00",
   "members": [
     {
       "category": "ra",
@@ -228,6 +228,13 @@
       "role": "URP (Fall 2026)",
       "desc": "Chemical Engineering undergraduate, joined the URP program in Fall 2026. Research: machine learning-assisted prediction of optimal synthesis conditions for WS₂ by analyzing SEM.",
       "image": "assets/people/yerin-lee.webp"
+    },
+    {
+      "category": "intern",
+      "name": "Hyeryeon Chung",
+      "role": "URP (Fall 2026)",
+      "desc": "Chemical Engineering undergraduate, joined the URP program in Fall 2026. Research: exploring 2D chalcogenide synthesis conditions via Bayesian optimization and developing explainable models to quantify WS₂ optical metrology data (SEM, AFM, PL) for robust process optimization.",
+      "image": "assets/people/hyeryeon-chung.webp"
     }
   ]
 }
