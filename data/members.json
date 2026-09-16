@@ -1,6 +1,6 @@
 {
   "_comment": "Auto area (I3). Source of truth for People member cards (grids: ra/grad/intern/postdoc/alumni). Edited by qs-kb Slack /home-member (PI publishes; students submit for PI approval) and the in-page admin publish. Rendered by js/auto-sections.js. I4: only PI-approved member info is published.",
-  "updated": "2026-09-16T15:16:04.946590+00:00",
+  "updated": "2026-09-16T15:16:08.305837+00:00",
   "members": [
     {
       "category": "ra",
@@ -235,6 +235,13 @@
       "role": "URP (Fall 2026)",
       "desc": "Chemical Engineering undergraduate, joined the URP program in Fall 2026. Research: exploring 2D chalcogenide synthesis conditions via Bayesian optimization and developing explainable models to quantify WS₂ optical metrology data (SEM, AFM, PL) for robust process optimization.",
       "image": "assets/people/hyeryeon-chung.webp"
+    },
+    {
+      "category": "intern",
+      "name": "Junseo Park",
+      "role": "URP (Fall 2026)",
+      "desc": "Chemical Engineering undergraduate, joined the URP program in Fall 2026. Research: CVD-based synthesis and characterization of 2D WS₂ layered materials, focusing on SEM/AFM/PL data analysis and quantitative tool development for optimal process conditions.",
+      "image": "assets/people/junseo-park.webp"
     }
   ]
 }
