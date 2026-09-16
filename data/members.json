@@ -1,6 +1,6 @@
 {
   "_comment": "Auto area (I3). Source of truth for People member cards (grids: ra/grad/intern/postdoc/alumni). Edited by qs-kb Slack /home-member (PI publishes; students submit for PI approval) and the in-page admin publish. Rendered by js/auto-sections.js. I4: only PI-approved member info is published.",
-  "updated": "2026-09-16T15:16:26.769649+00:00",
+  "updated": "2026-09-16T15:16:30.388690+00:00",
   "members": [
     {
       "category": "ra",
@@ -277,6 +277,13 @@
       "role": "URP (Fall 2026)",
       "desc": "Bio-Mechatronics Engineering undergraduate, double-majoring in Electrical and Electronic Engineering, joined the URP program in Fall 2026. Research: semiconductor process engineering, particularly device fabrication and process integration using 2D materials for next-generation electronics.",
       "image": "assets/people/gyuri-kim.webp"
+    },
+    {
+      "category": "intern",
+      "name": "HeeJae Ryu",
+      "role": "Undergrad Intern (Fall 2026)",
+      "desc": "Undergraduate intern since September 2026. Research: growth and characterization of 2D layered materials and van der Waals heterostructures for energy and electronic applications.",
+      "image": "assets/people/heejae-ryu.webp"
     }
   ]
 }
