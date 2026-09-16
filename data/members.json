@@ -1,6 +1,6 @@
 {
-  "_comment": "Auto area (I3). Shared by Slack /home-member (PI only) and in-page admin publish. Rendered by js/auto-sections.js. I4: only PI-approved member info.",
-  "updated": "2026-08-31T10:52:20.934Z",
+  "_comment": "Auto area (I3). Source of truth for People member cards (grids: ra/grad/intern/postdoc/alumni). Edited by qs-kb Slack /home-member (PI publishes; students submit for PI approval) and the in-page admin publish. Rendered by js/auto-sections.js. I4: only PI-approved member info is published.",
+  "updated": "2026-09-16T15:15:58.621884+00:00",
   "members": [
     {
       "category": "ra",
@@ -221,6 +221,13 @@
       "name": "Sungwoo Yoon",
       "role": "Alumni (ex-Intern)",
       "image": "assets/people/sungwoo-yoon.jpg"
+    },
+    {
+      "category": "intern",
+      "name": "Yerin Lee",
+      "role": "URP (Fall 2026)",
+      "desc": "Chemical Engineering undergraduate, joined the URP program in Fall 2026. Research: machine learning-assisted prediction of optimal synthesis conditions for WS₂ by analyzing SEM.",
+      "image": "assets/people/yerin-lee.webp"
     }
   ]
 }
