@@ -2,7 +2,7 @@
    To add or edit entries, see LANDSCAPE-README.md.
    No coordinates needed: placement is computed automatically by research-landscape.html. */
 
-const UPDATED='Updated Aug 2026';
+const UPDATED='Updated Sep 2026';
 
 /* Material columns, ordered from metallic to insulating.
    'key' is the value used in each entry's material / materialTo field. */
@@ -79,15 +79,15 @@ const P=[
   full:'Fabrication of p-type 2D single-crystalline transistor arrays with Fermi-level-tuned van der Waals semimetal electrodes',cite:'Nat. Commun. 14, 4747 (2023)',url:'https://www.nature.com/articles/s41467-023-40448-x'},
  {id:'nano23',kw:'vdW/Ga₂O₃ diodes',r:'B',material:'TMD',j:'Nanoscale 2023',t:'Vertical vdW diodes of 2D semiconductors on β-Ga₂O₃',st:'pub',role:'Coauthor',
   full:'Vertical van der Waals Heterojunction Diodes comprising 2D Semiconductors on 3D β-Ga₂O₃',cite:'Nanoscale 15, 9964–9972 (2023)',url:'https://doi.org/10.1039/D3NR01987J'},
- {id:'ncrev',kw:'Optical contact probe',r:'B',material:'TMD',j:'Under review',t:'Ultrafast optical inspection of 2D contacts',st:'rev',role:'Co-corresponding',lab:1,
-  full:'Noninvasive optical inspection of 2D contact interfaces using ultrafast transient reflection spectroscopy',cite:'Nat. Commun., in revision (submitted 2025)',note:'With Wonchan Lee and Yunjung Cho'},
+ {id:'ncrev',kw:'Optical contact probe',r:'B',material:'TMD',j:'Submitted 2026',t:'Optical fingerprinting of buried metal–MoS₂ contacts',st:'rev',role:'Co-corresponding',lab:1,
+  full:'Optical Fingerprinting of Thermally Driven Interface State Evolution at Buried Metal–MoS₂ Contacts',cite:'Adv. Funct. Mater., submitted (Aug 2026)',note:'With Wonchan Lee and Yunjung Cho'},
  {id:'ceramist25',kw:'2D FET metrology',r:'B',material:'TE',j:'Ceramist 2025',t:'Electrical measurement & parameter analysis of 2D FETs',st:'pub',bd:'R',role:'Corresponding · student first author',lab:1,
   full:'Methodologies for Electrical Measurement and Parameter Analysis of 2D Semiconductor Transistors',cite:'Ceramist 28, 334–355 (2025) · invited review',url:'https://doi.org/10.31613/ceramist.2025.00101',note:'First author Kyungwu Kwon'},
  {id:'nanolett26',kw:'NbSe₂ contacts',r:'B',material:'TMD',j:'Nano Lett. 2026',t:'Near-ideal NbSe₂ contacts for WSe₂ CMOS',st:'pub',role:'Coauthor',
   full:'Near-Ideal van der Waals NbSe₂ Contacts for WSe₂ CMOS Electronics',cite:'Nano Lett. 26, 5307–5313 (2026)',url:'https://doi.org/10.1021/acs.nanolett.6c00871'},
  // Contact engineering × ferroelectrics (overlap)
  {id:'nfl26',kw:'Non-Fermi liquid',r:'BC',material:'TMD',pc:'B',j:'ACS Nano 2026',t:'Non-Fermi liquid & quantum criticality in TMDs',st:'pub',role:'Co-corresponding',lab:1,
-  full:'Emergence of non-Fermi-liquid behaviors and quantum criticality in transition metal dichalcogenides',cite:'ACS Nano, ASAP (2026)',url:'https://doi.org/10.1021/acsnano.6c08440',note:'Led by Dr. Nasir Ali (QS Lab), with Wonchan Lee, Yunjung Cho and Kangpyo Cho'},
+  full:'Emergence of non-Fermi-liquid behaviors and quantum criticality in transition metal dichalcogenides',cite:'ACS Nano 20, 22126–22137 (2026)',url:'https://doi.org/10.1021/acsnano.6c08440',note:'Led by Dr. Nasir Ali (QS Lab), with Wonchan Lee, Yunjung Cho and Kangpyo Cho'},
  {id:'acsn24p',kw:'FeFET polarity',r:'BC',material:'FE',j:'ACS Nano 2024',t:'Polarity tuning in WSe₂/AlScN FeFETs via contacts',st:'pub',role:'Co-first author',
   full:'Tuning Polarity in WSe₂/AlScN FeFETs via Contact Engineering',cite:'ACS Nano 18, 4180–4188 (2024)',url:'https://pubs.acs.org/doi/full/10.1021/acsnano.3c09279'},
  {id:'acsn25',kw:'High-current FeFETs',r:'BC',material:'FE',j:'ACS Nano 2025',t:'High-current MoS₂/AlScN FeFETs with ohmic contacts',st:'pub',role:'Co-first author',
@@ -113,7 +113,7 @@ const P=[
   full:'Low-voltage ferroelectric field-effect transistors with ultrathin AlScN and 2D channels',cite:'Device 4, 100989 (2026)',url:'https://doi.org/10.1016/j.device.2025.100989'},
  // Ferroelectric × optics (overlap)
  {id:'resrev',kw:'ReS₂ optical switching',r:'CD',material:'TMD',materialTo:'FE',j:'Under review',t:'Non-volatile optical anisotropy in ReS₂ via ferroelectric gating',st:'rev',role:'Co-first & corresponding',
-  full:'Reconfigurable, non-volatile control of optical anisotropy in ReS₂ via ferroelectric gating',cite:'Nat. Photon., under review · arXiv:2509.11897',url:'https://arxiv.org/abs/2509.11897',note:'With Wonchan Lee'},
+  full:'Reconfigurable, non-volatile control of optical anisotropy in ReS₂ via ferroelectric gating',cite:'Matter, under review · arXiv:2509.11897',url:'https://arxiv.org/abs/2509.11897',note:'With Wonchan Lee'},
  // Quantum light & excitons
  {id:'npj23',kw:'Gap-plasmon excitons',r:'D',material:'TMD',j:'npj 2D Mater. 2023',t:'Exciton dynamics in the gap-plasmon regime',st:'pub',role:'Coauthor',
   full:'Tailoring Exciton Dynamics in TMDC Heterobilayers in the Ultranarrow Gap-Plasmon Regime',cite:'npj 2D Mater. Appl. 7, 66 (2023)',url:'https://doi.org/10.1038/s41699-023-00428-7'},
@@ -141,8 +141,8 @@ const P=[
  // Outlooks
  {id:'gc24',kw:'2D beyond silicon',r:'E',material:'TE',materialTo:'IIIVI',j:'ACS Nano 2024',t:'Can 2D semiconductors be game-changers?',st:'pub',bd:'R',role:'Co-first author',
   full:'Can 2D Semiconductors Be Game-Changers for Nanoelectronics and Photonics?',cite:'ACS Nano 18, 10955–10978 (2024)',url:'https://pubs.acs.org/doi/10.1021/acsnano.3c12938'},
- {id:'ext26',kw:'Extreme environments',r:'E',material:'FE',materialTo:'HBN',j:'Submitted 2026',t:'Electronics for extreme environments',st:'rev',bd:'R',role:'Co-corresponding',lab:1,
-  full:'Electronics for Extreme Environments: Materials, Devices, and System Integration',cite:'Submitted (2026)',note:'Co-first author Kyungwu Kwon, with Yerin So'},
+ {id:'ext26',kw:'Extreme environments',r:'E',material:'FE',materialTo:'HBN',j:'In revision',t:'Electronics for extreme environments',st:'rev',bd:'R',role:'Co-corresponding',lab:1,
+  full:'Electronics for Extreme Environments: Materials, Devices, and System Integration',cite:'Nat. Rev. Electr. Eng., in revision (Sept 2026)',note:'Co-first author Kyungwu Kwon, with Yerin So'},
  {id:'roadmap26',kw:'Electronic-grade 2D',r:'E',material:'TMD',materialTo:'FE',j:'2D Mater. 2026',t:'Advancing electronic-grade 2D materials',st:'acc',bd:'RM',role:'Section corresponding',
   full:'Advancing Electronic-Grade 2D Materials: Challenges, Opportunities, and Vision ("Toward Advanced Electronics" section)',cite:'2D Materials, Roadmap · in press (2026)'},
  // Energy and functional materials panel
