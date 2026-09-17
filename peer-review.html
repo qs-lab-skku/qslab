@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#0a3a7a">
+<title>Peer review | ESC5187 presentations</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600&family=Newsreader:opsz,wght@6..72,500;6..72,600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper: #f3f6fa;
+    --card: #ffffff;
+    --ink: #0f1f3d;
+    --muted: #586780;
+    --line: #d3dbe7;
+    --navy: #0a3a7a;
+    --navy-soft: #e6edf7;
+    --green: #5f9a16;
+    --green-soft: #eef6e0;
+    --green-ink: #3a6408;
+    --warn: #a63a17;
+    --warn-soft: #fcefe9;
+    --ui: "Instrument Sans", "Pretendard", "Apple SD Gothic Neo", "Malgun Gothic", system-ui, sans-serif;
+    --display: "Newsreader", "Noto Serif KR", "Apple SD Gothic Neo", Georgia, serif;
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body { margin: 0; background: var(--paper); color: var(--ink); font-family: var(--ui); font-size: 16px; line-height: 1.5; }
+  [hidden] { display: none !important; }
+  .wrap { max-width: 640px; margin: 0 auto; padding: 0 18px 72px; }
+
+  .bar { position: sticky; top: 0; z-index: 5; background: var(--navy); color: #fff; }
+  .bar-in { max-width: 640px; margin: 0 auto; padding: 10px 18px; display: flex; justify-content: space-between; align-items: center; gap: 12px; font-size: 14px; }
+  .bar-in strong { font-weight: 600; }
+  .bar-progress { white-space: nowrap; opacity: .92; }
+  .demo { background: #fff4cf; color: #5b4500; font-size: 13px; text-align: center; padding: 6px 12px; }
+
+  h1 { font-family: var(--display); font-weight: 600; font-size: 34px; line-height: 1.12; letter-spacing: -0.01em; margin: 36px 0 10px; }
+  .lede { color: var(--muted); margin: 0 0 28px; max-width: 34em; }
+
+  .panel { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 22px 20px; }
+  label.field { display: block; font-weight: 600; font-size: 15px; margin: 0 0 6px; }
+  .hint { color: var(--muted); font-size: 14px; margin: 6px 0 0; }
+  input[type=text], input[type=password], select, textarea {
+    width: 100%; font: inherit; color: var(--ink); background: #fff; border: 1.5px solid var(--line); border-radius: 10px; padding: 12px 14px;
+  }
+  input.code { font-size: 24px; letter-spacing: .22em; text-transform: uppercase; text-align: center; font-weight: 600; }
+  textarea { min-height: 120px; resize: vertical; line-height: 1.45; }
+  input:focus-visible, select:focus-visible, textarea:focus-visible, button:focus-visible, summary:focus-visible { outline: 3px solid #7aa7e6; outline-offset: 2px; }
+  .stack > * + * { margin-top: 18px; }
+
+  .btn { appearance: none; border: 0; border-radius: 10px; font: inherit; font-weight: 600; padding: 14px 18px; width: 100%; cursor: pointer; background: var(--navy); color: #fff; }
+  .btn[disabled] { background: #9fb0c8; cursor: not-allowed; }
+  .btn.quiet { background: transparent; color: var(--navy); width: auto; padding: 8px 0; text-decoration: underline; text-underline-offset: 3px; font-weight: 500; }
+
+  .msg { border-radius: 10px; padding: 12px 14px; font-size: 15px; margin-top: 14px; }
+  .msg.err { background: var(--warn-soft); color: var(--warn); }
+  .msg.ok { background: var(--green-soft); color: var(--green-ink); }
+
+  .who { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; margin: 26px 0 14px; font-size: 15px; color: var(--muted); }
+
+  /* presenter sheet */
+  details.sheet { scroll-margin-top: 60px; background: var(--card); border: 1px solid var(--line); border-radius: 14px; margin-bottom: 16px; overflow: hidden; }
+  details.sheet.sent { border-color: #bcd795; }
+  details.sheet > summary { list-style: none; cursor: pointer; padding: 18px 20px; display: grid; grid-template-columns: 1fr auto; gap: 4px 14px; align-items: start; }
+  details.sheet > summary::-webkit-details-marker { display: none; }
+  .topic { font-size: 14px; color: var(--muted); grid-column: 1; }
+  .pname { font-family: var(--display); font-size: 24px; font-weight: 600; line-height: 1.2; grid-column: 1; }
+  .ptitle { font-size: 15px; color: var(--muted); grid-column: 1 / -1; margin-top: 2px; }
+  .chip { grid-column: 2; grid-row: 1 / span 2; align-self: center; font-size: 13px; font-weight: 600; border-radius: 999px; padding: 5px 11px; background: var(--navy-soft); color: var(--navy); white-space: nowrap; }
+  .sent .chip { background: var(--green-soft); color: var(--green-ink); }
+  .body { padding: 4px 20px 22px; border-top: 1px solid var(--line); }
+
+  /* the scale: the one loud element on the page */
+  fieldset.crit { border: 0; padding: 0; margin: 22px 0 0; min-width: 0; }
+  fieldset.crit legend { padding: 0; font-weight: 600; font-size: 16px; margin-bottom: 10px; }
+  .scale { display: grid; grid-template-columns: repeat(5, 1fr); border: 1.5px solid var(--navy); border-radius: 12px; overflow: hidden; }
+  .scale label { position: relative; display: block; text-align: center; cursor: pointer; border-left: 1.5px solid var(--navy); }
+  .scale label:first-of-type { border-left: 0; }
+  .scale input { position: absolute; opacity: 0; inset: 0; width: 100%; height: 100%; margin: 0; cursor: pointer; }
+  .scale span { display: block; padding: 13px 0 11px; font-family: var(--display); font-size: 24px; font-weight: 600; color: var(--navy); line-height: 1; }
+  .scale span::after { content: ""; display: block; width: 1.5px; height: 7px; background: var(--navy); margin: 8px auto 0; opacity: .45; }
+  .scale input:checked + span { background: var(--navy); color: #fff; }
+  .scale input:checked + span::after { background: #fff; opacity: .8; }
+  .scale input:focus-visible + span { outline: 3px solid #7aa7e6; outline-offset: -3px; }
+  .anchors { margin: 9px 0 0; font-size: 13.5px; color: var(--muted); display: grid; grid-template-columns: auto 1fr; gap: 3px 8px; }
+  .anchors dt { font-weight: 600; color: var(--ink); }
+  .anchors dd { margin: 0; }
+
+  .comment { margin-top: 26px; }
+  .count { font-size: 13.5px; color: var(--muted); text-align: right; margin-top: 5px; }
+  .count.good { color: var(--green-ink); }
+
+  .foot { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-top: 20px; }
+  .total { font-family: var(--display); font-size: 30px; font-weight: 600; line-height: 1; white-space: nowrap; }
+  .total small { font-family: var(--ui); font-size: 14px; font-weight: 400; color: var(--muted); }
+  .foot .btn { width: auto; flex: 1; max-width: 260px; }
+
+  .done { text-align: center; padding: 26px 20px; background: var(--green-soft); color: var(--green-ink); border-radius: 14px; margin-top: 8px; }
+  .done b { font-family: var(--display); font-size: 22px; display: block; margin-bottom: 4px; }
+
+  .toast { position: fixed; left: 50%; bottom: 22px; transform: translateX(-50%); background: var(--ink); color: #fff; padding: 11px 18px; border-radius: 999px; font-size: 15px; z-index: 10; width: max-content; max-width: calc(100vw - 32px); text-align: center; }
+  @media (prefers-reduced-motion: no-preference) { .toast { animation: rise .18s ease-out; } }
+  @keyframes rise { from { opacity: 0; transform: translate(-50%, 8px); } to { opacity: 1; transform: translate(-50%, 0); } }
+  @media (max-width: 380px) { h1 { font-size: 29px; } .pname { font-size: 21px; } .scale span { font-size: 21px; } }
+</style>
+</head>
+<body>
+
+<div class="bar" id="bar" hidden><div class="bar-in"><span id="barSession"></span><span class="bar-progress" id="barProgress"></span></div></div>
+<div class="demo" id="demoBanner" hidden>Demo mode: the page is not connected yet, so nothing is saved. Code: DEMO, any 4 digits.</div>
+
+<main class="wrap">
+
+  <!-- 1. session code -->
+  <section id="stepCode" hidden>
+    <h1>Review today's presentations</h1>
+    <p class="lede">Advanced Low-Dimensional Heterostructures and Electrical Devices. Type the session code shown on the classroom screen.</p>
+    <div class="panel stack">
+      <div>
+        <label class="field" for="code">Session code</label>
+        <input class="code" id="code" type="text" inputmode="text" autocomplete="off" autocapitalize="characters" maxlength="8" spellcheck="false">
+      </div>
+      <button class="btn" id="codeBtn">Enter session</button>
+      <div class="msg err" id="codeErr" hidden></div>
+    </div>
+  </section>
+
+  <!-- 2. who are you -->
+  <section id="stepWho" hidden>
+    <h1>Who is reviewing?</h1>
+    <p class="lede">Prof. Song sees your name next to your scores. The presenters only see anonymous, shuffled comments.</p>
+    <div class="panel stack">
+      <div>
+        <label class="field" for="name">Your name</label>
+        <select id="name"></select>
+      </div>
+      <div>
+        <label class="field" for="pin" id="pinLabel">Last 4 digits of your student ID</label>
+        <input id="pin" type="password" inputmode="numeric" autocomplete="off" maxlength="12">
+        <p class="hint" id="pinHint">The digits you enter the first time are remembered and required in later sessions.</p>
+      </div>
+      <button class="btn" id="whoBtn">Start reviewing</button>
+      <div class="msg err" id="whoErr" hidden></div>
+      <button class="btn quiet" id="backToCode">Use a different session code</button>
+    </div>
+  </section>
+
+  <!-- 3. reviews -->
+  <section id="stepReview" hidden>
+    <div class="who"><span id="whoLine"></span><button class="btn quiet" id="signOut">Not you?</button></div>
+    <div class="msg err" id="closedMsg" hidden>This session is closed. You can read what you sent, but reviews can no longer be sent or changed.</div>
+    <div id="sheets"></div>
+    <div class="done" id="allDone" hidden><b>All reviews sent</b>You can still reopen a review and update it until the session closes.</div>
+    <div class="done" id="presenterNote" hidden><b>You are presenting today</b>No review is required from you in this session. Good luck with your talk.</div>
+  </section>
+
+</main>
+<div class="toast" id="toast" hidden role="status"></div>
+
+<script>
+/* ------------------------------------------------------------------ *
+ *  Paste the Apps Script web-app URL (ends with /exec) here.          *
+ * ------------------------------------------------------------------ */
+const API_URL = "https://script.google.com/macros/s/AKfycbyQ9P0ODd5YsZGUT2eAvXFn9xdVgLGdu12f8SqEbdXxH4kSxz-x1gZW-T0-6ceAHgE/exec";
+
+const INSTRUCTOR = "__instructor__";
+const RUBRIC = [
+  { name: "Scientific content",        hi: "Physics is correct and supported by quantitative values", lo: "Descriptive only, or physically incorrect" },
+  { name: "Connection to the lecture", hi: "Explicitly uses concepts from the online lecture",        lo: "Could be delivered without taking this course" },
+  { name: "Critical analysis",         hi: "Compares two or more papers quantitatively",              lo: "Summarizes a single paper without judgement" },
+  { name: "Slides and delivery",       hi: "Clear figures, readable text, 20 to 25 min kept",         lo: "Overloaded slides, reading from a script, time overrun" },
+  { name: "Question and discussion",   hi: "Answers precisely; states honestly what is not known",    lo: "Unable to answer basic questions on the presented slides" }
+];
+
+const DEMO = !/^https:\/\/script\.google\.com\//.test(API_URL);
+const $ = (id) => document.getElementById(id);
+const S = { code: "", info: null, me: null, reviews: {} };
+
+/* ---------- storage (per browser; failures are harmless) ---------- */
+const store = {
+  get(k) { try { return JSON.parse(localStorage.getItem(k)); } catch (e) { return null; } },
+  set(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} },
+  del(k) { try { localStorage.removeItem(k); } catch (e) {} }
+};
+const draftKey = (topic) => `pbl.draft.${S.info.session.id}.${S.me.name}.${topic}`;
+
+/* ---------- API ---------- */
+async function api(payload) {
+  if (DEMO) return demoApi(payload);
+  try {
+    const res = await fetch(API_URL, {
+      method: "POST",
+      headers: { "Content-Type": "text/plain;charset=utf-8" }, // avoids a CORS preflight with Apps Script
+      body: JSON.stringify(payload),
+      redirect: "follow"
+    });
+    return await res.json();
+  } catch (e) {
+    return { ok: false, error: "NETWORK", message: "Could not reach the server. Check your connection and try again. Your draft is kept on this phone." };
+  }
+}
+
+/* ---------- step 1: code ---------- */
+async function enterCode(code, silent) {
+  code = (code || "").trim().toUpperCase();
+  if (!code) { showErr("codeErr", "Type the session code shown on the screen."); return false; }
+  busy("codeBtn", true, "Checking code");
+  const r = await api({ action: "session", code });
+  busy("codeBtn", false, "Enter session");
+  if (!r.ok) { if (!silent) showErr("codeErr", r.message); return false; }
+  S.code = code; S.info = r;
+  $("codeErr").hidden = true;
+  const sel = $("name");
+  sel.innerHTML = '<option value="">Select your name</option>' +
+    r.names.map((n) => `<option>${esc(n)}</option>`).join("") +
+    `<option value="${INSTRUCTOR}">Instructor (Prof. Song)</option>`;
+  $("barSession").innerHTML = `<strong>${esc(r.session.id)}</strong> ${esc(r.session.date)} ${esc(r.session.title)}`;
+  $("bar").hidden = false;
+  return true;
+}
+
+/* ---------- step 2: identity ---------- */
+async function signIn(name, pin, silent) {
+  if (!name) { showErr("whoErr", "Select your name."); return false; }
+  if (name !== INSTRUCTOR && !/^\d{4}$/.test(pin)) { showErr("whoErr", "Enter exactly 4 digits."); return false; }
+  busy("whoBtn", true, "Signing in");
+  const r = await api({ action: "login", code: S.code, name, pin });
+  busy("whoBtn", false, "Start reviewing");
+  if (!r.ok) {
+    if (r.error === "BAD_CODE") { store.del("pbl.auth"); show("stepCode"); showErr("codeErr", r.message); return false; }
+    if (!silent) showErr("whoErr", r.message);
+    return false;
+  }
+  S.me = { name, pin, role: r.role, display: r.name, isPresenter: r.isPresenter, canReview: r.canReview };
+  S.reviews = r.reviews || {};
+  store.set("pbl.auth", { code: S.code, name, pin });
+  renderReview();
+  show("stepReview");
+  return true;
+}
+
+/* ---------- step 3: review sheets ---------- */
+function renderReview() {
+  const closed = S.info.session.status !== "OPEN" && S.me.role !== "instructor";
+  $("whoLine").textContent = "Reviewing as " + S.me.display;
+  $("closedMsg").hidden = !closed;
+  const box = $("sheets");
+  box.innerHTML = "";
+  $("presenterNote").hidden = S.me.canReview;
+  if (!S.me.canReview) { $("barProgress").textContent = ""; $("allDone").hidden = true; return; }
+
+  const targets = S.info.presenters.filter((p) => p.name !== S.me.display);
+  targets.forEach((p, idx) => box.appendChild(sheetFor(p, idx, closed)));
+  updateProgress();
+  const firstOpen = box.querySelector("details:not(.sent)");
+  if (firstOpen) firstOpen.open = true;
+}
+
+function sheetFor(p, idx, closed) {
+  const sent = S.reviews[p.topic];
+  const draft = store.get(draftKey(p.topic));
+  const start = draft || sent || { scores: [0, 0, 0, 0, 0], comment: "" };
+  const d = document.createElement("details");
+  d.className = "sheet" + (sent ? " sent" : "");
+  d.dataset.topic = p.topic;
+  const min = S.me.role === "instructor" ? 0 : S.info.minChars;
+
+  d.innerHTML = `
+    <summary>
+      <span class="topic">${esc(p.topic)}</span>
+      <span class="chip">${sent ? "Sent " + sent.total + "/100" : "Not sent"}</span>
+      <span class="pname">${esc(p.name)}</span>
+      <span class="ptitle">${esc(p.title)}</span>
+    </summary>
+    <div class="body">
+      ${RUBRIC.map((c, j) => `
+        <fieldset class="crit">
+          <legend>${esc(c.name)}</legend>
+          <div class="scale">
+            ${[1, 2, 3, 4, 5].map((v) => `<label><input type="radio" name="s${idx}_${j}" value="${v}" ${start.scores[j] === v ? "checked" : ""} ${closed ? "disabled" : ""}><span>${v}</span></label>`).join("")}
+          </div>
+          <dl class="anchors"><dt>5</dt><dd>${esc(c.hi)}</dd><dt>1</dt><dd>${esc(c.lo)}</dd></dl>
+        </fieldset>`).join("")}
+      <div class="comment">
+        <label class="field" for="cm${idx}">Comment for the presenter</label>
+        <textarea id="cm${idx}" maxlength="3000" ${closed ? "disabled" : ""} placeholder="One strength and one concrete suggestion. Point to a slide, a number or a claim.">${esc(start.comment || "")}</textarea>
+        <div class="count"></div>
+      </div>
+      <div class="foot">
+        <div class="total"><span class="tnum">0</span> <small>/ 100</small></div>
+        <button class="btn send" ${closed ? "hidden" : ""}>${sent ? "Update review" : "Send review"}</button>
+      </div>
+      <div class="msg err" hidden></div>
+    </div>`;
+
+  const ta = d.querySelector("textarea"), count = d.querySelector(".count"),
+        tnum = d.querySelector(".tnum"), btn = d.querySelector(".send"), err = d.querySelector(".msg.err");
+
+  const read = () => ({
+    scores: RUBRIC.map((_, j) => Number((d.querySelector(`input[name="s${idx}_${j}"]:checked`) || {}).value || 0)),
+    comment: ta.value
+  });
+  const refresh = () => {
+    const v = read(), len = v.comment.trim().length;
+    tnum.textContent = v.scores.reduce((a, b) => a + b, 0) * 4;
+    count.textContent = min ? (len >= min ? `${len} characters` : `${len} of at least ${min} characters`) : `${len} characters`;
+    count.classList.toggle("good", len >= min && len > 0);
+    btn.disabled = closed || v.scores.some((s) => !s) || len < min;
+  };
+  const onEdit = () => { store.set(draftKey(p.topic), read()); refresh(); };
+  d.addEventListener("input", onEdit);
+  d.addEventListener("change", onEdit);
+  refresh();
+
+  btn.addEventListener("click", async () => {
+    const v = read();
+    err.hidden = true;
+    const label = btn.textContent;
+    btn.disabled = true; btn.textContent = "Sending";
+    const r = await api({ action: "submit", code: S.code, name: S.me.name, pin: S.me.pin, topic: p.topic, scores: v.scores, comment: v.comment.trim() });
+    btn.textContent = label;
+    if (!r.ok) {
+      err.textContent = r.message; err.hidden = false; btn.disabled = false;
+      if (r.error === "CLOSED") { S.info.session.status = "CLOSED"; }
+      return;
+    }
+    S.reviews[p.topic] = { scores: v.scores, comment: v.comment.trim(), total: r.total, ts: r.ts };
+    store.del(draftKey(p.topic));
+    d.classList.add("sent");
+    d.querySelector(".chip").textContent = "Sent " + r.total + "/100";
+    btn.textContent = "Update review"; btn.disabled = false;
+    d.open = false;
+    toast("Review sent for " + p.name);
+    updateProgress();
+    const next = $("sheets").querySelector("details:not(.sent)");
+    if (next) { next.open = true; next.scrollIntoView({ behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth", block: "start" }); }
+  });
+  return d;
+}
+
+function updateProgress() {
+  const targets = S.info.presenters.filter((p) => p.name !== S.me.display);
+  const n = targets.filter((p) => S.reviews[p.topic]).length;
+  $("barProgress").textContent = `${n} of ${targets.length} sent`;
+  $("allDone").hidden = !(targets.length && n === targets.length);
+}
+
+/* ---------- small helpers ---------- */
+function show(id) { ["stepCode", "stepWho", "stepReview"].forEach((s) => $(s).hidden = s !== id); window.scrollTo(0, 0); }
+function showErr(id, text) { const el = $(id); el.textContent = text; el.hidden = false; }
+function busy(id, on, text) { const b = $(id); b.disabled = on; b.textContent = text; }
+function esc(s) { return String(s).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c])); }
+let toastTimer;
+function toast(text) { const t = $("toast"); t.textContent = text; t.hidden = false; clearTimeout(toastTimer); toastTimer = setTimeout(() => t.hidden = true, 2600); }
+
+/* ---------- wiring ---------- */
+$("codeBtn").addEventListener("click", async () => { if (await enterCode($("code").value)) show("stepWho"); });
+$("code").addEventListener("keydown", (e) => { if (e.key === "Enter") $("codeBtn").click(); });
+$("whoBtn").addEventListener("click", () => { $("whoErr").hidden = true; signIn($("name").value, $("pin").value.trim()); });
+$("pin").addEventListener("keydown", (e) => { if (e.key === "Enter") $("whoBtn").click(); });
+$("name").addEventListener("change", () => {
+  const inst = $("name").value === INSTRUCTOR;
+  $("pinLabel").textContent = inst ? "Instructor code" : "Last 4 digits of your student ID";
+  $("pinHint").hidden = inst;
+  $("pin").setAttribute("inputmode", inst ? "text" : "numeric");
+  $("pin").value = "";
+});
+$("backToCode").addEventListener("click", () => { store.del("pbl.auth"); $("bar").hidden = true; show("stepCode"); });
+$("signOut").addEventListener("click", () => { store.del("pbl.auth"); S.me = null; $("pin").value = ""; $("barProgress").textContent = ""; show("stepWho"); });
+
+(async function init() {
+  $("demoBanner").hidden = !DEMO;
+  const urlCode = new URLSearchParams(location.search).get("code");
+  const saved = store.get("pbl.auth");
+  if (saved && (!urlCode || urlCode.toUpperCase() === saved.code)) {
+    if (await enterCode(saved.code, true)) {
+      $("name").value = saved.name;
+      if (await signIn(saved.name, saved.pin, true)) return;
+      show("stepWho"); return;
+    }
+    store.del("pbl.auth");
+  }
+  if (urlCode) { $("code").value = urlCode.toUpperCase(); if (await enterCode(urlCode)) { show("stepWho"); return; } }
+  show("stepCode");
+})();
+
+/* ---------- demo backend (used only until API_URL is set) ---------- */
+const demoDb = {};
+async function demoApi(q) {
+  await new Promise((r) => setTimeout(r, 350));
+  if ((q.code || "").toUpperCase() !== "DEMO") return { ok: false, error: "BAD_CODE", message: "That session code is not valid. Check the code on the screen." };
+  const presenters = [
+    { topic: "T1", title: "Graphene and hBN: properties and synthesis", name: "Student A" },
+    { topic: "T2", title: "Monolayer TMDs: properties and synthesis", name: "Student B" },
+    { topic: "T3", title: "InSe and black phosphorus: properties and handling", name: "Student C" }
+  ];
+  if (q.action === "session") return { ok: true, session: { id: "P1", date: "9/17", title: "Low-dimensional materials", status: "OPEN" }, minChars: 50,
+    names: ["Student A", "Student B", "Student C", "Student D", "Student E"], presenters };
+  if (q.action === "login") {
+    const inst = q.name === INSTRUCTOR;
+    const isP = presenters.some((p) => p.name === q.name);
+    return { ok: true, role: inst ? "instructor" : "peer", name: inst ? "Instructor" : q.name, isPresenter: isP, canReview: inst || !isP, reviews: demoDb[q.name] || {} };
+  }
+  if (q.action === "submit") {
+    const total = q.scores.reduce((a, b) => a + b, 0) * 4;
+    (demoDb[q.name] = demoDb[q.name] || {})[q.topic] = { scores: q.scores, comment: q.comment, total };
+    return { ok: true, total, ts: new Date().toISOString() };
+  }
+  return { ok: false, message: "Unknown request." };
+}
+</script>
+</body>
+</html>
