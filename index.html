@@ -1475,6 +1475,12 @@ body.admin-on .news-edit-btns { display: flex; }
 .ct-apply a { color: var(--blue); font-weight: 600; }
 @media (max-width: 860px) { .ct-wrap { grid-template-columns: 1fr; } .ct-jobs { grid-template-columns: 1fr; } .ct-map { height: 300px; } }
 
+/* ---------- Footer: 성균관대 영문 시그니처 (흰색 반전, 모든 페이지 공통) ---------- */
+footer .ft-left { display: flex; flex-direction: column; }
+footer .ft-left::before { content: ''; display: block; width: 236px; height: 44px; margin-bottom: .9rem;
+  background: url(assets/brand/skku-line-white.png) left center / contain no-repeat; }
+@media (max-width: 640px) { footer .ft-left::before { margin: 0 auto .9rem; background-position: center; } }
+
 /* ================================================================
    Layout container (≥1280px) — 큰 모니터에서 내용 폭을 제한하고 중앙 정렬.
    배경(히어로 패턴, 뉴스 띠, 푸터 등)은 화면 끝까지 두고 내용물만 컨테이너 폭으로.
