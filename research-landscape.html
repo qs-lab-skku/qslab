@@ -10,7 +10,8 @@
 (function(){var h=document.documentElement;
   try{if(window.self!==window.top)h.classList.add('embedded');}catch(e){h.classList.add('embedded');}
   if(/[?&]embed=min\b/.test(location.search))h.classList.add('embedded','embed-min');
-  var v=(location.search.match(/[?&]v=(\d)/)||[])[1]||'0';h.classList.add('v'+v);window.RL_V=v;})();
+  var v=(location.search.match(/[?&]v=(\d)/)||[])[1]||'0';h.classList.add('v'+v);window.RL_V=v;
+  if(v==='4'){h.classList.add('v2','compact');}})();
 </script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -195,6 +196,22 @@
   html.v1 .bl .bs2,html.v2 .bl .bs2{font-size:11.5px}
   html.v1 .phys,html.v2 .phys{font-size:10px}
   html.v1 .fwrap .node,html.v2 .fwrap .node{width:186px}
+  /* ── v4: compact (keyword) cards, hover title, collapsible bands ── */
+  .node .k{display:none}
+  html.compact .node .k{display:block;margin-top:2px;font-size:13.5px;line-height:1.3;font-weight:600;color:var(--ink)}
+  html.compact .node .t,html.compact .node .stat{display:none}
+  html.compact .node{padding:7px 10px 8px;min-height:0}
+  html.compact .node .j{padding-right:30px;font-size:10.5px;line-height:1.3}
+  html.compact .node .qs{bottom:auto;top:8px;right:8px}
+  html.v4 .bl{cursor:pointer;padding-left:14px}
+  html.v4 .bl::before{content:'▾';position:absolute;left:0;top:0;font-size:11px;color:var(--meta);transition:transform .15s}
+  html.v4 .band.collapsed .bl::before,html.v4 .strip.collapsed .bl::before{transform:rotate(-90deg)}
+  html.v4 .band.collapsed,html.v4 .strip.collapsed{background:#fafbfc !important}
+  .bl .cnt{font-weight:400;font-size:11px;color:var(--meta);margin-left:6px}
+  #tip{display:none;position:absolute;z-index:50;max-width:340px;background:var(--ink);color:#fff;font-size:12.5px;line-height:1.45;padding:8px 11px;border-radius:5px;pointer-events:none;box-shadow:0 6px 18px rgba(0,0,0,.18)}
+  #tip .tj{font-size:10.5px;color:#c3c9d2;margin-bottom:2px}
+  #tip.show{display:block}
+  .viewset .fl{margin-left:0}
   /* ── v3: band-by-band card grid (material shown as a tag) ── */
   html.v3 .figure,html.v3 .zoomset,html.v3 .hintline{display:none}
   #gridview{display:none;position:relative;margin:12px 0 4px}
@@ -268,6 +285,7 @@
 <p class="figcap">Arrows run from a result to the work that followed from it; dashed arrows link
 areas further apart. Dotted entries are projects and targets rather than papers. Smaller exploratory
 projects are left out.</p>
+<div id="tip"><div class="tj"></div><div class="tt"></div></div>
 <div id="backdrop"></div>
 <div id="sheet" role="dialog" aria-modal="true">
   <button class="close" id="shx" aria-label="Close">✕</button>
@@ -280,10 +298,10 @@ projects are left out.</p>
 <script>
 // v0 (default): 6 columns × 2 card slots, 2180px canvas scaled to fit.
 // v1/v2: 6 columns × 1 slot, ~1216px canvas → 100% inside the site's 1280px container.
-const V=window.RL_V||'0', SLOTS=(V==='1'||V==='2')?1:2;
+const V=window.RL_V||'0', SLOTS=(V==='1'||V==='2'||V==='4')?1:2;
 const CARD=SLOTS===1?176:160, SGAP=10, CPAD=SLOTS===1?11:12, COLW=SLOTS===1?198:354, X0=SLOTS===1?14:36;
 const CW=SLOTS===1?X0*2+COLS.length*COLW:2180;
-const CARDH=V==='2'?94:(V==='1'?80:64), ROWH=CARDH+10;
+const CARDH=(V==='2'||V==='4')?94:(V==='1'?80:64), ROWH=CARDH+10;
 const colX=c=>X0+c*COLW, slotX=(c,s)=>colX(c)+CPAD+s*(CARD+SGAP);
 const slotCol=si=>Math.floor(si/SLOTS), slotIdx=si=>si%SLOTS;
 const CLR={A:'var(--A)',B:'var(--B)',C:'var(--C)',D:'var(--D)',E:'var(--E)',F:'var(--F)',Q:'var(--Q)'};
@@ -333,6 +351,7 @@ for(const o of ORDER){
 const FP={y:yCur+6,h:146};
 let CH=FP.y+FP.h+24;
 const bandEl={}, collines=[];
+var curScale=1;
 // band colour is the default; p.pc overrides it for the few exceptions
 const pcOf=p=>p.pc||(p.r==='F'?'F':(R[p.r].c||R[p.r].strip[0]));
 const cv=document.getElementById('canvas'), svg=document.getElementById('wires'), zw=document.getElementById('zw');
@@ -360,7 +379,11 @@ for(const b of ORDER){
       border:1px solid var(--hair);border-top:2px solid ${CLR[b.c]}`;
     d.innerHTML=`<span class="bl" style="color:${CLR[b.c]}">${b.name}${b.sub?`<span class="bs2"> (${b.sub})</span>`:''}</span><span class="phys">${b.phys}</span>`;
   }
-  cv.appendChild(d);bandEl[b.k]=d;}
+  cv.appendChild(d);bandEl[b.k]=d;
+  if(V==='4'){const lbl=d.querySelector('.bl');
+    const n=P.filter(q=>q.r===b.k).length; lbl.insertAdjacentHTML('beforeend',`<span class="cnt">${n}</span>`);
+    lbl.title='Click to collapse / expand';
+    lbl.onclick=()=>{b.collapsed=!b.collapsed;d.classList.toggle('collapsed',!!b.collapsed);relayoutRows();drawWires();postH();};}}
 const fp=document.createElement('div');fp.className='fpanel';
 fp.style.cssText=`top:${FP.y}px;height:${FP.h}px`;
 fp.innerHTML=`<span class="bl" style="color:var(--F)">Energy and functional materials<span class="bs2"> (catalysis, electrolysers, electrodes and photovoltaics)</span></span>`;
@@ -389,7 +412,7 @@ function cardHTML(p,mobile){
     const t1=COLS[slotCol(p._si)].tag, t2=p.materialTo?COLS[slotCol(p._se)].tag:null;
     tag=`<span class="mtag">${t2&&t2!==t1?t1+' – '+t2:t1}</span>`;
   }
-  return `<div class="j">${lead}${p.j}${suffix}</div><div class="t">${p.t}</div>`+tag+
+  return `<div class="j">${lead}${p.j}${suffix}</div><div class="t">${p.t}</div><div class="k">${p.kw||p.t}</div>`+tag+
     `<span class="stat" style="color:${stCol}">${stTxt}</span>`+
     (p.lab?`<span class="qs">QS</span>`:'');
 }
@@ -425,7 +448,9 @@ function relayoutRows(){
   const cvNode=p=>(els[p.id]||[]).find(e=>e.parentNode===cv);
   for(const o of ORDER){
     const labelH=o.strip?28:36, pad=8, gapAfter=12;
-    const rowH=new Array(o.rows).fill(CARDH);
+    for(const p of P){ if(p.r!==o.k) continue; const n=cvNode(p); if(n) n.style.display=o.collapsed?'none':''; }
+    if(o.collapsed){ o.y=y; o.h=labelH-4; o.rowsY=new Array(o.rows).fill(y); y=o.y+o.h+gapAfter; const d=bandEl[o.k]; d.style.top=o.y+'px'; d.style.height=o.h+'px'; continue; }
+    const rowH=new Array(o.rows).fill(document.documentElement.classList.contains('compact')?44:CARDH);
     for(const p of P){ if(p.r!==o.k) continue; const n=cvNode(p); if(n) rowH[p._w]=Math.max(rowH[p._w], n.offsetHeight); }
     o.y=y; o.rowsY=[]; let yy=y+labelH;
     for(let i=0;i<o.rows;i++){ o.rowsY.push(yy); yy+=rowH[i]+GAP; }
@@ -433,10 +458,10 @@ function relayoutRows(){
     const d=bandEl[o.k]; d.style.top=o.y+'px'; d.style.height=o.h+'px';
   }
   FP.y=y+6; FP.h=Math.max(146, fwrap.offsetHeight+52);
-  CH=FP.y+FP.h+24; cv.style.height=CH+'px';
+  CH=FP.y+FP.h+24; cv.style.height=CH+'px'; zw.style.height=(CH*curScale)+'px';
   fp.style.top=FP.y+'px'; fp.style.height=FP.h+'px'; fwrap.style.top=(FP.y+40)+'px';
   for(const l of collines) l.style.height=(CH-96)+'px';
-  for(const p of P){ if(p.r==='F') continue; const n=cvNode(p); if(!n) continue; const yN=R[p.r].rowsY[p._w]; n.style.top=yN+'px'; pos[p.id].y=yN; pos[p.id].h=n.offsetHeight; }
+  for(const p of P){ if(p.r==='F') continue; const n=cvNode(p); if(!n) continue; const yN=R[p.r].rowsY[p._w]; n.style.top=yN+'px'; pos[p.id].y=yN; pos[p.id].h=n.offsetHeight; pos[p.id].hidden=!!R[p.r].collapsed; }
 }
 relayoutRows();
 // v3 — band-by-band card grid (desktop), material as a tag on each card
@@ -608,7 +633,7 @@ function drawWires(){
 for(const w of wires) w.el.remove();
 wires=[];
 for(const [s,t,kind] of EDGES){
-  const a=pos[s], b=pos[t]; if(!a||!b) continue;
+  const a=pos[s], b=pos[t]; if(!a||!b||a.hidden||b.hidden) continue;
   const [[x1,y1],[x2,y2]]=anchorPt(a,b);
   const mx=(x1+x2)/2, my=(y1+y2)/2;
   const d=Math.abs(x2-x1)>=Math.abs(y2-y1)
@@ -652,10 +677,35 @@ document.getElementById('chips').addEventListener('click',e=>{
   applyWireVis();
   postH();
 });
+// v4 — Compact/Detail view, expand/collapse all, hover tooltip
+if(V==='4'){
+  const zs=document.querySelector('.zoomset');
+  zs.innerHTML=`<span class="viewset"><a class="fl vbtn on" tabindex="0" data-view="compact">Compact</a><span class="dot">·</span><a class="fl vbtn" tabindex="0" data-view="detail">Detail</a></span>`+
+    `<span class="dot" style="margin:0 10px">|</span><a class="fl" tabindex="0" data-bands="open">Expand all</a><span class="dot">·</span><a class="fl" tabindex="0" data-bands="close">Collapse all</a>`;
+  document.querySelector('.hintline').textContent='Compact shows a keyword per entry — hover for the title, click for the full reference. Click a row label to collapse it.';
+  const setView=(vw)=>{document.documentElement.classList.toggle('compact',vw==='compact');
+    document.querySelectorAll('.vbtn').forEach(x=>x.classList.toggle('on',x.dataset.view===vw));
+    relayoutRows();drawWires();postH();};
+  const setBands=(open)=>{for(const b of ORDER){b.collapsed=!open;bandEl[b.k].classList.toggle('collapsed',!open);}relayoutRows();drawWires();postH();};
+  zs.addEventListener('click',e=>{const c=e.target.closest('.fl');if(!c)return;e.stopPropagation();
+    if(c.dataset.view)setView(c.dataset.view); if(c.dataset.bands)setBands(c.dataset.bands==='open');});
+  zs.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){const c=e.target.closest('.fl');if(c){e.preventDefault();c.click();}}});
+  const tip=document.getElementById('tip'), tj=tip.querySelector('.tj'), tt=tip.querySelector('.tt');
+  for(const p of P){ for(const n of (els[p.id]||[])){ if(n.parentNode!==cv&&n.parentNode!==fwrap) continue;
+    n.addEventListener('mouseenter',()=>{ if(!document.documentElement.classList.contains('compact')) return;
+      tj.textContent=p.j+(p.bd?' · '+BDL[p.bd]:'')+' · '+STC[p.st][0]; tt.textContent=p.t;
+      const r=n.getBoundingClientRect(); tip.classList.add('show');
+      let x=r.left+window.scrollX, y=r.bottom+window.scrollY+6;
+      tip.style.left='0px'; tip.style.top='0px';
+      const tw=tip.offsetWidth; if(x+tw>document.documentElement.clientWidth-8) x=Math.max(8,document.documentElement.clientWidth-8-tw);
+      tip.style.left=x+'px'; tip.style.top=y+'px'; });
+    n.addEventListener('mouseleave',()=>tip.classList.remove('show')); } }
+}
 // zoom (desktop)
 function fitScale(){const pad=document.documentElement.classList.contains('embed-min')?4:70;return Math.min(1,(document.documentElement.clientWidth-pad)/CW);}
 let fitMode=false;
 function setScale(s,btn){
+  curScale=s;
   cv.style.transform='scale('+s+')';
   zw.style.width=(CW*s)+'px';zw.style.height=(CH*s)+'px';
   fitMode=(s!==1);
