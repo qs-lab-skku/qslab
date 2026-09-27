@@ -9,7 +9,8 @@
 <script>
 (function(){var h=document.documentElement;
   try{if(window.self!==window.top)h.classList.add('embedded');}catch(e){h.classList.add('embedded');}
-  if(/[?&]embed=min\b/.test(location.search))h.classList.add('embedded','embed-min');})();
+  if(/[?&]embed=min\b/.test(location.search))h.classList.add('embedded','embed-min');
+  var v=(location.search.match(/[?&]v=(\d)/)||[])[1]||'0';h.classList.add('v'+v);window.RL_V=v;})();
 </script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -174,6 +175,45 @@
   /* ?embed=min — hide the duplicate site header and intro copy */
   html.embed-min .topbar,html.embed-min .intro{display:none}
   html.embed-min .filters{padding-top:18px}
+  /* ── embed: no inner frame/scroll (the parent resizes the iframe to fit) ── */
+  html.embed-min .figure{margin:10px 0 4px;border:none;border-radius:0}
+  html.embed-min .scroll{padding:0;overflow:visible}
+  html.embed-min .filters,html.embed-min .legend,html.embed-min .hintline,html.embed-min .figcap{padding-left:0;padding-right:0}
+  /* ── v1 / v2: one card per column, larger type ── */
+  html.v1 .node .t,html.v2 .node .t{font-size:12.5px;line-height:1.35}
+  html.v1 .node .j,html.v2 .node .j{font-size:10.5px}
+  html.v1 .node .stat,html.v2 .node .stat{font-size:10px}
+  html.v1 .node .qs,html.v2 .node .qs{font-size:9.5px}
+  html.v1 .node,html.v2 .node{padding:9px 11px 22px}
+  html.v2 .node .t{font-size:14px;line-height:1.35}
+  html.v2 .node .j{font-size:11.5px}
+  html.v2 .node .stat{font-size:10.5px}
+  html.v2 .node .qs{font-size:10px}
+  html.v1 .colhead .cn,html.v2 .colhead .cn{font-size:13.5px}
+  html.v1 .colhead .cm,html.v2 .colhead .cm{font-size:11px}
+  html.v1 .bl,html.v2 .bl{font-size:13px}
+  html.v1 .bl .bs2,html.v2 .bl .bs2{font-size:11.5px}
+  html.v1 .phys,html.v2 .phys{font-size:10px}
+  html.v1 .fwrap .node,html.v2 .fwrap .node{width:186px}
+  /* ── v3: band-by-band card grid (material shown as a tag) ── */
+  html.v3 .figure,html.v3 .zoomset,html.v3 .hintline{display:none}
+  #gridview{display:none;position:relative;margin:12px 0 4px}
+  html.v3 #gridview{display:block}
+  #gwires{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:3}
+  .gband{position:relative;margin:0 0 14px;border:1px solid var(--hair);border-radius:4px;padding:12px 14px 14px;background:#fff}
+  .gband.strip{border-style:dashed}
+  .gband .gh{display:flex;align-items:baseline;gap:8px;margin-bottom:10px}
+  .gband .gh b{font-size:13.5px;font-weight:600}
+  .gband .gh .bs2{font-size:11.5px;color:var(--meta);font-weight:400}
+  .gband .gh .phys{position:static;margin-left:auto}
+  .gcards{display:grid;grid-template-columns:repeat(auto-fill,minmax(215px,1fr));gap:10px}
+  .gcards .node{position:relative;width:auto;min-height:88px;padding:10px 12px 24px}
+  .gcards .node .j{font-size:10.5px;padding-right:0}
+  .gcards .node .t{font-size:13.5px;line-height:1.38}
+  .gcards .node .stat{font-size:10px}
+  .gcards .node .qs{font-size:9.5px}
+  .gcards .node .mtag{position:absolute;top:9px;right:9px;font-size:9.5px;color:var(--meta);border:1px solid var(--hair2);border-radius:3px;padding:0 5px;background:#fff}
+  .gcards .node .j{padding-right:70px}
 </style>
 </head>
 <body>
@@ -211,6 +251,7 @@
 </div>
 <div class="hintline">Fit shows the whole map; 100% is easier to read.</div>
 <div class="mtoggle">View: <a class="mt on" tabindex="0" data-m="map">Schematic</a> <span style="color:var(--faint)">·</span> <a class="mt" tabindex="0" data-m="list">List</a></div>
+<div id="gridview"><svg id="gwires"></svg></div>
 <div class="figure"><div class="scroll"><div id="zw"><div id="canvas">
   <svg id="wires">
     <defs>
@@ -237,9 +278,14 @@ projects are left out.</p>
 </div>
 <script src="landscape-data.js"></script>
 <script>
-const CARD=160, SGAP=10, CPAD=12, COLW=354, X0=36, CW=2180;
-const CARDH=64, ROWH=74;
+// v0 (default): 6 columns × 2 card slots, 2180px canvas scaled to fit.
+// v1/v2: 6 columns × 1 slot, ~1216px canvas → 100% inside the site's 1280px container.
+const V=window.RL_V||'0', SLOTS=(V==='1'||V==='2')?1:2;
+const CARD=SLOTS===1?176:160, SGAP=10, CPAD=SLOTS===1?11:12, COLW=SLOTS===1?198:354, X0=SLOTS===1?14:36;
+const CW=SLOTS===1?X0*2+COLS.length*COLW:2180;
+const CARDH=V==='2'?94:(V==='1'?80:64), ROWH=CARDH+10;
 const colX=c=>X0+c*COLW, slotX=(c,s)=>colX(c)+CPAD+s*(CARD+SGAP);
+const slotCol=si=>Math.floor(si/SLOTS), slotIdx=si=>si%SLOTS;
 const CLR={A:'var(--A)',B:'var(--B)',C:'var(--C)',D:'var(--D)',E:'var(--E)',F:'var(--F)',Q:'var(--Q)'};
 const STC={pub:['Published','var(--faint)'],acc:['In press','var(--acc2)'],rev:['In review','var(--rev)'],plan:['Active','var(--plan)']};
 const BDL={R:'Review',P:'Perspective',RM:'Roadmap'};
@@ -251,14 +297,14 @@ document.getElementById('upd').textContent=UPDATED;
 // spans. Rows are added automatically, so band heights and the canvas height
 // follow from the data.
 const colIdx=k=>{const i=COLS.findIndex(c=>c.key===k);if(i<0)throw new Error('Unknown material key: '+k);return i;};
-const NSLOT=COLS.length*2;
+const NSLOT=COLS.length*SLOTS;
 (function place(){
   const occ={};
   for(const p of P){
     if(p.r==='F') continue;
     const rows=occ[p.r]||(occ[p.r]=[]);
     const c0=colIdx(p.material), c1=p.materialTo?colIdx(p.materialTo):c0;
-    const wide=!!p.materialTo, si0=c0*2, se0=c1*2+1;
+    const wide=!!p.materialTo, si0=c0*SLOTS, se0=c1*SLOTS+SLOTS-1;
     for(let w=0;;w++){
       if(!rows[w]) rows[w]=new Array(NSLOT).fill(false);
       if(wide){
@@ -268,7 +314,7 @@ const NSLOT=COLS.length*2;
         for(let i=si0;i<=se0;i++) rows[w][i]=true;
         p._w=w; p._si=si0; p._se=se0; break;
       }
-      const s=!rows[w][si0]?si0:(!rows[w][si0+1]?si0+1:-1);
+      let s=-1; for(let i=0;i<SLOTS;i++) if(!rows[w][si0+i]){s=si0+i;break;}
       if(s<0) continue;
       rows[w][s]=true; p._w=w; p._si=s; p._se=s; break;
     }
@@ -285,7 +331,8 @@ for(const o of ORDER){
   R[o.k]=o;
 }
 const FP={y:yCur+6,h:146};
-const CH=FP.y+FP.h+24;
+let CH=FP.y+FP.h+24;
+const bandEl={}, collines=[];
 // band colour is the default; p.pc overrides it for the few exceptions
 const pcOf=p=>p.pc||(p.r==='F'?'F':(R[p.r].c||R[p.r].strip[0]));
 const cv=document.getElementById('canvas'), svg=document.getElementById('wires'), zw=document.getElementById('zw');
@@ -295,7 +342,7 @@ COLS.forEach((c,i)=>{
   h.style.left=colX(i)+'px';h.style.width=COLW+'px';
   h.innerHTML=`<div class="cn">${c.n}</div><div class="cm">${c.m}</div>`;
   cv.appendChild(h);
-  if(i>0){const l=document.createElement('div');l.className='colline';l.style.left=colX(i)+'px';l.style.height=(CH-96)+'px';cv.appendChild(l);}
+  if(i>0){const l=document.createElement('div');l.className='colline';l.style.left=colX(i)+'px';l.style.height=(CH-96)+'px';cv.appendChild(l);collines.push(l);}
 });
 for(const b of ORDER){
   const d=document.createElement('div');
@@ -313,7 +360,7 @@ for(const b of ORDER){
       border:1px solid var(--hair);border-top:2px solid ${CLR[b.c]}`;
     d.innerHTML=`<span class="bl" style="color:${CLR[b.c]}">${b.name}${b.sub?`<span class="bs2"> (${b.sub})</span>`:''}</span><span class="phys">${b.phys}</span>`;
   }
-  cv.appendChild(d);}
+  cv.appendChild(d);bandEl[b.k]=d;}
 const fp=document.createElement('div');fp.className='fpanel';
 fp.style.cssText=`top:${FP.y}px;height:${FP.h}px`;
 fp.innerHTML=`<span class="bl" style="color:var(--F)">Energy and functional materials<span class="bs2"> (catalysis, electrolysers, electrodes and photovoltaics)</span></span>`;
@@ -339,7 +386,7 @@ function cardHTML(p,mobile){
   const suffix = p.bd ? ' · '+BDL[p.bd] : '';
   let tag='';
   if(mobile && p.r!=='F'){
-    const t1=COLS[p._si>>1].tag, t2=p.materialTo?COLS[p._se>>1].tag:null;
+    const t1=COLS[slotCol(p._si)].tag, t2=p.materialTo?COLS[slotCol(p._se)].tag:null;
     tag=`<span class="mtag">${t2&&t2!==t1?t1+' – '+t2:t1}</span>`;
   }
   return `<div class="j">${lead}${p.j}${suffix}</div><div class="t">${p.t}</div>`+tag+
@@ -360,8 +407,8 @@ for(const p of P){
   if(p.r==='F'){
     n.style.borderLeftColor=CLR.F; fwrap.appendChild(n);
   }else{
-    const b=R[p.r], x=slotX(p._si>>1,p._si&1), y=b.rowsY[p._w];
-    const w=slotX(p._se>>1,p._se&1)+CARD-x;
+    const b=R[p.r], x=slotX(slotCol(p._si),slotIdx(p._si)), y=b.rowsY[p._w];
+    const w=slotX(slotCol(p._se),slotIdx(p._se))+CARD-x;
     pos[p.id]={x,y,w,h:CARDH};
     n.style.left=x+'px';n.style.top=y+'px';n.style.width=w+'px';n.style.position='absolute';
     if(b.strip){const [t2,b2]=b.strip;n.style.borderImage=`linear-gradient(180deg, ${CLR[t2]} 0 48%, ${CLR[b2]} 52% 100%) 1`;}
@@ -370,6 +417,87 @@ for(const p of P){
     cv.appendChild(n);
   }
   wireCard(n,p);
+}
+// v1/v2 — rows take the height of their tallest card (titles wrap differently at these widths)
+function relayoutRows(){
+  if(SLOTS!==1) return;
+  const GAP=10; let y=94;
+  const cvNode=p=>(els[p.id]||[]).find(e=>e.parentNode===cv);
+  for(const o of ORDER){
+    const labelH=o.strip?28:36, pad=8, gapAfter=12;
+    const rowH=new Array(o.rows).fill(CARDH);
+    for(const p of P){ if(p.r!==o.k) continue; const n=cvNode(p); if(n) rowH[p._w]=Math.max(rowH[p._w], n.offsetHeight); }
+    o.y=y; o.rowsY=[]; let yy=y+labelH;
+    for(let i=0;i<o.rows;i++){ o.rowsY.push(yy); yy+=rowH[i]+GAP; }
+    o.h=(yy-GAP)-y+pad; y=o.y+o.h+gapAfter;
+    const d=bandEl[o.k]; d.style.top=o.y+'px'; d.style.height=o.h+'px';
+  }
+  FP.y=y+6; FP.h=Math.max(146, fwrap.offsetHeight+52);
+  CH=FP.y+FP.h+24; cv.style.height=CH+'px';
+  fp.style.top=FP.y+'px'; fp.style.height=FP.h+'px'; fwrap.style.top=(FP.y+40)+'px';
+  for(const l of collines) l.style.height=(CH-96)+'px';
+  for(const p of P){ if(p.r==='F') continue; const n=cvNode(p); if(!n) continue; const yN=R[p.r].rowsY[p._w]; n.style.top=yN+'px'; pos[p.id].y=yN; pos[p.id].h=n.offsetHeight; }
+}
+relayoutRows();
+// v3 — band-by-band card grid (desktop), material as a tag on each card
+const gv=document.getElementById('gridview'), gsvg=document.getElementById('gwires');
+let gpaths=[];
+if(V==='3'){
+  const SECS=[...ORDER,{k:'F',c:'F',name:'Energy and functional materials',sub:'catalysis, electrolysers, electrodes and photovoltaics',phys:''}];
+  for(const b of SECS){
+    const sec=document.createElement('section');sec.className='gband'+(b.strip?' strip':'');
+    const col=b.strip?`color-mix(in srgb, ${CLR[b.strip[0]]} 60%, ${CLR[b.strip[1]]} 40%)`:CLR[b.c];
+    sec.style.borderTop=(b.strip?'2px dashed ':'2px solid ')+col;
+    if(!b.strip) sec.style.background=`color-mix(in srgb, ${CLR[b.c]} 3%, #fff)`;
+    sec.innerHTML=`<div class="gh"><b style="color:${col}">${b.name}</b>${b.sub?`<span class="bs2">(${b.sub})</span>`:''}<span class="phys">${b.phys||''}</span></div>`;
+    const wrap=document.createElement('div');wrap.className='gcards';
+    const items=P.filter(p=>p.r===b.k).sort((a,c)=>slotCol(a._si??0)-slotCol(c._si??0)||(a._w??0)-(c._w??0)||slotIdx(a._si??0)-slotIdx(c._si??0));
+    for(const p of items){
+      const n=document.createElement('div');
+      n.className='node '+(p.st==='rev'?'rev ':'')+(p.st==='plan'?'plan ':'')+(p.role==='Coauthor'?'co':'');
+      n.innerHTML=cardHTML(p,p.r!=='F');
+      if(p.r==='F'){n.style.borderLeftColor=CLR.F;}
+      else if(b.strip){const [t2,b2]=b.strip;n.style.borderImage=`linear-gradient(180deg, ${CLR[t2]} 0 48%, ${CLR[b2]} 52% 100%) 1`;}
+      else if(p.sc){n.style.borderImage=`linear-gradient(180deg, ${CLR[p.sc]} 0 45%, ${CLR[pcOf(p)]} 55% 100%) 1`;}
+      else{n.style.borderLeftColor=CLR[pcOf(p)];}
+      n.dataset.gv='1';
+      wrap.appendChild(n);wireCard(n,p);
+    }
+    sec.appendChild(wrap);gv.appendChild(sec);
+  }
+}
+function drawGWires(){
+  if(V!=='3'||!gv.offsetParent) return;
+  const r0=gv.getBoundingClientRect();
+  gsvg.setAttribute('viewBox',`0 0 ${r0.width} ${r0.height}`);
+  gsvg.innerHTML='<defs><marker id="ah3" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L8,4 L0,8 z" fill="context-stroke"/></marker></defs>';
+  gpaths=[];
+  for(const [s,t,kind] of EDGES){
+    const ea=(els[s]||[]).find(x=>x.dataset.gv), eb=(els[t]||[]).find(x=>x.dataset.gv);
+    if(!ea||!eb) continue;
+    const ra=ea.getBoundingClientRect(), rb=eb.getBoundingClientRect();
+    const a={x:ra.left-r0.left,y:ra.top-r0.top,w:ra.width,h:ra.height};
+    const b={x:rb.left-r0.left,y:rb.top-r0.top,w:rb.width,h:rb.height};
+    const [[x1,y1],[x2,y2]]=anchorPt(a,b);
+    const mx=(x1+x2)/2,my=(y1+y2)/2;
+    const d=Math.abs(x2-x1)>=Math.abs(y2-y1)
+      ?`M${x1},${y1} C${mx},${y1} ${mx},${y2} ${x2},${y2}`
+      :`M${x1},${y1} C${x1},${my} ${x2},${my} ${x2},${y2}`;
+    const p2=document.createElementNS(NS,'path');
+    p2.setAttribute('d',d);p2.setAttribute('fill','none');p2.setAttribute('marker-end','url(#ah3)');
+    if(kind==='X'){p2.setAttribute('stroke','#b08a3e');p2.setAttribute('stroke-dasharray','5 4');p2.setAttribute('stroke-width','1.1');p2.setAttribute('opacity','.4');}
+    else{p2.setAttribute('stroke','#9aa4b1');p2.setAttribute('stroke-width','1.2');p2.setAttribute('opacity','.45');}
+    gsvg.appendChild(p2);gpaths.push({el:p2,s,t});
+  }
+  applyWireVis();
+}
+// embedded: tell the parent page our height so the iframe never scrolls on its own
+let lastH=0;
+function postH(){
+  if(!document.documentElement.classList.contains('embedded')) return;
+  const h=Math.ceil(document.body.getBoundingClientRect().height);   // content height, not the viewport
+  if(Math.abs(h-lastH)<2) return; lastH=h;
+  try{parent.postMessage({rl:'height',h:h},'*');}catch(e){}
 }
 // mobile list
 const mob=document.getElementById('mobile');
@@ -382,7 +510,7 @@ for(const b of MOBSECS){
   sec.innerHTML=`<div class="mh"><h3>${b.name}</h3><span class="mphys">${b.phys||''}</span></div>`+
     (b.sub?`<div class="msub">${b.sub[0].toUpperCase()+b.sub.slice(1)}</div>`:'');
   const wrap=document.createElement('div');wrap.className='mcards';
-  const items=P.filter(p=>p.r===b.k).sort((a,c)=>((a._si??0)>>1)-((c._si??0)>>1)||(a._w??0)-(c._w??0)||((a._si??0)&1)-((c._si??0)&1));
+  const items=P.filter(p=>p.r===b.k).sort((a,c)=>slotCol(a._si??0)-slotCol(c._si??0)||(a._w??0)-(c._w??0)||slotIdx(a._si??0)-slotIdx(c._si??0));
   for(const p of items){
     const n=document.createElement('div');
     n.className='mnode '+(p.st==='rev'?'rev ':'')+(p.st==='plan'?'plan ':'')+(p.role==='Coauthor'?'co':'');
@@ -475,7 +603,10 @@ function anchorPt(a,b){
   return dy>0?[[a.x+a.w/2,a.y+a.h],[b.x+b.w/2,b.y]]:[[a.x+a.w/2,a.y],[b.x+b.w/2,b.y+b.h]];
 }
 const NS='http://www.w3.org/2000/svg';
-const wires=[];
+let wires=[];
+function drawWires(){
+for(const w of wires) w.el.remove();
+wires=[];
 for(const [s,t,kind] of EDGES){
   const a=pos[s], b=pos[t]; if(!a||!b) continue;
   const [[x1,y1],[x2,y2]]=anchorPt(a,b);
@@ -490,6 +621,8 @@ for(const [s,t,kind] of EDGES){
   else{pth.setAttribute('stroke','#9aa4b1');
     pth.setAttribute('stroke-width','1.5');pth.setAttribute('opacity','.8');}
   svg.appendChild(pth);wires.push({el:pth,s,t});}
+}
+drawWires();
 // filters
 const test={
   all:p=>true,
@@ -505,6 +638,7 @@ function applyWireVis(){
   for(const p of P) vis[p.id]=f(p);
   for(const w of wires) w.el.style.opacity=(vis[w.s]&&vis[w.t])?'':'0.05';
   for(const w of mpaths) w.el.style.opacity=(vis[w.s]&&vis[w.t])?'':'0.04';
+  for(const w of gpaths) w.el.style.opacity=(vis[w.s]&&vis[w.t])?'':'0.05';
 }
 document.getElementById('chips').addEventListener('click',e=>{
   const c=e.target.closest('.fl');if(!c)return;
@@ -516,9 +650,10 @@ document.getElementById('chips').addEventListener('click',e=>{
   for(const p of P){const ok=f(p);
     for(const el of els[p.id]) el.classList.toggle('dim',!ok);}
   applyWireVis();
+  postH();
 });
 // zoom (desktop)
-function fitScale(){return Math.min(1,(document.documentElement.clientWidth-70)/CW);}
+function fitScale(){const pad=document.documentElement.classList.contains('embed-min')?4:70;return Math.min(1,(document.documentElement.clientWidth-pad)/CW);}
 let fitMode=false;
 function setScale(s,btn){
   cv.style.transform='scale('+s+')';
@@ -527,6 +662,7 @@ function setScale(s,btn){
   document.querySelectorAll('.zbtn').forEach(x=>x.classList.remove('on'));
   if(btn)btn.classList.add('on');
   else{const t=document.querySelector('.zbtn[data-z="'+(fitMode?'fit':'1')+'"]');if(t)t.classList.add('on');}
+  postH();
 }
 // mobile view toggle (schematic is the default)
 const mobList=document.getElementById('mobile');
@@ -546,10 +682,13 @@ document.querySelectorAll('.mt').forEach(t=>{
 let rzT;
 window.addEventListener('resize',()=>{
   if(fitMode)setScale(fitScale());
-  clearTimeout(rzT);rzT=setTimeout(drawMWires,150);
+  clearTimeout(rzT);rzT=setTimeout(()=>{drawMWires();drawGWires();postH();},150);
 });
 setScale((document.documentElement.classList.contains('embedded')||document.documentElement.clientWidth<1300)?fitScale():1);
-requestAnimationFrame(drawMWires);
+requestAnimationFrame(()=>{drawMWires();drawGWires();postH();});
+window.addEventListener('load',()=>{drawGWires();postH();});
+if(document.fonts&&document.fonts.ready) document.fonts.ready.then(()=>{relayoutRows();drawWires();if(fitMode)setScale(fitScale());else setScale(1);drawGWires();postH();});
+if(window.ResizeObserver) new ResizeObserver(()=>postH()).observe(document.body);
 </script>
 </body>
 </html>
