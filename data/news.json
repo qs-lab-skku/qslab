@@ -1,7 +1,13 @@
 {
   "_comment": "Auto area (I3). Shared by Slack /home-news and in-page admin publish. Rendered by js/auto-sections.js.",
-  "updated": "2026-08-31T10:52:19.290Z",
+  "updated": "2026-09-27T09:28:02.189Z",
   "items": [
+    {
+      "date": "2026-09-21",
+      "title": "2D Materials Roadmap — \"Advancing Electronic-Grade 2D Materials\" accepted; Prof. Song leads the \"Towards Advanced Electronics\" chapter",
+      "body": "Our roadmap article \"Advancing Electronic-Grade 2D Materials: Challenges, Opportunities, and Vision\" has been accepted in 2D Materials (IOP Publishing) and is now online as an accepted manuscript (DOI: 10.1088/2053-1583/aeaa65). Led by Chengye Dong and Joshua A. Robinson (Penn State), the roadmap brings together 33 researchers from six countries to chart the path from laboratory-scale 2D materials to electronic-grade quality — wafer-scale uniformity, controlled defects, and long-term stability — across synthesis, defect engineering, integration, and applications from electronics and optoelectronics to catalysis and quantum technologies. Prof. Seunguk Song co-authored Section 8, \"Towards Advanced Electronics,\" with Prof. Deep Jariwala (University of Pennsylvania) as corresponding author. The chapter discusses 2D van der Waals semiconductors beyond silicon scaling (gate-all-around, CFET, and monolithic 3D integration), 2D non-volatile memories including ferroelectric-integrated devices, and quantitative targets for electronic-grade 2D materials and devices. Seunguk is the only author from a Korean institution (SKKU / IBS Center for 2D Quantum Heterostructures). Special thanks to Yunjung Cho and Wonchan Lee for their valuable assistance in preparing the figures in this chapter.",
+      "url": "https://doi.org/10.1088/2053-1583/aeaa65"
+    },
     {
       "date": "2026-09-16",
       "title": "Welcoming our Fall 2026 URP students and undergraduate interns",
