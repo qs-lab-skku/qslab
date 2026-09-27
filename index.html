@@ -1474,6 +1474,64 @@ body.admin-on .news-edit-btns { display: flex; }
 .ct-apply { margin-top: var(--s4); padding: var(--s4) var(--s5); background: var(--blue3); border-radius: var(--r3); font-size: 1rem; line-height: 1.6; color: var(--ink); }
 .ct-apply a { color: var(--blue); font-weight: 600; }
 @media (max-width: 860px) { .ct-wrap { grid-template-columns: 1fr; } .ct-jobs { grid-template-columns: 1fr; } .ct-map { height: 300px; } }
+
+/* ================================================================
+   Layout container (≥1280px) — 큰 모니터에서 내용 폭을 제한하고 중앙 정렬.
+   배경(히어로 패턴, 뉴스 띠, 푸터 등)은 화면 끝까지 두고 내용물만 컨테이너 폭으로.
+   - --cx  : 1280px 컨테이너 좌우 여백 (24px 패딩 포함 → 내용 폭 1232px)
+   - --cxn : 1100px 좁은 컨테이너 (Publications·People 본문)
+   1280px 미만에서는 이 블록이 적용되지 않아 기존 반응형 레이아웃 그대로.
+   퍼센트는 각 요소의 containing block 기준으로 계산되므로 전체폭 섹션에만 사용.
+================================================================ */
+.container        { width: 100%; max-width: 1280px; margin: 0 auto; padding: 0 24px; }
+.container-narrow { width: 100%; max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+@media (min-width: 1280px) {
+  :root {
+    --cx:  max(var(--gx), calc((100% - 1280px) / 2 + 24px));
+    --cxn: max(var(--gx), calc((100% - 1100px) / 2 + 24px));
+  }
+  /* 헤더: 로고 왼쪽 선 = 히어로 제목 왼쪽 선 */
+  nav#main-nav { padding-left: var(--cx); padding-right: var(--cx); }
+  nav#main-nav .nav-inner { max-width: none; }
+
+  /* ---- Home ---- */
+  .bhero-content { max-width: none; padding-left: var(--cx); padding-right: var(--cx); }
+  .bhero .qs-tag { right: var(--cx); }
+  .ticker { padding-left: var(--cx); padding-right: var(--cx); }
+  .capsec { padding-left: var(--cx); padding-right: var(--cx); }
+  .capgrid { gap: 24px; }                       /* 4열 × ~290px (1232 − 3×24) / 4 */
+  .mtiles { padding-left: var(--cx); padding-right: var(--cx); }
+  .news-hl-section { padding-left: var(--cx); padding-right: var(--cx); }
+  .section-inner { max-width: none; }
+  /* 2열 풀블리드 배경 — 각 열은 화면의 절반이므로 200% 기준으로 여백 계산 */
+  .openings .op-left  { padding-left:  max(var(--s5), calc((200% - 1280px) / 2 + 24px)); }
+  .openings .op-right { padding-right: max(var(--s5), calc((200% - 1280px) / 2 + 24px)); }
+  footer { padding-left: var(--cx); padding-right: var(--cx); }
+
+  /* ---- 페이지 공통 타이틀 (1280) ---- */
+  .sl-head { padding-left: var(--cx); padding-right: var(--cx); }
+  .sl-head .sl-desc { flex: 1 1 360px; min-width: 0; }   /* 설명이 폭을 채우며 줄바꿈 → 우측 통계가 다음 줄로 떨어지지 않게 */
+
+  /* ---- Research (1280) ---- */
+  .rhero, .rmap, .rmission, .rsec, .rdsec, .res-sponsors, .res-hero, .res-body, .pbanner, .nh-lib {
+    padding-left: var(--cx); padding-right: var(--cx); max-width: none; margin-left: 0; margin-right: 0;
+  }
+  .res-body { max-width: none; }
+  .res-body > * { max-width: 860px; }
+
+  /* ---- People (본문 1100) ---- */
+  .people-hero, .pi-block, .mgroup { padding-left: var(--cxn); padding-right: var(--cxn); }
+
+  /* ---- Publications (본문 1100) ---- */
+  .rep-section, .pub-section, #orcid-pub-section { padding-left: var(--cxn); padding-right: var(--cxn); }
+  #page-publications > div:has(> #pub-tab-static) { padding-left: var(--cxn) !important; padding-right: var(--cxn) !important; }
+
+  /* ---- Equipment · Teaching · News · Contact (1280) ---- */
+  .eq-sec { padding-left: var(--cx); padding-right: var(--cx); max-width: none; }
+  .sem-wrap { padding-left: var(--cx); padding-right: var(--cx); }
+  .news-wrap { max-width: none; padding-left: var(--cx); padding-right: var(--cx); }
+  .ct-wrap, .ct-openings { max-width: none; padding-left: var(--cx); padding-right: var(--cx); }
+}
 </style>
 </head>
 <body>
