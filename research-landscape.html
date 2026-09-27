@@ -177,6 +177,11 @@
   html.embed-min .topbar,html.embed-min .intro{display:none}
   html.embed-min .filters{padding-top:18px}
   /* ── embed: no inner frame/scroll (the parent resizes the iframe to fit) ── */
+  html.embedded,html.embedded body{overflow:hidden}
+  html.embedded #sheet{position:absolute;left:0;right:auto;bottom:auto;width:min(560px,calc(100% - 16px));border:1px solid var(--hair2);border-radius:6px;
+    transform:none;display:none;max-height:none;box-shadow:0 10px 32px rgba(20,25,35,.18)}
+  html.embedded #sheet.open{display:block}
+  html.embedded #backdrop{position:absolute;background:rgba(20,25,35,.12)}
   html.embed-min .figure{margin:10px 0 4px;border:none;border-radius:0}
   html.embed-min .scroll{padding:0;overflow:visible}
   html.embed-min .filters,html.embed-min .legend,html.embed-min .hintline,html.embed-min .figcap{padding-left:0;padding-right:0}
@@ -397,7 +402,7 @@ if(V==='4'){const lbl=fp.querySelector('.bl');
   lbl.onclick=()=>{FP.collapsed=!FP.collapsed;fp.classList.toggle('collapsed',!!FP.collapsed);relayoutRows();drawWires();postH();};}
 const pos={}, els={};
 const sheet=document.getElementById('sheet'), bk=document.getElementById('backdrop');
-function openSheet(p){
+function openSheet(p,anchor){
   document.getElementById('sht').textContent=p.full;
   document.getElementById('shc').textContent=p.cite;
   document.getElementById('shr').innerHTML=
@@ -406,6 +411,14 @@ function openSheet(p){
   const a=document.getElementById('shl');
   if(p.url&&p.st!=='acc'){a.style.display='inline-block';a.href=p.url;}else{a.style.display='none';}
   sheet.classList.add('open');bk.classList.add('open');
+  if(document.documentElement.classList.contains('embedded')&&anchor){
+    const r=anchor.getBoundingClientRect(), W=document.documentElement.clientWidth, H=document.body.getBoundingClientRect().height;
+    const sw=sheet.offsetWidth, sh=sheet.offsetHeight;
+    let x=r.left+window.scrollX, y=r.bottom+window.scrollY+8;
+    if(x+sw>W-8) x=Math.max(8,W-8-sw);
+    if(y+sh>H-8) y=Math.max(8,r.top+window.scrollY-sh-8);
+    sheet.style.left=x+'px'; sheet.style.top=y+'px';
+  }
 }
 document.getElementById('shx').onclick=()=>{sheet.classList.remove('open');bk.classList.remove('open');};
 bk.onclick=document.getElementById('shx').onclick;
@@ -424,7 +437,7 @@ function cardHTML(p,mobile){
 }
 function wireCard(n,p){
   n.setAttribute('tabindex','0');
-  const open=()=>openSheet(p);
+  const open=()=>openSheet(p,n);
   n.onclick=open;
   n.onkeydown=e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();open();}};
   (els[p.id]=els[p.id]||[]).push(n);
@@ -526,7 +539,7 @@ function drawGWires(){
 let lastH=0;
 function postH(){
   if(!document.documentElement.classList.contains('embedded')) return;
-  const h=Math.ceil(document.body.getBoundingClientRect().height);   // content height, not the viewport
+  const h=Math.ceil(document.body.getBoundingClientRect().height)+2;   // content height (+2px rounding guard), not the viewport
   if(Math.abs(h-lastH)<2) return; lastH=h;
   try{parent.postMessage({rl:'height',h:h},'*');}catch(e){}
 }
@@ -703,7 +716,9 @@ if(V==='4'){
       const r=n.getBoundingClientRect(); tip.classList.add('show');
       let x=r.left+window.scrollX, y=r.bottom+window.scrollY+6;
       tip.style.left='0px'; tip.style.top='0px';
-      const tw=tip.offsetWidth; if(x+tw>document.documentElement.clientWidth-8) x=Math.max(8,document.documentElement.clientWidth-8-tw);
+      const tw=tip.offsetWidth, th=tip.offsetHeight, bh=document.body.getBoundingClientRect().height;
+      if(x+tw>document.documentElement.clientWidth-8) x=Math.max(8,document.documentElement.clientWidth-8-tw);
+      if(y+th>bh-4) y=r.top+window.scrollY-th-6;
       tip.style.left=x+'px'; tip.style.top=y+'px'; });
     n.addEventListener('mouseleave',()=>tip.classList.remove('show')); } }
 }
