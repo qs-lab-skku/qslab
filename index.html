@@ -1518,6 +1518,10 @@ body.admin-on .news-edit-btns { display: flex; }
   }
   .res-body { max-width: none; }
   .res-body > * { max-width: 860px; }
+  /* Research Landscape(iframe): 지도 원본 폭이 2180px라 Fit 배율이 폭에 비례 → 지도만 화면 폭(기본 여백)으로 넓히고
+     제목·설명 문단은 1280 컨테이너 선에 맞춤. (100% = 섹션 내용 폭 = 화면폭 − 2·gx) */
+  .rsec#rl-embed { padding-left: var(--gx); padding-right: var(--gx); }
+  .rsec#rl-embed > :not(#rl-frame) { margin-left: max(0px, calc((100% - 1232px) / 2)); margin-right: max(0px, calc((100% - 1232px) / 2)); }
 
   /* ---- People (본문 1100) ---- */
   .people-hero, .pi-block, .mgroup { padding-left: var(--cxn); padding-right: var(--cxn); }
