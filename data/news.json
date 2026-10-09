@@ -1,6 +1,6 @@
 {
   "_comment": "Auto area (I3). Shared by Slack /home-news and in-page admin publish. Rendered by js/auto-sections.js.",
-  "updated": "2026-09-27T09:28:02.189Z",
+  "updated": "2026-10-09T16:27:56.740Z",
   "items": [
     {
       "date": "2026-09-21",
@@ -12,7 +12,7 @@
     {
       "date": "2026-09-16",
       "title": "Welcoming our Fall 2026 URP students and undergraduate interns",
-      "body": "QS Lab welcomes nine new undergraduate researchers for Fall 2026 — URP students Yerin Lee, Hyeryeon Chung, Junseo Park, Kyoungjun Yang, Jung Changseop, Jongmin Lee, Seungmin Yoon and Gyuri Kim, and undergraduate intern HeeJae Ryu. They join our synthesis, device and machine-learning-assisted process-optimization efforts across WS₂ growth, ternary materials screening and 2D device fabrication."
+      "body": "QS Lab welcomes ten new undergraduate researchers for Fall 2026 — URP students Yerin Lee, Hyeryeon Chung, Junseo Park, Kyoungjun Yang, Jung Changseop, Jongmin Lee, Seungmin Yoon and Gyuri Kim, and undergraduate interns HeeJae Ryu and Mina Nam. They join our synthesis, device and machine-learning-assisted process-optimization efforts across WS₂ growth, ternary materials screening and 2D device fabrication."
     },
     {
       "date": "2026-08-27",
@@ -91,7 +91,7 @@
     {
       "date": "2026-03-02",
       "title": "New undergraduate interns join QS Lab",
-      "body": "Taeyoung Jeon, Minseok Kim, Seonwoo Youn, Juhyung Lee, Dahyeon Oh, Hyeonsu Kim, Seoyoung Lim, Sangmin Joo, Siwon Yang, and Jaeho Kang have joined QS Lab as undergraduate interns. Welcome, all!"
+      "body": "Taeyoung Jeon, Minseok Kim, Seonwoo Yoon, Juhyung Lee, Dahyeon Oh, Hyeonsu Kim, Seoyoung Lim, Sangmin Joo, Siwon Yang, and Jaeho Kang have joined QS Lab as undergraduate interns. Welcome, all!"
     },
     {
       "date": "2026-01-28",

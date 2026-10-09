@@ -1,6 +1,6 @@
 {
   "_comment": "Auto area (I3). Source of truth for People member cards (grids: ra/grad/intern/postdoc/alumni). Edited by qs-kb Slack /home-member (PI publishes; students submit for PI approval) and the in-page admin publish. Rendered by js/auto-sections.js. I4: only PI-approved member info is published.",
-  "updated": "2026-09-16T15:16:30.388690+00:00",
+  "updated": "2026-10-09T16:27:56.736933+00:00",
   "members": [
     {
       "category": "ra",
@@ -19,8 +19,8 @@
     {
       "category": "grad",
       "name": "Wonchan Lee",
-      "role": "Integrated M.S.-Ph.D. (Mar 2025)",
-      "desc": "Joined as research assistant in October 2024, transitioned to Integrated M.S.-Ph.D. program in March 2025. Research focuses on quantum phase transitions in 2D transistors and low-power computing technologies leveraging novel quantum phenomena.",
+      "role": "M.S. (Mar 2025)",
+      "desc": "Joined as research assistant in October 2024, M.S. student since March 2025. Research focuses on quantum phase transitions in 2D transistors and low-power computing technologies leveraging novel quantum phenomena.",
       "image": "assets/people/wonchan-lee.jpg"
     },
     {
@@ -62,14 +62,14 @@
       "category": "grad",
       "name": "Kyungwu Kwon",
       "role": "Graduate Student (Mar 2026)",
-      "desc": "Undergraduate intern since March 2025, transitioning to graduate student in March 2026. Research on synthesis of 2D topological semimetals and semiconductors for nanoelectronics.",
+      "desc": "Undergraduate intern from March 2025; graduate student since March 2026. Research on synthesis of 2D topological semimetals and semiconductors for nanoelectronics.",
       "image": "assets/people/kyungwu-kwon.jpg"
     },
     {
       "category": "grad",
       "name": "Yerin So",
       "role": "Graduate Student (Mar 2026)",
-      "desc": "Physics undergraduate at Sookmyung Women's University, research intern since August 2025, graduate studies starting March 2026. Research: 2D superconductors and fundamental physical properties for superconducting qubit applications.",
+      "desc": "Physics undergraduate at Sookmyung Women's University, research intern from August 2025; graduate student since March 2026. Research: 2D superconductors and fundamental physical properties for superconducting qubit applications.",
       "image": "assets/people/yerin-so.jpg"
     },
     {
@@ -218,7 +218,7 @@
     },
     {
       "category": "alumni",
-      "name": "Sungwoo Yoon",
+      "name": "Seonwoo Yoon",
       "role": "Alumni (ex-Intern)",
       "image": "assets/people/sungwoo-yoon.jpg"
     },
@@ -284,6 +284,12 @@
       "role": "Undergrad Intern (Fall 2026)",
       "desc": "Undergraduate intern since September 2026. Research: growth and characterization of 2D layered materials and van der Waals heterostructures for energy and electronic applications.",
       "image": "assets/people/heejae-ryu.webp"
+    },
+    {
+      "category": "intern",
+      "name": "Mina Nam",
+      "role": "Undergrad Intern (Fall 2026)",
+      "desc": "Energy Science undergraduate, intern since September 2026. Research: TODO(확인)"
     }
   ]
 }
