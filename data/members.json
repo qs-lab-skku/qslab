@@ -1,6 +1,6 @@
 {
   "_comment": "Auto area (I3). Source of truth for People member cards (grids: ra/grad/intern/postdoc/alumni). Edited by qs-kb Slack /home-member (PI publishes; students submit for PI approval) and the in-page admin publish. Rendered by js/auto-sections.js. I4: only PI-approved member info is published.",
-  "updated": "2026-10-09T16:34:24.546928+00:00",
+  "updated": "2026-10-09T16:42:22.009480+00:00",
   "members": [
     {
       "category": "ra",
@@ -33,8 +33,8 @@
     {
       "category": "grad",
       "name": "Inbae Song",
-      "role": "Integrated M.S.-Ph.D. (Mar 2025)",
-      "desc": "Integrated M.S.-Ph.D. student since March 2025, started as undergraduate intern in January 2025. Research: growth of 2D transition metal tellurides via thermal CVD.",
+      "role": "M.S. (Mar 2025)",
+      "desc": "M.S. student since March 2025, started as undergraduate intern in January 2025. Research: growth of 2D transition metal tellurides via thermal CVD.",
       "image": "assets/people/inbae-song.jpg"
     },
     {
