@@ -1,6 +1,6 @@
 {
   "_comment": "Auto area (I3). Source of truth for People member cards (grids: ra/grad/intern/postdoc/alumni). Edited by qs-kb Slack /home-member (PI publishes; students submit for PI approval) and the in-page admin publish. Rendered by js/auto-sections.js. I4: only PI-approved member info is published.",
-  "updated": "2026-10-09T16:42:22.009480+00:00",
+  "updated": "2026-10-10T04:36:44.198168+00:00",
   "members": [
     {
       "category": "ra",
@@ -289,7 +289,8 @@
       "category": "intern",
       "name": "Mina Nam",
       "role": "Undergrad Intern (Fall 2026)",
-      "desc": "Energy Science undergraduate, intern since September 2026. Research: synthesis of high-k dielectrics and 2D ferroelectric materials for ferroelectric memory applications."
+      "desc": "Energy Science undergraduate, intern since September 2026. Research: synthesis of high-k dielectrics and 2D ferroelectric materials for ferroelectric memory applications.",
+      "image": "assets/people/mina-nam.webp"
     }
   ]
 }
