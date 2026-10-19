@@ -1,6 +1,6 @@
 {
   "_comment": "Auto area (I3). Source of truth for People member cards (grids: ra/grad/intern/postdoc/alumni). Edited by qs-kb Slack /home-member (PI publishes; students submit for PI approval) and the in-page admin publish. Rendered by js/auto-sections.js. I4: only PI-approved member info is published.",
-  "updated": "2026-10-19T13:33:17.087814+00:00",
+  "updated": "2026-10-19T13:36:10.594797+00:00",
   "members": [
     {
       "category": "ra",
@@ -69,7 +69,7 @@
       "category": "grad",
       "name": "Yerin So",
       "role": "Graduate Student (Mar 2026)",
-      "desc": "Physics undergraduate at Sookmyung Women's University, research intern from August 2025; graduate student since March 2026. Research: 2D superconductors and fundamental physical properties for superconducting qubit applications.",
+      "desc": "Physics undergraduate, research intern from August 2025; graduate student since March 2026. Research: 2D superconductors and fundamental physical properties for superconducting qubit applications.",
       "image": "assets/people/yerin-so.jpg"
     },
     {
