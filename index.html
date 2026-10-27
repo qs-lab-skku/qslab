@@ -1176,10 +1176,17 @@ body.admin-on .news-edit-btns { display: flex; }
   .r-grid { grid-template-columns: 1fr 1fr; }
   .news-hl-grid { grid-template-columns: repeat(2, 1fr); }
 }
-/* 중간 폭(769~1020px): 메뉴 숨기고 햄버거 조기 전환 — .hbtn 기본값 뒤에 위치해야 적용됨 */
-@media (max-width: 1020px) {
-  .nav-links { display: none; }
-  .hbtn { display: flex; }
+/* 중간 폭(769~1020px): 메뉴를 가로 스크롤(스와이프)로 — 햄버거는 768px 이하만 */
+@media (max-width: 1020px) and (min-width: 769px) {
+  .nav-inner { gap: .6rem; }
+  .nav-links {
+    flex: 1 1 auto; min-width: 0;
+    overflow-x: auto; -webkit-overflow-scrolling: touch;
+    scrollbar-width: none; padding: 0 16px;
+    -webkit-mask-image: linear-gradient(to right, transparent 0, #000 14px, #000 calc(100% - 22px), transparent 100%);
+    mask-image: linear-gradient(to right, transparent 0, #000 14px, #000 calc(100% - 22px), transparent 100%);
+  }
+  .nav-links::-webkit-scrollbar { display: none; }
 }
 @media (max-width: 768px) {
   nav { padding: 0 var(--s3); }
@@ -2605,6 +2612,14 @@ var Router = (function () {
     var pg = document.getElementById('page-' + id);
     if (pg) pg.classList.add('active');
     document.querySelectorAll('[data-page="' + id + '"]').forEach(function(a) { a.classList.add('active'); });
+    /* 가로 스크롤 nav(중간 폭)에서 활성 항목이 보이도록 */
+    try {
+      var nl = document.getElementById('nav-links');
+      if (nl && nl.scrollWidth > nl.clientWidth) {
+        var act = nl.querySelector('a.active');
+        if (act) nl.scrollTo({ left: act.offsetLeft - nl.clientWidth / 2 + act.offsetWidth / 2, behavior: 'smooth' });
+      }
+    } catch (e) {}
     if (id === 'research-detail') {
       document.querySelectorAll('[data-page="research"]').forEach(function(a) { a.classList.add('active'); });
       /* show edit body button if admin is active */
