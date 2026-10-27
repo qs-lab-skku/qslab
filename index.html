@@ -1125,13 +1125,13 @@ body.admin-on .ccard[data-ccedit]:hover { outline: 2px dashed var(--amber); outl
 @media (prefers-color-scheme: dark) and (min-width: 99999px) { .ctime { color: var(--amber2); } }
 
 /* ---------- Press Page ---------- */
-.press-wrap { max-width: var(--max-w); margin: 0 auto; padding: var(--s4) var(--gx) var(--s6); }
+.press-wrap { max-width: 1020px; margin: 0 auto; padding: var(--s4) var(--gx) var(--s6); }
 .press-lang { display: flex; border: 1px solid var(--border); border-radius: 999px; overflow: hidden; background: var(--bg); }
 .press-lang button { font-family: var(--mono); font-size: .66rem; font-weight: 700; letter-spacing: .06em; padding: .4rem .95rem; border: none; background: transparent; color: var(--ink3); cursor: pointer; }
 .press-lang button[aria-pressed="true"] { background: var(--blue); color: #fff; }
 .press-strip { display: flex; flex-wrap: wrap; gap: .4rem 1.3rem; align-items: center; padding: 1rem 1.2rem; background: var(--bg2); border-radius: var(--r3); margin-bottom: 1.2rem; }
 .press-strip .ps-lbl { font-family: var(--mono); font-size: .6rem; letter-spacing: .12em; text-transform: uppercase; color: var(--ink3); margin-right: .4rem; }
-.press-strip .ps-name { font-family: var(--serif); font-weight: 700; font-size: .95rem; color: var(--ink2); white-space: nowrap; }
+.press-strip .ps-name { font-family: var(--sans); font-weight: 700; font-size: .88rem; letter-spacing: -.01em; color: var(--ink2); white-space: nowrap; }
 .press-yr { font-family: var(--mono); font-size: .68rem; font-weight: 600; letter-spacing: .14em; color: var(--ink3); margin: 1.6rem 0 .2rem; text-transform: uppercase; display: flex; align-items: center; gap: .6rem; }
 .press-yr::after { content: ""; flex: 1; height: 1px; background: var(--border); }
 .press-row { display: grid; grid-template-columns: 100px 1fr; gap: 1.1rem; padding: 1rem 0; border-bottom: 1px solid var(--border); }
@@ -6916,7 +6916,7 @@ body.admin-on #pub-toc-batch { display: inline-flex; }
     }); });
     var strip = document.getElementById('press-strip');
     if (strip) strip.innerHTML = '<span class="ps-lbl">' + u.strip + '</span>' +
-      names.slice(0, 10).map(function (n) { return '<span class="ps-name">' + esc(n) + '</span>'; }).join('');
+      names.slice(0, 12).map(function (n) { return '<span class="ps-name">' + esc(n) + '</span>'; }).join('');
     var html = '', curG = null;
     DATA.items.forEach(function (p) {
       if (p.group !== curG) { curG = p.group; html += '<div class="press-yr">' + esc(curG) + '</div>'; }

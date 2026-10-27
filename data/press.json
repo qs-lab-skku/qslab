@@ -15,7 +15,14 @@
         "en": "International joint roadmap published in 2D Materials — Prof. Song led the \"Towards Advanced Electronics\" chapter with collaborators from six countries."
       },
       "links": [
-        { "name": { "ko": "S프레스뉴스", "en": "S-Press News" }, "url": "https://www.spressnews.com/news/articleView.html?idxno=139175", "lang": "ko" }
+        {
+          "name": {
+            "ko": "S프레스뉴스",
+            "en": "S-Press News"
+          },
+          "url": "https://www.spressnews.com/news/articleView.html?idxno=139175",
+          "lang": "ko"
+        }
       ]
     },
     {
@@ -31,10 +38,38 @@
         "en": "With IBS, UPenn and AFRL — a technology roadmap for 2D indium selenides that unite logic and memory in one material (Nature Reviews EE)."
       },
       "links": [
-        { "name": { "ko": "뉴시스", "en": "Newsis" }, "url": "https://www.newsis.com/view/NISX20260304_0003533929", "lang": "ko" },
-        { "name": { "ko": "이데일리", "en": "Edaily" }, "url": "https://edaily.co.kr/News/Read?mediaCodeNo=257&newsId=04500166645379712", "lang": "ko" },
-        { "name": { "ko": "베리타스알파", "en": "Veritas Alpha" }, "url": "https://www.veritas-a.com/news/articleView.html?idxno=600138", "lang": "ko" },
-        { "name": { "ko": "이뉴스투데이", "en": "eNews Today" }, "url": "http://www.enewstoday.co.kr/news/articleView.html?idxno=2400615", "lang": "ko" }
+        {
+          "name": {
+            "ko": "뉴시스",
+            "en": "Newsis"
+          },
+          "url": "https://www.newsis.com/view/NISX20260304_0003533929",
+          "lang": "ko"
+        },
+        {
+          "name": {
+            "ko": "이데일리",
+            "en": "Edaily"
+          },
+          "url": "https://edaily.co.kr/News/Read?mediaCodeNo=257&newsId=04500166645379712",
+          "lang": "ko"
+        },
+        {
+          "name": {
+            "ko": "베리타스알파",
+            "en": "Veritas Alpha"
+          },
+          "url": "https://www.veritas-a.com/news/articleView.html?idxno=600138",
+          "lang": "ko"
+        },
+        {
+          "name": {
+            "ko": "이뉴스투데이",
+            "en": "eNews Today"
+          },
+          "url": "http://www.enewstoday.co.kr/news/articleView.html?idxno=2400615",
+          "lang": "ko"
+        }
       ]
     },
     {
@@ -50,9 +85,46 @@
         "en": "With UPenn and Penn State — new ferroelectric gating and contact engineering boost storage efficiency, current density and mobility (ACS Nano)."
       },
       "links": [
-        { "name": { "ko": "아시아경제", "en": "Asia Economy" }, "url": "https://www.asiae.co.kr/article/2025031813523349387", "lang": "ko" },
-        { "name": { "ko": "이코노미사이언스", "en": "Economy Science" }, "url": "https://www.e-science.co.kr/news/articleView.html?idxno=103185", "lang": "ko" },
-        { "name": { "ko": "핀포인트뉴스", "en": "Pinpoint News" }, "url": "https://www.pinpointnews.co.kr/news/articleView.html?idxno=329146", "lang": "ko" }
+        {
+          "name": {
+            "ko": "아시아경제",
+            "en": "Asia Economy"
+          },
+          "url": "https://www.asiae.co.kr/article/2025031813523349387",
+          "lang": "ko"
+        },
+        {
+          "name": {
+            "ko": "이코노미사이언스",
+            "en": "Economy Science"
+          },
+          "url": "https://www.e-science.co.kr/news/articleView.html?idxno=103185",
+          "lang": "ko"
+        },
+        {
+          "name": {
+            "ko": "핀포인트뉴스",
+            "en": "Pinpoint News"
+          },
+          "url": "https://www.pinpointnews.co.kr/news/articleView.html?idxno=329146",
+          "lang": "ko"
+        },
+        {
+          "name": {
+            "ko": "아시아타임즈",
+            "en": "Asia Time"
+          },
+          "url": "https://www.asiatime.co.kr/article/20250318500330",
+          "lang": "ko"
+        },
+        {
+          "name": {
+            "ko": "IBS 2DQH",
+            "en": "IBS 2DQH"
+          },
+          "url": "https://centers.ibs.re.kr/_prog/_board/?code=2dqh_notice&list_typ=B&mode=V&no=36894&site_dvs_cd=kr",
+          "lang": "ko"
+        }
       ]
     },
     {
@@ -68,9 +140,30 @@
         "en": "Dr. Song (then a postdoc at UPenn) led the pulsed-MOCVD growth of phase-pure, wafer-scale InSe (Matter)."
       },
       "links": [
-        { "name": { "ko": "Penn Engineering Blog", "en": "Penn Engineering Blog" }, "url": "https://blog.seas.upenn.edu/silicon-ally-penn-engineers-grow-full-wafers-of-high-performing-2d-semiconductor-that-integrates-with-state-of-the-art-chips/", "lang": "en" },
-        { "name": { "ko": "Interesting Engineering", "en": "Interesting Engineering" }, "url": "https://interestingengineering.com/innovation/meet-inse-new-high-performing-2d-semiconductor-material", "lang": "en" },
-        { "name": { "ko": "EurekAlert!", "en": "EurekAlert!" }, "url": "https://www.eurekalert.org/news-releases/1001995", "lang": "en" }
+        {
+          "name": {
+            "ko": "Penn Engineering Blog",
+            "en": "Penn Engineering Blog"
+          },
+          "url": "https://blog.seas.upenn.edu/silicon-ally-penn-engineers-grow-full-wafers-of-high-performing-2d-semiconductor-that-integrates-with-state-of-the-art-chips/",
+          "lang": "en"
+        },
+        {
+          "name": {
+            "ko": "Interesting Engineering",
+            "en": "Interesting Engineering"
+          },
+          "url": "https://interestingengineering.com/innovation/meet-inse-new-high-performing-2d-semiconductor-material",
+          "lang": "en"
+        },
+        {
+          "name": {
+            "ko": "EurekAlert!",
+            "en": "EurekAlert!"
+          },
+          "url": "https://www.eurekalert.org/news-releases/1001995",
+          "lang": "en"
+        }
       ]
     },
     {
@@ -86,9 +179,30 @@
         "en": "With Profs. Soon-Yong Kwon and Jong-Hoon Lee at UNIST — low-temperature 4-inch growth of p-type 2D semiconductors; co-first author (Nature Communications)."
       },
       "links": [
-        { "name": { "ko": "부산일보", "en": "Busan Ilbo" }, "url": "https://www.busan.com/view/busan/view.php?code=2023082410491873059", "lang": "ko" },
-        { "name": { "ko": "전기신문", "en": "Electric Times" }, "url": "https://www.electimes.com/news/articleView.html?idxno=324958", "lang": "ko" },
-        { "name": { "ko": "대학지성", "en": "Unipress" }, "url": "https://www.unipress.co.kr/news/articleView.html?idxno=8993", "lang": "ko" }
+        {
+          "name": {
+            "ko": "부산일보",
+            "en": "Busan Ilbo"
+          },
+          "url": "https://www.busan.com/view/busan/view.php?code=2023082410491873059",
+          "lang": "ko"
+        },
+        {
+          "name": {
+            "ko": "전기신문",
+            "en": "Electric Times"
+          },
+          "url": "https://www.electimes.com/news/articleView.html?idxno=324958",
+          "lang": "ko"
+        },
+        {
+          "name": {
+            "ko": "대학지성",
+            "en": "Unipress"
+          },
+          "url": "https://www.unipress.co.kr/news/articleView.html?idxno=8993",
+          "lang": "ko"
+        }
       ]
     },
     {
@@ -104,7 +218,22 @@
         "en": "AlScN/2D-channel ferroelectric transistors that keep a large memory window at small dimensions (Nature Nanotechnology, co-author)."
       },
       "links": [
-        { "name": { "ko": "ScienceDaily", "en": "ScienceDaily" }, "url": "https://www.sciencedaily.com/releases/2023/07/230713141955.htm", "lang": "en" }
+        {
+          "name": {
+            "ko": "ScienceDaily",
+            "en": "ScienceDaily"
+          },
+          "url": "https://www.sciencedaily.com/releases/2023/07/230713141955.htm",
+          "lang": "en"
+        },
+        {
+          "name": {
+            "ko": "EurekAlert!",
+            "en": "EurekAlert!"
+          },
+          "url": "https://www.eurekalert.org/news-releases/995519",
+          "lang": "en"
+        }
       ]
     },
     {
@@ -120,9 +249,30 @@
         "en": "Wafer-scale lateral semiconductor–metal junctions with 0.7-nm gaps (Nature Communications)."
       },
       "links": [
-        { "name": { "ko": "뉴시스", "en": "Newsis" }, "url": "https://mobile.newsis.com/view.html?ar_id=NISX20220905_0002002465", "lang": "ko" },
-        { "name": { "ko": "베리타스알파", "en": "Veritas Alpha" }, "url": "http://www.veritas-a.com/news/articleView.html?idxno=428023", "lang": "ko" },
-        { "name": { "ko": "정보통신신문", "en": "KOIT" }, "url": "https://www.koit.co.kr/news/articleView.html?idxno=102399", "lang": "ko" }
+        {
+          "name": {
+            "ko": "뉴시스",
+            "en": "Newsis"
+          },
+          "url": "https://mobile.newsis.com/view.html?ar_id=NISX20220905_0002002465",
+          "lang": "ko"
+        },
+        {
+          "name": {
+            "ko": "베리타스알파",
+            "en": "Veritas Alpha"
+          },
+          "url": "http://www.veritas-a.com/news/articleView.html?idxno=428023",
+          "lang": "ko"
+        },
+        {
+          "name": {
+            "ko": "정보통신신문",
+            "en": "KOIT"
+          },
+          "url": "https://www.koit.co.kr/news/articleView.html?idxno=102399",
+          "lang": "ko"
+        }
       ]
     },
     {
@@ -138,8 +288,46 @@
         "en": "First-author Ph.D. work at UNIST — wafer-scale 2D metals enabling van der Waals semiconductor contacts at the Schottky–Mott limit (Nature Electronics)."
       },
       "links": [
-        { "name": { "ko": "UNIST 뉴스", "en": "UNIST News" }, "url": "https://news.unist.ac.kr/kor/newsletter/20200507/?frame=0", "lang": "ko" },
-        { "name": { "ko": "국제뉴스", "en": "Gukje News" }, "url": "https://www.gukjenews.com/news/articleView.html?idxno=3431916", "lang": "ko" }
+        {
+          "name": {
+            "ko": "UNIST 뉴스",
+            "en": "UNIST News"
+          },
+          "url": "https://news.unist.ac.kr/kor/newsletter/20200507/?frame=0",
+          "lang": "ko"
+        },
+        {
+          "name": {
+            "ko": "국제뉴스",
+            "en": "Gukje News"
+          },
+          "url": "https://www.gukjenews.com/news/articleView.html?idxno=3431916",
+          "lang": "ko"
+        },
+        {
+          "name": {
+            "ko": "대학지성",
+            "en": "Unipress"
+          },
+          "url": "https://www.unipress.co.kr/news/articleView.html?idxno=13507",
+          "lang": "ko"
+        },
+        {
+          "name": {
+            "ko": "기계신문",
+            "en": "MT News"
+          },
+          "url": "https://www.mtnews.net/news/articleView.html?idxno=8333",
+          "lang": "ko"
+        },
+        {
+          "name": {
+            "ko": "포인트경제",
+            "en": "Pointe"
+          },
+          "url": "https://www.pointe.co.kr/news/articleView.html?idxno=2200",
+          "lang": "ko"
+        }
       ]
     }
   ]
