@@ -368,11 +368,6 @@ nav.scrolled { box-shadow: var(--sh2); }
 @media (max-width: 1180px) {
   .nav-links a { padding: 0 .42rem; font-size: .62rem; letter-spacing: .02em; }
 }
-/* 더 좁으면 햄버거로 조기 전환 (기존 768px 규칙보다 먼저 적용) */
-@media (max-width: 1020px) {
-  .nav-links { display: none; }
-  .hbtn { display: flex; }
-}
 /* Lab Wiki — 내부 도구 느낌: nav 우측 끝(로고 반대편)에 배치, sans 소문자, 차분한 연회색 */
 .nav-wiki {
   font-family: var(--sans); font-size: .8rem; font-weight: 400; letter-spacing: 0;
@@ -1180,6 +1175,11 @@ body.admin-on .news-edit-btns { display: flex; }
 @media (max-width: 1024px) {
   .r-grid { grid-template-columns: 1fr 1fr; }
   .news-hl-grid { grid-template-columns: repeat(2, 1fr); }
+}
+/* 중간 폭(769~1020px): 메뉴 숨기고 햄버거 조기 전환 — .hbtn 기본값 뒤에 위치해야 적용됨 */
+@media (max-width: 1020px) {
+  .nav-links { display: none; }
+  .hbtn { display: flex; }
 }
 @media (max-width: 768px) {
   nav { padding: 0 var(--s3); }
