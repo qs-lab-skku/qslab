@@ -1,6 +1,6 @@
 {
   "_comment": "Auto area (I3). Source of truth for People member cards (grids: ra/grad/intern/postdoc/alumni). Edited by qs-kb Slack /home-member (PI publishes; students submit for PI approval) and the in-page admin publish. Rendered by js/auto-sections.js. I4: only PI-approved member info is published.",
-  "updated": "2026-10-19T13:36:10.594797+00:00",
+  "updated": "2026-10-27T02:51:47.209617+00:00",
   "members": [
     {
       "category": "ra",
@@ -298,6 +298,11 @@
       "role": "Undergrad Intern (Fall 2026)",
       "desc": "Materials Science and Engineering undergraduate, intern since October 2026. Research: quantum phase transitions in 2D transistors and low-power computing technologies with ferroelectric materials leveraging novel quantum phenomena.",
       "image": "assets/people/yoonseo-jung.webp"
+    },
+    {
+      "category": "intern",
+      "name": "Jinwon Gu",
+      "role": "Undergrad Intern (Fall 2026)"
     }
   ]
 }
