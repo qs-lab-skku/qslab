@@ -1,0 +1,146 @@
+{
+  "_comment": "Press coverage. Rendered by the Press page (index.html). Each item: date, group (year divider), journal, bilingual title/summary, links[{name:{ko,en}, url, lang}].",
+  "updated": "2026-10-27",
+  "items": [
+    {
+      "date": "2026-10-01",
+      "group": "2026",
+      "journal": "2D Materials",
+      "title": {
+        "ko": "송승욱 교수, 6개국 국제 공동 연구진과 차세대 '2차원 반도체' 상용화 기술 로드맵 제시",
+        "en": "Prof. Song presents an international roadmap for commercializing next-generation 2D semiconductors"
+      },
+      "summary": {
+        "ko": "2D Materials 게재 국제 공동 로드맵 — 송 교수가 'Towards Advanced Electronics' 챕터를 주도했다.",
+        "en": "International joint roadmap published in 2D Materials — Prof. Song led the \"Towards Advanced Electronics\" chapter with collaborators from six countries."
+      },
+      "links": [
+        { "name": { "ko": "S프레스뉴스", "en": "S-Press News" }, "url": "https://www.spressnews.com/news/articleView.html?idxno=139175", "lang": "ko" }
+      ]
+    },
+    {
+      "date": "2026-03-03",
+      "group": "2026",
+      "journal": "Nature Reviews Electrical Engineering",
+      "title": {
+        "ko": "차세대 양자·AI 반도체 소재 '인듐 셀레나이드' 기술 로드맵 제시",
+        "en": "Roadmap for indium selenides — a next-generation quantum/AI semiconductor material"
+      },
+      "summary": {
+        "ko": "IBS·UPenn·美 공군연구소 공동 — 연산과 저장을 한 소재에서 구현하는 2차원 InSe 로드맵 (Nature Reviews EE).",
+        "en": "With IBS, UPenn and AFRL — a technology roadmap for 2D indium selenides that unite logic and memory in one material (Nature Reviews EE)."
+      },
+      "links": [
+        { "name": { "ko": "뉴시스", "en": "Newsis" }, "url": "https://www.newsis.com/view/NISX20260304_0003533929", "lang": "ko" },
+        { "name": { "ko": "이데일리", "en": "Edaily" }, "url": "https://edaily.co.kr/News/Read?mediaCodeNo=257&newsId=04500166645379712", "lang": "ko" },
+        { "name": { "ko": "베리타스알파", "en": "Veritas Alpha" }, "url": "https://www.veritas-a.com/news/articleView.html?idxno=600138", "lang": "ko" },
+        { "name": { "ko": "이뉴스투데이", "en": "eNews Today" }, "url": "http://www.enewstoday.co.kr/news/articleView.html?idxno=2400615", "lang": "ko" }
+      ]
+    },
+    {
+      "date": "2025-03-18",
+      "group": "2025",
+      "journal": "ACS Nano",
+      "title": {
+        "ko": "\"정보저장 효율 5배\"… 2D 강유전체 메모리 소자로 차세대 메모리 성능 혁신",
+        "en": "2D ferroelectric memory devices deliver a five-fold gain in storage efficiency"
+      },
+      "summary": {
+        "ko": "UPenn·Penn State 등과 공동 — 새 강유전체 게이팅·전극 조합으로 저장 효율과 전류밀도·이동도 향상 (ACS Nano).",
+        "en": "With UPenn and Penn State — new ferroelectric gating and contact engineering boost storage efficiency, current density and mobility (ACS Nano)."
+      },
+      "links": [
+        { "name": { "ko": "아시아경제", "en": "Asia Economy" }, "url": "https://www.asiae.co.kr/article/2025031813523349387", "lang": "ko" },
+        { "name": { "ko": "이코노미사이언스", "en": "Economy Science" }, "url": "https://www.e-science.co.kr/news/articleView.html?idxno=103185", "lang": "ko" },
+        { "name": { "ko": "핀포인트뉴스", "en": "Pinpoint News" }, "url": "https://www.pinpointnews.co.kr/news/articleView.html?idxno=329146", "lang": "ko" }
+      ]
+    },
+    {
+      "date": "2023-08-08",
+      "group": "2023 · UPenn",
+      "journal": "Matter",
+      "title": {
+        "ko": "\"Silicon Ally\" — 실리콘 칩과 결합 가능한 고성능 2차원 반도체, 웨이퍼 전면 성장 성공",
+        "en": "Silicon Ally: Penn engineers grow full wafers of a high-performing 2D semiconductor that integrates with state-of-the-art chips"
+      },
+      "summary": {
+        "ko": "송 교수(당시 UPenn 박사후연구원)가 펄스 MOCVD로 상분리 없는 웨이퍼 스케일 InSe 성장을 주도 (Matter).",
+        "en": "Dr. Song (then a postdoc at UPenn) led the pulsed-MOCVD growth of phase-pure, wafer-scale InSe (Matter)."
+      },
+      "links": [
+        { "name": { "ko": "Penn Engineering Blog", "en": "Penn Engineering Blog" }, "url": "https://blog.seas.upenn.edu/silicon-ally-penn-engineers-grow-full-wafers-of-high-performing-2d-semiconductor-that-integrates-with-state-of-the-art-chips/", "lang": "en" },
+        { "name": { "ko": "Interesting Engineering", "en": "Interesting Engineering" }, "url": "https://interestingengineering.com/innovation/meet-inse-new-high-performing-2d-semiconductor-material", "lang": "en" },
+        { "name": { "ko": "EurekAlert!", "en": "EurekAlert!" }, "url": "https://www.eurekalert.org/news-releases/1001995", "lang": "en" }
+      ]
+    },
+    {
+      "date": "2023-08-07",
+      "group": "2023 · UNIST",
+      "journal": "Nature Communications",
+      "title": {
+        "ko": "2차원 물질 기반 고성능 p형 반도체 소자 개발 — 4인치 저온 합성",
+        "en": "High-performance p-type 2D semiconductor devices grown at low temperature on 4-inch wafers"
+      },
+      "summary": {
+        "ko": "UNIST 권순용·이종훈 교수팀과 공동 — 4인치 웨이퍼 저온 p형 2D 반도체 합성, 공동 1저자 (Nature Communications).",
+        "en": "With Profs. Soon-Yong Kwon and Jong-Hoon Lee at UNIST — low-temperature 4-inch growth of p-type 2D semiconductors; co-first author (Nature Communications)."
+      },
+      "links": [
+        { "name": { "ko": "부산일보", "en": "Busan Ilbo" }, "url": "https://www.busan.com/view/busan/view.php?code=2023082410491873059", "lang": "ko" },
+        { "name": { "ko": "전기신문", "en": "Electric Times" }, "url": "https://www.electimes.com/news/articleView.html?idxno=324958", "lang": "ko" },
+        { "name": { "ko": "대학지성", "en": "Unipress" }, "url": "https://www.unipress.co.kr/news/articleView.html?idxno=8993", "lang": "ko" }
+      ]
+    },
+    {
+      "date": "2023-07-13",
+      "group": "2023 · UPenn",
+      "journal": "Nature Nanotechnology",
+      "title": {
+        "ko": "저장과 연산을 동시에 — 대규모 집적 가능한 강유전체 트랜지스터",
+        "en": "A ferroelectric transistor that stores and computes at scale"
+      },
+      "summary": {
+        "ko": "AlScN/2D 채널 강유전체 트랜지스터(FeFET) — 미세 소자에서도 큰 메모리 윈도 유지 (Nature Nanotechnology, 공저).",
+        "en": "AlScN/2D-channel ferroelectric transistors that keep a large memory window at small dimensions (Nature Nanotechnology, co-author)."
+      },
+      "links": [
+        { "name": { "ko": "ScienceDaily", "en": "ScienceDaily" }, "url": "https://www.sciencedaily.com/releases/2023/07/230713141955.htm", "lang": "en" }
+      ]
+    },
+    {
+      "date": "2022-09-05",
+      "group": "2022 · UNIST",
+      "journal": "Nature Communications",
+      "title": {
+        "ko": "'1나노 반도체' 앞당긴다 — 원자층 트랜지스터 제조기술",
+        "en": "Toward 1-nm semiconductors — atomic-layer transistor fabrication with sub-nm metal junctions"
+      },
+      "summary": {
+        "ko": "반도체-금속 0.7 nm 수평 접합 소자의 대면적 구현 (Nature Communications).",
+        "en": "Wafer-scale lateral semiconductor–metal junctions with 0.7-nm gaps (Nature Communications)."
+      },
+      "links": [
+        { "name": { "ko": "뉴시스", "en": "Newsis" }, "url": "https://mobile.newsis.com/view.html?ar_id=NISX20220905_0002002465", "lang": "ko" },
+        { "name": { "ko": "베리타스알파", "en": "Veritas Alpha" }, "url": "http://www.veritas-a.com/news/articleView.html?idxno=428023", "lang": "ko" },
+        { "name": { "ko": "정보통신신문", "en": "KOIT" }, "url": "https://www.koit.co.kr/news/articleView.html?idxno=102399", "lang": "ko" }
+      ]
+    },
+    {
+      "date": "2020-05-07",
+      "group": "2020 · UNIST",
+      "journal": "Nature Electronics",
+      "title": {
+        "ko": "반도체 소자용 2차원 금속, 상용 수준 대면적 합성 — 쇼트키-모트 한계 접합",
+        "en": "Wafer-scale 2D metals for semiconductor devices — van der Waals contacts at the Schottky–Mott limit"
+      },
+      "summary": {
+        "ko": "UNIST 박사과정 제1저자 연구 — 2차원 금속/반도체 반데르발스 접합으로 쇼트키-모트 한계 구현 (Nature Electronics).",
+        "en": "First-author Ph.D. work at UNIST — wafer-scale 2D metals enabling van der Waals semiconductor contacts at the Schottky–Mott limit (Nature Electronics)."
+      },
+      "links": [
+        { "name": { "ko": "UNIST 뉴스", "en": "UNIST News" }, "url": "https://news.unist.ac.kr/kor/newsletter/20200507/?frame=0", "lang": "ko" },
+        { "name": { "ko": "국제뉴스", "en": "Gukje News" }, "url": "https://www.gukjenews.com/news/articleView.html?idxno=3431916", "lang": "ko" }
+      ]
+    }
+  ]
+}

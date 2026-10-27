@@ -1124,6 +1124,29 @@ body.admin-on .ccard[data-ccedit]:hover { outline: 2px dashed var(--amber); outl
 .ctime { font-family: var(--mono); font-size: .72rem; color: var(--blue2); margin-top: .4rem; }
 @media (prefers-color-scheme: dark) and (min-width: 99999px) { .ctime { color: var(--amber2); } }
 
+/* ---------- Press Page ---------- */
+.press-wrap { max-width: var(--max-w); margin: 0 auto; padding: var(--s4) var(--gx) var(--s6); }
+.press-lang { display: flex; border: 1px solid var(--border); border-radius: 999px; overflow: hidden; background: var(--bg); }
+.press-lang button { font-family: var(--mono); font-size: .66rem; font-weight: 700; letter-spacing: .06em; padding: .4rem .95rem; border: none; background: transparent; color: var(--ink3); cursor: pointer; }
+.press-lang button[aria-pressed="true"] { background: var(--blue); color: #fff; }
+.press-strip { display: flex; flex-wrap: wrap; gap: .4rem 1.3rem; align-items: center; padding: 1rem 1.2rem; background: var(--bg2); border-radius: var(--r3); margin-bottom: 1.2rem; }
+.press-strip .ps-lbl { font-family: var(--mono); font-size: .6rem; letter-spacing: .12em; text-transform: uppercase; color: var(--ink3); margin-right: .4rem; }
+.press-strip .ps-name { font-family: var(--serif); font-weight: 700; font-size: .95rem; color: var(--ink2); white-space: nowrap; }
+.press-yr { font-family: var(--mono); font-size: .68rem; font-weight: 600; letter-spacing: .14em; color: var(--ink3); margin: 1.6rem 0 .2rem; text-transform: uppercase; display: flex; align-items: center; gap: .6rem; }
+.press-yr::after { content: ""; flex: 1; height: 1px; background: var(--border); }
+.press-row { display: grid; grid-template-columns: 100px 1fr; gap: 1.1rem; padding: 1rem 0; border-bottom: 1px solid var(--border); }
+.press-row:last-child { border-bottom: none; }
+.press-date { font-family: var(--mono); font-size: .68rem; color: var(--blue); white-space: nowrap; padding-top: .2rem; }
+.press-title { font-weight: 700; font-size: 1rem; line-height: 1.45; margin: 0; color: var(--ink); }
+.press-koTag { font-family: var(--mono); font-size: .58rem; font-weight: 600; color: var(--ink3); border: 1px solid var(--border); border-radius: 4px; padding: .08rem .35rem; vertical-align: 2px; margin-left: .35rem; white-space: nowrap; }
+.press-sum { font-size: .84rem; color: var(--ink2); margin: .3rem 0 .45rem; max-width: 72ch; }
+.press-links { display: flex; flex-wrap: wrap; gap: .45rem; align-items: center; }
+.press-journal { font-family: var(--mono); font-size: .6rem; color: var(--ink3); }
+.press-outlet { display: inline-flex; align-items: center; gap: .3rem; font-family: var(--mono); font-size: .64rem; font-weight: 600; color: var(--blue); background: rgba(35,71,214,.08); border-radius: 6px; padding: .25rem .6rem; text-decoration: none; transition: background var(--t1), color var(--t1); }
+.press-outlet:hover { background: var(--blue); color: #fff; }
+.press-foot { margin-top: 2rem; font-size: .78rem; color: var(--ink3); border-top: 1px solid var(--border); padding-top: 1rem; }
+@media (max-width: 620px) { .press-row { grid-template-columns: 1fr; gap: .25rem; } }
+
 /* ---------- News Page ---------- */
 .news-wrap { padding: var(--s4) var(--s4); max-width: var(--max-w); }
 .news-item { display: grid; grid-template-columns: 100px 1fr; gap: var(--s3); padding: var(--s3) 0; border-bottom: 1px solid var(--border); position: relative; }
@@ -1602,6 +1625,7 @@ footer .ft-left::before { content: ''; display: block; width: 262px; height: 62p
       <li><a data-page="research">Research</a></li>
       <li><a data-page="people">People</a></li>
       <li><a data-page="publications">Publications</a></li>
+      <li><a data-page="press">Press</a></li>
       <li><a data-page="equipment">Equipment</a></li>
       <li><a data-page="teaching">Teaching</a></li>
       <li><a data-page="news">News</a></li>
@@ -1621,6 +1645,7 @@ footer .ft-left::before { content: ''; display: block; width: 262px; height: 62p
   <a data-page="research">Research</a>
   <a data-page="people">People</a>
   <a data-page="publications">Publications</a>
+  <a data-page="press">Press</a>
   <a data-page="equipment">Equipment</a>
   <a data-page="teaching">Teaching</a>
   <a data-page="news">News</a>
@@ -2066,6 +2091,21 @@ footer .ft-left::before { content: ''; display: block; width: 262px; height: 62p
 </main>
 
 <!-- ═══════════════ EQUIPMENT ═══════════════ -->
+<!-- ═══════════════ PRESS ═══════════════ -->
+<main class="sec-page" id="page-press">
+  <div class="sl-head">
+    <div class="sl-name"><span class="tag">QS Lab</span>Press</div>
+    <div class="sl-desc" id="press-sub">QS Lab research in the news, at home and abroad.</div>
+    <div class="sl-right"><div class="press-lang" role="group" aria-label="Language"><button type="button" data-press-lang="ko">KO</button><button type="button" data-press-lang="en">EN</button></div></div>
+  </div>
+  <div class="press-wrap">
+    <div class="press-strip" id="press-strip"></div>
+    <div id="press-list"></div>
+    <p class="press-foot" id="press-foot"></p>
+  </div>
+  <footer><div class="ft-left"><div class="ft-logo">QS Lab</div><div class="ft-addr">seunguk@skku.edu</div></div><div class="ft-right"><div class="ft-dept">© QS Lab, SKKU<span class="ft-admin-trigger">·</span></div></div></footer>
+</main>
+
 <main class="sec-page" id="page-equipment">
   <div class="sl-head">
     <div class="sl-name"><span class="tag">QS Lab</span>Equipment &amp; Facilities</div>
@@ -6842,6 +6882,72 @@ body.admin-on #pub-toc-batch { display: inline-flex; }
     if (btn.hasAttribute('data-car-idx')) show(parseInt(btn.getAttribute('data-car-idx'), 10));
     else show(cur + parseInt(btn.getAttribute('data-car-step') || '1', 10));
   });
+})();
+
+/* ── Press page (data/press.json, KO/EN) ──
+   방문자 브라우저 언어로 기본 언어를 고르고(해외=EN), 토글 선택은 localStorage 유지.
+   page-press 는 content.json IDS 에 없으므로 발행본이 덮어쓰지 않는다. */
+(function () {
+  var DATA = null;
+  var UI_TXT = {
+    ko: { sub: '국내외 언론이 전한 QS Lab의 연구 이야기',
+          strip: 'As featured in', inKo: '', inEn: '(영문 기사)',
+          foot: '보도 요청·문의: seunguk@skku.edu · 기사 본문의 저작권은 각 매체에 있으며, 본 페이지는 원문 링크와 요약만 제공합니다.' },
+    en: { sub: 'QS Lab research in the news, at home and abroad.',
+          strip: 'As featured in', inKo: '(in Korean)', inEn: '',
+          foot: 'Media inquiries: seunguk@skku.edu · Articles are the property of their respective outlets; this page provides links and short summaries only.' }
+  };
+  function curLang() {
+    try { var s = localStorage.getItem('qsPressLang'); if (s === 'ko' || s === 'en') return s; } catch (e) {}
+    return ((navigator.language || 'en').toLowerCase().indexOf('ko') === 0) ? 'ko' : 'en';
+  }
+  function esc(s) { return String(s == null ? '' : s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+  function render() {
+    if (!DATA) return;
+    var lang = curLang(), u = UI_TXT[lang];
+    var sub = document.getElementById('press-sub');
+    if (sub) sub.textContent = u.sub;
+    document.querySelectorAll('[data-press-lang]').forEach(function (b) {
+      b.setAttribute('aria-pressed', b.getAttribute('data-press-lang') === lang ? 'true' : 'false');
+    });
+    var seen = {}, names = [];
+    DATA.items.forEach(function (p) { (p.links || []).forEach(function (l) {
+      var n = l.name[lang] || l.name.en; if (!seen[n]) { seen[n] = 1; names.push(n); }
+    }); });
+    var strip = document.getElementById('press-strip');
+    if (strip) strip.innerHTML = '<span class="ps-lbl">' + u.strip + '</span>' +
+      names.slice(0, 10).map(function (n) { return '<span class="ps-name">' + esc(n) + '</span>'; }).join('');
+    var html = '', curG = null;
+    DATA.items.forEach(function (p) {
+      if (p.group !== curG) { curG = p.group; html += '<div class="press-yr">' + esc(curG) + '</div>'; }
+      var allKo = (p.links || []).every(function (l) { return l.lang === 'ko'; });
+      var allEn = (p.links || []).every(function (l) { return l.lang === 'en'; });
+      var tag = (lang === 'en' && allKo && u.inKo) ? '<span class="press-koTag">' + u.inKo + '</span>'
+              : (lang === 'ko' && allEn && u.inEn) ? '<span class="press-koTag">' + u.inEn + '</span>' : '';
+      html += '<div class="press-row"><span class="press-date">' + esc(p.date) + '</span><div>' +
+        '<p class="press-title">' + esc(p.title[lang] || p.title.en) + tag + '</p>' +
+        '<p class="press-sum">' + esc(p.summary[lang] || p.summary.en) + '</p>' +
+        '<div class="press-links"><span class="press-journal">' + esc(p.journal || '') + '</span>' +
+        (p.links || []).map(function (l) {
+          return '<a class="press-outlet" href="' + esc(l.url) + '" target="_blank" rel="noopener">' + esc(l.name[lang] || l.name.en) + ' ↗</a>';
+        }).join('') + '</div></div></div>';
+    });
+    var list = document.getElementById('press-list');
+    if (list) list.innerHTML = html;
+    var foot = document.getElementById('press-foot');
+    if (foot) foot.textContent = u.foot;
+  }
+  document.addEventListener('click', function (ev) {
+    var b = ev.target.closest && ev.target.closest('[data-press-lang]');
+    if (!b) return;
+    try { localStorage.setItem('qsPressLang', b.getAttribute('data-press-lang')); } catch (e) {}
+    render();
+  });
+  fetch('data/press.json?t=' + Date.now(), { cache: 'no-store' })
+    .then(function (r) { return r.json(); })
+    .then(function (d) { DATA = d; render(); })
+    .catch(function () {});
+  window.renderPress = render;
 })();
 </script>
 <!-- AUTO area (I3): renders data/*.json into [data-auto] regions only.
