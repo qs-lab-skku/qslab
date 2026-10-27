@@ -1,7 +1,13 @@
 {
   "_comment": "Auto area (I3). Shared by Slack /home-news and in-page admin publish. Rendered by js/auto-sections.js.",
-  "updated": "2026-10-09T16:27:56.740Z",
+  "updated": "2026-10-27T00:00:00.000Z",
   "items": [
+    {
+      "date": "2026-10-23",
+      "title": "Invited lecture at the University of Cambridge (QAMSS)",
+      "body": "Prof. Song delivered an invited Advanced Technology Lecture hosted by QAMSS (Quantum and Molecular Science Society) at the University of Cambridge on October 23, speaking on wafer-scale 2D quantum materials and devices. The talk drew one of the society's largest seminar audiences to date.",
+      "image": "assets/news/cambridge-qamss-2026.jpg"
+    },
     {
       "date": "2026-09-21",
       "title": "2D Materials Roadmap — \"Advancing Electronic-Grade 2D Materials\" accepted; Prof. Song leads the \"Towards Advanced Electronics\" chapter",
