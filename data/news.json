@@ -1,7 +1,12 @@
 {
   "_comment": "Auto area (I3). Shared by Slack /home-news and in-page admin publish. Rendered by js/auto-sections.js.",
-  "updated": "2026-11-03T00:00:00.000Z",
+  "updated": "2026-11-08",
   "items": [
+    {
+      "date": "2026-11-07",
+      "title": "Invited talk at the 16th A3 Symposium on Emerging Materials (KAIST)",
+      "body": "Prof. Seunguk Song delivered an invited talk at the 16th A3 Symposium on Emerging Materials: Nanomaterials for Energy, Electronics, and Quantum Science, held at KAIST, Daejeon (Nov 5–7, 2026). The Korea–China–Japan (A3) forum, organized by Prof. Heejun Yang (KAIST), brought together around 45 invited speakers and some 100 poster presentations across the three countries."
+    },
     {
       "date": "2026-10-29",
       "title": "Advanced Functional Materials — buried Metal–MoS₂ interface inspection accepted",
