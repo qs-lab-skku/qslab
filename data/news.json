@@ -1,6 +1,6 @@
 {
   "_comment": "Auto area (I3). Shared by Slack /home-news and in-page admin publish. Rendered by js/auto-sections.js.",
-  "updated": "2026-11-17",
+  "updated": "2026-11-18",
   "items": [
     {
       "date": "2026-11-17",
@@ -10,8 +10,9 @@
     },
     {
       "date": "2026-11-12",
-      "title": "Kangpyo Cho wins Best Poster Award at IBS Quantum Frontier 2026",
-      "body": "Kangpyo Cho received the Best Poster Award at the IBS Quantum Frontier 2026 joint conference, held at GIST (Gwangju, Nov 10–12) with multiple IBS research centers participating. His poster was titled \"Solution-Precursor Epitaxy of Multiferroic CuCrS₂ for Quantum Information.\" Congratulations, Kangpyo!"
+      "title": "Kangpyo Cho wins the Outstanding Poster Award at IBS Quantum Frontier 2026",
+      "body": "Kangpyo Cho received the Outstanding Poster Award at IBS Quantum Frontier 2026, the QCR–QNS–2DQH joint conference of IBS research centers held at Oryong Hall, GIST (Gwangju, Nov 10–12). His poster was titled “Solution-Precursor Epitaxy of Multiferroic CuCrS₂ for Quantum Information.” Congratulations, Kangpyo!",
+      "image": "assets/news/kangpyo-poster-award-2026.jpg"
     },
     {
       "date": "2026-11-10",
