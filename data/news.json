@@ -1,7 +1,18 @@
 {
   "_comment": "Auto area (I3). Shared by Slack /home-news and in-page admin publish. Rendered by js/auto-sections.js.",
-  "updated": "2026-11-18",
+  "updated": "2026-11-19",
   "items": [
+    {
+      "date": "2026-11-19",
+      "title": "Glovebox-integrated hot-wall MOCVD comes online",
+      "body": "Our lab has completed the installation of a hot-wall MOCVD system directly coupled to an inert-atmosphere glovebox. Grown films can now be transferred and handled without any air exposure, enabling the synthesis of air-sensitive 2D quantum materials that degrade under ambient conditions.",
+      "image": "assets/news/mocvd-glovebox-2026.jpg"
+    },
+    {
+      "date": "2026-11-19",
+      "title": "Invited seminar at Kookmin University",
+      "body": "Prof. Seunguk Song gave an invited seminar at Kookmin University (Seoul), hosted by the Research Center for Process–Composition Design of Structural and Safety Materials."
+    },
     {
       "date": "2026-11-18",
       "title": "Invited colloquium talk at Kyungpook National University",
