@@ -1,12 +1,17 @@
 {
   "_comment": "Auto area (I3). Shared by Slack /home-news and in-page admin publish. Rendered by js/auto-sections.js.",
-  "updated": "2026-11-23",
+  "updated": "2026-11-27",
   "items": [
     {
       "date": "2026-11-23",
       "title": "Seminar by Dr. Dongwon Shin (Univ. of Tennessee / ORNL)",
       "body": "Dr. Dongwon Shin (University of Tennessee, Knoxville / Oak Ridge National Laboratory) visited us and gave an invited seminar at the IBS Center for 2D Quantum Heterostructures (2DQH), presenting temperature- and z-dependent STM spectroscopy combined with spatial correlation analysis to pin down the superconducting gap of monolayer FeSe on SrTiO₃. Thank you for the insightful talk and discussions!",
       "image": "assets/news/shin-seminar-2026.jpg"
+    },
+    {
+      "date": "2026-11-23",
+      "title": "Nature Reviews Electrical Engineering — review on electronics for extreme environments accepted",
+      "body": "Our review “Electronics for Extreme Environments: Materials, Devices, and System Integration” has been accepted in principle in Nature Reviews Electrical Engineering. The article, a collaboration with Prof. Deep Jariwala’s group at the University of Pennsylvania and KAERI, features lab members Kyungwu Kwon (co-first author) and Yerin So, with Prof. Seunguk Song as a co-corresponding author. Congratulations to the team!"
     },
     {
       "date": "2026-11-19",
